@@ -4,5 +4,29 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-	
+	<typeAliases>
+		<typeAlias type="com.kh.runLearn.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.runLearn.member.model.vo.Cart" alias="Cart"/>
+		<typeAlias type="com.kh.runLearn.member.model.vo.MemberImage" alias="MemberImage"/>
+		<typeAlias type="com.kh.runLearn.member.model.vo.Wishlist" alias="Wishlist"/>
+		<typeAlias type="com.kh.runLearn.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.runLearn.board.model.vo.BoardImage" alias="BoardImage"/>
+		<typeAlias type="com.kh.runLearn.lecture.model.vo.Lecture" alias="Lecture"/>
+		<typeAlias type="com.kh.runLearn.lecture.model.vo.LectureEach" alias="LectureEach"/>
+		<typeAlias type="com.kh.runLearn.lecture.model.vo.LectureFile" alias="LectureFile"/>
+		<typeAlias type="com.kh.runLearn.lecture.model.vo.LectureImage" alias="LectureImage"/>
+		<typeAlias type="com.kh.runLearn.payment.model.vo.LecturePay" alias="LecturePay"/>
+		<typeAlias type="com.kh.runLearn.payment.model.vo.Payment" alias="Payment"/>
+		<typeAlias type="com.kh.runLearn.payment.model.vo.ProductPay" alias="ProductPay"/>
+		<typeAlias type="com.kh.runLearn.product.model.vo.Product" alias="Product"/>
+		<typeAlias type="com.kh.runLearn.product.model.vo.ProductImage" alias="ProductImage"/>
+		<typeAlias type="com.kh.runLearn.product.model.vo.ProductOption" alias="ProductOption"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/lecture-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/payment-mapper.xml"/>
+		<mapper resource="mappers/product-mapper.xml"/>
+	</mappers>
 </configuration>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,7 @@
 </style>
 </head>
 <body>
-<%@ include file="/views/common/header.jsp"%>
+<c:import url="../common/header.jsp"/>
 <div class="MediaContainer">
 	<div class="row">
 		<div id="mediaDiv">
@@ -179,6 +180,6 @@ $(window).scroll(function() {
 	});
 });
 </script>
-<%@ include file="/views/common/footer.jsp"%>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>

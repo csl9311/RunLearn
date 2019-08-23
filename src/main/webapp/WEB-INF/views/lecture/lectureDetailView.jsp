@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
 </head>
 
 <body>
-	<%@ include file="/views/common/header.jsp"%>
+	<c:import url="../common/header.jsp"/>
 	<div class="container" id="main">
 		<div
 			style="margin-left: 100px; width: 1000px; height: 1000px;">
@@ -75,7 +76,8 @@
 			<img src="<%= request.getContextPath()%>/images/class/run.png" style="width:100%;">
 			<h6>　</h6>
 			<div style="width:100%">
-			<div class="row" id="Cintro">
+			<div id="Cintro" style="width: 50px;"></div>
+			<div class="row">
 			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#Cintro">강의소개</a></div>
 			<div class="col-sm-2"><a href="#Tintro">강사소개</a></div>
 			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
@@ -87,8 +89,8 @@
 			　<br>
 				<img src="<%= request.getContextPath()%>/images/class/runC.jpg" style="width:100%;">
 			</div>
-			　
-			<div class="row" id="Tintro">
+			<div id="Tintro" style="width: 50px;"></div>
+			<div class="row">
 			<div class="col-sm-2"><a href="#Cintro">강의소개</a></div>
 			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#Tintro">강사소개</a></div>
 			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
@@ -298,6 +300,6 @@
 		});
 	</script>
 	<!--  -->
-	<%@ include file="/views/common/footer.jsp"%>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

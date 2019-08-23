@@ -1,0 +1,70 @@
+.class_price{ width:300px; float:right; background:#fff; padding:20px 20px 10px 20px;}
+.class_price h1{ padding:30px 20px 10px 20px; font-size:20px; color:#000; }
+.class_price .pricetxt { padding:0 20px 20px 20px; font-size:16px; color:#999; text-align:right}
+.class_price .pricetxt span{color:#ff005a; font-weight:bold; }
+
+.class_price .area_info {}
+.class_price .area_info .area {padding:0 0 10px 0; overflow:hidden; border-bottom:1px solid #e9e9e9;}
+.class_price .area_info .area h1{width:45px; text-align:center; font-size:14px; float:left; padding:10px 0 0 0;}
+.class_price .area_info .area ul {width:100;x float:left; overflow:hidden; }
+.class_price .area_info .area ul li{width:33%; float:left; text-align:center; line-height:200%;}
+.class_price .area_info .area ul li a{width:80%; color:#999; font-size:16px; background:#e9e9e9; border-radius:100px;padding:5px; display:inline-block;}
+.class_price .area_info .area ul li a.on {color:#fff; background:#ff005a;}
+
+.class_price .date {padding:20px 0 20px 0; overflow:hidden; border-bottom:1px solid #e9e9e9; }
+.class_price .date h1{width:45px; text-align:center; font-size:14px; float:left; padding:6px 0 0 0;}
+.class_price .date ul {overflow:hidden; padding:0; margin:0; }
+.class_price .date ul li {width:33px; float:left; text-align:center; color:#bbb; font-weight:normal; line-height:200%; margin-right:3px;}
+.class_price .date ul li a { color:#000; display:block; margin:0; }
+.class_price .date ul li a.off{width:33px; height:33px; background:#e9e9e9; color:#999;  margin:0; border-radius:40px; }
+.class_price .date ul li a.on{width:33px; height:33px; background:#ff005a; color:#fff;  margin:0; border-radius:40px; }
+
+.class_price .date_detail{padding:20px 0 25px 0; overflow:hidden; border-bottom:1px solid #e9e9e9; position:relative;}
+.class_price .date_detail h1{width:45px; height:45px; text-align:center; font-size:14px; float:left; padding:0 0 0 0; position:absolute; left:0; top:50%; margin-top:-20px;}
+/*
+    .class_price .date_detail dl{width: 250px; float:right; display:block; margin-bottom:5px;}
+    .class_price .date_detail dl dt{width:30px; display:block; border:1px solid red; height:100%; float:left; padding: 5px 5px 0 0;}
+    .class_price .date_detail dl dd{ float:left;display:block;  color:#000; border-radius:30px; border:1px solid #e9e9e9; padding:3px 10px 3px 10px; font-size:14px;}
+*/
+.class_price .date_detail .ddw{width: 250px; padding-left:5px;display:block; margin-bottom:5px;}
+.class_price .date_detail .ddw h2{width:30px; display:block; height:100%; float:left; padding: 5px 5px 0 0;}
+.class_price .date_detail .ddw ul {width:210px;float:right;}
+.class_price .date_detail .ddw ul li{ display:inline-block; color:#000; border-radius:30px; border:1px solid #e9e9e9; padding:3px 10px 3px 10px; margin-bottom:5px; font-size:14px;}
+
+.class_price .tutor_t{padding:15px 0  20px 0; overflow:hidden; position:relative;}
+.class_price .tutor_t dl.tutor_txt {display:block;}
+.class_price .tutor_t dl.tutor_txt dt{width:50px; height:50px; float:left; background: none; padding: 0; border-radius:100px; overflow:hidden;}
+.class_price .tutor_t dl.tutor_txt dt img { width:100%; }
+.class_price .tutor_t dl.tutor_txt dd {width:210px; float:right; border-radius:5px; padding:10px;position: relative; background: #f2f2f2;}
+.class_price .tutor_t dl.tutor_txt dd:after {right:100%;top:50%;border: solid transparent;content: " ";position: absolute;border-right-color: #f2f2f2; border-width: 10px;margin-top: -10px;}
+
+.class_price .add_price{padding:15px 0 10px 10px; overflow:hidden; border-bottom:1px solid #e9e9e9; }
+.class_price .add_price h1{width:45px; text-align:center; font-size:14px; float:left; padding:0 0 0 0;}
+
+.class_price .bnt_payment{overflow:hidden; margin-top:-1px;}
+.class_price .bnt_payment a { text-align:center; display:block; background:#ff005a; padding:18px; color:#fff; line-height:200%; transition: all 0.3s ease 0s;}
+.class_price .bnt_payment a:hover{background:#333;}
+.class_price .new_bnt a{width:77%;float:right;}
+.class_price .bnt_payment .btntxt_s{font-size:18px; font-weight:bold}
+.class_price .btn_qna{float:left;border:1px solid #ff005a;padding:16px;padding-top:23px;font-size:15px;box-sizing:border-box;}
+.class_price .btn_qna2{color:#ff005a;height:63px;}
+
+.class_price .btn_area{ width:300px; background:#fff; padding:20px;overflow:hidden; position:absolute; left:0; bottom:-100px;}
+.class_price .btn_area .btn_qna{width:148px; display:block; float:left; border:1px solid #d9d9d9; text-align:center; padding:10px 0;}
+.class_price .btn_area .bnt_wishlist{width:148px; display:block; float:left; border:1px solid #d9d9d9; text-align:center; border-left:0;padding:10px 0;}
+.class_price .btn_area img { vertical-align:middle; }
+.class_price .btn_area .btntxt_s{font-size:14px; text-align: center; display:block; clear:both; padding-top:10px;}
+
+.class_price .class_p {font-size:20px; color:#333; background:#e3e3e3; line-height:300%; text-align:center;}
+.class_price .class_p span{ color:#ff005a;font-size:20px; font-weight:bold;}
+
+.class_price .price {padding:30px 0 10px 0; overflow:hidden; line-height:150%;}
+.class_price .price .hp {color:#333; text-align:center;}
+.class_price .price .hp b{font-size:20px; }
+.class_price .price .tp {text-align:center; font-weight:bold;font-size:16px;}
+.class_price .price .tpsub {padding-left:50px; font-weight:bold;font-size:16px;}
+.class_price .price .hp1 {color:#333; text-align:center;}
+.class_price .price .hp1 b{font-size:20px; }
+.class_price .price .tp1 {color:#ff005b; text-align:center; font-weight:bold;}
+.class_price .price .sale {width:100%;}
+.class_price .price .sale .saleRight{text-align:center;font-weight:bold;font-size:14px;}

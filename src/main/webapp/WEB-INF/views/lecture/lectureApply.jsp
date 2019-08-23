@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +23,11 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<%@ include file="/views/common/header.jsp"%>
+<c:import url="../common/header.jsp"/>
 <div class="container" style="background-color: snow; height:1000px; margin-top: 20px;">
 	<h1>강의 신청</h1>
 	
 </div>
-<%@ include file="/views/common/footer.jsp"%>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>
