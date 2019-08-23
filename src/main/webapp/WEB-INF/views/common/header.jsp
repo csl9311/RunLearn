@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }/resources" scope="application"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean" rel="stylesheet">
     <!-- 합쳐지고 최소화된 최신 CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -16,7 +17,7 @@
    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/login.css">
+   <link rel="stylesheet" href="${ contextPath }/css/common/login.css">
     
     <title>만취남녀</title>
     <style>
@@ -400,8 +401,6 @@
     </style>
 </head>
 <body>
-
-	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }/src/main/webapp" scope="application"/>
 	<div class="fixed-menu">
 		<div class="logoDiv">
 			<img src="${contextPath}/images/common/logo_2.png" onclick="location.href='${contextPath}'">
@@ -409,14 +408,14 @@
 		<div class="cate">
 			<ul>
 				<li class="shop">
-					<img src="${pageContext.request.contextPath}/images/common/arrow.png">상품
+					<img src="${contextPath}/images/common/arrow.png">상품
 					<ul class="shopList">
 						<li><a href="#">핸드메이드</a></li>
                  		<li><a href="#">재료</a></li>
 					</ul>
 				</li>
 				<li class="lecture">
-					<img src="${pageContext.request.contextPath}/images/common/arrow.png">강의
+					<img src="${contextPath}/images/common/arrow.png">강의
 					<ul class="lectureList">
 						 <li><a href="#">인기수업</a></li>
 		                 <li><a href="#">디자인</a></li>
@@ -439,7 +438,7 @@
                                 <option value="">카테고리</option>
                             </select>
                             <input type="text" name="search" id="searchcss" placeholder="검색어를 입력해주세요" autocomplete="off" onclick="weekly()" value="">
-                            <img src="${pageContext.request.contextPath}/images/common/search.png" class="searchBtn">
+                            <img src="${contextPath}/images/common/search.png" class="searchBtn">
                     </div>
                 </form>
             </div>
@@ -506,7 +505,7 @@
         </div>
         <div class="header-bottom">
             <div class="logo-div">
-                <img src="${pageContext.request.contextPath}/images/common/logo_2.png" onclick="location.href='${contextPath}'">
+                <img src="${contextPath}/images/common/logo_2.png" onclick="location.href=''">
             </div>
             <div class="search">
                 <form action="#">
@@ -516,7 +515,7 @@
                                 <option value="">카테고리</option>
                             </select>
                             <input type="text" name="search" id="searchcss" autocomplete="off" placeholder="배우고 싶은 튜터 또는 카테고리를 검색해보세요!" onclick="weekly()" value="">
-                            <img src="${pageContext.request.contextPath}/images/common/search.png" class="searchBtn">
+                            <img src="${contextPath}/images/common/search.png" class="searchBtn">
                     </div>
                 </form>
             </div>
