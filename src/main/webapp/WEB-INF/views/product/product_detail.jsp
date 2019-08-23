@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application" />
 <!DOCTYPE html>
-<jsp:include page="../common/header.jsp" />
+<c:import url="../common/header.jsp" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -155,24 +155,42 @@
 <br>
 <br>
 <%-- 리뷰 --%>	
-		<div class="row">
-			<div class="col-md-4">
-				<table class="table">
-					<tr>
-						<td>이미지</td>
-						<td>이미지</td>
-						<td>작성자</td>
-						<td>작성자</td>
-						<td>작성일</td>
-						<td>작성일</td>
-						<td>내용</td>
-						<td>내용</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+<!-- 라이브리 시티 설치 코드 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" style="width : 60vh; margin: auto;">
+   <script type="text/javascript">
+   (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+   </script>
+<noscript> 라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
+</div>
+<!-- 시티 설치 코드 끝 -->
 <%-- 리뷰 끝 --%>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+         s1.async=true;
+         s1.src='https://embed.tawk.to/5d5df956eb1a6b0be608b410/default';
+         s1.charset='UTF-8';
+         s1.setAttribute('crossorigin','*');
+         s0.parentNode.insertBefore(s1,s0);
+      })();
+</script>
+<!--End of Tawk.to Script-->
+
 	</div>
 </body>
-<jsp:include page="../common/footer.jsp" />
+<c:import url="../common/footer.jsp" />
 </html>
