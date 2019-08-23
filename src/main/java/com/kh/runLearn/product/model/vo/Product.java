@@ -1,4 +1,4 @@
-package com.kh.runLearn.Product.model.vo;
+package com.kh.runLearn.product.model.vo;
 
 import java.sql.Date;
 

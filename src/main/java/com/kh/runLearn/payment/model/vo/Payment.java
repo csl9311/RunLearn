@@ -1,4 +1,4 @@
-package com.kh.runLearn.Payment.model.vo;
+package com.kh.runLearn.payment.model.vo;
 
 import java.sql.Date;
 

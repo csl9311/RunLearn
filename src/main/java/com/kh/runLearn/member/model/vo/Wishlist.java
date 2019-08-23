@@ -1,4 +1,4 @@
-package com.kh.runLearn.Member.model.vo;
+package com.kh.runLearn.member.model.vo;
 
 public class Wishlist {
 	public int l_num;

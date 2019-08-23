@@ -1,4 +1,4 @@
-package com.kh.runLearn.Lecture.model.vo;
+package com.kh.runLearn.lecture.model.vo;
 
 public class LectureEach {
 	private int l_each_num;

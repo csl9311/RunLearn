@@ -1,4 +1,4 @@
-package com.kh.runLearn.Lecture.model.vo;
+package com.kh.runLearn.lecture.model.vo;
 
 import java.sql.Date;
 

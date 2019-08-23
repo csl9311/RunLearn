@@ -1,4 +1,4 @@
-package com.kh.runLearn.Product.model.vo;
+package com.kh.runLearn.product.model.vo;
 
 public class ProductOption {
 	private String p_option;
