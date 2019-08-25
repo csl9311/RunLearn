@@ -9,6 +9,9 @@
 .right{
 	text-align: right;
 }
+.ib{
+	display: inline-block;
+}
 .contents {
 	margin-left: auto;
 	margin-right: auto;
