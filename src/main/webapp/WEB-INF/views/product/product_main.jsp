@@ -45,7 +45,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/views/common/header.jsp"%>
+<%-- 	<%@ include file="/views/common/header.jsp"%> --%>
 	<div class="container">
 		<h2>인기 상품</h2>
 		<h2>상품 목록</h2>
@@ -80,6 +80,6 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/views/common/footer.jsp"%>
+	<%-- <%@ include file="/views/common/footer.jsp"%> --%>
 </body>
 </html>

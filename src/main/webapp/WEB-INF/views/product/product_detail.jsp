@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application" />
 <!DOCTYPE html>
-<jsp:include page="../common/header.jsp" />
+<%-- <jsp:include page="../common/header.jsp" /> --%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -174,5 +174,5 @@
 <%-- 리뷰 끝 --%>
 	</div>
 </body>
-<jsp:include page="../common/footer.jsp" />
+<%-- <jsp:include page="../common/footer.jsp" /> --%>
 </html>
