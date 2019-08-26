@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.center {
+	text-align: center;
+}
+.none {
+	display: none;
+}
+.right{
+	text-align: right;
+}
+.ib{
+	display: inline-block;
+}
+.contents {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.contents_item {
+	width: 200px;
+	font-size: 12px;
+	display: inline-block;
+	padding: 30px;
+}
+
+.category {
+	display: inline-block;
+	position: fixed;
+	top: 30vh;
+}
+
+.star {
+	color: rgb(255, 198, 0);
+}
+
+.profile, .name, .nick, .price, .location, .title {
+	text-align: right;
+}
+/* detail */
+#p_info .right{
+	width: 20vw;
+}
