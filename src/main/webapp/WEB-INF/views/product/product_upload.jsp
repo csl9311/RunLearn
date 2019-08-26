@@ -44,7 +44,8 @@
 	<br>
 	<div class="contents center">
 		<div class="row">
-			<form action="${ contextPath }/product.insert" class="form" style="float: none; margin: 0 auto; width: 50vw;">
+			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
+			<form action="" class="form" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 
 				<input type="hidden" name="m_id" value="판매자명">
 				<input type='file' id="imgInp"/>
