@@ -46,11 +46,9 @@
 		<div class="row">
 			<form action="${ contextPath }/product.insert" class="form" style="float: none; margin: 0 auto; width: 50vw;">
 
-				<input type="hidden" value="판매자명">
+				<input type="hidden" name="m_id" value="판매자명">
 				<input type='file' id="imgInp"/>
-				<table class="table center">
-					<tr id="images"></tr>
-				</table>
+				<table id="imgArea" class="table center"></table>
 
 				<table class="col-md-6 table center">
 					<tr>
@@ -78,13 +76,39 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	
+		var i = 0; // td count
+		var j = 0; // tr id
 		function readURL(input) {
 			if (input.files && input.files[0]) {
-				var $images = $('#images');
+				var $imgArea = $('#imgArea');
+				var $image = $('#image'+j);
 				var reader = new FileReader();
-				reader.onload = function(e) {
-					$images.append('<td><img src="' + e.target.result + '" width="100vw" height="100vh"/></td>');
+				var fileName = input.value;
+				
+				if(i % 5 == 0) {
+					j++;
+					reader.onload = function(e) {
+						$imgArea.append(
+							'<tr id="image' + j + '">'+
+								'<td>'+
+									'<img src="' + e.target.result + '" width="100vw" height="100vh"/>'+
+									'<input type="hidden" name="p_origin_name" value="' + fileName + '">' + 
+								'</td>'+
+							'</tr>'
+						);
+					}
+				} else {
+					reader.onload = function(e) {
+						$image.append(
+							'<td>'+
+								'<img src="' + e.target.result + '" width="100vw" height="100vh"/>'+
+								'<input type="hidden" name="p_origin_name" value="' + fileName + '">' + 
+							'</td>'
+						);
+					}
 				}
+				i++;
 				reader.readAsDataURL(input.files[0]);
 			}
 		}
