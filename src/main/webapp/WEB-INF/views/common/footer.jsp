@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +61,7 @@ footer .company_info {
 			<div class="row">
 				<div class="company_info col-sm-6">
 					<img id="logo"
-						src="<%=request.getContextPath()%>/images/common/logo_footer.png">
+						src="${contextPath}/resources/images/common/logo_footer.png">
 					<p>
 						(주)만취남녀 | 대표자 : 최성락 | E-MAIL : ssminkk0328@gmail.com<br>
 						사업자번호 : 851-87-00622 | 개인정보보호책임자 : 최성락 | 통신판매업 : 서울 강남 제2014-01호<br>
