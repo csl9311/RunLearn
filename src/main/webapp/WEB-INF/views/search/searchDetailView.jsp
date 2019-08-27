@@ -55,7 +55,7 @@ ul li a:hover {
 }
 
 #sideMenu .search-subList {
-   margin: 10px 20px;
+   margin: 10px 18px;
 }
 
 #searchResultDiv-back row div {
@@ -69,6 +69,7 @@ ul li a:hover {
 #searchResultDiv .row>div {
    margin-bottom: 50px;
 }
+
 </style>
 </head>
 <body>
@@ -83,9 +84,9 @@ ul li a:hover {
                   <div class="col">
                      <ul>
                         <li><a style="font-weight: 700">카테고리</a></li>
-                        <li><a class="list" href="search.do">전체</a></li>
+                        <li><a class="list" href="search.do?search=${ search }">전체</a></li>
                         <li>
-                           <a class="selectedList list">강의</a>
+                           <a class="list" id="cate-lecture" href="lsearchAll.do?search=${ search }">강의</a>
                            <ul class="search-subList">
                               <li><a class="list">- 인기수업</a></li>
                                   <li><a class="list">- 디자인</a></li>
@@ -99,7 +100,7 @@ ul li a:hover {
                            </ul>
                         </li>
                         <li>
-                           <a class="list">상품</a>
+                           <a class="list" id="cate-product" href="psearchAll.do?search=${ search }">상품</a>
                            <ul class="search-subList">
                               <li><a class="list">- 핸드메이드</a></li>
                               <li><a class="list">- 재료</a></li>
@@ -126,7 +127,7 @@ ul li a:hover {
             	<div class="row">
             		<p style="font-size: 29px; font-weight: 700; margin-bottom: 40px;">'${ search }'에 대한 검색결과</p>
 			        <div class="col-md" style="background: #ececec; padding: 2px 10px;">
-			        	'강의' > 카테고리(강의)
+			        	'강의' > 카테고리(${ cate })
 			        </div>
             		<div class="col">
             			<div class="album py-5 bg-light">
@@ -149,6 +150,28 @@ ul li a:hover {
 				                      </div>
 				                    </div>
 			                    <% } %>
+			                    <div class="x-100"></div>
+			                    <div class="col-md-12" style="text-align: center;">
+						         	<nav aria-label="Page navigation">
+									  <ul class="pagination justify-content-center">
+									    <li class="page-item disabled">
+									      <a class="page-link" href="#" aria-label="Previous">
+									        <span aria-hidden="true">&laquo;</span>
+									      </a>
+									    </li>
+									    <li class="page-item active" aria-current="page">
+									      <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+									    </li>
+									    <li class="page-item"><a class="page-link" href="#">2</a></li>
+									    <li class="page-item"><a class="page-link" href="#">3</a></li>
+									    <li class="page-item">
+									      <a class="page-link" href="#" aria-label="Next">
+									        <span aria-hidden="true">&raquo;</span>
+									      </a>
+									    </li>
+									  </ul>
+									</nav>
+						         </div>
 			                    <%-- </c:if> --%>
 			                  </div>
 			                </div>
@@ -161,5 +184,17 @@ ul li a:hover {
    </div>
 
    <c:import url="../common/footer.jsp" />
+   
+   <script>
+   		$(function() {
+			if ("${cate}" == "강의") {
+				$('#cate-product').removeClass('selectedList');
+				$('#cate-lecture').addClass('selectedList');
+			} else if ("${cate}" == "상품") {
+				$('#cate-lecture').removeClass('selectedList');
+				$('#cate-product').addClass('selectedList');
+			}
+		});
+   </script>
 </body>
 </html>

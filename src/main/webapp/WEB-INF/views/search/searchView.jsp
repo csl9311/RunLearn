@@ -55,7 +55,7 @@ ul li a:hover {
 }
 
 #sideMenu .search-subList {
-   margin: 10px 20px;
+   margin: 10px 18px;
 }
 
 #searchResultDiv-back row div {
@@ -83,23 +83,23 @@ ul li a:hover {
                   <div class="col">
                      <ul>
                         <li><a style="font-weight: 700">카테고리</a></li>
-                        <li><a class="selectedList list">전체</a></li>
+                        <li><a class="selectedList list" href="search.do?search=${ search }">전체</a></li>
                         <li>
-                           <a class="list" href="lsearchAll.do">강의</a>
+                           <a class="list" href="lsearchAll.do?search=${ search }">강의</a>
                            <ul class="search-subList">
-                              <li><a class="list">- 인기수업</a></li>
-                                  <li><a class="list">- 디자인</a></li>
-                                  <li><a class="list">- 실무역량</a></li>
-                                  <li><a class="list">- 뷰티</a></li>
-                                  <li><a class="list">- 영상</a></li>
-                                  <li><a class="list">- 외국어</a></li>
-                                  <li><a class="list">- 음악</a></li>
-                                  <li><a class="list">- 라이프스타일</a></li>
-                                  <li><a class="list">- 재테크</a></li>
+                              <li><a class="list" href="lsearchAll.do?search=${ search }&cate=famous">- 인기수업</a></li>
+                              <li><a class="list">- 디자인</a></li>
+                              <li><a class="list">- 실무역량</a></li>
+                              <li><a class="list">- 뷰티</a></li>
+                              <li><a class="list">- 영상</a></li>
+                              <li><a class="list">- 외국어</a></li>
+                              <li><a class="list">- 음악</a></li>
+                              <li><a class="list">- 라이프스타일</a></li>
+                              <li><a class="list">- 재테크</a></li>
                            </ul>
                         </li>
                         <li>
-                           <a class="list">상품</a>
+                           <a class="list" href="psearchAll.do?search=${ search }">상품</a>
                            <ul class="search-subList">
                               <li><a class="list">- 핸드메이드</a></li>
                               <li><a class="list">- 재료</a></li>
@@ -155,7 +155,7 @@ ul li a:hover {
 				                    	<input type="hidden" name="search" value="${ search }">
 				                    	<button type="submit" class="btn btn-secondary moreBtn">더 보기</button>
 			                    	</form> --%>
-			                    	<button type="submit" class="btn btn-secondary" onclick="location.href='psearchAll.do'">더 보기</button>
+			                    	<button type="submit" class="btn btn-secondary" onclick="location.href='psearchAll.do?search=${search}'">더 보기</button>
 			                    </div>
 			                    </c:if>
 			                  </div>
@@ -190,7 +190,7 @@ ul li a:hover {
 				                    	<input type="hidden" name="search" value="${ search }">
 				                    	<button type="submit" class="btn btn-secondary moreBtn">더 보기</button>
 			                    	</form> --%>
-			                    	<button type="submit" class="btn btn-secondary moreBtn" onclick="location.href='psearchAll.do'">더 보기</button>
+			                    	<button type="submit" class="btn btn-secondary moreBtn" onclick="location.href='psearchAll.do?search=${search}'">더 보기</button>
 			                    </div>
 			                    <%-- </c:if> --%>
 			                  </div>
