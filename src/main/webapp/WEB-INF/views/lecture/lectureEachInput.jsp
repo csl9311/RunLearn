@@ -37,10 +37,11 @@
             <input type="text" class="form-control" name="lectureName" placeholder="강의명을 입력해 주세요" value="" required>
           </div>
         </div>
+        <h6>　</h6>
         <div class="row">
           <div class="col-md-12 mb-4">
-            <label>강의영상</label>
-            <input type="text" class="form-control" name="lectureObject" placeholder="영상주소를 입력해 주세요" value="" required>
+            <label>강의 목표</label>
+            <input type="text" class="form-control" name="lectureObject" placeholder="강의목표를 입력해 주세요" value="" required>
           </div>
         </div>
 	
@@ -193,7 +194,7 @@
 		
         <div class="mb-3">
 			<label>강의 상세설명</label>
-			<textarea rows="10" cols="" class="form-control" style="resize: none;" name="content" placeholder="이번 강의에 대한 설명을 적어주세요"></textarea>
+			<textarea rows="10" cols="" class="form-control" style="resize: none;" name="content" placeholder="강의에 대한 상세설명을 적어주세요"></textarea>
 		</div>
 		 <h6>　</h6>
         <hr class="mb-4">   
