@@ -1,5 +1,4 @@
 package com.kh.runLearn.member.model.service;
-
 import java.util.ArrayList;
 
 import com.kh.runLearn.member.model.vo.Member;
@@ -17,5 +16,4 @@ public interface MemberService {
 	int insertMember(Member m); // 회원가입
 	int updateMember(Member m); // 개인정보수정
 	int deleteMember(Member m); // 회원탈퇴
-	
 }

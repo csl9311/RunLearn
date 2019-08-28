@@ -57,5 +57,4 @@ public class PaymentServiceImpl implements PaymentService {
 		return 0;
 	}
 
-	
 }
