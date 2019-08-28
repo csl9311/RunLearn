@@ -38,7 +38,8 @@
 #content1{
 	width:10%;
 	height:100%;
-	border:1px solid black;
+	margin-top:10px;
+	
 	<!-- content1 -->
 }
 
@@ -91,7 +92,7 @@
 
 #content6{
 	height:100%;
-	width:30%;
+	width:40%;
 	margin-left:10px;
 	<!-- content6 -->
 }
@@ -131,7 +132,7 @@
 
 
 .content22{
-	width:20%;
+	width:10%;
 	height:100%;
 	margin-left:10px;
 	text-align:center;
@@ -139,30 +140,45 @@
 }
 
 #content24{
+	font-size:20px;
+	height:360px;
 	display:none;
 
 }
 
 #content25{
+	font-size:20px;
+	height:360px;		
 	display:none;
 }
 
 
 
+#content26{
+	font-size:20px;
+	height:360px;
+	display:none;
+	
+
+}
+
+
+
 #sub1{
-	padding-bottom:10px;
+	font-weight:border;
 	margin-top:20px;
 	margin-left:15px;
 	width:90%;
+	height:50px;
 	border-bottom:2px solid #f8f9fa;
 	
 }
 
 
 #content23{
-	
+	font-size:20px;
 	width:100%;
-	height:280px;
+	height:360px;
 	
 
 }
@@ -193,6 +209,12 @@
 
 }
 
+#grade{
+	text-align:center;
+	font-size:15px;
+	font-weight:bolder;
+}
+
 
 
 
@@ -200,7 +222,9 @@
 	display:none;
 }
 
-
+#row1{
+	margin-left:200px;
+}
 
 
 </style>
@@ -222,23 +246,25 @@
 <body>
 	
 	
-	<jsp:include page="<%= request.getContextPath() %>/views/common/header.jsp"/>
+	<jsp:include page="header.jsp"/>
 	
 	
 	
 	<div id="paper" style="background-color:#333;">
 	<div class="container" id="enrty1">
-		<div class="row">
+		<div class="row" id="row1">
 		<div id="content1">
 			<div id="image11">
 				<img src="images/image11.jpg" width="100%" height="100px" >
+				<div id="grade">(일반회원)</div>
 			</div>
 		</div>
 		
 	<div id="content2">
-		<h4>고석민짱 님</h4>
+		<h4>고석민 님</h4>
 		<label class="label1" id="update1">정보수정</label>
-		<label class="label1">로그아웃</label>
+		<label class="label1" id="insertTuter">튜터신청</label>
+		<label class="label1" id="logout">로그아웃</label>
 		
 	</div>
 	
@@ -264,13 +290,16 @@
 	</div>
 	
 	<div id="content6">
+	<div>닉네임&nbsp;&nbsp; :&nbsp;고석민짱</div>
 	<div>전화번호 : 010-9177-9509</div>
 	<div>이메일&nbsp;&nbsp;&nbsp;:&nbsp;nakcom05a@naver.com</div>
-	</div>
-		</div>   <!--  row끝 -->
-	</div> <!--  entry 끝 -->
-</div> <!--  paper끝 -->
-
+	<div>우편번호 :</div>
+	<div>지번주소 :</div>
+	<div>상세주소 :</div>
+		</div>  
+	</div>  <!--  row끝 -->
+</div> <!--  entry 끝 -->
+</div><!--  paper끝 -->
 
 
 
@@ -285,39 +314,16 @@
 	</div> <!--  row끝 -->
 	
 	<div class="row" id="sub1">
-	<div class="content22" id="contentMenu1">신청한 수업</div>
-	<div class="content22" id="contentMenu2">수강목록</div>
-	<div class="content22" id="contentMenu3">위시리스트</div>
+	
+	<div class="content22" id="contentMenu1">수강목록</div>
+	<div class="content22" id="contentMenu2">위시리스트</div>
+	<div class="content22" id="contentMenu3">강의찜목록</div>
+	<div class="content22" id="contentMenu4">상품찜목록</div>
 	</div>
 	
 	<br><br>
+	
 	<div id="content23">
-	<table>
-		<tr >
-			<th style="width:300px;">신청강의 명</th>
-			<th style="width:300px;">신청강사 명</th>
-			<th style="width:300px;">신청날짜</th>
-		</tr>
-		
-		<% for(int i = 0; i < 10; i++) { %>
-		<tr>
-			<td style="width:300px;">JAVA프로그래밍</td>
-			<td style="width:300px;">숨칼렛요한숨</td>
-			<td style="width:300px;">2019-08-25</td>
-		</tr>
-		<% } %>
-		
-	</table>
-	<%-- <% for(int i = 0; i < 1; i++){ %>
-		수강중인 과목이없습니다.
-	<% } %>
-	페이징(할줄모름ㅎㅎ;) --%>
-	</div>
-	
-	<div id="content24">
-	
-
-
 		<table>
 		<tr >
 			<th style="width:300px;">수강강의 명</th>
@@ -333,12 +339,9 @@
 			</tr>
 		<% } %>
 	</table>	
-
-	
-	
 	</div>
 	
-	<div id="content25">
+	<div id="content24">
 		<table>
 		<tr >
 			<th style="width:300px;">상품 명</th>
@@ -355,6 +358,47 @@
 				<td>1</td>
 				<td>200000</td>
 				<td>2019-08-25</td>
+			</tr>
+		<% } %>
+	</table>	
+	</div>
+	
+	<div id="content25">
+		<table>
+		<tr >
+			<th style="width:300px;">강의 명</th>
+			<th style="width:300px;">강사 명</th>
+			<th style="width:300px;">신청날짜</th>
+		</tr>
+		
+		<% for(int i = 0; i < 10; i++){ %>
+			<tr>
+				<td>고석민님</td>
+				<td>자바??</td>
+				<td>2019-08-27</td>
+
+			</tr>
+		<% } %>
+	</table>	
+	</div>
+	
+	<div id="content26">
+		<table>
+		<tr >
+			<th style="width:300px;">상품 명</th>
+			<th style="width:300px;">상품 가격</th>
+			<th style="width:300px;">수량</th>
+			<th style="width:300px;">총 가격</th>
+			<th style="width:300px;">신청날짜</th>
+		</tr>
+		
+		<% for(int i = 0; i < 10; i++){ %>
+			<tr>
+				<td>갤럭시s10노트+</td>
+				<td>1000000</td>
+				<td>10</td>
+				<td>10000000</td>
+				<td>2019-08-27</td>
 			</tr>
 		<% } %>
 	</table>	
@@ -386,18 +430,6 @@
 	</div> <!-- entry3 끝 -->
 	<br><br>
 </div> <!--  paper3 끝 -->
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 		$("#content22").click(function(){
@@ -432,8 +464,10 @@
 			$("#content23").css("display","block");
 			$("#content24").css("display","none");
 			$("#content25").css("display","none");
+			$("#content26").css("display","none");
 		}),$("#contentMenu1").hover(function(){
 			$(this).css("border-bottom","1px solid black");
+			$(this).css("cursor","pointer");
 		},function(){
 			$(this).css("border-bottom","1px solid white");
 		});
@@ -442,8 +476,10 @@
 			$("#content24").css("display","block");
 			$("#content23").css("display","none");
 			$("#content25").css("display","none");
+			$("#content26").css("display","none");
 		}),$("#contentMenu2").hover(function(){
 			$(this).css("border-bottom","1px solid black");
+			$(this).css("cursor","pointer");
 		},function(){
 			$(this).css("border-bottom","1px solid white");
 		});
@@ -452,15 +488,61 @@
 			$("#content25").css("display","block");
 			$("#content23").css("display","none");
 			$("#content24").css("display","none");
+			$("#content26").css("display","none");
 		}),$("#contentMenu3").hover(function(){
 			$(this).css("border-bottom","1px solid black");
+			$(this).css("cursor","pointer");
+		},function(){
+			$(this).css("border-bottom","1px solid white");
+		});
+		
+		$("#contentMenu4").click(function(){
+			$("#content26").css("display","block");
+			$("#content23").css("display","none");
+			$("#content24").css("display","none");
+			$("#content25").css("display","none");
+		}),$("#contentMenu4").hover(function(){
+			$(this).css("border-bottom","1px solid black");
+			$(this).css("cursor","pointer");
 		},function(){
 			$(this).css("border-bottom","1px solid white");
 		});
 		
 		
+		
+		
 		$("#update1").click(function(){
 			location.href="memberUpdate.jsp";
+		}),$("#update1").hover(function(){
+			$(this).css("background","white");
+			$(this).css("color","black");
+			$(this).css("cursor","pointer");
+		
+		},function(){
+			$(this).css("background", "#333");
+			$(this).css("color","white");
+		});
+		
+		$("#insertTuter").click(function(){
+			location.href="##";
+		}),$("#insertTuter").hover(function(){
+			$(this).css("background","white");
+			$(this).css("color","black");
+			$(this).css("cursor","pointer");
+		},function(){
+			$(this).css("background", "#333");
+			$(this).css("color","white");
+		});
+		
+		$("#logout").click(function(){
+			location.href="##";
+		}),$("#logout").hover(function(){
+			$(this).css("background","white");
+			$(this).css("color","black");
+			$(this).css("cursor","pointer");
+		},function(){
+			$(this).css("background", "#333");
+			$(this).css("color","white");
 		});
 		
 		  $("#content201").click(function(){
@@ -484,6 +566,10 @@
 			$(this).css("background","black");
 			$(this).css("color", "white");
 		});
+		  
+		
+			
+	
 		
 	
 	</script>
@@ -493,7 +579,7 @@
 
 <!-- -------footer------------------------------------------------------------------------------------------------------------- -->	
 	
-	<jsp:include page="<%= request.getContextPath() %>views/common/footer.jsp"/>
+	<jsp:include page="footer.jsp"/>
 	
 	
 	
