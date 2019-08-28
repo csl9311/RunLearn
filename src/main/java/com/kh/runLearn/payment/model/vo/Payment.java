@@ -3,7 +3,7 @@ package com.kh.runLearn.payment.model.vo;
 import java.sql.Date;
 
 public class Payment {
-	private int paynum;
+	private int pay_num;
 	private String pay_target;
 	private Date pay_date;
 	private String pay_method;
@@ -12,9 +12,9 @@ public class Payment {
 	
 	public Payment() {}
 
-	public Payment(int paynum, String pay_target, Date pay_date, String pay_method, String pay_return, String m_id) {
+	public Payment(int pay_num, String pay_target, Date pay_date, String pay_method, String pay_return, String m_id) {
 		super();
-		this.paynum = paynum;
+		this.pay_num = pay_num;
 		this.pay_target = pay_target;
 		this.pay_date = pay_date;
 		this.pay_method = pay_method;
@@ -22,12 +22,12 @@ public class Payment {
 		this.m_id = m_id;
 	}
 
-	public int getPaynum() {
-		return paynum;
+	public int getPay_num() {
+		return pay_num;
 	}
 
-	public void setPaynum(int paynum) {
-		this.paynum = paynum;
+	public void setPay_num(int pay_num) {
+		this.pay_num = pay_num;
 	}
 
 	public String getPay_target() {
@@ -72,7 +72,7 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [paynum=" + paynum + ", pay_target=" + pay_target + ", pay_date=" + pay_date + ", pay_method="
+		return "Payment [pay_num=" + pay_num + ", pay_target=" + pay_target + ", pay_date=" + pay_date + ", pay_method="
 				+ pay_method + ", pay_return=" + pay_return + ", m_id=" + m_id + "]";
 	}
 	
