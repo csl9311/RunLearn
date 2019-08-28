@@ -5,20 +5,17 @@ import java.util.ArrayList;
 import com.kh.runLearn.member.model.vo.Member;
 
 public interface MemberService {
-	int login(Member m);
+	int login(Member m); // 로그인
+	void logout(String m_id); // 로그아웃
+	Member findInfo(Member m); // id/pw 찾기
+	int changeGrade(Member m); // 튜터등록(관리자)
 
-	void logout(String id);
-	
-	Member selectMember(Member m);
-	ArrayList<Member> selectAllMember();
+	Member selectMember(Member m); // 개인정보조회
+	ArrayList<Member> selectAllMember(); // 관리자 회원정보 조회
+	ArrayList<Member> selectLectureMember(int l_num); // 강의별 수강생 조회
 
-	int insertMember(Member m);
-	int updateMember(Member m);
-	int deleteMember(Member m);
-
-	Member findInfo(Member m);
-
-	int regTutor(Member m);
-	int regBlack(Member m);
+	int insertMember(Member m); // 회원가입
+	int updateMember(Member m); // 개인정보수정
+	int deleteMember(Member m); // 회원탈퇴
 	
 }

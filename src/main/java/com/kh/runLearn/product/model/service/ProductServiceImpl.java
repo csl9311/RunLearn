@@ -17,49 +17,31 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDAO pDAO;
 
 	@Override
-	public int insertProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insertProductImage(ProductImage pi) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int pay(Payment pay) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int addCart(Cart c) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public ArrayList<Product> selectProductList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Product> selectProductList(String cate) {
+	public ArrayList<Product> selectProductList(String p_category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Product selectProduct(int p_id) {
+	public ArrayList<ProductImage> selectProductImg(Product p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int refund(Payment pay) {
+	public Product selectProduct(int p_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertProduct(Product p) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -71,20 +53,33 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int updateProductImage(ProductImage pi) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int deleteProduct(Product p) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteCart(Cart c) {
+	public int insertProductImage(ProductImage pi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int updateProductImage(ProductImage pi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertCart(Product p) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteCart(int p_num) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
