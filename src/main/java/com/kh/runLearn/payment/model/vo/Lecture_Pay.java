@@ -1,12 +1,12 @@
 package com.kh.runLearn.payment.model.vo;
 
-public class LecturePay {
+public class Lecture_Pay {
 	private int pay_num;
 	private int lecture_num;
 	
-	public LecturePay() {}
+	public Lecture_Pay() {}
 
-	public LecturePay(int pay_num, int lecture_num) {
+	public Lecture_Pay(int pay_num, int lecture_num) {
 		super();
 		this.pay_num = pay_num;
 		this.lecture_num = lecture_num;

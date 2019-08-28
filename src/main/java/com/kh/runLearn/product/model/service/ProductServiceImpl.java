@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.runLearn.payment.model.vo.Payment;
 import com.kh.runLearn.product.model.dao.ProductDAO;
-import com.kh.runLearn.product.model.vo.Cart;
 import com.kh.runLearn.product.model.vo.Product;
-import com.kh.runLearn.product.model.vo.ProductImage;
+import com.kh.runLearn.product.model.vo.Product_Image;
 
 @Service("pService")
 public class ProductServiceImpl implements ProductService{
@@ -29,7 +27,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public ArrayList<ProductImage> selectProductImg(Product p) {
+	public ArrayList<Product_Image> selectProductImg(Product p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -59,13 +57,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int insertProductImage(ProductImage pi) {
+	public int insertProductImage(Product_Image pi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateProductImage(ProductImage pi) {
+	public int updateProductImage(Product_Image pi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -81,5 +79,7 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }

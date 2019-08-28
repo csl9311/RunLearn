@@ -2,12 +2,13 @@ package com.kh.runLearn.payment.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Wishlist;
 import com.kh.runLearn.payment.model.vo.Payment;
 import com.kh.runLearn.product.model.vo.Cart;
 
 public interface PaymentService {
-	Payment selectPayInfo(int pay_id); // 결제 정보 조회
+	Payment selectPayInfo(PageInfo pi, int pay_id); // 결제 정보 조회
 	ArrayList<Cart> getCart(String id); // 상품 찜목록 정보
 	ArrayList<Wishlist> getWishList(String id); // 강의 찜목록 정보
 	

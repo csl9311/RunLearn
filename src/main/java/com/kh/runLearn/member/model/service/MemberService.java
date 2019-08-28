@@ -3,6 +3,7 @@ package com.kh.runLearn.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
 
 public interface MemberService {
 	int login(Member m); // 로그인
@@ -18,4 +19,8 @@ public interface MemberService {
 	int updateMember(Member m); // 개인정보수정
 	int deleteMember(Member m); // 회원탈퇴
 	
+	int insertMember_Image(Member_Image mi);
+	int updateMember_Image(Member_Image mi);
+	int deleteMember_Image(Member_Image mi);
+	int Member_ImageInsert(Member_Image mi);
 }

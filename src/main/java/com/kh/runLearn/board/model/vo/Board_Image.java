@@ -2,16 +2,16 @@ package com.kh.runLearn.board.model.vo;
 
 import java.sql.Date;
 
-public class BoardImage {
+public class Board_Image {
 	private String b_changed_name;
 	private String b_origin_name;
 	private String b_file_path;
 	private Date b_upload_date;
 	private int b_num;
 	
-	public BoardImage() {}
+	public Board_Image() {}
 
-	public BoardImage(String b_changed_name, String b_origin_name, String b_file_path, Date b_upload_date, int b_num) {
+	public Board_Image(String b_changed_name, String b_origin_name, String b_file_path, Date b_upload_date, int b_num) {
 		super();
 		this.b_changed_name = b_changed_name;
 		this.b_origin_name = b_origin_name;

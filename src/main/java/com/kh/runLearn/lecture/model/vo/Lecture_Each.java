@@ -1,12 +1,12 @@
 package com.kh.runLearn.lecture.model.vo;
 
-public class LectureEach {
+public class Lecture_Each {
 	private int l_each_num;
 	private String l_each_name;
 	private String l_each_content;
 	private int l_code;
-	public LectureEach() {}
-	public LectureEach(int l_each_num, String l_each_name, String l_each_content, int l_code) {
+	public Lecture_Each() {}
+	public Lecture_Each(int l_each_num, String l_each_name, String l_each_content, int l_code) {
 		super();
 		this.l_each_num = l_each_num;
 		this.l_each_name = l_each_name;

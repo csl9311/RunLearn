@@ -45,7 +45,7 @@
 	<div class="contents center">
 		<div class="row">
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
-			<form action="" class="form" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
+			<form action="" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 
 				<input type="hidden" name="m_id" value="판매자명">
 				<input type='file' id="imgInp"/>
@@ -94,6 +94,7 @@
 							'<tr id="image' + j + '">'+
 								'<td>'+
 									'<img src="' + e.target.result + '" width="100vw" height="100vh"/>'+
+									'<button type="button" class="deleteImg" onclick="deleteImg();">삭제</button>' +
 									'<input type="hidden" name="p_origin_name" value="' + fileName + '">' + 
 								'</td>'+
 							'</tr>'
@@ -104,6 +105,7 @@
 						$image.append(
 							'<td>'+
 								'<img src="' + e.target.result + '" width="100vw" height="100vh"/>'+
+								'<button type="button" class="deleteImg" onclick="deleteImg();">삭제</button>' +
 								'<input type="hidden" name="p_origin_name" value="' + fileName + '">' + 
 							'</td>'
 						);
@@ -118,6 +120,9 @@
 			$('#foo').css('display', 'inherit');
 			readURL(this);
 		});
+		function deleteImg(){
+			console.log('어케지우지..');
+		}
 	</script>
 </body>
 <c:import url="common/footer.jsp" />

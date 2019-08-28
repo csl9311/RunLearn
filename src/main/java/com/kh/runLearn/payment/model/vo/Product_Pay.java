@@ -1,13 +1,13 @@
 package com.kh.runLearn.payment.model.vo;
 
-public class ProductPay {
+public class Product_Pay {
 	private int pay_num;
 	private int p_num;
 	private int p_pay_amount;
 	
-	public ProductPay() {}
+	public Product_Pay() {}
 
-	public ProductPay(int pay_num, int p_num, int p_pay_amount) {
+	public Product_Pay(int pay_num, int p_num, int p_pay_amount) {
 		super();
 		this.pay_num = pay_num;
 		this.p_num = p_num;
