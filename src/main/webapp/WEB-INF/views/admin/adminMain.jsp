@@ -1,4 +1,3 @@
-@@ -0,0 +1,402 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,11 +16,11 @@
 .borderhotpinkthick{border: 4px solid #ff005a;}
 .fontwhite{color:white;font:bold;}
 .ligt-pink{background-color:#F8E0EC; !important}
-.hoverpink:hover{background-color:#F5A9BC;!important}
+.hoverpink:hover{background-color:#F5A9BC; color:white;!important}
 .tablink{margin:2px; border:0.1px solid #ff005a; }
 .marginbtn{margin:2px; border:0.1px solid #ff005a; }
 .animate-fading{animation:opac 0.8s }
-.minh{min-height:1200px;}
+.minh{min-height:900px;}
 .sidebar{height:100%;width:200px;background-color:#fff;position:absolute!important;z-index:1;overflow:auto;display:block!important}
 
 /* 스크롤바 */
@@ -53,7 +52,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 
  -->
 </head>
-<body>
+<body class="scroll">
 
 <div class="sidebar w3-bar-block  w3-card" style="width:150px;">
   <h5 class="w3-bar-item fonthotpink" style="font-size:25px;">관리목록</h5>
@@ -66,7 +65,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 </div>
 
 <div class="minh"style="margin-left:160px">
-  <div class="w3-padding">관리자페이지입니다 관리자가 아니시면 홈으로가주세요</div>
+<!--   <div class="w3-padding">관리자페이지입니다 관리자가 아니시면 홈으로가주세요</div> -->
 <!-- 관리자 메인 -->
   <div id="sideTabs1" class="w3-container sideTabs animate-fading">
     <h2 class="w3-padding fontthick fonthotpink">관리자 메인</h2><hr class="borderhotpink">
@@ -147,15 +146,15 @@ function st2menu(evt, sidetab2menu) {
   </div>
   
   <div id="st3menu1" class="w3-container borderhotpink sidetab3menus">
-    <h2>결제가로텝1</h2>
+    <h2>상품</h2>
   </div>
 
   <div id="st3menu2" class="w3-container borderhotpink sidetab3menus" style="display:none">
-    <h2>결제가로텝2</h2>
+    <h2>강의</h2>
   </div>
 
   <div id="st3menu3" class="w3-container borderhotpink sidetab3menus" style="display:none">
-    <h2>결제가로텝3</h2>
+    <h2>3번째 탭은 없엘것</h2>
   </div>
 </div>
 
