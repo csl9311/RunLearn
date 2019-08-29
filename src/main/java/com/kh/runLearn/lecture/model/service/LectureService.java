@@ -8,6 +8,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 
 public interface LectureService {
+	int getListCount();//강의 전체 갯수 받아오기
 	int getCategoryListCount(String l_category);//카테고리별 강의 갯수 가져오기
 	ArrayList<Lecture> selectLectureList(PageInfo pi); // 강의 전체 목록
 	ArrayList<Lecture> selectLectureList(PageInfo pi, String l_category); // 카테고리별 강의목록
@@ -35,6 +36,7 @@ public interface LectureService {
 	
 	int insertWishlist(Lecture l, String m_id); // 강의찜목록 등록
 	int deleteWishlist(int l_num, String m_id); // 강의찜목록에서 삭제
+	
 	
 
 }

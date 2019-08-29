@@ -427,20 +427,58 @@ header .search .lcont input[type=text] {
 					<img src="${contextPath}/resources/images/common/arrow.png">
 					강의
 					<ul class="lectureList">
-							<li><a href="#">인기수업</a></li>
+							<li>
+								<c:url var="all" value="selectLectureAllList.le"/>
+							<a href="${ all }">인기수업</a>
+							</li>
 							<li>
 								<c:url var="design" value="selectLectureList.le">
 									<c:param name="l_category" value="D"/>
 								</c:url>
 								<a href="${ design }">디자인</a>
 							</li>
-							<li><a href="#">실무역량</a></li>
-							<li><a href="#">뷰티</a></li>
-							<li><a href="#">영상</a></li>
-							<li><a href="#">외국어</a></li>
-							<li><a href="#">음악</a></li>
-							<li><a href="#">라이프스타일</a></li>
-							<li><a href="#">재테크</a></li>
+							<li>
+								<c:url var="working" value="selectLectureList.le">
+									<c:param name="l_category" value="W"/>
+								</c:url>
+								<a href="${ working }">실무역량</a>
+							</li>
+							<li>
+								<c:url var="beauty" value="selectLectureList.le">
+									<c:param name="l_category" value="B"/>
+								</c:url>
+								<a href="${ beaety }">뷰티</a>
+							</li>
+							<li>
+								<c:url var="video" value="selectLectureList.le">
+									<c:param name="l_category" value="V"/>
+								</c:url>
+								<a href="${ video }">영상</a>
+							</li>
+							<li>
+								<c:url var="foreign" value="selectLectureList.le">
+									<c:param name="l_category" value="F"/>
+								</c:url>
+								<a href="${ foreign }">외국어</a>
+							</li>
+							<li>
+								<c:url var="music" value="selectLectureList.le">
+									<c:param name="l_category" value="M"/>
+								</c:url>
+								<a href="${ music }">음악</a>
+							</li>
+							<li>
+								<c:url var="lifeStyle" value="selectLectureList.le">
+									<c:param name="l_category" value="L"/>
+								</c:url>
+								<a href="${ lifeStyle }">라이프스타일</a>
+							</li>
+							<li>
+								<c:url var="JTec" value="selectLectureList.le">
+									<c:param name="l_category" value="J"/>
+								</c:url>
+								<a href="${ JTec }">제테크</a>
+							</li>
 					</ul>
 				</li>
 			</ul>
@@ -548,15 +586,58 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="menu-sub lecture">
 			<ul>
-				<li><a href="#">인기수업</a></li>
-				<li><a href="#">디자인</a></li>
-				<li><a href="#">실무역량</a></li>
-				<li><a href="#">뷰티</a></li>
-				<li><a href="#">영상</a></li>
-				<li><a href="#">외국어</a></li>
-				<li><a href="#">음악</a></li>
-				<li><a href="#">라이프스타일</a></li>
-				<li><a href="#">재테크</a></li>
+				<li>
+							<c:url var="all" value="selectLectureAllList.le"/>
+							<a href="${ all }">인기수업</a>
+							</li>
+							<li>
+								<c:url var="design" value="selectLectureList.le">
+									<c:param name="l_category" value="D"/>
+								</c:url>
+								<a href="${ design }">디자인</a>
+							</li>
+							<li>
+								<c:url var="working" value="selectLectureList.le">
+									<c:param name="l_category" value="W"/>
+								</c:url>
+								<a href="${ working }">실무역량</a>
+							</li>
+							<li>
+								<c:url var="beauty" value="selectLectureList.le">
+									<c:param name="l_category" value="B"/>
+								</c:url>
+								<a href="${ beaety }">뷰티</a>
+							</li>
+							<li>
+								<c:url var="video" value="selectLectureList.le">
+									<c:param name="l_category" value="V"/>
+								</c:url>
+								<a href="${ video }">영상</a>
+							</li>
+							<li>
+								<c:url var="foreign" value="selectLectureList.le">
+									<c:param name="l_category" value="F"/>
+								</c:url>
+								<a href="${ foreign }">외국어</a>
+							</li>
+							<li>
+								<c:url var="music" value="selectLectureList.le">
+									<c:param name="l_category" value="M"/>
+								</c:url>
+								<a href="${ music }">음악</a>
+							</li>
+							<li>
+								<c:url var="lifeStyle" value="selectLectureList.le">
+									<c:param name="l_category" value="L"/>
+								</c:url>
+								<a href="${ lifeStyle }">라이프스타일</a>
+							</li>
+							<li>
+								<c:url var="JTec" value="selectLectureList.le">
+									<c:param name="l_category" value="J"/>
+								</c:url>
+								<a href="${ JTec }">제테크</a>
+							</li>
 			</ul>
 		</div>
 	</div>

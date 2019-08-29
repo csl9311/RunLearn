@@ -17,13 +17,18 @@ public class LectureServiceImpl implements LectureService {
 	private LectureDAO lDAO;
 
 	@Override
+	public int getListCount() {
+		return lDAO.getListCount();
+	}
+	
+	@Override
 	public int getCategoryListCount(String l_category) {
 		return lDAO.getCategoryListCount(l_category);
 	}
 	
 	@Override
 	public ArrayList<Lecture> selectLectureList(PageInfo pi) {
-		return null;
+		return lDAO.getLectureList(pi);
 	}
 
 	@Override
@@ -132,6 +137,8 @@ public class LectureServiceImpl implements LectureService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 	
 

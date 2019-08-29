@@ -14,6 +14,16 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 public class LectureDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public int getListCount() {
+		return sqlSession.selectOne("lectureMapper.getListCount");
+	}
+	
+	public ArrayList<Lecture> getLectureList(PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureList", null, rowBounds);
+	}
 
 	public int getCategoryListCount(String l_category) {
 		return sqlSession.selectOne("lectureMapper.getCategoryListCount", l_category);
@@ -22,6 +32,11 @@ public class LectureDAO {
 	public ArrayList<Lecture> selectLectureList(PageInfo pi, String l_category) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureList", l_category, rowBounds);
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureCategoryList", l_category, rowBounds);
 	}
+
+
+	
+
+	
 }

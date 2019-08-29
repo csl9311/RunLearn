@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="lectureMapper">
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from lecture
+		where l_status='Y' and l_confirm='Y'
+		
+	</select>
+	<select id="selectLectureList" resultType="Lecture">
+		select *
+		from lecture
+		where l_status='Y' and l_confirm='Y'
+		order by l_num desc
+	</select>
 	<select id="getCategoryListCount" parameterType="string" resultType="_int">
 		select count(*)
 		from lecture
-		where l_category = #{l_category}
+		where l_status='Y' and l_confirm='Y' and l_category = #{l_category}
 	</select>
-	<select id="selectLectureList" parameterType="string" resultType="Lecture">
+	<select id="selectLectureCategoryList" parameterType="string" resultType="Lecture">
 		select *
 		from lecture
-		where l_category = #{l_category}
+		where l_status='Y' and l_confirm='Y' and l_category = #{l_category}
+		order by l_num desc
 	</select>
 </mapper>

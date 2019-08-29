@@ -18,7 +18,25 @@ public class LectureController {
 
 	@Autowired
 	private LectureService lService;
-
+	
+	@RequestMapping("selectLectureAllList.le")
+	public ModelAndView selectLectureAllList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage=1;
+		if(page != null) {
+			currentPage = page;
+		}
+		int listCount = lService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		pi.setBoardLimit(12);
+		ArrayList<Lecture> list = lService.selectLectureList(pi);
+		String cName = "전체";
+		mv.addObject("cName", cName);
+		mv.addObject("list", list);
+		mv.addObject("pi", pi);
+		mv.setViewName("lecture/lectureMain");
+		return mv;
+	}
 	
 	@RequestMapping("selectLectureList.le")
 	public ModelAndView selectLectureList(@RequestParam(value="page", required=false) Integer page, @RequestParam("l_category") String l_category, ModelAndView mv) {
@@ -28,6 +46,7 @@ public class LectureController {
 		}
 		int listCount = lService.getCategoryListCount(l_category);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		pi.setBoardLimit(12);
 		ArrayList<Lecture> list = lService.selectLectureList(pi, l_category);
 		String cName = "";
 		if(l_category.equals("D")) {
@@ -36,11 +55,11 @@ public class LectureController {
 			cName="실무역량";
 		} else if(l_category.equals("B")) {
 			cName="뷰티";
-		} else if(l_category.equals("M")) {
+		} else if(l_category.equals("V")) {
 			cName="영상";
 		} else if(l_category.equals("F")) {
 			cName="외국어";
-		} else if(l_category.equals("S")) {
+		} else if(l_category.equals("M")) {
 			cName="음악";
 		} else if(l_category.equals("L")) {
 			cName="라이프스타일";
