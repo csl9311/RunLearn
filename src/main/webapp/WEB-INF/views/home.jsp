@@ -44,7 +44,7 @@
          max-width: 1000px;
          width: 1000px;
          height: 400px;
-         margin: 10% auto;
+         margin: 10% auto 20%;
          padding: 0;
       }
       
@@ -150,18 +150,44 @@
          font-weight: 400;
       }
       
+      .sideDiv tr:hover {
+      	 background: #f5f5f5;
+      }
+      
       /* -----------------오늘의 문구----------------- */
       .mentDiv {
          position: relative;
+         background-image: url(${contextPath}/resources/images/main/ment_sample.jpg);
+         background-size: 100% 100%;
+         background-repeat: no-repeat;
          margin: 0 auto;
-         height: 200px;
-         width: 70%;
+         height: 250px;
+         width: 80%;
          margin-bottom: 10%;
       }
       
       .mentDiv img {
          width: 100%;
          height: 100%;
+      }
+      
+      .img-cover {
+      	 position: absolute;
+	     height: 100%;
+	     width: 100%;
+	     background-color: rgba(0, 0, 0, 0.5);                                                                 
+	     z-index:1;
+      }
+      
+      .mentDiv .ment {
+      	 position: absolute;
+         top:50%;
+         left:50%;
+         transform: translate(-50%, -50%);                                                                   
+         font-size:5rem;
+         color: white;
+         z-index: 2;
+         text-align: center;
       }
    </style>
 </head>
@@ -179,6 +205,7 @@
          </div>
       </div>
       <div class="container main-bottom">
+      	 <h3>최신 강의</h3><br>
          <div class="detailDiv col-sm-5">
             <table>
                <tr class="imgRow">
@@ -227,7 +254,11 @@
          </div>
       </div>
       <div class="mentDiv">
-         <img src="${contextPath}/resources/images/main/ment_sample.jpg">
+      	 <div class="ment">
+      	 	<h2>배우고 싶은 기술이 있다면, 무엇이든 어디에서든</h2>
+      	 	<img src="${contextPath}/resources/images/common/logo_footer.png" style="width: 120px; height: 50px;">
+      	 </div>
+      	 <div class="img-cover"></div>
       </div>
    </div>
    
