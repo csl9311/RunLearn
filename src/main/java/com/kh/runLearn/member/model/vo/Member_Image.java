@@ -2,7 +2,7 @@ package com.kh.runLearn.member.model.vo;
 
 import java.sql.Date;
 
-public class MemberImage {
+public class Member_Image {
 	private int m_num;
 	private String m_origin_name;
 	private String m_changed_name;
@@ -10,8 +10,8 @@ public class MemberImage {
 	private Date m_upload_date;
 	private String m_id;
 	
-	public MemberImage() {}
-	public MemberImage(int m_num, String m_origin_name, String m_changed_name, String m_file_path, Date m_upload_date,
+	public Member_Image() {}
+	public Member_Image(int m_num, String m_origin_name, String m_changed_name, String m_file_path, Date m_upload_date,
 			String m_id) {
 		super();
 		this.m_num = m_num;

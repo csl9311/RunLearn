@@ -1,12 +1,12 @@
 package com.kh.runLearn.product.model.vo;
 
-public class ProductOption {
+public class Product_Option {
 	private String p_option;
 	private String p_num;
 	
-	public ProductOption() {}
+	public Product_Option() {}
 	
-	public ProductOption(String p_option, String p_num) {
+	public Product_Option(String p_option, String p_num) {
 		super();
 		this.p_option = p_option;
 		this.p_num = p_num;

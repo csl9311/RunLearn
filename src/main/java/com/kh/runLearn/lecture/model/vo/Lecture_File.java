@@ -1,6 +1,6 @@
 package com.kh.runLearn.lecture.model.vo;
 
-public class LectureFile {
+public class Lecture_File {
 	private int l_file_num;
 	private String l_origin_name;
 	private String l_changed_name;
@@ -8,9 +8,9 @@ public class LectureFile {
 	private String l_file_video;
 	private int l_each_code;
 	
-	public LectureFile() {}
+	public Lecture_File() {}
 
-	public LectureFile(int l_file_num, String l_origin_name, String l_changed_name, String l_file_path,
+	public Lecture_File(int l_file_num, String l_origin_name, String l_changed_name, String l_file_path,
 			String l_file_video, int l_each_code) {
 		super();
 		this.l_file_num = l_file_num;

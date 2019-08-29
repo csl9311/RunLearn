@@ -1,4 +1,4 @@
-package com.kh.runLearn.board.model.vo;
+package com.kh.runLearn.common;
 
 //페이지 정보를 담는 클래스
 public class PageInfo {

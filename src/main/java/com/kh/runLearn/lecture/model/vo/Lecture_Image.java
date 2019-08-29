@@ -2,7 +2,7 @@ package com.kh.runLearn.lecture.model.vo;
 
 import java.sql.Date;
 
-public class LectureImage {
+public class Lecture_Image {
 	private int l_image_num;
 	private String l_origin_name;
 	private String l_changed_name;
@@ -11,9 +11,9 @@ public class LectureImage {
 	private Date l_upload_date;
 	private int l_num;
 	
-	public LectureImage() {}
+	public Lecture_Image() {}
 
-	public LectureImage(int l_image_num, String l_origin_name, String l_changed_name, String l_file_path,
+	public Lecture_Image(int l_image_num, String l_origin_name, String l_changed_name, String l_file_path,
 			int l_file_level, Date l_upload_date, int l_num) {
 		super();
 		this.l_image_num = l_image_num;

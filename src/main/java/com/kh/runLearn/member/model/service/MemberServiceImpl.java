@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.member.model.dao.MemberDAO;
 import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService {
@@ -22,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void logout(String m_id) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -32,15 +33,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member selectMember(Member m) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int changeGrade(Member m) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Member selectMember(Member m) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -72,5 +73,25 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int insertMemberImage(Member_Image mi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateMemberImage(Member_Image mi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteMemberImage(Member_Image mi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 }

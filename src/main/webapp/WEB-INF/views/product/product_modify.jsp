@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}/resources/css" scope="application" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +15,7 @@
 <br>
 	<div class="contents center">
 		<div class="row">
-				<form action="" class="form" style="float:none; margin:0 auto; width: 50vw;">
+				<form action="" class="form" method="post" style="float:none; margin:0 auto; width: 50vw;">
 					<table class="table center">
 						<tr>
 							<td>상품명</td>

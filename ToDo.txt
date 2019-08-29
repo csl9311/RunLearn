@@ -1,0 +1,9 @@
+** ToDo.txt 파일 수정 할 때 인코딩 설정 되어있는지 확인해주세요
+Window > Preferences > ContentType > Text > Default Encoding
+
+
+2019/08/28
+할인율 적용 여부
+Member, Product, Lecture, Board 삭제 시 이미지 파일 삭제(DB정보는 보관)
+common/Exception으로 모든 예외처리
+- 성락

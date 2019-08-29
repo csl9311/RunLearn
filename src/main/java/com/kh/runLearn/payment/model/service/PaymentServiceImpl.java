@@ -15,47 +15,6 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentDAO payDAO;
 
-	@Override
-	public Payment selectPayInfo(int pay_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Cart> getCart(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Wishlist> getWishList(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Payment> selectPersonalPayList(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Payment> selectLecturePayList(int l_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int insertPayment(Payment pay) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updatePayment(Payment pay) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	
 }

@@ -2,7 +2,7 @@ package com.kh.runLearn.product.model.vo;
 
 import java.sql.Date;
 
-public class ProductImage {
+public class Product_Image {
 	private String p_changed_name;
 	private String p_origin_name;
 	private String p_file_path;
@@ -10,9 +10,9 @@ public class ProductImage {
 	private int p_file_level;
 	private int p_num;
 	
-	public ProductImage() {}
+	public Product_Image() {}
 	
-	public ProductImage(String p_changed_name, String p_origin_name, String p_file_path, Date p_upload_date,
+	public Product_Image(String p_changed_name, String p_origin_name, String p_file_path, Date p_upload_date,
 			int p_file_level, int p_num) {
 		super();
 		this.p_changed_name = p_changed_name;
