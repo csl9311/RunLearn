@@ -402,6 +402,9 @@ header .search .lcont input[type=text] {
 	outline: none;
 	border: 0;
 }
+.productCategory{
+display:inline-block; cursor:pointer; width: 100%; text-align:center;
+} 
 </style>
 </head>
 <body>
@@ -415,12 +418,12 @@ header .search .lcont input[type=text] {
 					상품
 					<ul class="shopList">
 						<li style="background: #ff005a;"><a href="#">전체목록</a></li>
-						<li><a href="#">가방</a></li>
-						<li><a href="#">시계</a></li>
-						<li><a href="#">지갑</a></li>
-						<li><a href="#">향수</a></li>
-						<li><a href="#">악세서리</a></li>
-						<li><a href="#">재료</a></li>
+						<li><div class="productCategory" onclick="changeView('bag');">가방</div></li>
+						<li><div class="productCategory" onclick="changeView('watch');">시계</div></li>
+						<li><div class="productCategory" onclick="changeView('wallet');">지갑</div></li>
+						<li><div class="productCategory" onclick="changeView('perfume');">향수</div></li>
+						<li><div class="productCategory" onclick="changeView('accessory');">악세서리</div></li>
+						<li><div class="productCategory" onclick="changeView('material');">재료</div></li>
 					</ul>
 				</li>
 				<li class="lecture">
@@ -612,6 +615,18 @@ header .search .lcont input[type=text] {
 				$('.fixed-menu').css('display', 'none');
 			}
 		});
+		
+		
+		
+		
+		
+		
+		
+		/* 페이지이동 */
+		var category;
+		function changeView(category){
+			location.href="getList.product?category="+category;
+		}
 	</script>
 </body>
 </html>
