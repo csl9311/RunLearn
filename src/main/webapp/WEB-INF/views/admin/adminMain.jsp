@@ -23,6 +23,7 @@
 .animate-fading{animation:opac 0.8s }
 .minh{min-height:900px;}
 .sidebar{height:100%;width:200px;background-color:#fff;position:absolute!important;z-index:1;overflow:auto;display:block!important}
+.button
 
 /* 스크롤바 */
 .scroll::-webkit-scrollbar-track
@@ -56,13 +57,15 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 <body class="scroll">
 
 <div class="sidebar w3-bar-block  w3-card" style="width:150px;">
-  <h5 class="w3-bar-item fonthotpink" style="font-size:25px;">관리목록</h5>
+  <h5 class="w3-bar-item fonthotpink" style="font-size:25px;">관리자페이지</h5>
   <hr>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs1')" style="width:147px">관리자 메인</button>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs2')" style="width:147px">회원관리</button>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs3')" style="width:147px">결제관리</button>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs4')" style="width:147px">게시글관리</button>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs5')" style="width:147px">질문/건의사항</button>
+  <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs6')" style="width:147px">(작업용)게시판</button>
+   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs7')" style="width:147px">(작업용)목록리스트</button>
 </div>
 
 <div class="minh"style="margin-left:160px">
@@ -254,7 +257,78 @@ function st4menu(evt, sidetab4menu) {
   </div>
 </div>
 </div>
+<!-- (작업용)게시판------------------------------------------------------------------------------------------- -->
+<div id="sideTabs6" class="w3-container sideTabs animate-fading"style="display:none">
+ <h2 class="w3-padding fontthick fonthotpink">마더뷰</h2><hr class="borderhotpink">
+    <div class="w3-container minh"><!-- 틀 -->
+    <div  class="borderhotpink"style="float:left;width:1200px;min height:900px;border-radius:15px;" ><!-- 게시글 내용 -->
+    	<div style="margin:10px;font-size:30px;">
+    	(임시글)
+타공 제품을 새로운 타공 제품으로 바꾸는 경우에도 구멍이 안생긴다고 장담할 수 없어요. 사이즈는 규격화 되어 일치하는 제품들이 많지만, 고정을 위한 나사 구멍은 각기 다를 수 있거든요. 
 
+미리 정확한 나사 구멍 위치까지 파악하긴 어려우니, 타공 도어락을 설치할 경우는 구멍이 생길 수 있음을 반드시 염두에 두고 진행해주세요!
+    
+TIP. 도어락 설치, 집주인과 디테일한 커뮤니케이션 하기
+간혹 떼면 원상복구가 안된다는 것을 트집잡아, 세입자가 달았던 도어락을 두고 가라고 억지 쓰는 경우도 있다고 해요. 
+
+그러니 설치부터 원상복구에 이르는 모든 디테일을 미리 체크하는 것이 필수! 아래의 리스트를 토대로 집주인과 커뮤니케이션을 위한 디테일을 정해보세요. 
+ None
+  
+집주인이 인수하는 경우는 사실상 집주인이 해주는 것과 비슷한 상황이에요. 다만 제품을 고르고 설치하는 과정을 세입자가 하기 때문에, 나중에 가서 '아니 무슨 40만원 짜리를 달았어? 그거 다 못줘!' 할 수도 있어요. 그러니 사전에 정확한 모델과 가격을 얘기하며 조율하는 것이 좋답니다!
+
+None
+안전하게 살기 위한 기본, 도어락! 위에서 알려드린 노하우대로 무타공 도어락을 설치하거나, 집주인과 디테일한 커뮤니케이션으로 보증금 걱정 없는 도어락 설치에 성공하시길 바랄게요 🙏
+
+도어락을 설치하기 전에 현관문 리폼을 계획하고 있다면 아래 콘텐츠도 꼭 읽어보세요. 현관문 리폼할 때 드는 비용을 알려드려요 😄(임시글)
+(임시글)
+타공 제품을 새로운 타공 제품으로 바꾸는 경우에도 구멍이 안생긴다고 장담할 수 없어요. 사이즈는 규격화 되어 일치하는 제품들이 많지만, 고정을 위한 나사 구멍은 각기 다를 수 있거든요. 
+
+미리 정확한 나사 구멍 위치까지 파악하긴 어려우니, 타공 도어락을 설치할 경우는 구멍이 생길 수 있음을 반드시 염두에 두고 진행해주세요!
+    
+TIP. 도어락 설치, 집주인과 디테일한 커뮤니케이션 하기
+간혹 떼면 원상복구가 안된다는 것을 트집잡아, 세입자가 달았던 도어락을 두고 가라고 억지 쓰는 경우도 있다고 해요. 
+
+그러니 설치부터 원상복구에 이르는 모든 디테일을 미리 체크하는 것이 필수! 아래의 리스트를 토대로 집주인과 커뮤니케이션을 위한 디테일을 정해보세요. 
+ None
+  
+집주인이 인수하는 경우는 사실상 집주인이 해주는 것과 비슷한 상황이에요. 다만 제품을 고르고 설치하는 과정을 세입자가 하기 때문에, 나중에 가서 '아니 무슨 40만원 짜리를 달았어? 그거 다 못줘!' 할 수도 있어요. 그러니 사전에 정확한 모델과 가격을 얘기하며 조율하는 것이 좋답니다!
+
+None
+안전하게 살기 위한 기본, 도어락! 위에서 알려드린 노하우대로 무타공 도어락을 설치하거나, 집주인과 디테일한 커뮤니케이션으로 보증금 걱정 없는 도어락 설치에 성공하시길 바랄게요 🙏
+
+도어락을 설치하기 전에 현관문 리폼을 계획하고 있다면 아래 콘텐츠도 꼭 읽어보세요. 현관문 리폼할 때 드는 비용을 알려드려요 😄(임시글)
+    	
+    	
+    	</div>
+    	
+    </div>
+     	<div class="borderhotpinkthick" style="float:left;width:400px;min-height:300px;position:fixed;margin-left:1220px;border-radius:10px;opacity:0.8;"><!--게시글 작성자 날짜 등등  -->
+     	<button class="hoverpink">뒤로로가기</button>
+     	<h3 class="fonthotpink" style="opacity:0.4;">카테고리 부분입니다</h3>
+     	<h2 class="fonthotpink" style="font-weight:bold;margin-left:7px;margin-right:7px;">제목 작성하는 부분입니다 폰트도 적용할예정</h2><hr class="borderhotpink" style="margin-top:-10px;width:360px;margin-left:20px;">
+     	<h3 style="text-align:right;color:#FA5882;">조회수 부분입니다</h3>
+     	<h4 style="opacity:2.0;">작성자 부분입니다</h4>
+     	<h6 style="color:#FA5882;">날짜 부분입니다</h6>
+     	더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다
+     	<br>
+     	<button class="hoverpink" style="width:100px;margin:10px;height:30px; border-radius:4px; margin-left:70px;">수정</button>
+     	<button class="hoverpink" style="width:100px;margin:10px;height:30px; border-radius:4px; margin-left:20px;">삭제</button>
+   		</div>
+    
+    </div>
+</div>
+<!-- /(작업용)게시판------------------------------------------------------------------------------------------ -->
+<!--  (작업용)리스트----------------------------------------------------------------------------------------------->
+<div id="sideTabs7" class="w3-container sideTabs animate-fading"style="display:none">
+ <h2 class="w3-padding fontthick fonthotpink">마더리스트</h2><hr class="borderhotpink">
+    <div class="w3-container borderhotpink">
+  
+    
+    
+    
+    </div>
+</div>
+<!-- /(작업용)리스트--------------------------------------------------------------------------------------------- -->
 <script>
 function st6menu(evt, sidetab6menu) {
   var i, x, tablinks;
