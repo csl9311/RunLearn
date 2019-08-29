@@ -57,8 +57,64 @@ public class Image {
 			file.delete();
 		}
 	}
-	
-	
+	public boolean createImage(
+			MultipartFile uploadFile,
+			HttpServletRequest request,
+			Object obj
+		) {
+		int result = 0;
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			String renameFileName = "";
+			
+			if(obj.getClass() == Board_Image.class) {
+				renameFileName = saveFile(uploadFile, request, "board");
+				if (renameFileName != null) {
+					// Board_Image
+					Board_Image bi = new Board_Image();
+					bi.setB_origin_name(uploadFile.getOriginalFilename());
+					bi.setB_changed_name(renameFileName);
+					result = bService.insertBoard_Image(bi);
+				}
+					
+			} else if (obj.getClass() == Member_Image.class){
+				renameFileName = saveFile(uploadFile, request, "member");
+				if (renameFileName != null) {
+					// Member_Image
+					Member_Image mi = new Member_Image();
+					mi.setM_origin_name(uploadFile.getOriginalFilename());
+					mi.setM_changed_name(renameFileName);
+					result = mService.insertMember_Image(mi);
+				}
+				
+			} else if (obj.getClass() == Product_Image.class) {
+				renameFileName = saveFile(uploadFile, request, "product");
+				if (renameFileName != null) {
+					// Product_Image
+					Product_Image pi = new Product_Image();
+					pi.setP_origin_name(uploadFile.getOriginalFilename());
+					pi.setP_changed_name(renameFileName);
+					result = pService.insertProduct_Image(pi);
+				}
+				
+			} else if(obj.getClass() == Lecture_Image.class) {
+				renameFileName = saveFile(uploadFile, request, "lecture");
+				if (renameFileName != null) {
+					// Lecture_Image
+					Lecture_Image li = new Lecture_Image();
+					li.setL_origin_name(uploadFile.getOriginalFilename());
+					li.setL_changed_name(renameFileName);
+					result = lService.insertLecture_Image(li);
+				}
+			}
+		}
+		
+		if(result > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+/*	해보고 안되면 주석 풀자
 // Board_Image 등록
 	public boolean Board_ImageInsert(
 			MultipartFile uploadFile,
@@ -149,4 +205,5 @@ public class Image {
 			return false;
 		}
 	}
+*/
 }
