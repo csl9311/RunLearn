@@ -64,12 +64,13 @@
 	color:black;
 }
 .row .col-sm-2 a:hover{
+	cursor:pointer;
 }
 </style>
 </head>
 
 <body>
-	<c:import url="common/header.jsp"/>
+	<c:import url="../common/header.jsp" />
 	<div id="main" style="height: 40px;"></div>
 	<div class="container">
 		<div style="margin-left: 100px; width: 1000px; height: 1000px;">
@@ -277,6 +278,6 @@
 		});
 	</script>
 	<!--  -->
-	<c:import url="common/footer.jsp"/>
+	<c:import url="../common/footer.jsp" />
 </body>
 </html>

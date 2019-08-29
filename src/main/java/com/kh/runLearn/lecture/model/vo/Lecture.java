@@ -2,6 +2,7 @@ package com.kh.runLearn.lecture.model.vo;
 
 public class Lecture {
 	private int l_num;
+	private String l_title;
 	private String l_category;
 	private String l_content;
 	private int l_price;
@@ -13,21 +14,13 @@ public class Lecture {
 	private String l_black;
 	private String m_id;
 
-	@Override
-	public String toString() {
-		return "Lecture [l_num=" + l_num + ", l_category=" + l_category + ", l_content=" + l_content + ", l_price="
-				+ l_price + ", l_system=" + l_system + ", l_address=" + l_address + ", l_object=" + l_object
-				+ ", l_confirm=" + l_confirm + ", l_status=" + l_status + ", l_black=" + l_black + ", m_id=" + m_id
-				+ "]";
-	}
+	public Lecture() {}
 
-	public Lecture() {
-	}
-
-	public Lecture(int l_num, String l_category, String l_content, int l_price, int l_system, String l_address,
-			String l_object, String l_confirm, String l_status, String l_black, String m_id) {
+	public Lecture(int l_num, String l_title, String l_category, String l_content, int l_price, int l_system,
+			String l_address, String l_object, String l_confirm, String l_status, String l_black, String m_id) {
 		super();
 		this.l_num = l_num;
+		this.l_title = l_title;
 		this.l_category = l_category;
 		this.l_content = l_content;
 		this.l_price = l_price;
@@ -46,6 +39,14 @@ public class Lecture {
 
 	public void setL_num(int l_num) {
 		this.l_num = l_num;
+	}
+
+	public String getL_title() {
+		return l_title;
+	}
+
+	public void setL_title(String l_title) {
+		this.l_title = l_title;
 	}
 
 	public String getL_category() {
@@ -128,4 +129,12 @@ public class Lecture {
 		this.m_id = m_id;
 	}
 
+	@Override
+	public String toString() {
+		return "Lecture [l_num=" + l_num + ", l_title=" + l_title + ", l_category=" + l_category + ", l_content="
+				+ l_content + ", l_price=" + l_price + ", l_system=" + l_system + ", l_address=" + l_address
+				+ ", l_object=" + l_object + ", l_confirm=" + l_confirm + ", l_status=" + l_status + ", l_black="
+				+ l_black + ", m_id=" + m_id + "]";
+	}
+	
 }

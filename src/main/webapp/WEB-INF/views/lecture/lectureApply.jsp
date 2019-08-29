@@ -26,7 +26,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
-<c:import url="common/header.jsp"/>
+<c:import url="../common/header.jsp" />
 <div class="container" style="min-height:300px; margin-top: 20px;">
 	<h1>강의 신청</h1>
 	<h6>　</h6>
@@ -470,6 +470,6 @@
         </form>
 </div>
 <div><h4>　</h4></div>
-<c:import url="common/footer.jsp"/>
+<c:import url="../common/footer.jsp" />
 </body>
 </html>

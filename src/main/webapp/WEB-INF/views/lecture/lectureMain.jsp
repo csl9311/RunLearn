@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의실 검색 : 카테고리</title>
+<title>${ cName } 강의실 탐색</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -43,17 +43,54 @@
 	width: 100%;
 	height: 40%;
 }
+
+.card{
+	cursor:pointer;
+}
 </style>
 </head>
 <body>
-	<c:import url="common/header.jsp"/>
+	<c:import url="../common/header.jsp"/>
 	<div class="container">
-		<h1>카테고리명 : #라이프스타일</h1>
+		<h1>카테고리명 : ${ cName }</h1>
 		<h1></h1>
 		<h2>강의 목록</h2>
 		<h6></h6>
 		<div class="row">
-			<div class="col-md-4">
+			<c:forEach var="list" items="${ list }">
+				<c:url var="detailView" value="detailView.le">
+					<c:param name="l_code" value="${ list.l_num }"/>
+				</c:url>
+				
+				<div class="col-md-4" onclick="location.href='${ detailView }'">
+					<div class="card mb-4 shadow-sm">
+						<img class="bd-placeholder-img card-img-top" width="100%"
+							height="225" src="${contextPath}/resources/images/lecture/classImg1.png">
+						<div class="card-body row">
+							<div class="col-md-8">
+								<p style="font-weight: bolder;">${list. l_title }</p>
+								<div class="d-flex align-items-center">
+									<small style="font">가격 :5100원 </small>
+								</div>
+							</div>	
+							<div class="col-md-4">
+								<div class="peopleAttach">
+									<div class="peopleImage">
+										<img src="${contextPath}/resources/images/lecture/user.png" style="width:100%; height:100%;">
+									</div>
+									<div class="peopleContext" style="text-align: center;">
+									<p>${ list.m_id }</p>
+									<p>미스타김</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</c:forEach>
+		
+			<%-- <div class="col-md-4">
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
@@ -382,7 +419,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 		</div>
 		<%-- <h2>강의 목록</h2>
 		<h6></h6>
@@ -428,6 +465,6 @@
 			</tr>
 		</table> --%>
 	</div>
-	<c:import url="common/header.jsp"/>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

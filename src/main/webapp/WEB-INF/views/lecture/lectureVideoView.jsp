@@ -47,7 +47,7 @@
 </style>
 </head>
 <body>
-<c:import url="common/header.jsp"/>
+<c:import url="../common/header.jsp" />
 <div class="MediaContainer">
 	<div class="row">
 		<div id="mediaDiv">
@@ -102,6 +102,6 @@ $(window).scroll(function() {
 	});
 });
 </script>
-<c:import url="common/footer.jsp"/>
+<c:import url="../common/footer.jsp" />
 </body>
 </html>

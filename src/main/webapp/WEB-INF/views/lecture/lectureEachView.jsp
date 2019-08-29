@@ -23,7 +23,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<c:import url="common/header.jsp"/>
+	<c:import url="../common/header.jsp" />
 	<div class="container">
 		<h1>제 1회 : 집으로의 복귀 교통수단은 다양하다.</h1>
 		<h6></h6>
@@ -72,7 +72,7 @@
 		</table>
 	</div>
 
-	<c:import url="common/footer.jsp"/>
+	<c:import url="../common/footer.jsp" />
 
 
 </body>

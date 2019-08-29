@@ -428,7 +428,12 @@ header .search .lcont input[type=text] {
 					강의
 					<ul class="lectureList">
 							<li><a href="#">인기수업</a></li>
-							<li><a href="#">디자인</a></li>
+							<li>
+								<c:url var="design" value="selectLectureList.le">
+									<c:param name="l_category" value="D"/>
+								</c:url>
+								<a href="${ design }">디자인</a>
+							</li>
 							<li><a href="#">실무역량</a></li>
 							<li><a href="#">뷰티</a></li>
 							<li><a href="#">영상</a></li>
