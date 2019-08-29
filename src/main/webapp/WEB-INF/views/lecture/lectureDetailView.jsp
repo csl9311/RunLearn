@@ -68,12 +68,12 @@
 </head>
 
 <body>
-	<c:import url="../common/header.jsp"/>
+	<c:import url="common/header.jsp"/>
 	<div class="container" id="main">
 		<div
 			style="margin-left: 100px; width: 1000px; height: 1000px;">
 			<h1>집으로 도망치는 빠르고 쉬운 방법</h1>
-			<img src="<%= request.getContextPath()%>/images/class/run.png" style="width:100%;">
+			<img src="${contextPath}/resources/images/lecture/run.png" style="width:100%;">
 			<h6>　</h6>
 			<div style="width:100%">
 			<div id="Cintro" style="width: 50px;"></div>
@@ -87,7 +87,7 @@
 			</div>
 			<div class="col-sm-12">
 			　<br>
-				<img src="<%= request.getContextPath()%>/images/class/runC.jpg" style="width:100%;">
+				<img src="${contextPath}/resources/images/lecture/runC.jpg" style="width:100%;">
 			</div>
 			<div id="Tintro" style="width: 50px;"></div>
 			<div class="row">
@@ -100,7 +100,7 @@
 			</div>
 			<div class="col-sm-12">
 			　<br>
-				<img src="<%= request.getContextPath()%>/images/class/user.png" style="height:100px;">
+				<img src="${contextPath}/resources/images/lecture/user.png" style="height:100px;">
 				강사명 : 미시다 김<br>
 				
 				연혁<br>
@@ -251,7 +251,7 @@
 					<h5 class="my-0">강사명 : 미시다김</h5>
 					<br>
 					<div align="center">
-					<img src="<%= request.getContextPath()%>/images/class/user.png" style="height:100px;">
+					<img src="${contextPath}/resources/images/lecture/user.png" style="height:100px;">
 					</div>
 				</div>
 				</a>
@@ -300,6 +300,6 @@
 		});
 	</script>
 	<!--  -->
-	<c:import url="../common/footer.jsp"/>
+	<c:import url="common/footer.jsp"/>
 </body>
 </html>

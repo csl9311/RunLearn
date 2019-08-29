@@ -46,7 +46,7 @@
 </style>
 </head>
 <body>
-	<c:import url="../common/header.jsp"/>
+	<c:import url="common/header.jsp"/>
 	<div class="container">
 		<h1>카테고리명 : #라이프스타일</h1>
 		<h1></h1>
@@ -57,7 +57,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg1.png">
+						src="${contextPath}/resources/images/lecture/classImg1.png">
 
 					<div class="card-body row">
 						<div class="col-md-8">
@@ -65,7 +65,7 @@
 							<p>수강생수 : 50 명</p>
 							<div class="d-flex align-items-center">
 								<div style="text-align: center; width:35%">
-									<img src="<%= request.getContextPath()%>/images/class/sale.png" style="width:100%; height:40%"><br>
+									<img src="${contextPath}/resources/images/lecture/sale.png" style="width:100%; height:40%"><br>
 									<small style="color: red">할인율 : 50%</small>
 								</div>
 								<small style="font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가격 : <STRIKE>10200원</STRIKE><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → 5100원 </small>
@@ -74,7 +74,7 @@
 						<div class="col-md-4">
 							<div class="peopleAttach">
 								<div class="peopleImage">
-									<img src="<%= request.getContextPath() %>/images/class/user.png" style="width:100%; height:100%;">
+									<img src="${contextPath}/resources/images/lecture/user.png" style="width:100%; height:100%;">
 								</div>
 								<div class="peopleContext" style="text-align: center;">
 								<p>김성훈</p>
@@ -89,7 +89,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg2.png">
+						src="${contextPath}/resources/images/lecture/classImg2.png">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -106,7 +106,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg3.jpg">
+						src="${contextPath}/resources/images/lecture/classImg3.jpg">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -123,7 +123,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg1.png">
+						src="${contextPath}/resources/images/lecture/classImg1.png">
 
 					<div class="card-body row">
 						<div class="col-md-8">
@@ -131,7 +131,7 @@
 							<p>수강생수 : 50 명</p>
 							<div class="d-flex align-items-center">
 								<div style="text-align: center; width:35%">
-									<img src="<%= request.getContextPath()%>/images/class/sale.png" style="width:100%; height:40%"><br>
+									<img src="${contextPath}/resources/images/lecture/class/sale.png" style="width:100%; height:40%"><br>
 									<small style="color: red">할인율 : 50%</small>
 								</div>
 								<small style="font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가격 : <STRIKE>10200원</STRIKE><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → 5100원 </small>
@@ -140,7 +140,7 @@
 						<div class="col-md-4">
 							<div class="peopleAttach">
 								<div class="peopleImage">
-									<img src="<%= request.getContextPath() %>/images/class/user.png" style="width:100%; height:100%;">
+									<img src="${contextPath}/resources/images/lecture/user.png" style="width:100%; height:100%;">
 								</div>
 								<div class="peopleContext" style="text-align: center;">
 								<p>김성훈</p>
@@ -155,7 +155,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg2.png">
+						src="${contextPath}/resources/images/lecture/classImg2.png">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -172,7 +172,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg3.jpg">
+						src="${contextPath}/resources/images/lecture/classImg3.jpg">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -189,7 +189,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg1.png">
+						src="${contextPath}/resources/images/lecture/classImg1.png">
 
 					<div class="card-body row">
 						<div class="col-md-8">
@@ -197,7 +197,7 @@
 							<p>수강생수 : 50 명</p>
 							<div class="d-flex align-items-center">
 								<div style="text-align: center; width:35%">
-									<img src="<%= request.getContextPath()%>/images/class/sale.png" style="width:100%; height:40%"><br>
+									<img src="${contextPath}/resources/images/lecture/sale.png" style="width:100%; height:40%"><br>
 									<small style="color: red">할인율 : 50%</small>
 								</div>
 								<small style="font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가격 : <STRIKE>10200원</STRIKE><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → 5100원 </small>
@@ -206,7 +206,7 @@
 						<div class="col-md-4">
 							<div class="peopleAttach">
 								<div class="peopleImage">
-									<img src="<%= request.getContextPath() %>/images/class/user.png" style="width:100%; height:100%;">
+									<img src="${contextPath}/resources/images/lecture/user.png" style="width:100%; height:100%;">
 								</div>
 								<div class="peopleContext" style="text-align: center;">
 								<p>김성훈</p>
@@ -221,7 +221,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg2.png">
+						src="${contextPath}/resources/images/lecture/classImg2.png">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -238,7 +238,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg3.jpg">
+						src="${contextPath}/resources/images/lecture/classImg3.jpg">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -255,7 +255,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg1.png">
+						src="${contextPath}/resources/images/lecture/classImg1.png">
 
 					<div class="card-body row">
 						<div class="col-md-8">
@@ -263,7 +263,7 @@
 							<p>수강생수 : 50 명</p>
 							<div class="d-flex align-items-center">
 								<div style="text-align: center; width:35%">
-									<img src="<%= request.getContextPath()%>/images/class/sale.png" style="width:100%; height:40%"><br>
+									<img src="${contextPath}/resources/images/lecture/sale.png" style="width:100%; height:40%"><br>
 									<small style="color: red">할인율 : 50%</small>
 								</div>
 								<small style="font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가격 : <STRIKE>10200원</STRIKE><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → 5100원 </small>
@@ -272,7 +272,7 @@
 						<div class="col-md-4">
 							<div class="peopleAttach">
 								<div class="peopleImage">
-									<img src="<%= request.getContextPath() %>/images/class/user.png" style="width:100%; height:100%;">
+									<img src="${contextPath}/resources/images/lecture/user.png" style="width:100%; height:100%;">
 								</div>
 								<div class="peopleContext" style="text-align: center;">
 								<p>김성훈</p>
@@ -287,7 +287,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg2.png">
+						src="${contextPath}/resources/images/lecture/classImg2.png">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -304,7 +304,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg3.jpg">
+						src="${contextPath}/resources/images/lecture/classImg3.jpg">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -321,7 +321,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg1.png">
+						src="${contextPath}/resources/images/lecture/classImg1.png">
 
 					<div class="card-body row">
 						<div class="col-md-8">
@@ -329,7 +329,7 @@
 							<p>수강생수 : 50 명</p>
 							<div class="d-flex align-items-center">
 								<div style="text-align: center; width:35%">
-									<img src="<%= request.getContextPath()%>/images/class/sale.png" style="width:100%; height:40%"><br>
+									<img src="${contextPath}/resources/images/lecture/sale.png" style="width:100%; height:40%"><br>
 									<small style="color: red">할인율 : 50%</small>
 								</div>
 								<small style="font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가격 : <STRIKE>10200원</STRIKE><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; → 5100원 </small>
@@ -338,7 +338,7 @@
 						<div class="col-md-4">
 							<div class="peopleAttach">
 								<div class="peopleImage">
-									<img src="<%= request.getContextPath() %>/images/class/user.png" style="width:100%; height:100%;">
+									<img src="${contextPath}/resources/images/lecture/user.png" style="width:100%; height:100%;">
 								</div>
 								<div class="peopleContext" style="text-align: center;">
 								<p>김성훈</p>
@@ -353,7 +353,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg2.png">
+						src="${contextPath}/resources/images/lecture/classImg2.png">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -370,7 +370,7 @@
 				<div class="card mb-4 shadow-sm">
 					<img class="bd-placeholder-img card-img-top" width="100%"
 						height="225"
-						src="<%=request.getContextPath()%>/images/class/classImg3.jpg">
+						src="${contextPath}/resources/images/lecture/classImg3.jpg">
 					<div id="imageAttach"></div>
 					<div class="card-body">
 						<p class="card-text">강의 설명이 들어가는 공간이에요. 뭐든 들어가겠지요</p>
@@ -428,6 +428,6 @@
 			</tr>
 		</table> --%>
 	</div>
-	<c:import url="../common/footer.jsp"/>
+	<c:import url="common/header.jsp"/>
 </body>
 </html>
