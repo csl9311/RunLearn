@@ -483,7 +483,7 @@ header .search .lcont input[type=text] {
 												</form>
 											</div>
 											<div class="modal-footer">
-												<a href="#">회원가입</a> / <a href="#">아이디/패스워드 찾기</a>
+												<a href="minsertView.do">회원가입</a> / <a href="#">아이디/패스워드 찾기</a>
 											</div>
 										</div>
 									</div>
@@ -493,7 +493,7 @@ header .search .lcont input[type=text] {
 							<li><a href="#">로그아웃</a></li>
 						</c:if>
 						<c:if test="${ empty sessionScope.loginUser }">
-							<li><a href="#">회원가입</a></li>
+							<li><a href="minsertView.do">회원가입</a></li>
 						</c:if>
 						<c:if test="${ !empty sessionScope.loginUser }">
 							<li id="myPage"><a href="#">마이페이지</a>
