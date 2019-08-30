@@ -7,7 +7,7 @@ public class Lecture_Image {
 	private String l_origin_name;
 	private String l_changed_name;
 	private String l_file_path;
-	private int l_file_level;
+	private int l_file_level;	
 	private Date l_upload_date;
 	private int l_num;
 	

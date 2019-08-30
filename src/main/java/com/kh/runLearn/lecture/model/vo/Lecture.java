@@ -1,9 +1,14 @@
 package com.kh.runLearn.lecture.model.vo;
 
+import java.util.ArrayList;
+
+import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
+
 public class Lecture {
 	private int l_num;
-	private String l_title;
 	private String l_category;
+	private String l_title;
 	private String l_content;
 	private int l_price;
 	private int l_system;
@@ -32,7 +37,8 @@ public class Lecture {
 		this.l_black = l_black;
 		this.m_id = m_id;
 	}
-
+	
+	
 	public int getL_num() {
 		return l_num;
 	}

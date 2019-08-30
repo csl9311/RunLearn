@@ -447,7 +447,7 @@ header .search .lcont input[type=text] {
 								<c:url var="beauty" value="selectLectureList.le">
 									<c:param name="l_category" value="B"/>
 								</c:url>
-								<a href="${ beaety }">뷰티</a>
+								<a href="${ beauty }">뷰티</a>
 							</li>
 							<li>
 								<c:url var="video" value="selectLectureList.le">
@@ -606,7 +606,7 @@ header .search .lcont input[type=text] {
 								<c:url var="beauty" value="selectLectureList.le">
 									<c:param name="l_category" value="B"/>
 								</c:url>
-								<a href="${ beaety }">뷰티</a>
+								<a href="${ beauty }">뷰티</a>
 							</li>
 							<li>
 								<c:url var="video" value="selectLectureList.le">

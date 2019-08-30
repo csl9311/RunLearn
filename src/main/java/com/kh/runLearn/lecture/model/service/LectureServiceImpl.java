@@ -1,6 +1,7 @@
 package com.kh.runLearn.lecture.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,12 @@ public class LectureServiceImpl implements LectureService {
 	}
 	
 	@Override
-	public ArrayList<Lecture> selectLectureList(PageInfo pi) {
+	public ArrayList selectLectureList(PageInfo pi) {
 		return lDAO.getLectureList(pi);
 	}
 
 	@Override
-	public ArrayList<Lecture> selectLectureList(PageInfo pi, String l_category) {
+	public ArrayList selectLectureList(PageInfo pi, String l_category) {
 		return lDAO.selectLectureList(pi, l_category);
 	}
 
@@ -66,10 +67,13 @@ public class LectureServiceImpl implements LectureService {
 		return 0;
 	}
 
+//	@Override
+//	public ArrayList selectLecture(int l_num) {
+//		return lDAO.selectLecture(l_num);
+//	}
 	@Override
-	public Lecture selectLecture(int l_num) {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<String, String> selectLecture(int l_num) {
+		return lDAO.selectLecture(l_num);
 	}
 
 	@Override
@@ -138,7 +142,11 @@ public class LectureServiceImpl implements LectureService {
 		return 0;
 	}
 
-	
+	@Override
+	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
+		return lDAO.selectLectureImage(map);
+	}
+
 
 	
 

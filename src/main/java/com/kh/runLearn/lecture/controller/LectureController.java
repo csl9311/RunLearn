@@ -1,6 +1,7 @@
 package com.kh.runLearn.lecture.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.lecture.model.service.LectureService;
-import com.kh.runLearn.lecture.model.vo.Lecture;
 
 @Controller
 public class LectureController {
@@ -29,10 +29,10 @@ public class LectureController {
 		int listCount = lService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		pi.setBoardLimit(12);
-		ArrayList<Lecture> list = lService.selectLectureList(pi);
-		String cName = "전체";
-		mv.addObject("cName", cName);
-		mv.addObject("list", list);
+		ArrayList all = lService.selectLectureList(pi);
+		
+		System.out.println(all);
+		mv.addObject("list", all);
 		mv.addObject("pi", pi);
 		mv.setViewName("lecture/lectureMain");
 		return mv;
@@ -47,7 +47,7 @@ public class LectureController {
 		int listCount = lService.getCategoryListCount(l_category);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		pi.setBoardLimit(12);
-		ArrayList<Lecture> list = lService.selectLectureList(pi, l_category);
+		ArrayList list = lService.selectLectureList(pi, l_category);
 		String cName = "";
 		if(l_category.equals("D")) {
 			cName="디자인";
@@ -70,6 +70,31 @@ public class LectureController {
 		mv.addObject("list", list);
 		mv.addObject("pi", pi);
 		mv.setViewName("lecture/lectureMain");
+		return mv;
+	}
+	
+	@RequestMapping("detailView.le")
+	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv) {
+		
+//		ArrayList list = lService.selectLecture(l_num);
+		HashMap<String, String> list = lService.selectLecture(l_num);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("MCR", 0);
+		ArrayList im_list = lService.selectLectureImage(map);
+		map.put("MCR", 1);
+		ArrayList ic_list = lService.selectLectureImage(map);
+		map.put("MCR", 2);
+		ArrayList ir_list = lService.selectLectureImage(map);
+		System.out.println("L : "+list);
+		System.out.println("m : "+im_list);
+		System.out.println("c : "+ic_list);
+		System.out.println("r : "+ir_list);
+		mv.addObject("list", list);
+		mv.addObject("im_list", im_list);
+		mv.addObject("ic_list", ic_list);
+		mv.addObject("ir_list", ir_list);
+		mv.setViewName("lecture/lectureDetailView");
 		return mv;
 	}
 }

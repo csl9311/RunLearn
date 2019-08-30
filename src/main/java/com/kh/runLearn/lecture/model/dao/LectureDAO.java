@@ -1,6 +1,7 @@
 package com.kh.runLearn.lecture.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,7 +20,7 @@ public class LectureDAO {
 		return sqlSession.selectOne("lectureMapper.getListCount");
 	}
 	
-	public ArrayList<Lecture> getLectureList(PageInfo pi) {
+	public ArrayList getLectureList(PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureList", null, rowBounds);
@@ -29,10 +30,25 @@ public class LectureDAO {
 		return sqlSession.selectOne("lectureMapper.getCategoryListCount", l_category);
 	}
 
-	public ArrayList<Lecture> selectLectureList(PageInfo pi, String l_category) {
+	public ArrayList selectLectureList(PageInfo pi, String l_category) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureCategoryList", l_category, rowBounds);
+	}
+
+//	public ArrayList selectLecture(int l_num) {
+//		return (ArrayList)sqlSession.selectList("lectureMapper.selectLecture", l_num);
+//	}
+	public HashMap<String, String> selectLecture(int l_num) {
+		return (HashMap)sqlSession.selectOne("lectureMapper.selectLecture", l_num);
+	}
+
+//	public ArrayList selectLectureImage(int i) {
+//		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureImage", i);
+//	}
+
+	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureImage", map);
 	}
 
 
