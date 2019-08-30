@@ -30,10 +30,9 @@
 </style>
 </head>
 <body>
-	<c:import url="common/header.jsp"/>
+	<c:import url="../common/header.jsp"/>
 	<div class="container">
-		<h2>인기 상품</h2>
-		<h2>상품 목록</h2>
+		<%-- <h2>상품 목록</h2>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card mb-4 shadow-sm">
@@ -63,8 +62,29 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
+		
+		<c:forEach items="list" var="p">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="row" id="mainImage">
+						<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/test1.png">
+					</div>
+					<div class="col-md-6" id="productInfo">
+						<p style="font-weight: bolder;">${ p.p_name }</p>
+						<p>${ p.p_price }</p>
+					</div>
+					<div class="col-md-6" id="sellerInfo">
+						<img class="img-responsive" alt="판매자이미지" src="">
+						<p>판매자명 </p>
+						<p>닉네임</p>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+		
+		
 	</div>
-	<c:import url="common/footer.jsp"/>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

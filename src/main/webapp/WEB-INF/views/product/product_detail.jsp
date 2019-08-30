@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application" />
 <!DOCTYPE html>
-<c:import url="common/header.jsp" />
+<c:import url="${ contextPath }/common/header.jsp" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -180,5 +180,5 @@
 
 	</div>
 </body>
-<c:import url="common/footer.jsp" />
+<c:import url="${ contextPath}/common/footer.jsp" />
 </html>

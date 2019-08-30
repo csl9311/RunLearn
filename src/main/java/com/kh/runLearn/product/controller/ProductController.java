@@ -2,11 +2,12 @@ package com.kh.runLearn.product.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
@@ -20,37 +21,32 @@ public class ProductController {
 	private ProductService pService;
 
 	@RequestMapping("getList.product")
-	public ModelAndView getProductList(@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam("category") String category, ModelAndView mv) throws Exception {
-		System.out.println(category);
-		ArrayList<Product> list;
+	public String getProductList(
+				@RequestParam(value = "page", required = false) Integer page,
+				@RequestParam(value = "p_category", required = false) String p_category,
+				HttpServletRequest request
+			) throws Exception {
+		ArrayList<Product> list = null;
 		PageInfo pi;
 		int listCount;
-
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = page;
 		}
-
-		if (category != null) {
-			// 카테고리별
-			listCount = pService.getListCount(category);
-			pi = Pagination.getPageInfo(currentPage, listCount);
-			list = pService.selectProductList(pi, category);
-		} else {
-			// 전체 목록
-			listCount = pService.getListCount();
-			pi = Pagination.getPageInfo(currentPage, listCount);
-			list = pService.selectProductList(pi);
-		}
-
+		
+		listCount = pService.getListCount(p_category);
+		System.out.println(listCount);
+		pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		// 상품목록 조회
+		list = pService.selectProductList(pi, p_category);
+		
+		// request에 페이지정보, list 등록
 		if (list != null) {
-			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			mv.setViewName("product/boardListView");
-		} else {
-			throw new Exception("상품 조회에 실패하였습니다");
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 		}
-		return mv;
+
+		return "product/product_main";
 	}
 }

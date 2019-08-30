@@ -403,7 +403,7 @@ header .search .lcont input[type=text] {
 	border: 0;
 }
 .productCategory{
-display:inline-block; cursor:pointer; width: 100%; text-align:center;
+	display:inline-block; cursor:pointer; width: 100%; text-align:center;
 } 
 </style>
 </head>
@@ -415,7 +415,7 @@ display:inline-block; cursor:pointer; width: 100%; text-align:center;
 		<div class="cate">
 			<ul>
 				<li class="shop"><img src="${contextPath}/resources/images/common/arrow.png">
-					상품
+					<div class="productCategory" onclick="changeView();">상품</div>
 					<ul class="shopList">
 						<li style="background: #ff005a;"><a href="#">전체목록</a></li>
 						<li><div class="productCategory" onclick="changeView('bag');">가방</div></li>
@@ -558,7 +558,6 @@ display:inline-block; cursor:pointer; width: 100%; text-align:center;
 			</ul>
 		</div>
 	</div>
-
 	<div class="upBtn">UP</div>
 	<script>
 		var flag = false;
@@ -623,9 +622,13 @@ display:inline-block; cursor:pointer; width: 100%; text-align:center;
 		
 		
 		/* 페이지이동 */
-		var category;
-		function changeView(category){
-			location.href="getList.product?category="+category;
+		var p_category;
+		function changeView(p_category){
+			if(p_category == null) {
+				location.href="getList.product";
+			} else {
+				location.href="getList.product?p_category=" + p_category;
+			}
 		}
 	</script>
 </body>

@@ -7,10 +7,11 @@ import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 
 public interface ProductService {
-	int getListCount();
-	int getListCount(String category);
 	ArrayList<Product> selectProductList(PageInfo pi); // 상품 전체 목록 조회
+	
+	int getListCount(String p_category);// 상품 카테고리별 목록 조회
 	ArrayList<Product> selectProductList(PageInfo pi, String p_category); // 상품 카테고리별 목록 조회
+	
 	ArrayList<Product_Image> selectProductImg(Product p); // 상품이미지
 	Product selectProduct(int p_num); // 상품 상세 조회
 	
