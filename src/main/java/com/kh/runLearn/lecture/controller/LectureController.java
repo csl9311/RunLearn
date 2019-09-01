@@ -14,12 +14,12 @@ public class LectureController {
 	@Autowired
 	private LectureService lService;
 
-	@RequestMapping("lsearchAll.do")
-	public ModelAndView lectureSearchAll(ModelAndView mv, @RequestParam("search") String search) {
-		mv.addObject("search", search);
-		mv.addObject("cate", "강의");
-		mv.setViewName("search/searchDetailView");
-		
-		return mv;
-	}
+//	@RequestMapping("lsearchAll.do")
+//	public ModelAndView lectureSearchAll(ModelAndView mv, @RequestParam("search") String search) {
+//		mv.addObject("search", search);
+//		mv.addObject("cate", "강의");
+//		mv.setViewName("search/searchDetailView");
+//		
+//		return mv;
+//	}
 }

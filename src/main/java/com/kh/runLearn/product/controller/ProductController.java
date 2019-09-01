@@ -14,12 +14,12 @@ public class ProductController {
 	@Autowired
 	private ProductService sService;
 
-	@RequestMapping("psearchAll.do")
-	public ModelAndView productSearchAll(ModelAndView mv, @RequestParam("search") String search) {
-		mv.addObject("search", search);
-		mv.addObject("cate", "상품");
-		mv.setViewName("search/searchDetailView");
-		
-		return mv;
-	}
+//	@RequestMapping("psearchAll.do")
+//	public ModelAndView productSearchAll(ModelAndView mv, @RequestParam("search") String search) {
+//		mv.addObject("search", search);
+//		mv.addObject("cate", "상품");
+//		mv.setViewName("search/searchDetailView");
+//		
+//		return mv;
+//	}
 }
