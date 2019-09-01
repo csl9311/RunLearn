@@ -21,11 +21,9 @@ public class ProductController {
 	private ProductService pService;
 
 	@RequestMapping("getList.product")
-	public String getProductList(
-				@RequestParam(value = "page", required = false) Integer page,
-				@RequestParam(value = "p_category", required = false) String p_category,
-				HttpServletRequest request
-			) throws Exception {
+	public String getProductList(@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "p_category", required = false) String p_category, HttpServletRequest request)
+			throws Exception {
 		ArrayList<Product> list = null;
 		PageInfo pi;
 		int listCount;
@@ -33,14 +31,25 @@ public class ProductController {
 		if (page != null) {
 			currentPage = page;
 		}
-		
-		listCount = pService.getListCount(p_category);
-		System.out.println(listCount);
-		pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		// 상품목록 조회
-		list = pService.selectProductList(pi, p_category);
-		
+		System.out.println(p_category);
+		if (p_category == null) {
+			listCount = pService.getListCount();
+			System.out.println(listCount);
+			pi = Pagination.getPageInfo(currentPage, listCount);
+			// 상품목록 조회
+			list = pService.selectProductList(pi);
+			System.out.println(list.size());
+		} else {
+			listCount = pService.getListCount(p_category);
+			System.out.println(listCount);
+			pi = Pagination.getPageInfo(currentPage, listCount);
+			// 카테고리별 상품목록 조회
+			list = pService.selectProductList(pi, p_category);
+			System.out.println(list.size());
+		}
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
 		// request에 페이지정보, list 등록
 		if (list != null) {
 			request.setAttribute("list", list);

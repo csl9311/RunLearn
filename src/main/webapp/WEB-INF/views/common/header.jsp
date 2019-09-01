@@ -402,9 +402,6 @@ header .search .lcont input[type=text] {
 	outline: none;
 	border: 0;
 }
-.productCategory{
-	display:inline-block; cursor:pointer; width: 100%; text-align:center;
-} 
 </style>
 </head>
 <body>
@@ -414,16 +411,16 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="cate">
 			<ul>
-				<li class="shop"><img src="${contextPath}/resources/images/common/arrow.png">
-					<div class="productCategory" onclick="changeView();">상품</div>
+				<li class="shop">
+					<img src="${contextPath}/resources/images/common/arrow.png">
+					<a onclick="changeView();">상품</a>
 					<ul class="shopList">
-						<li style="background: #ff005a;"><a href="#">전체목록</a></li>
-						<li><div class="productCategory" onclick="changeView('bag');">가방</div></li>
-						<li><div class="productCategory" onclick="changeView('watch');">시계</div></li>
-						<li><div class="productCategory" onclick="changeView('wallet');">지갑</div></li>
-						<li><div class="productCategory" onclick="changeView('perfume');">향수</div></li>
-						<li><div class="productCategory" onclick="changeView('accessory');">악세서리</div></li>
-						<li><div class="productCategory" onclick="changeView('material');">재료</div></li>
+						<li><a onclick="changeView('bag');">가방</a></li>
+						<li><a onclick="changeView('watch');">시계</a></li>
+						<li><a onclick="changeView('wallet');">지갑</a></li>
+						<li><a onclick="changeView('perfume');">향수</a></li>
+						<li><a onclick="changeView('accessory');">악세서리</a></li>
+						<li><a onclick="changeView('material');">재료</a></li>
 					</ul>
 				</li>
 				<li class="lecture">
@@ -540,8 +537,12 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="menu-sub shop">
 			<ul class="shop-detail">
-				<li><a href="#">핸드메이드</a></li>
-				<li><a href="#">재료</a></li>
+				<li><a onclick="changeView('bag');">가방</a></li>
+				<li><a onclick="changeView('watch');">시계</a></li>
+				<li><a onclick="changeView('wallet');">지갑</a></li>
+				<li><a onclick="changeView('perfume');">향수</a></li>
+				<li><a onclick="changeView('accessory');">악세서리</a></li>
+				<li><a onclick="changeView('material');">재료</a></li>
 			</ul>
 		</div>
 		<div class="menu-sub lecture">

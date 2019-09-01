@@ -2,30 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="productMapper">
 
-<!-- 전체 목록 조회 -->
+<!-- 전체 목록 수 조회 -->
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM PRODUCT
 		WHERE P_STATUS = 'Y'
 	</select>
-	<resultMap type="Product" id="productResultSet"></resultMap>
-	<select id="selectProductList" resultMap="productResultSet">
-		SELECT * FROM PRODUCT WHERE P_STATUS = 'Y' ORDER BY P_NUM DESC
+	
+<!-- 전체 목록 조회 -->
+	<select id="selectProductList" resultType="hashmap">
+		SELECT *
+		FROM PRODUCT
+			LEFT JOIN product_image USING(P_NUM)
+			LEFT JOIN member USING(M_ID)
+			LEFT JOIN member_image USING(M_ID)
+		WHERE P_STATUS = 'Y'
+		ORDER BY P_NUM DESC
+	</select>
+	
+<!-- 카테고리별 목록 수 조회 -->
+	<select id="getListCountCate" resultType="_int" parameterType="string">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE P_STATUS = 'Y'
+			AND P_CATEGORY = #{p_category}
 	</select>
 	
 <!-- 카테고리별 목록 조회 -->
-	<select id="getListCountCate" resultType="_int">
-		SELECT COUNT(*) FROM PRODUCT WHERE P_STATUS = 'Y' AND P_CATEGORY = #{p_category}
-	</select>
-	<resultMap type="Product" id="productResultSet2"></resultMap>
-	<select id="selectProductListCate" parameterType="string" resultMap="productResultSet2">
-		
+	<select id="selectProductListCate" resultType="hashmap" parameterType="string">
 		SELECT *
 		FROM PRODUCT
+			LEFT JOIN product_image USING(P_NUM)
+			LEFT JOIN member USING(M_ID)
+			LEFT JOIN member_image USING(M_ID)
 		WHERE P_STATUS = 'Y'
-		<if test="p_category != null">
 			AND P_CATEGORY = #{p_category}
-		</if>
 		ORDER BY P_NUM DESC
 	</select>
 </mapper>

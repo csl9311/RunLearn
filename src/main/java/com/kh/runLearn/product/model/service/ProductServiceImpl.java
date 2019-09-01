@@ -16,6 +16,11 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDAO pDAO;
 
 	@Override
+	public int getListCount() {
+		return pDAO.getListCount();
+	}
+
+	@Override
 	public int getListCount(String p_category) {
 		return pDAO.getListCount(p_category);
 	}

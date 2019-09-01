@@ -14,21 +14,27 @@ import com.kh.runLearn.product.model.vo.Product;
 public class ProductDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public int getListCount() {
+		return sqlSession.selectOne("productMapper.getListCount");
+	}
+
+	public int getListCount(String p_category) {
+		return sqlSession.selectOne("productMapper.getListCountCate", p_category);
+	}
 
 	public ArrayList<Product> selectProductList(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("productMapper.selectProductList", null, rowBounds);
-	}
-
-	public int getListCount(String p_category) {
-		return sqlSession.selectOne("productMapper.getListCountCate",p_category);
+		return (ArrayList) sqlSession.selectList("productMapper.selectProductList", null, rowBounds);
 	}
 
 	public ArrayList<Product> selectProductList(PageInfo pi, String p_category) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("productMapper.selectProductListCate", p_category, rowBounds);
+		return (ArrayList) sqlSession.selectList("productMapper.selectProductListCate", p_category, rowBounds);
 	}
+
+	
 
 }
