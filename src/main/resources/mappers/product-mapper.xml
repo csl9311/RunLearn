@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="productMapper">
+	<!-- 상품검색 쿼리 -->
+	<select id="search-selectProduct" parameterType="map" resultType="hashmap">
+		select *
+		from psearch_view
+		where p_name like '%' || #{search} || '%'
+		<if test="subcate != null">
+        	and p_category = #{subcate}
+        </if>
+        <if test="price != null">
+        	<choose>
+        		<when test='price == "0"'>
+        			and p_price = 0
+        		</when>
+        		<when test='price == "1"'>
+        			and p_price between 1 and 9999
+        		</when>
+        		<when test='price == "2"'>
+        			and p_price between 10000 and 20000
+        		</when>
+        		<when test='price == "3"'>
+        			and p_price between 20000 and 30000
+        		</when>
+        		<when test='price == "4"'>
+        			and p_price > 30000
+        		</when>
+        	</choose>
+        </if>
+	</select>
 </mapper>

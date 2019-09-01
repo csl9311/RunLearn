@@ -14,11 +14,11 @@ public class SearchDAO {
 	SqlSessionTemplate sqlSession;
 	
 	public ArrayList<HashMap<String, String>> selectLecture(Map<String, String> map) {
-		return (ArrayList)sqlSession.selectList("searchMapper.selectLecture", map);
+		return (ArrayList)sqlSession.selectList("lectureMapper.search-selectLecture", map);
 	}
 
 	public ArrayList<HashMap<String, String>> selectProduct(Map<String, String> map) {
-		return (ArrayList)sqlSession.selectList("searchMapper.selectProduct", map);
+		return (ArrayList)sqlSession.selectList("productMapper.search-selectProduct", map);
 	}
 	
 }
