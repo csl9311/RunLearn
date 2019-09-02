@@ -18,7 +18,7 @@ import com.kh.runLearn.product.model.vo.Product;
 public class ProductController {
 
 	@Autowired
-	private ProductService pService;
+	private ProductService sService;
 
 	@RequestMapping("getList.product")
 	public String getProductList(@RequestParam(value = "page", required = false) Integer page,
