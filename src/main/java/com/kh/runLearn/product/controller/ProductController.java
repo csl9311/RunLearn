@@ -13,6 +13,7 @@ import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.product.model.service.ProductService;
 import com.kh.runLearn.product.model.vo.Product;
+import com.kh.runLearn.product.model.vo.Product_Image;
 
 @Controller
 public class ProductController {
@@ -54,6 +55,8 @@ public class ProductController {
 	@RequestMapping("get.product")
 	public String getProduct(@RequestParam("p_num") int p_num, HttpServletRequest request) {
 		Product p = pService.selectProduct(p_num);
+		ArrayList<Product_Image> pi = pService.selectProductImg(p_num);
+		
 		System.out.println(p);
 		request.setAttribute("p", p);
 		return "product/product_detail";

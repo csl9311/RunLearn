@@ -47,6 +47,12 @@
 		WHERE P_STATUS = 'Y' AND P_NUM = #{p_num}
 	</select>
 	
+	<select id="">
+		SELECT *
+		FROM PRODUCT_IMAGE
+		WHERE P_IMAGE_
+	</select>
+	
 
 
 <!-- 상품검색 쿼리 -->
