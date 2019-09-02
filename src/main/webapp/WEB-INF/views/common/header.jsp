@@ -254,17 +254,17 @@ header .search .lcont input[type=text] {
 	display: none;
 	position: fixed;
 	z-index: 999;
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	background: #ff005a;
 	border: 1px solid #ff005a;
 	border-radius: 50%;
 	text-align: center;
 	color: white;
 	font-weight: 700;
-	padding: 15px 0;
-	right: 2%;
-	bottom: 5%;
+	padding: 20px 0;
+	right: 6%;
+	bottom: 2%;
 	cursor: pointer;
 }
 
