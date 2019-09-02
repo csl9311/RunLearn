@@ -38,9 +38,13 @@ ul {
 	padding: 0;
 }
 
+ul li a:hover {
+   text-decoration: none;
+}
+
 a {
 	text-decoration: none;
-	color: #666;
+	color: black;
 }
 
 /* ------------------header------------------ */
@@ -191,10 +195,6 @@ header .search .lcont input[type=text] {
 	text-align: center;
 }
 
-.menubar-inner ul {
-	
-}
-
 .menubar-inner li {
 	display: inline;
 	width: 200px;
@@ -204,6 +204,10 @@ header .search .lcont input[type=text] {
 	font-weight: 700;
 	position: relative;
 	cursor: pointer;
+}
+
+.shop-detail li a:hover, .lecture-detail li a:hover, .fixed-menu .shopList li a:hover, .fixed-menu .lectureList li a:hover {
+	color: #ff005a;
 }
 
 .menubar-back .menu-sub {
@@ -218,9 +222,9 @@ header .search .lcont input[type=text] {
 
 .menubar-back .shop {
 	position: relative;
-	width: 600px;
+	width: 1200px;
 	margin: 0 auto;
-	padding: 5px 0 5px 75px;
+	padding: 5px 0 5px 95px;
 	margin-bottom: 8px;
 }
 
@@ -234,7 +238,7 @@ header .search .lcont input[type=text] {
 
 .menubar-back .shop li {
 	float: left;
-	margin: 5px 80px;
+	margin: 5px 50px;
 	font-size: 15px;
 	font-weight: 700;
 }
@@ -321,7 +325,7 @@ header .search .lcont input[type=text] {
 	position: absolute;
 	top: 55px;
 	width: 150px;
-	height: 150px;
+	height: 250px;
 	padding: 10px 15px;
 	z-index: 200;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -411,43 +415,87 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="cate">
 			<ul>
-				<li class="shop"><img src="${contextPath}/resources/images/common/arrow.png">
-					상품
+				<li class="shop">
+					<img src="${contextPath}/resources/images/common/arrow.png">
+					<a onclick="changeView();">상품</a>
 					<ul class="shopList">
-						<li style="background: #ff005a;"><a href="#">전체목록</a></li>
-						<li><a href="#">가방</a></li>
-						<li><a href="#">시계</a></li>
-						<li><a href="#">지갑</a></li>
-						<li><a href="#">향수</a></li>
-						<li><a href="#">악세서리</a></li>
-						<li><a href="#">재료</a></li>
+						<li><a onclick="changeView('bag');">가방</a></li>
+						<li><a onclick="changeView('watch');">시계</a></li>
+						<li><a onclick="changeView('wallet');">지갑</a></li>
+						<li><a onclick="changeView('perfume');">향수</a></li>
+						<li><a onclick="changeView('accessory');">악세서리</a></li>
+						<li><a onclick="changeView('material');">재료</a></li>
 					</ul>
 				</li>
 				<li class="lecture">
 					<img src="${contextPath}/resources/images/common/arrow.png">
 					강의
 					<ul class="lectureList">
-							<li><a href="#">인기수업</a></li>
-							<li><a href="#">디자인</a></li>
-							<li><a href="#">실무역량</a></li>
-							<li><a href="#">뷰티</a></li>
-							<li><a href="#">영상</a></li>
-							<li><a href="#">외국어</a></li>
-							<li><a href="#">음악</a></li>
-							<li><a href="#">라이프스타일</a></li>
-							<li><a href="#">재테크</a></li>
+							<li>
+								<c:url var="all" value="selectLectureAllList.le"/>
+							<a href="${ all }">인기수업</a>
+							</li>
+							<li>
+								<c:url var="design" value="selectLectureList.le">
+									<c:param name="l_category" value="D"/>
+								</c:url>
+								<a href="${ design }">디자인</a>
+							</li>
+							<li>
+								<c:url var="working" value="selectLectureList.le">
+									<c:param name="l_category" value="W"/>
+								</c:url>
+								<a href="${ working }">실무역량</a>
+							</li>
+							<li>
+								<c:url var="beauty" value="selectLectureList.le">
+									<c:param name="l_category" value="B"/>
+								</c:url>
+								<a href="${ beauty }">뷰티</a>
+							</li>
+							<li>
+								<c:url var="video" value="selectLectureList.le">
+									<c:param name="l_category" value="V"/>
+								</c:url>
+								<a href="${ video }">영상</a>
+							</li>
+							<li>
+								<c:url var="foreign" value="selectLectureList.le">
+									<c:param name="l_category" value="F"/>
+								</c:url>
+								<a href="${ foreign }">외국어</a>
+							</li>
+							<li>
+								<c:url var="music" value="selectLectureList.le">
+									<c:param name="l_category" value="M"/>
+								</c:url>
+								<a href="${ music }">음악</a>
+							</li>
+							<li>
+								<c:url var="lifeStyle" value="selectLectureList.le">
+									<c:param name="l_category" value="L"/>
+								</c:url>
+								<a href="${ lifeStyle }">라이프스타일</a>
+							</li>
+							<li>
+								<c:url var="JTec" value="selectLectureList.le">
+									<c:param name="l_category" value="J"/>
+								</c:url>
+								<a href="${ JTec }">재테크</a>
+							</li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 		<div class="search">
-			<form action="#">
+			<form action="search.do">
 				<div class="lcont">
 					<select name="" class="search-cate">
 						<option value="">튜터</option>
 						<option value="">카테고리</option>
 					</select>
-					<input type="text" name="search" id="fixed-searchcss" placeholder="검색어를 입력해주세요" autocomplete="off" onclick="weekly()" value="">
+					<input type="text" name="search" id="fixed-searchcss" placeholder="검색어를 입력해주세요" autocomplete="off" value="">
+					<input type="hidden" name="price" value="전체">
 					<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
 				</div>
 			</form>
@@ -483,7 +531,7 @@ header .search .lcont input[type=text] {
 												</form>
 											</div>
 											<div class="modal-footer">
-												<a href="#">회원가입</a> / <a href="#">아이디/패스워드 찾기</a>
+												<a href="minsertView.do">회원가입</a> / <a href="#">아이디/패스워드 찾기</a>
 											</div>
 										</div>
 									</div>
@@ -493,7 +541,7 @@ header .search .lcont input[type=text] {
 							<li><a href="#">로그아웃</a></li>
 						</c:if>
 						<c:if test="${ empty sessionScope.loginUser }">
-							<li><a href="#">회원가입</a></li>
+							<li><a href="minsertView.do">회원가입</a></li>
 						</c:if>
 						<%-- <c:if test="${ !empty sessionScope.loginUser }"> --%>
 						<c:url var="myPage" value="mypage.do"/>
@@ -516,13 +564,14 @@ header .search .lcont input[type=text] {
 				<img src="${contextPath}/resources/images/common/logo_2.png" onclick="location.href='${contextPath}'">
 			</div>
 			<div class="search">
-				<form action="#">
+				<form action="search.do">
 					<div class="lcont">
 						<select name="" class="search-cate">
 							<option value="">튜터</option>
 							<option value="">카테고리</option>
 						</select>
-						<input type="text" name="search" id="searchcss" autocomplete="off" placeholder="배우고 싶은 튜터 또는 카테고리를 검색해보세요!" onclick="weekly()" value="">
+						<input type="text" name="search" id="searchcss" autocomplete="off" placeholder="배우고 싶은 튜터 또는 카테고리를 검색해보세요!" value="">
+						<input type="hidden" name="price" value="전체">
 						<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
 					</div>
 				</form>
@@ -532,31 +581,77 @@ header .search .lcont input[type=text] {
 	<div class="menubar-back">
 		<div class="menubar-inner">
 			<ul>
-				<li id="shopMenu">쇼핑</li>
+				<li id="shopMenu">상품</li>
 				<li id="lectureMenu">강의</li>
 			</ul>
 		</div>
 		<div class="menu-sub shop">
 			<ul class="shop-detail">
-				<li><a href="#">핸드메이드</a></li>
-				<li><a href="#">재료</a></li>
+				<li><a onclick="changeView('bag');">가방</a></li>
+				<li><a onclick="changeView('watch');">시계</a></li>
+				<li><a onclick="changeView('wallet');">지갑</a></li>
+				<li><a onclick="changeView('perfume');">향수</a></li>
+				<li><a onclick="changeView('accessory');">악세서리</a></li>
+				<li><a onclick="changeView('material');">재료</a></li>
 			</ul>
 		</div>
 		<div class="menu-sub lecture">
 			<ul>
-				<li><a href="#">인기수업</a></li>
-				<li><a href="#">디자인</a></li>
-				<li><a href="#">실무역량</a></li>
-				<li><a href="#">뷰티</a></li>
-				<li><a href="#">영상</a></li>
-				<li><a href="#">외국어</a></li>
-				<li><a href="#">음악</a></li>
-				<li><a href="#">라이프스타일</a></li>
-				<li><a href="#">재테크</a></li>
+				<li>
+							<c:url var="all" value="selectLectureAllList.le"/>
+							<a href="${ all }">인기수업</a>
+							</li>
+							<li>
+								<c:url var="design" value="selectLectureList.le">
+									<c:param name="l_category" value="D"/>
+								</c:url>
+								<a href="${ design }">디자인</a>
+							</li>
+							<li>
+								<c:url var="working" value="selectLectureList.le">
+									<c:param name="l_category" value="W"/>
+								</c:url>
+								<a href="${ working }">실무역량</a>
+							</li>
+							<li>
+								<c:url var="beauty" value="selectLectureList.le">
+									<c:param name="l_category" value="B"/>
+								</c:url>
+								<a href="${ beauty }">뷰티</a>
+							</li>
+							<li>
+								<c:url var="video" value="selectLectureList.le">
+									<c:param name="l_category" value="V"/>
+								</c:url>
+								<a href="${ video }">영상</a>
+							</li>
+							<li>
+								<c:url var="foreign" value="selectLectureList.le">
+									<c:param name="l_category" value="F"/>
+								</c:url>
+								<a href="${ foreign }">외국어</a>
+							</li>
+							<li>
+								<c:url var="music" value="selectLectureList.le">
+									<c:param name="l_category" value="M"/>
+								</c:url>
+								<a href="${ music }">음악</a>
+							</li>
+							<li>
+								<c:url var="lifeStyle" value="selectLectureList.le">
+									<c:param name="l_category" value="L"/>
+								</c:url>
+								<a href="${ lifeStyle }">라이프스타일</a>
+							</li>
+							<li>
+								<c:url var="JTec" value="selectLectureList.le">
+									<c:param name="l_category" value="J"/>
+								</c:url>
+								<a href="${ JTec }">재테크</a>
+							</li>
 			</ul>
 		</div>
 	</div>
-
 	<div class="upBtn">UP</div>
 	<script>
 		var flag = false;
@@ -613,6 +708,21 @@ header .search .lcont input[type=text] {
 				$('.fixed-menu').css('display', 'none');
 			}
 		});
+    
+    $('.searchBtn').click(function() {
+	          $(this).parent().parent().submit();
+	  });
+		
+		/* 페이지이동 */
+		var p_category;
+		function changeView(p_category){
+			if(p_category == null) {
+				location.href="getList.product";
+			} else {
+				location.href="getList.product?p_category=" + p_category;
+			}
+		}
+		
 	</script>
 </body>
 </html>
