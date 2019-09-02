@@ -104,7 +104,7 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public HashMap mediaEnter(int l_each_num) {
+	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return lDAO.mediaEnter(l_each_num);
 	}
 
