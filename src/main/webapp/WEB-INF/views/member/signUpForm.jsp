@@ -70,13 +70,14 @@ span.error3{color: red}
   
 </style>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
@@ -104,18 +105,13 @@ span.error3{color: red}
 							$(".idc").hide();
 							$("#m_id").blur(function(){
 								var m_id = $(this).val();
+								var check =/^[a-zA-Z0-9]{5,19}$/g;
 								if(m_id.length == 0){
 									$(".text-muted").hide();
 									$(".idc").hide();
 									$(".idc.error3").show();
-								}
-							});
-						});
-						$(function(){
-							$("#m_id").on("keyup", function(){
-								var m_id = $(this).val();
-								var check =/^[a-zA-Z0-9]{4,19}$/g;
-								if(!check.test(m_id)){
+									return;
+								} if(!check.test(m_id)){
 									$(".idc").hide();
 									$(".idc.error1").show();
 									$(".text-muted").hide();
@@ -124,20 +120,23 @@ span.error3{color: red}
 								} else {
 									$(".idc").hide();
 									$("#idDuplicateCheck").val(0);
-									return;
 								}
-								/*$.ajax({
-									url: "dupid.do",
-									data: {id: userId},
+								$.ajax({
+									url: "checkId.do",
+									data: {id: m_id},
 									success: function(data){
 										if(data.isUsable == true){
-											$(".guide.error").hide();
-											$(".guide.ok").show();
+											$(".text-muted").hide();
+											$(".idc").hide();
+											$(".idc.ok").show();
 											$("#idDuplicateCheck").val(1);
+											console.log("df");
 										} else {
-											$(".guide.error").show();
-											$(".guide.ok").hide();
+											$(".idc.ok").hide();
+											$(".text-muted").hide();
+											$(".idc.error").show();											
 											$("#idDuplicateCheck").val(0);
+											console.log("df");
 										}
 									}, error: function(jqxhr, textStatus, errorThrown){
 										console.log("ajax 처리 실패");
@@ -145,7 +144,7 @@ span.error3{color: red}
 										console.log(textStatus);
 										console.log(errorThrown);
 									}
-								});*/
+								});
 							});
 						});
 						function validate(){

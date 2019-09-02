@@ -6,6 +6,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository("mDAO")
 public class MemberDAO {
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	public int checkId(String id) {
+
+		System.out.println(id);
+		return sqlSession.selectOne("memberMapper.checkId",id);
+	}
 }

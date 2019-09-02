@@ -18,9 +18,11 @@ public interface MemberService {
 	int insertMember(Member m); // 회원가입
 	int updateMember(Member m); // 개인정보수정
 	int deleteMember(Member m); // 회원탈퇴
+	int checkId(String id);// 아이디 중복확인
 	
 	int insertMember_Image(Member_Image mi);
 	int updateMember_Image(Member_Image mi);
 	int deleteMember_Image(Member_Image mi);
 	int Member_ImageInsert(Member_Image mi);
+	
 }

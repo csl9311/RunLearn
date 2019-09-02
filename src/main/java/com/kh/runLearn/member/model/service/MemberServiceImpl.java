@@ -98,6 +98,11 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
+	@Override
+	public int checkId(String id) {
+		return mDAO.checkId(id);
+	}
+
 	
 
 }
