@@ -77,7 +77,6 @@ span.error3{color: red}
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
 </head>
 <body>
 
@@ -217,12 +216,14 @@ span.error3{color: red}
 				</div>
 				<p class="title-f"><em class="color-red">* </em>전화번호</p>
 				<div class="input-group mb-2">
-					<input type="text" class="form-control" name="m_phone" placeholder="010-1234-5678" aria-describedby="button-addon2">
+					<input type="text" class="form-control" name="m_phone" id="phoneNum" placeholder="010-1234-5678" aria-describedby="button-addon2">
 						<div class="input-group-append">
-		   		 			<button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+		   		 			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="checkphone();">Button</button>
 		  				</div>
 					<span id="pp" class="fontA"></span>
 				</div>
+				
+				
 			<p class="title-f"><em class="color-red">* </em>프로필 사진</p>
 				
 			<p class="title-f"><em class="color-red">* </em>주소</p>
