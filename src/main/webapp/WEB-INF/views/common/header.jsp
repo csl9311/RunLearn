@@ -415,16 +415,16 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="cate">
 			<ul>
-				<li class="shop"><img src="${contextPath}/resources/images/common/arrow.png">
-					상품
+				<li class="shop">
+					<img src="${contextPath}/resources/images/common/arrow.png">
+					<a onclick="changeView();">상품</a>
 					<ul class="shopList">
-						<li><a href="#">전체목록</a></li>
-						<li><a href="#">가방</a></li>
-						<li><a href="#">시계</a></li>
-						<li><a href="#">지갑</a></li>
-						<li><a href="#">향수</a></li>
-						<li><a href="#">악세서리</a></li>
-						<li><a href="#">재료</a></li>
+						<li><a onclick="changeView('bag');">가방</a></li>
+						<li><a onclick="changeView('watch');">시계</a></li>
+						<li><a onclick="changeView('wallet');">지갑</a></li>
+						<li><a onclick="changeView('perfume');">향수</a></li>
+						<li><a onclick="changeView('accessory');">악세서리</a></li>
+						<li><a onclick="changeView('material');">재료</a></li>
 					</ul>
 				</li>
 				<li class="lecture">
@@ -584,13 +584,12 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="menu-sub shop">
 			<ul class="shop-detail">
-				<li><a href="#">전체목록</a></li>
-				<li><a href="#">가방</a></li>
-				<li><a href="#">시계</a></li>
-				<li><a href="#">지갑</a></li>
-				<li><a href="#">향수</a></li>
-				<li><a href="#">악세서리</a></li>
-				<li><a href="#">재료</a></li>
+				<li><a onclick="changeView('bag');">가방</a></li>
+				<li><a onclick="changeView('watch');">시계</a></li>
+				<li><a onclick="changeView('wallet');">지갑</a></li>
+				<li><a onclick="changeView('perfume');">향수</a></li>
+				<li><a onclick="changeView('accessory');">악세서리</a></li>
+				<li><a onclick="changeView('material');">재료</a></li>
 			</ul>
 		</div>
 		<div class="menu-sub lecture">
@@ -650,7 +649,6 @@ header .search .lcont input[type=text] {
 			</ul>
 		</div>
 	</div>
-
 	<div class="upBtn">UP</div>
 	<script>
 		var flag = false;
@@ -707,10 +705,21 @@ header .search .lcont input[type=text] {
 				$('.fixed-menu').css('display', 'none');
 			}
 		});
-		
-		$('.searchBtn').click(function() {
+    
+    $('.searchBtn').click(function() {
 	          $(this).parent().parent().submit();
-	      });
+	  });
+		
+		/* 페이지이동 */
+		var p_category;
+		function changeView(p_category){
+			if(p_category == null) {
+				location.href="getList.product";
+			} else {
+				location.href="getList.product?p_category=" + p_category;
+			}
+		}
+		
 	</script>
 </body>
 </html>
