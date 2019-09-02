@@ -256,7 +256,8 @@ ul li a:hover {
 				price = '전체';
 			}
 			
-			if('${subcate}' == null) {
+			var subcate = '${subcate}';
+			if(subcate == '') {
 				location.href='searchAll.do?&search=${search}&cate=${cate}&price=' + price;
 			} else {
 				location.href='searchCate.do?&search=${search}&cate=${cate}&subcate=${subcate}&price=' + price;

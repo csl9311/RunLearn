@@ -29,6 +29,36 @@
         		</when>
         	</choose>
         </if>
+    </select>
+    
+    <select id="search-getListCount" parameterType="map" resultType="_int">
+    	select count(*)
+    	from lsearch_view
+    	where l_status='Y'
+    	 <if test="subcate != null">
+        	and l_category = #{subcate}
+        </if>
+        <if test="price != null">
+        	<choose>
+        		<when test='price == "0"'>
+        			and l_price = 0
+        		</when>
+        		<when test='price == "1"'>
+        			and l_price between 1 and 9999
+        		</when>
+        		<when test='price == "2"'>
+        			and l_price between 10000 and 20000
+        		</when>
+        		<when test='price == "3"'>
+        			and l_price between 20000 and 30000
+        		</when>
+        		<when test='price == "4"'>
+        			and l_price > 30000
+        		</when>
+        	</choose>
+        </if>
+    </select>
+    
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from lecture

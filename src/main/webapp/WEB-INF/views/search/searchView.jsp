@@ -102,7 +102,7 @@ ul li a:hover {
                         <li><a class="selectedList list" href="search.do?search=${ search }&price=전체">전체</a></li>
                         <li>
                            <%-- <a class="list" href="lsearchAll.do?search=${ search }">강의</a> --%>
-                           <a class="list" href="searchAll.do?search=${ search }&cate=강의">강의</a>
+                           <a class="list" href="searchAll.do?search=${ search }&cate=강의&price=전체">강의</a>
                            <ul class="search-subList lList listCate">
                               <li><a class="list">- 디자인</a></li>
                               <li><a class="list">- 실무역량</a></li>
@@ -116,7 +116,7 @@ ul li a:hover {
                         </li>
                         <li>
                            <%-- <a class="list" href="psearchAll.do?search=${ search }">상품</a> --%>
-                           <a class="list" href="searchAll.do?search=${ search }&cate=상품">상품</a>
+                           <a class="list" href="searchAll.do?search=${ search }&cate=상품&price=전체">상품</a>
                            <ul class="search-subList pList listCate">
                               <li><a class="list">- 가방</a></li>
                               <li><a class="list">- 시계</a></li>
