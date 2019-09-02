@@ -95,15 +95,17 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public Lecture_Each classEnter(int l_each_num) {
-		// TODO Auto-generated method stub
-		return null;
+	public Lecture_Each classEnter(HashMap<String, Integer> map) {
+		return lDAO.classEnter(map);
+	}
+	@Override
+	public ArrayList classList(int l_num) {
+		return lDAO.classList(l_num);
 	}
 
 	@Override
-	public Lecture_Each mediaEnter(int l_each_num) {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap mediaEnter(int l_each_num) {
+		return lDAO.mediaEnter(l_each_num);
 	}
 
 	@Override
@@ -146,9 +148,4 @@ public class LectureServiceImpl implements LectureService {
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
 		return lDAO.selectLectureImage(map);
 	}
-
-
-	
-
-	
 }

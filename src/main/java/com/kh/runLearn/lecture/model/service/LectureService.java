@@ -21,15 +21,15 @@ public interface LectureService {
 	int permissionLecture(Lecture l); // 튜터가 강의 신청을 할때
 	int updatePermissionLecture(Lecture l); // 튜터가 신청한 강의를 수정할때
 	
-//	ArrayList selectLecture(int l_num); // 강의 정보 조회
 	HashMap<String, String> selectLecture(int l_num); // 강의 정보 조회
 	ArrayList selectLectureImage(HashMap<String, Integer> map);// 강의 정보의 이미지 조회
 	int insertLecture(Lecture l); // 강의 등록
 	int updateLecture(Lecture l); // 강의 수정
 	int deleteLecture(int l_num); // 강의 삭제 (이미지파일 삭제해줘야함)
 
-	Lecture_Each classEnter(int l_each_num); // 강의의 제 n화를 선택했을때
-	Lecture_Each mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때
+	Lecture_Each classEnter(HashMap<String, Integer> map); // 강의의 제 n화를 선택했을때
+	ArrayList classList(int l_num);//제 n화 강의에서 나올 나머지 강의 리스트 가져오기
+	HashMap mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때
 	
 	int insertLecture(Lecture_Each le); // 튜터가 강의를 1화 추가할때
 	int deleteLecture(Lecture_Each le); // 튜터가 강의를 1화 삭제할때
@@ -39,6 +39,7 @@ public interface LectureService {
 	
 	int insertWishlist(Lecture l, String m_id); // 강의찜목록 등록
 	int deleteWishlist(int l_num, String m_id); // 강의찜목록에서 삭제
+	
 	
 	
 	

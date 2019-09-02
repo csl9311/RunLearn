@@ -495,6 +495,7 @@ header .search .lcont input[type=text] {
 						<option value="">카테고리</option>
 					</select>
 					<input type="text" name="search" id="fixed-searchcss" placeholder="검색어를 입력해주세요" autocomplete="off" value="">
+					<input type="hidden" name="price" value="전체">
 					<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
 				</div>
 			</form>
@@ -569,6 +570,7 @@ header .search .lcont input[type=text] {
 							<option value="">카테고리</option>
 						</select>
 						<input type="text" name="search" id="searchcss" autocomplete="off" placeholder="배우고 싶은 튜터 또는 카테고리를 검색해보세요!" value="">
+						<input type="hidden" name="price" value="전체">
 						<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
 					</div>
 				</form>

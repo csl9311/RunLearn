@@ -18,12 +18,17 @@ public class SearchServiceImpl implements SearchService {
 	SearchDAO sDAO;
 	
 	@Override
-	public ArrayList<HashMap<String, String>> selectLecture(Map<String, String> map) {
+	public int getListCount(Map<String, Object> map) {
+		return sDAO.getListCount(map);
+	}
+	
+	@Override
+	public ArrayList<HashMap<String, String>> selectLecture(Map<String, Object> map) {
 		return sDAO.selectLecture(map);
 	}
 
 	@Override
-	public ArrayList<HashMap<String, String>> selectProduct(Map<String, String> map) {
+	public ArrayList<HashMap<String, String>> selectProduct(Map<String, Object> map) {
 		return sDAO.selectProduct(map);
 	}
 
