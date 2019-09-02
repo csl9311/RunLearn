@@ -195,27 +195,52 @@ ul li a:hover {
 			                  		</c:when>
 			                  	</c:choose>
 			                    <div class="x-100"></div>
+			                    <c:if test="${!empty list}">
 			                    <div class="col-md-12" style="text-align: center;">
 						         	<nav aria-label="Page navigation">
 									  <ul class="pagination justify-content-center">
+									    <c:if test="${ pi.currentPage <= 1 }">
 									    <li class="page-item disabled">
+									    	<span aria-hidden="true">&laquo;</span>
+									    </li>
+									    </c:if>
+									    <c:if test="${ pi.currentPage > 1 }">
+									    <li class="page-item">
 									      <a class="page-link" href="#" aria-label="Previous">
 									        <span aria-hidden="true">&laquo;</span>
 									      </a>
 									    </li>
-									    <li class="page-item active" aria-current="page">
-									      <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+									    </c:if>
+									    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+										    <c:if test="${ p eq currentPage }">
+												<li class="page-item active" aria-current="page">
+											      <a class="page-link" href="#">[${ p }]<span class="sr-only">(current)</span></a>
+											    </li>
+											</c:if>
+											
+											<c:if test="${ p ne currentPage }">
+												<c:url var="pagination" value="blist.do">
+													<c:param name="page" value="${ p }"/>
+												</c:url>
+												<li class="page-item"><a class="page-link" href="#">${ p }</a></li>
+											</c:if>
+									    </c:forEach>
+									    <c:if test="${ pi.currentPage >= pi.maxPage }">
+									    <li class="page-item disabled">
+									        <span aria-hidden="true">&raquo;</span>
 									    </li>
-									    <li class="page-item"><a class="page-link" href="#">2</a></li>
-									    <li class="page-item"><a class="page-link" href="#">3</a></li>
+									    </c:if>
+									    <c:if test="${ pi.currentPage < pi.maxPage }">
 									    <li class="page-item">
 									      <a class="page-link" href="#" aria-label="Next">
 									        <span aria-hidden="true">&raquo;</span>
 									      </a>
 									    </li>
+									    </c:if>
 									  </ul>
 									</nav>
 						         </div>
+						         </c:if>
 			                  </div>
 			                </div>
 		              	</div>

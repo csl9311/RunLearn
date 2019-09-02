@@ -70,7 +70,7 @@ public class SearchController {
 		
 		if (cate.equals("강의")) {
 			int llistCount = sService.getListCount(map);
-			System.out.println("all-llistCount : " + llistCount);
+			pi.setBoardLimit(9);
 			pi = Pagination.getPageInfo(currentPage, llistCount);
 			map.put("pi", pi);
 			list = sService.selectLecture(map);
@@ -78,8 +78,8 @@ public class SearchController {
 			mv.addObject("cate", "강의");
 		} else if (cate.equals("상품")) {
 			int plistCount = sService.getListCount(map);
-			System.out.println("all-plistCount : " + plistCount);
 			pi = Pagination.getPageInfo(currentPage, plistCount);
+			pi.setBoardLimit(9);
 			map.put("pi", pi);
 			list = sService.selectProduct(map);
 			
@@ -117,15 +117,17 @@ public class SearchController {
 		
 		if (cate.equals("강의")) {
 			int llistCount = sService.getListCount(map);
-			System.out.println("cate-llistCount : " + llistCount);
 			pi = Pagination.getPageInfo(currentPage, llistCount);
+			pi.setBoardLimit(9);
+			map.put("pi", pi);
 			list = sService.selectLecture(map);
 			
 			mv.addObject("cate", "강의");
 		} else if (cate.equals("상품")) {
 			int plistCount = sService.getListCount(map);
-			System.out.println("cate-plistCount : " + plistCount);
 			pi = Pagination.getPageInfo(currentPage, plistCount);
+			pi.setBoardLimit(9);
+			map.put("pi", pi);
 			list = sService.selectProduct(map);
 			
 			mv.addObject("cate", "상품");
