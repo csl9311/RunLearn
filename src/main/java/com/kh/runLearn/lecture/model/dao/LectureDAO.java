@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Lecture;
+import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 
 @Repository("lDAO")
 public class LectureDAO {
@@ -49,6 +50,18 @@ public class LectureDAO {
 
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
 		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureImage", map);
+	}
+
+	public Lecture_Each classEnter(HashMap<String, Integer> map) {
+		return sqlSession.selectOne("lectureMapper.classEnter", map);
+	}
+
+	public ArrayList classList(int l_num) {
+		return (ArrayList)sqlSession.selectList("lectureMapper.classList", l_num);
+	}
+
+	public HashMap mediaEnter(int l_each_num) {
+		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
 	}
 
 

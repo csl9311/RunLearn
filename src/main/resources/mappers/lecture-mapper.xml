@@ -96,7 +96,7 @@
 	</resultMap> -->
 	
 	<select id="selectLectureList" resultType="hashmap">
-		select l_num, l_content, l_title, l_category, l_price, l_address, l_confirm, l_image_num, l_origin_name, l_changed_name, l_file_path, m_name, m_nickname, m_origin_name
+		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, l_image_num, l_origin_name, l_changed_name, l_file_path, m_name, m_nickname, m_changed_name
 		from lecture l
 			join lecture_image li using(l_num)
 			join member m using(m_id)
@@ -110,7 +110,7 @@
 		order by l_num desc
 	</select>
 	<select id="selectLectureCategoryList" parameterType="string" resultType="hashmap">
-		select l_num, l_content, l_title, l_category, l_price, l_address, l_confirm, l_image_num, l_origin_name, l_changed_name, l_file_path, m_name, m_nickname, m_origin_name
+		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, l_image_num, l_origin_name, l_changed_name, l_file_path, m_name, m_nickname, m_changed_name
 		from lecture l
 			join lecture_image li using(l_num)
 			join member m using(m_id)
@@ -118,7 +118,7 @@
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0 and l_category=#{l_category}
 	</select>
 	<select id="selectLecture" parameterType="_int" resultType="map">
-		select l_num, l_content, l_title, l_category, l_price, l_address, l_confirm, m_name, m_nickname, m_origin_name
+		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name
 		from lecture l
 			join member m using(m_id)
 			join member_image mi using(m_id)
@@ -128,5 +128,20 @@
 		select l_image_num, l_origin_name, l_changed_name, l_file_level, l_file_path, l_num
 		from lecture_image
 		where l_num=#{l_num} and l_file_level = #{MCR}
+	</select>
+	<select id="classEnter" parameterType="hashmap" resultType="Lecture_Each">
+		select *
+		from lecture_each
+		where l_num = #{l_num} and l_each_num=#{l_each_num}
+	</select>
+	<select id="classList" parameterType="_int" resultType="map">
+		select *
+		from lecture_each
+		where l_num = #{l_num}
+	</select>
+	<select id="mediaEnter" parameterType="_int" resultType="map">
+		select *
+		from lectureFileView
+		where l_each_num = #{l_each_num}
 	</select>
 </mapper>

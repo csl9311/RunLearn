@@ -4,14 +4,14 @@ public class Lecture_Each {
 	private int l_each_num;
 	private String l_each_name;
 	private String l_each_content;
-	private int l_code;
+	private int l_num;
 	public Lecture_Each() {}
-	public Lecture_Each(int l_each_num, String l_each_name, String l_each_content, int l_code) {
+	public Lecture_Each(int l_each_num, String l_each_name, String l_each_content, int l_num) {
 		super();
 		this.l_each_num = l_each_num;
 		this.l_each_name = l_each_name;
 		this.l_each_content = l_each_content;
-		this.l_code = l_code;
+		this.l_num = l_num;
 	}
 	public int getL_each_num() {
 		return l_each_num;
@@ -31,16 +31,17 @@ public class Lecture_Each {
 	public void setL_each_content(String l_each_content) {
 		this.l_each_content = l_each_content;
 	}
-	public int getL_code() {
-		return l_code;
+	public int getL_num() {
+		return l_num;
 	}
-	public void setL_code(int l_code) {
-		this.l_code = l_code;
+	public void setL_num(int l_num) {
+		this.l_num = l_num;
 	}
 	@Override
 	public String toString() {
-		return "LectureEach [l_each_num=" + l_each_num + ", l_each_name=" + l_each_name + ", l_each_content="
-				+ l_each_content + ", l_code=" + l_code + "]";
+		return "Lecture_Each [l_each_num=" + l_each_num + ", l_each_name=" + l_each_name + ", l_each_content="
+				+ l_each_content + ", l_num=" + l_num + "]";
 	}
+	
 	
 }

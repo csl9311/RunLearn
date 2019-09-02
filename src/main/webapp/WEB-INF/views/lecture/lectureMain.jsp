@@ -63,7 +63,7 @@
 		<h6></h6>
 		<div class="row">
 			<c:forEach var="list" items="${ list }">
-				<c:url var="detailView" value="detailView.le">
+				<c:url var="detailView" value="lectureDetailView.le">
 					<c:param name="l_num" value="${ list.L_NUM }"/>
 				</c:url>
 				
@@ -81,7 +81,7 @@
 							<div class="col-md-4">
 								<div class="peopleAttach">
 									<div class="peopleImage">
-										<img src="${contextPath}/resources/images/lecture/${ list.M_ORIGIN_NAME }" style="width:100%; height:100%;">
+										<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="width:100%; height:100%;">
 									</div>
 									<div class="peopleContext" style="text-align: center;">
 									<p>${ list.M_NAME }</p>
