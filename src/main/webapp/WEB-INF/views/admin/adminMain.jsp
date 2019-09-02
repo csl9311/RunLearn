@@ -1,6 +1,8 @@
-﻿
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,7 @@
 	src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
+table{margin-bottom:10px;}
 .fontthick{font-weight: 500;}
 .fonthotpink{color:#ff005a;}
 .hotpink{background-color:#ff005a; !important}
@@ -18,12 +21,20 @@
 .fontwhite{color:white;font:bold;}
 .ligt-pink{background-color:#F8E0EC; !important}
 .hoverpink:hover{background-color:#F5A9BC; color:white;!important}
-.tablink{margin:2px; border:0.1px solid #ff005a; }
+.tablink{margin:2px; border:0.1px solid #ff005a;}
 .marginbtn{margin:2px; border:0.1px solid #ff005a; }
 .animate-fading{animation:opac 0.8s }
 .minh{min-height:900px;}
-.sidebar{height:100%;width:200px;background-color:#fff;position:absolute!important;z-index:1;overflow:auto;display:block!important}
-.button
+.sidebar{height:95%;width:200px;background-color:#fff;position:absolute!important;z-index:1;overflow:auto;display:block!important}
+.mainMoreBtn{font-size:17px;float:right; margin:3px;margin-right:10px; height:25px;width:60px;vertical-align:center; font-weight:bold; !impotant}
+.mainBorderRa{border-radius:10px;}
+.hoverTablePink tr:hover{background-color:#ff005a; color:white; opacity:0.7; !important}
+.hoverTablePink tr>button:{background-color:black; color:white;}
+.listbtn{border-radius:4px;background-color:gray;font-color:white;font-weight:bold;border:0px; width:80px; height:25px;}
+.listbtn:hover{background-color:#3B0B17;}
+.mainlistfont{font-size:10px;}
+.mainlistfont>th>tr{font-size:5px;}
+/* 버튼 글씨체 알 맞게 적용할것  */
 
 /* 스크롤바 */
 .scroll::-webkit-scrollbar-track
@@ -55,8 +66,9 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
  -->
 </head>
 <body class="scroll">
+   <jsp:include page="../common/header.jsp"/>
 
-<div class="sidebar w3-bar-block  w3-card" style="width:150px;">
+<div class="sidebar w3-bar-block  w3-card" style="width:150px; margin-top:3px;">
   <h5 class="w3-bar-item fonthotpink" style="font-size:25px;">관리자페이지</h5>
   <hr>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs1')" style="width:147px">관리자 메인</button>
@@ -64,8 +76,9 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs3')" style="width:147px">결제관리</button>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs4')" style="width:147px">게시글관리</button>
   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs5')" style="width:147px">질문/건의사항</button>
-  <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs6')" style="width:147px">(작업용)게시판</button>
-   <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs7')" style="width:147px">(작업용)목록리스트</button>
+  <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs6')" style="width:147px">(작업용)게시판뷰</button>
+  <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs7')" style="width:147px">(작업용)목록리스트</button>
+  <button class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs8')" style="width:147px">(작업용)게시판작성</button>
 </div>
 
 <div class="minh"style="margin-left:160px">
@@ -74,19 +87,59 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
   <div id="sideTabs1" class="w3-container sideTabs animate-fading">
     <h2 class="w3-padding fontthick fonthotpink">관리자 메인</h2><hr class="borderhotpink">
     
-    <div id="adminmain1" class="borderhotpinkthick" style="width:650px;height:650px;margin: 30px;float:left; text-align: center;">
-    <h3>임시1</h3>
-    </div>
-  	<div id="adminmain2" class="borderhotpinkthick" style="width:650px;height:650px;margin: 30px;float:left; text-align: center;">
-  	 <h3>임시2</h3>	
-  	</div>	
-  	<div id="adminmain3" class="borderhotpinkthick" style="width:650px;height:650px;margin: 30px;float:left; text-align: center;">
-  	 <h3>임시3</h3>
-  	</div>
-  	<div id="adminmain4" class="borderhotpinkthick" style="width:650px;height:650px;margin: 30px;float:left; text-align: center;">
-  	 <h3>임시4</h3>
-  	</div>
+    <!-- 관리자 메인 임시  -->
+    <div style="width:1100px;height:1100px;border-right:2px solid #ff005a;float:left;">
+    <div id="adminmain1" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+    <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">회원 관리</span>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn" onclick="moreBtn(event, 'sideTabs2','mainMoreBtn2')">more</button>
+    <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
+    	내	용
     
+    </div>
+  	<div id="adminmain2" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+    <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">결제 관리</span>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="moreBtn(event, 'sideTabs3','mainMoreBtn3')">more</button>
+ 	<hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
+ 		내	용
+ 	
+  	</div>	
+  	
+  	<div id="adminmain3" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+    <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">게시글 관리</span>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="moreBtn(event, 'sideTabs4','mainMoreBtn4')">more</button>
+   <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
+   	<table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite mainlistfont" style="background-color:#ff005a;">
+  		<th style="width:15%;">글번호</th>
+  		<th style="width:45%;text-align:center;">글제목</th>
+
+  		<th style="width:15%;">카테고리</th>
+  		<th style="width:15%;">작성자</th>
+  		<th style="width:15%;">시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th>실험용</th>
+  		<th>실험용</th>
+  		<th>실험용</th>
+
+  		<th>실험용</th>
+  		<th>실험용</th>
+  	</tr>
+  	</table>
+   
+  	</div>
+  	<div id="adminmain4" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+   	<span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">질문/건의사항</span>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="moreBtn(event, 'sideTabs5','mainMoreBtn5')">more</button>
+    <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
+    	내	용
+    
+  	</div>
+    </div>
+    
+    <div class="borderhotpinkthick mainBorderRa" style="width:500px;min-height: 1000px;margin-left: 1150px;"> 여유 있으면 통계 같은거 넣자!</div>
   </div>
 <!--/관리자 메인 ----------------------------------------------------------------------------------------------------->
 <!-- /회원관리 -------------------------------------------------------------------------------------------------------->
@@ -95,26 +148,122 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
     <div class="w3-container">
 
   <div class="w3-bar w3-white w3-card">
-    <button class="w3-bar-item  sidetab2menu w3-round hoverpink hotpink fontwhite" onclick="st2menu(event,'st2menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">튜티회원</button>
-    <button class="w3-bar-item  sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원조회</button>
-    <button class="w3-bar-item  sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu3')" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터신청</button>
-    <button class="w3-bar-item  sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu4')" style="min-width:150px; margin-left:5px;margin-right:5px;">블랙회원관리</button>
+    <button class="w3-bar-item sidetab2menu w3-round hoverpink hotpink fontwhite" onclick="st2menu(event,'st2menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">튜티회원</button>
+    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원조회</button>
+    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu3')" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터신청</button>
+    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu4')" style="min-width:150px; margin-left:5px;margin-right:5px;">블랙회원관리</button>
   </div>
   
-  <div id="st2menu1" class="w3-container borderhotpink sidetab2menus" style="border-top:white">
-    <h2>튜티회원조회</h2>
+  <div id="st2menu1" class="w3-container borderhotpink sidetab2menus animate-fading" style="border-top:white">
+    <h3 class="fonthotpink" style="font-weight:bold">튜티회원조회</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
+    
   </div>
 
-  <div id="st2menu2" class="w3-container borderhotpink sidetab2menus" style="display:none;border-top:white">
-    <h2>튜터회원조회</h2>
+  <div id="st2menu2" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
+
+    <h3 class="fonthotpink" style="font-weight:bold">튜터회원조회</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
 
-  <div id="st2menu3" class="w3-container borderhotpink sidetab2menus" style="display:none;border-top:white">
-    <h2>튜터신청 목록</h2>
+  <div id="st2menu3" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
+ 
+    <h3 class="fonthotpink" style="font-weight:bold">튜터신청 목록</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
   
-  <div id="st2menu4" class="w3-container borderhotpink sidetab2menus" style="display:none;border-top:white">
-    <h2>블랙회원관리</h2>
+  <div id="st2menu4" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
+
+    <h3 class="fonthotpink" style="font-weight:bold">블랙회원관리 목록</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
 </div>
 
@@ -144,22 +293,68 @@ function st2menu(evt, sidetab2menu) {
  <div class="w3-container">
 
   <div class="w3-bar w3-white w3-card">
-    <button class="w3-bar-item  sidetab3menu w3-round hoverpink hotpink fontwhite" onclick="st3menu(event,'st3menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">메뉴1</button>
-    <button class="w3-bar-item  sidetab3menu w3-round hoverpink" onclick="st3menu(event,'st3menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">메뉴2</button>
-    <button class="w3-bar-item  sidetab3menu w3-round hoverpink" onclick="st3menu(event,'st3menu3')" style="min-width:150px; margin-left:5px;margin-right:5px;">메뉴3</button>
+    <button class="w3-bar-item  sidetab3menu w3-round hoverpink hotpink fontwhite" onclick="st3menu(event,'st3menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">상품</button>
+    <button class="w3-bar-item  sidetab3menu w3-round hoverpink" onclick="st3menu(event,'st3menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">강의</button>
+   
   </div>
   
-  <div id="st3menu1" class="w3-container borderhotpink sidetab3menus">
-    <h2>상품</h2>
+  <div id="st3menu1" class="w3-container borderhotpink sidetab3menus animate-fading">
+
+     <h3 class="fonthotpink" style="font-weight:bold">상품</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
 
-  <div id="st3menu2" class="w3-container borderhotpink sidetab3menus" style="display:none">
-    <h2>강의</h2>
+  <div id="st3menu2" class="w3-container borderhotpink sidetab3menus animate-fading" style="display:none">
+   <h3 class="fonthotpink" style="font-weight:bold">강의</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
+    
   </div>
 
-  <div id="st3menu3" class="w3-container borderhotpink sidetab3menus" style="display:none">
-    <h2>3번째 탭은 없엘것</h2>
-  </div>
+  
 </div>
 
 <script>
@@ -189,21 +384,90 @@ function st3menu(evt, sidetab3menu) {
     <div class="w3-container">
 
   <div class="w3-bar w3-white w3-card">
-    <button class="w3-bar-item  sidetab4menu w3-round hoverpink hotpink fontwhite" onclick="st4menu(event,'st4menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">메뉴1</button>
+    <button class="w3-bar-item  sidetab4menu w3-round hoverpink hotpink fontwhite" onclick="st4menu(event,'st4menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">공지사항</button>
     <button class="w3-bar-item  sidetab4menu w3-round hoverpink" onclick="st4menu(event,'st4menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">메뉴2</button>
     <button class="w3-bar-item  sidetab4menu w3-round hoverpink" onclick="st4menu(event,'st4menu3')" style="min-width:150px; margin-left:5px;margin-right:5px;">신고글 관리</button>
   </div>
   
-  <div id="st4menu1" class="w3-container borderhotpink sidetab4menus" style="border-top:white">
-    <h2>게시가로텝1</h2>
+  <div id="st4menu1" class="w3-container borderhotpink sidetab4menus animate-fading" style="border-top:white">
+    <h3 class="fonthotpink" style="font-weight:bold">공지사항</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
 
-  <div id="st4menu2" class="w3-container borderhotpink sidetab4menus" style="display:none;border-top:white">
-    <h2>게시가로텝2</h2>
+  <div id="st4menu2" class="w3-container borderhotpink sidetab4menus animate-fading" style="display:none;border-top:white">
+   <h3 class="fonthotpink" style="font-weight:bold">아직 못정함</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
 
-  <div id="st4menu3" class="w3-container borderhotpink sidetab4menus" style="display:none;border-top:white">
-    <h2>게시가로텝3</h2>
+  <div id="st4menu3" class="w3-container borderhotpink sidetab4menus animate-fading" style="display:none;border-top:white">
+    <h3 class="fonthotpink" style="font-weight:bold">신고글 관리</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
   </div>
 </div>
 
@@ -238,21 +502,87 @@ function st4menu(evt, sidetab4menu) {
     <button class="w3-bar-item  sidetab6menu w3-round hoverpink" onclick="st6menu(event,'st6menu3')" style="min-width:150px; margin-left:5px;margin-right:5px;">fna</button>
   </div>
   
-  <div id="st6menu1" class="w3-container borderhotpink sidetab6menus" style="border-top:white">
-    <h2>질문게시판은 튜티사용자 튜터사용자둘로 나눌것?</h2>
-    
+  <div id="st6menu1" class="w3-container borderhotpink sidetab6menus animate-fading" style="border-top:white">
+      <h3 class="fonthotpink" style="font-weight:bold">작성자의 종류를 통해 닉네임 색상을 정하자</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
     
   </div>
 
-  <div id="st6menu2" class="w3-container borderhotpink sidetab6menus" style="display:none;border-top:white">
-    <h2>건의도 튜티사용자 튜터사용자 나눌것</h2>
-    
+  <div id="st6menu2" class="w3-container borderhotpink sidetab6menus animate-fading" style="display:none;border-top:white">
+      <h3 class="fonthotpink" style="font-weight:bold">건의도 튜티 튜터 닉네임 색상을 정해서 하자</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
     
   </div>
 
-  <div id="st6menu3" class="w3-container borderhotpink sidetab6menus" style="display:none;border-top:white">
-    <h2>자주묻는질문등 넣어도되고 빼도되고</h2>
-    
+  <div id="st6menu3" class="w3-container borderhotpink sidetab6menus animate-fading" style="display:none;border-top:white">
+      <h3 class="fonthotpink" style="font-weight:bold">자주묻는질문등 넣어도되고 빼도되고</h3>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+    <table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;text-align:center;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;text-align:center;">작성자</th>
+  		<th style="width:5%;text-align:center;">조회수</th>
+  		<th style="width:5%;text-align:center;">댓글수</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:10%;text-align:center;">작성시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th style="text-align:center;">실험용</th>
+  		<th>실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;">실험용</th>
+  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
+  	</tr>
+  	</table>
     
   </div>
 </div>
@@ -260,9 +590,23 @@ function st4menu(evt, sidetab4menu) {
 <!-- (작업용)게시판------------------------------------------------------------------------------------------- -->
 <div id="sideTabs6" class="w3-container sideTabs animate-fading"style="display:none">
  <h2 class="w3-padding fontthick fonthotpink">마더뷰</h2><hr class="borderhotpink">
-    <div class="w3-container minh"><!-- 틀 -->
-    <div  class="borderhotpink"style="float:left;width:1200px;min height:900px;border-radius:15px;" ><!-- 게시글 내용 -->
-    	<div style="margin:10px;font-size:30px;">
+    <div class="w3-container minh" style="margin-left:160px;" ><!-- 틀 -->
+    
+    <div class="borderhotpinkthick" style="width:1300px;min-height:200px;border-radius:10px;opacity:0.8; margin-bottom:10px;"><!--게시글 작성자 날짜 등등  -->
+     	<h3 class="fonthotpink" style="opacity:0.4; margin-left:30px; margin-top:10px;">카테고리 부분입니다</h3>
+     	<div style="float:left;width:70%;"><!-- 제목부분 -->
+     	<h2 class="fonthotpink" style="font-weight:bold;margin-left:30px;margin-right:7px;">제목 작성하는 부분입니다 폰트도 적용할예정</h2><hr class="borderhotpink" style="margin-top:-10px;width:70%;margin-left:5%;margin-right:5%;">
+     	</div>
+     	<div style="width:29%;float:left;"><!-- 조회수 부분 -->
+     	<h3 style="text-align:right;color:#FA5882;margin-right:30px;">조회수 부분입니다</h3>
+     	</div>
+     	<br>
+     	<h4 style="opacity:2.0;padding-top:40px;">작성자 부분입니다</h4>
+     	<h6 style="color:#FA5882;margin-left:30px;font-size:40px;">날짜 부분입니다</h6>
+   	</div>
+    
+    <div  class="borderhotpink"style=";width:1300px;min-height:900px;border-radius:15px;" ><!-- 게시글 내용 -->
+    	<div style="margin:10px;font-size:20px;">
     	(임시글)
 타공 제품을 새로운 타공 제품으로 바꾸는 경우에도 구멍이 안생긴다고 장담할 수 없어요. 사이즈는 규격화 되어 일치하는 제품들이 많지만, 고정을 위한 나사 구멍은 각기 다를 수 있거든요. 
 
@@ -302,18 +646,12 @@ None
     	</div>
     	
     </div>
-     	<div class="borderhotpinkthick" style="float:left;width:400px;min-height:300px;position:fixed;margin-left:1220px;border-radius:10px;opacity:0.8;"><!--게시글 작성자 날짜 등등  -->
-     	<button class="hoverpink">뒤로로가기</button>
-     	<h3 class="fonthotpink" style="opacity:0.4;">카테고리 부분입니다</h3>
-     	<h2 class="fonthotpink" style="font-weight:bold;margin-left:7px;margin-right:7px;">제목 작성하는 부분입니다 폰트도 적용할예정</h2><hr class="borderhotpink" style="margin-top:-10px;width:360px;margin-left:20px;">
-     	<h3 style="text-align:right;color:#FA5882;">조회수 부분입니다</h3>
-     	<h4 style="opacity:2.0;">작성자 부분입니다</h4>
-     	<h6 style="color:#FA5882;">날짜 부분입니다</h6>
-     	더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다더늘어날수잇습니다
-     	<br>
-     	<button class="hoverpink" style="width:100px;margin:10px;height:30px; border-radius:4px; margin-left:70px;">수정</button>
-     	<button class="hoverpink" style="width:100px;margin:10px;height:30px; border-radius:4px; margin-left:20px;">삭제</button>
-   		</div>
+      <button class=" ligt-pink  borderhotpink w3-round-large hoverpink fonthotpink" style="float:right;margin-right:250px;margin-top:20px;border:white;width:200px;height:50px;font-size:30px;">삭제</button>
+        <button class=" ligt-pink  borderhotpink w3-round-large hoverpink fonthotpink" style="float:right;margin-right:50px;margin-top:20px;border:white;width:200px;height:50px;font-size:30px;">수정</button>
+    <div><!-- 댓글 -->
+    
+    </div>
+     	
     
     </div>
 </div>
@@ -322,13 +660,152 @@ None
 <div id="sideTabs7" class="w3-container sideTabs animate-fading"style="display:none">
  <h2 class="w3-padding fontthick fonthotpink">마더리스트</h2><hr class="borderhotpink">
     <div class="w3-container borderhotpink">
+    <h4>글관련</h4>
+    <!-- 마더리스트  -->
+  	<table class="w3-table-all hoverTablePink">
+  	<thead>
+  	<tr class="fontwhite" style="background-color:#ff005a;">
+  		<th style="width:5%;">글번호</th>
+  		<th style="width:60%;text-align:center;">글제목</th>
+  		<th style="width:5%;">작성자</th>
+  		<th style="width:5%;">조회수</th>
+  		<th style="width:5%;">댓글수</th>
+  		<th style="width:20%;">시간</th>
+  	</tr>
+  	</thead>
+  	<tr>
+  		<th>실험용</th>
+  		<th>실험용</th>
+  		<th>실험용</th>
+  		<th>실험용</th>
+  		<th>실험용</th>
+  		<th>실험용</th>
+  	</tr>
+  	</table>
+  	<!-- /마더 리스트 -->
+  	<hr>
+  	<h6></h6>
+ 
+  	<table>
+  	<thead>
+  	<tr>
+  		<th>글번호</th>
+  		<th>글제목</th>
+  		<th>작성자</th>
+  		<th>조회수</th>
+  		<th></th>
+  		<th>시간</th>
+  	</tr>
+ 	</thead>
+  	</table>
+  	
+  	 <hr>
+  	<table>
+  	<thead>
+  	<tr>
+  		<th>글번호</th>
+  		<th>글제목</th>
+  		<th>작성자</th>
+  		<th>조회수</th>
+  		<th></th>
+  		<th>시간</th>
+  	</tr>
+  	</thead>
+  	</table>
+  	
+  	
+  	<h6>회원 관련</h6>
+  	 <hr>
+  	 <h6>튜티</h6>
+  	<table>
+  	<thead>
+  	<tr>
+  		<th>회원프로필이미지</th>
+  		<th>아이디</th>
+  		<th>이름</th>
+  		<th>이메일</th>
+  		<th>전화번호</th>
+  		<th>가입일</th>
+  		<th>정보수정일</th>
+  		<th>등급</th>
+  		<th></th>
+  		<th>우편주소</th>
+  		<th>우편주소</th>
+  		<th>도로명주소</th>
+  		<th>탈퇴여부</th>
+  		<th>수정</th>
+  		
+  	</tr>
+  	</thead>
+  	</table>
+  	
+  	<h6>튜터</h6>
+  	 <hr>
+  	<table>
+  	<thead>
+  	<tr>
+  		<th>회원프로필이미지</th>
+  		<th>아이디</th>
+  		<th>이름</th>
+  		<th>카테고리</th>
+  		<th>이메일</th>
+  		<th>전화번호</th>
+  		<th>가입일</th>
+  		<th>정보수정일</th>
+  		<th>등급</th>
+  		<th>우편주소</th>
+  		<th>우편주소</th>
+  		<th>도로명주소</th>
+  		<th>탈퇴여부</th>
+  		<th>수정</th>
+  	</tr>
+  	</thead>
+  	</table>
   
-    
-    
-    
     </div>
 </div>
 <!-- /(작업용)리스트--------------------------------------------------------------------------------------------- -->
+<!-- (작업용)게시판 작성 ------------------------------------------------------------------------------------------->
+<div id="sideTabs8" class="w3-container sideTabs animate-fading"style="display:none">
+ <h2 class="w3-padding fontthick fonthotpink">마더뷰</h2><hr class="borderhotpink">
+    <div class="w3-container minh" style="margin-left:160px;" ><!-- 틀 -->
+    
+    <div class="borderhotpinkthick" style="width:1300px;min-height:200px;border-radius:10px;opacity:0.8; margin-bottom:10px;"><!--게시글 날짜 표시할것  -->
+     	<h3 class="fonthotpink" style="opacity:0.4; margin-left:30px; margin-top:10px;">
+			해당 카테고리에서 작성할때 카테고리가 표시됩니다 예) 질문 > 건의 사항
+     	</h3>
+     	
+     	
+     	<div style="float:left;width:100%;"><!-- 제목부분 -->
+     	<label class="fonthotpink" style=";margin-left:50px;font-size:20px;">제목 : </label><input type="text" class="fonthotpink" style="width:500px;height:35px;font-weight:bold;margin-right:15px;border:white;padding-bottom:-50px;z-index:4;font-size:20px;border-bottom:3px solid #ff005a; "/>
+     <!-- 	<hr class="borderhotpink" style="width:70%;margin-left:5%;margin-right:5%;z-index:3;"> -->
+     	</div>
+
+     	<br>
+     	<h4 style="opacity:2.0;padding-top:40px;float:right;margin-right:30px;">작성자 부분입니다</h4>
+     	<h6 style="color:#FA5882;margin-left:30px;"><input type="date" id="currentDate" style="border:white;font-size:40px;margin-top:60px" readonly/></h6><!-- 날짜 -->
+   	</div>
+    	
+    <div  class="borderhotpink"style=";width:1300px;min-height:900px;border-radius:15px;" ><!-- 게시글 내용 -->
+    	<div style="margin:10px;font-size:20px;">
+
+    	<textArea style="margin-left:15px;width:1250px;min-height:900px;border:0.3px solid gray;" placeholder="내용을 입력해주세요">
+    		
+    	</textArea>
+    	
+    	</div>
+    	
+    </div>
+    <button class=" ligt-pink  borderhotpink w3-round-large hoverpink fonthotpink" style="float:right;margin-right:250px;margin-top:20px;border:white;width:200px;height:50px;font-size:30px;">작성하기</button>
+
+     	
+    
+    </div>
+</div>
+<script>
+document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
+</script>
+<!--  /(작업용)게시판 작성---------------------------------------------------------------------------------------------->
 <script>
 function st6menu(evt, sidetab6menu) {
   var i, x, tablinks;
@@ -360,10 +837,27 @@ function sideTab(evt, sideTab) {
   tablinks = document.getElementsByClassName("tablink");
   for (i = 0; i < x.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" hotpink fontwhite", ""); 
+    
   }
   document.getElementById(sideTab).style.display = "block";
   evt.currentTarget.className += " hotpink fontwhite";
+
 }
+function moreBtn(evt, sideTab, mainMoreBtn) {
+	  var i, x, tablinks;
+	  x = document.getElementsByClassName("sideTabs");
+	  for (i = 0; i < x.length; i++) {
+	    x[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablink");
+	  for (i = 0; i < x.length; i++) {
+	    tablinks[i].className = tablinks[i].className.replace(" hotpink fontwhite", ""); 
+
+	  }
+	  document.getElementById(sideTab).style.display = "block";
+	  sideTab.className += " hotpink fontwhite";
+
+	}
 </script>
 
 
@@ -377,6 +871,6 @@ function sideTab(evt, sideTab) {
 
 
 
-
+   <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
