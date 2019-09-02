@@ -75,19 +75,25 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertMemberImage(Member_Image mi) {
+	public int insertMember_Image(Member_Image mi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateMemberImage(Member_Image mi) {
+	public int updateMember_Image(Member_Image mi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteMemberImage(Member_Image mi) {
+	public int deleteMember_Image(Member_Image mi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int Member_ImageInsert(Member_Image mi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
