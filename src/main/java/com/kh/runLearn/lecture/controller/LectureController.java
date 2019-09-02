@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.lecture.model.service.LectureService;
+import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 
 @Controller
 public class LectureController {
@@ -73,7 +74,7 @@ public class LectureController {
 		return mv;
 	}
 	
-	@RequestMapping("detailView.le")
+	@RequestMapping("lectureDetailView.le")
 	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv) {
 		
 //		ArrayList list = lService.selectLecture(l_num);
@@ -95,6 +96,39 @@ public class LectureController {
 		mv.addObject("ic_list", ic_list);
 		mv.addObject("ir_list", ir_list);
 		mv.setViewName("lecture/lectureDetailView");
+		return mv;
+	}
+	
+	@RequestMapping("lectureEachMainView.le")
+	public ModelAndView lectureEachMainView(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num", required=false) int l_each_num, ModelAndView mv) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("l_each_num", l_each_num);
+		HashMap<String, String> etc = lService.selectLecture(l_num);
+		Lecture_Each l_each = lService.classEnter(map);
+		ArrayList list = lService.classList(l_num);
+		System.out.println(l_each);
+		if(l_each==null) {
+			l_each = new Lecture_Each();
+			l_each.setL_num(l_num);
+			l_each.setL_each_name("강의가 없습니다!");
+			l_each.setL_each_content("강의가 준비중입니다.");
+			l_each.setL_each_num(0);
+		}
+		System.out.println(etc);
+		mv.addObject("etc", etc);
+		mv.addObject("list", list);
+		mv.addObject("l_each", l_each);
+		mv.setViewName("lecture/lectureEachView");
+		return mv;
+	}
+	
+	@RequestMapping("lectureMediaView.le")
+	public ModelAndView lectureMediaView(@RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
+		HashMap map = lService.mediaEnter(l_each_num);
+		System.out.println(map);
+		mv.addObject("media", map);
+		mv.setViewName("lecture/lectureVideoView");
 		return mv;
 	}
 }
