@@ -37,14 +37,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ArrayList<Product_Image> selectProductImg(Product p) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public Product selectProduct(int p_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return pDAO.selectProduct(p_num);
 	}
 
 	@Override

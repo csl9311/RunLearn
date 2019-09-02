@@ -35,6 +35,8 @@ public class ProductDAO {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductListCate", p_category, rowBounds);
 	}
 
-	
+	public Product selectProduct(int p_num) {
+		return (Product) sqlSession.selectOne("productMapper.selectProduct", p_num);
+	}
 
 }

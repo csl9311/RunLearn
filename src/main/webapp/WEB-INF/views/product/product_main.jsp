@@ -6,57 +6,36 @@
 <head>
 <meta charset="UTF-8">
 <style>
-#Ctable td:hover {
+img:hover {
 	cursor: pointer;
-}
-
-.peopleAttach {
-	width: 100%;
-	height:100%;
-	top: 45%;
-	right: 3%;
-}
-
-.peopleImage {
-	width: 100%;
-	height: 60%;
-}
-
-.peopleContext {
-	top: 10px;
-	width: 100%;
-	height: 40%;
 }
 </style>
 </head>
 <body>
 	<c:import url="../common/header.jsp"/>
-	<div class="container">
-		<div class="row">
-			<c:forEach items="${ list }" var="p">
-				<form action="" method="post">
-					<div class="col-md-4">
-						<div class="row" id="mainImage">
-							<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/test1.png">
+		<div class="container">
+			<div class="row">
+				<c:forEach items="${ list }" var="p">
+					<form action="get.product" method="post">
+						<input type="hidden" value="${ p.P_NUM }" name="p_num">
+						<div class="col-md-4">
+							<div class="row" style="margin: 30px;" id="mainImage">
+								<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/test1.png" onclick="submit();">
+							</div>
+							<div class="col-md-6" id="productInfo">
+								<p>${ p.P_NAME }</p>
+								<p>${ p.P_PRICE }</p>
+							</div>
+							<div class="col-md-6" id="sellerInfo">
+								<img class="img-responsive" alt="판매자이미지" src="">
+								<p>${ p.M_NAME } </p>
+								<p>${ p.M_NICKNAME }</p>
+							</div>
 						</div>
-						<div class="col-md-6" id="productInfo">
-							<p>${ p.P_NAME }</p>
-							<p>${ p.P_PRICE }</p>
-						</div>
-						<div class="col-md-6" id="sellerInfo">
-							<img class="img-responsive" alt="판매자이미지" src="">
-							<p>${ p.M_NAME } </p>
-							<p>${ p.M_NICKNAME }</p>
-						</div>
-					</div>
-				</form>
-			</c:forEach>
+					</form>
+				</c:forEach>
+			</div>
 		</div>
-		<c:if test="list == null"></c:if>
-		
-		
-		
-	</div>
 	<c:import url="../common/footer.jsp"/>
 </body>
 </html>
