@@ -550,7 +550,7 @@ header .search .lcont input[type=text] {
 									<li><a href="#">내 강의/거래</a></li>
 								</ul></li>
 						</c:if>
-						<li><a href="#">고객센터</a></li>
+						<li><a href="cCenterView.do">고객센터</a></li>
 						<c:if test="${ !empty sessionScope.loginUser }">
 							<li><a href="#">ID/PWD찾기</a></li>
 						</c:if>
