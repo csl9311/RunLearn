@@ -64,12 +64,38 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member m) {
+		
+		return mDAO.updateMember(m);
+	}
+
+	@Override
+	public int deleteMember(Member m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public int insertMember_Image(Member_Image mi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteMember(Member m) {
+	public int updateMember_Image(Member_Image mi) {
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteMember_Image(Member_Image mi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int Member_ImageInsert(Member_Image mi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -91,6 +117,8 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 	
 

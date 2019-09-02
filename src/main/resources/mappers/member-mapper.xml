@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
+	<update id="updateMember" parameterType="Member">
+		update Member 
+		set M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone}, M_MODIFY_DATE = SYSDATE, POSTNUM = #{postnum}, G_ADDRESS = #{g_address}, R_ADDRESS = #{r_address}, D_ADDRESS = #{d_address}
+		where M_ID = #{m_id}
+	</update>
+	
+	
+	
 </mapper>
