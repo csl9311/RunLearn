@@ -23,7 +23,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp" />
 	<div class="container">
 		<h1>제 1회 : 집으로의 복귀 교통수단은 다양하다.</h1>
 		<h6></h6>
@@ -32,7 +32,7 @@
 				class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 				<div class="col-auto d-none d-lg-block">
 					<img class="bd-placeholder-img" width="640" height="420"
-						src='<%=request.getContextPath()%>/images/class/run.png'>
+						src='${contextPath}/resources/images/lecture/run.png'>
 				</div>
 				<div class="col p-4 d-flex flex-column position-static">
 					<strong class="text-primary">제 1회</strong>
@@ -72,7 +72,7 @@
 		</table>
 	</div>
 
-	<c:import url="../common/footer.jsp"/>
+	<c:import url="../common/footer.jsp" />
 
 
 </body>
