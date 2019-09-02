@@ -3,14 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application" />
 <!DOCTYPE html>
-<c:import url="common/header.jsp" />
+<c:import url="../common/header.jsp"/>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${ p.name }</title>
-<link rel="stylesheet" href='${ contextPath }/css/product/product.css'>
+<link rel="stylesheet" href='${ contextPath }/resources/css/product/product.css'>
 </head>
 <body>
+
+<c:set value="${ p }" var="p"></c:set>
 <br>
 <br>
 <br>
@@ -19,13 +20,16 @@
 <%-- 상품 이미지 --%>
 			<div class="p_images" style="float:none; margin:0 auto">
 				<div class="row">
-					<img alt="메인이미지" src="${ contextPath }/images/product/sample.png" width="300px" height="200px">
+				
+					<div class="col-md-4 center">
+						<img class="img-responsive" alt="메인이미지" src="${ contextPath }/resources/images/product/test1.png">
+					</div>
 				</div>
 				<div class="row">
-					<img alt="이미지" src="${ contextPath }/images/product/sample.png" width="50px" height="50px">
-					<img alt="이미지" src="${ contextPath }/images/product/sample.png" width="50px" height="50px">
-					<img alt="이미지" src="${ contextPath }/images/product/sample.png" width="50px" height="50px">
-					<img alt="이미지" src="${ contextPath }/images/product/sample.png" width="50px" height="50px">
+					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
+					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
+					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
+					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
 				</div>
 			</div>
 <%-- 상품 이미지 끝--%>
@@ -38,16 +42,16 @@
 				<table class="table" id="p_info">
 					<tr>
 						<td>상품명</td>
-						<td class="right"> ${ p.name }</td>
+						<td class="right"> ${ p.p_name }</td>
 					</tr>
 					
 					<tr>
 						<td>가격</td>
-						<td class="right">${ p.price }</td>
+						<td class="right">${ p.p_price }</td>
 					</tr>
 					<tr>
 						<td>판매자명</td>
-						<td class="right">${ p.seller }</td>
+						<td class="right">${ p.m_id }</td>
 					</tr>
 					<tr>
 						<td>옵션</td>
@@ -63,8 +67,8 @@
 					</tr>
 					<tr>
 						<td>배송비</td>
-						<td class="right">${ p.delivery }</td>
-					</tr>
+<%-- 						<td class="right">${ p.delivery }</td>
+ --%>					</tr>
 					<tr>
 						<td>총 가격</td>
 						<td id="totalPrice" class="right"></td>
@@ -98,7 +102,7 @@
 		 			'<tr>'+
 			 			'<td>'+
 			 			'<input name="pId" type="hidden" id="pId'+i+'">'+
-							'${ p.name }'+
+							'${ p.p_name }'+
 						'</td>'+
 			 			'<td class="right">'+
 				 			'<input class="btn" type="button" value="-" id="del'+i+'">'+
@@ -176,21 +180,9 @@
 <%-- 리뷰 끝 --%>
 
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-         s1.async=true;
-         s1.src='https://embed.tawk.to/5d5df956eb1a6b0be608b410/default';
-         s1.charset='UTF-8';
-         s1.setAttribute('crossorigin','*');
-         s0.parentNode.insertBefore(s1,s0);
-      })();
-</script>
-<!--End of Tawk.to Script-->
+
 
 	</div>
 </body>
-<c:import url="common/footer.jsp" />
+<c:import url="../common/footer.jsp"/>
 </html>

@@ -8,6 +8,7 @@ public class Member {
 	private String m_name;
 	private String m_nickname;
 	private String m_email;
+	private String m_phone;
 	private Date m_create_date;
 	private Date m_modify_date;
 	private String m_grade;
@@ -16,18 +17,28 @@ public class Member {
 	private String g_address;
 	private String r_address;
 	private String d_address;
-	
-	public Member() {}
-	
-	public Member(String m_id, String m_pw, String m_name, String m_nickname, String m_email, Date m_create_date,
-			Date m_modify_date, String m_grade, String m_status, String postnum, String g_address, String r_address,
-			String d_address) {
+
+	@Override
+	public String toString() {
+		return "Member [m_id=" + m_id + ", m_pw=" + m_pw + ", m_name=" + m_name + ", m_nickname=" + m_nickname
+				+ ", m_email=" + m_email + ", m_phone=" + m_phone + ", m_create_date=" + m_create_date
+				+ ", m_modify_date=" + m_modify_date + ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum="
+				+ postnum + ", g_address=" + g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
+	}
+
+	public Member() {
+	}
+
+	public Member(String m_id, String m_pw, String m_name, String m_nickname, String m_email, String m_phone,
+			Date m_create_date, Date m_modify_date, String m_grade, String m_status, String postnum, String g_address,
+			String r_address, String d_address) {
 		super();
 		this.m_id = m_id;
 		this.m_pw = m_pw;
 		this.m_name = m_name;
 		this.m_nickname = m_nickname;
 		this.m_email = m_email;
+		this.m_phone = m_phone;
 		this.m_create_date = m_create_date;
 		this.m_modify_date = m_modify_date;
 		this.m_grade = m_grade;
@@ -76,6 +87,14 @@ public class Member {
 
 	public void setM_email(String m_email) {
 		this.m_email = m_email;
+	}
+
+	public String getM_phone() {
+		return m_phone;
+	}
+
+	public void setM_phone(String m_phone) {
+		this.m_phone = m_phone;
 	}
 
 	public Date getM_create_date() {
@@ -142,14 +161,4 @@ public class Member {
 		this.d_address = d_address;
 	}
 
-	@Override
-	public String toString() {
-		return "Member [m_id=" + m_id + ", m_pw=" + m_pw + ", m_name=" + m_name + ", m_nickname=" + m_nickname
-				+ ", m_email=" + m_email + ", m_create_date=" + m_create_date + ", m_modify_date=" + m_modify_date
-				+ ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum=" + postnum + ", g_address="
-				+ g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
-	}
-	
-	
-	
 }

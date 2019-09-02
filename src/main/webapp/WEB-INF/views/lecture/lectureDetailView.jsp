@@ -48,7 +48,6 @@
 	margin-top: 100px;
 }
 #followquick li:hover{
-	cursor:pointer;
 	background-color: lightgray;
 }
 .row .col-sm-2{
@@ -56,109 +55,119 @@
 	border: 1px solid black;
 	background-color: silver;
 	color: black;
+	font-size: 12px;
+	font-weight : 20px;
 	
 }
 .row .col-sm-2:hover{
 	background-color: snow;
 	color:black;
+}
+.row .col-sm-2 a:hover{
 	cursor:pointer;
-	
 }
 </style>
 </head>
 
 <body>
-	<c:import url="../common/header.jsp"/>
-	<div class="container" id="main">
-		<div
-			style="margin-left: 100px; width: 1000px; height: 1000px;">
-			<h1>집으로 도망치는 빠르고 쉬운 방법</h1>
-			<img src="<%= request.getContextPath()%>/images/class/run.png" style="width:100%;">
+	<c:import url="../common/header.jsp" />
+	<div id="main" style="height: 40px;"></div>
+	<div class="container">
+		<div style="margin-left: 100px; width: 1000px; height: 1000px;">
+			<h1>${ list.L_TITLE }</h1>
+			<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
 			<h6>　</h6>
 			<div style="width:100%">
-			<div id="Cintro" style="width: 50px;"></div>
-			<div class="row">
-			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#Cintro">강의소개</a></div>
-			<div class="col-sm-2"><a href="#Tintro">강사소개</a></div>
-			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
-			<div class="col-sm-2"><a href="#target">강의목표</a></div>
-			<div class="col-sm-2"><a href="#address">강의실 주소</a></div>
-			<div class="col-sm-2"><a href="">강의평</a></div>
+			<div id="Cintro" style="height: 60px;"></div>
+			<div class="col-sm-12">
+			<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#Cintro'">강의소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			</div>
 			</div>
 			<div class="col-sm-12">
-			　<br>
-				<img src="<%= request.getContextPath()%>/images/class/runC.jpg" style="width:100%;">
-			</div>
-			<div id="Tintro" style="width: 50px;"></div>
-			<div class="row">
-			<div class="col-sm-2"><a href="#Cintro">강의소개</a></div>
-			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#Tintro">강사소개</a></div>
-			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
-			<div class="col-sm-2"><a href="#target">강의목표</a></div>
-			<div class="col-sm-2"><a href="#address">강의실 주소</a></div>
-			<div class="col-sm-2"><a href="#reply">강의평</a></div>
+			<br>
+			<c:if test="${ ic_list ne null }">
+				<c:forEach var="i" begin="0" end="${ ic_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ ic_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+			</c:if>
 			</div>
 			<div class="col-sm-12">
-			　<br>
-				<img src="<%= request.getContextPath()%>/images/class/user.png" style="height:100px;">
-				강사명 : 미시다 김<br>
+			<div id="Tintro" style="height: 60px;"></div>
+			<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#Tintro'">강사소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			</div>
+			</div>
+			<div class="col-sm-12">
+			<br>
+				<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;"><br>
+				<label style="font-size: 15pt; font-weight: bold;">강사명 : 미시다 김</label><br>
 				
-				연혁<br>
+				<label style="font-size: 12pt; font-weight: bold;">연혁</label><br>
 				1999년 첫 탈출 시도<br>
 				2000년 두 번째 탈출 시도<br>
 				2002년 집에 도착<br>
 			</div>
-			　
-			<div class="row" id="curr">
-			<div class="col-sm-2"><a href="#Cintro">강의소개</a></div>
-			<div class="col-sm-2"><a href="#Tintro">강사소개</a></div>
-			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#curr">커리큘럼</a></div>
-			<div class="col-sm-2"><a href="#target">강의목표</a></div>
-			<div class="col-sm-2"><a href="#address">강의실 주소</a></div>
-			<div class="col-sm-2"><a href="#reply">강의평</a></div>
+			<div class="col-sm-12">
+			<div id="curr" style="height: 60px;"></div>
+			<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#curr'">커리큘럼</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			</div>
 			</div>
 			<div class="col-sm-12">
-			　
-				<table class="table table-bordered table-hover">
-					<tr>
-						<th style="width:15%;">강의 회차</th>
-						<th style="width:65%;">강좌 명</th>
-						<th style="width:20%;">강좌 일</th>
-					</tr>
-					<tr>
-						<td style="width:10%;">1</td>
-						<td style="width:65%;">집으로의 복귀. 교통수단은 다양하다</td>
-						<td style="width:20%;">2019-08-12</td>
-					</tr>
-				</table>
+			<c:if test="${ ir_list ne null }">
+				<c:forEach var="j" begin="0" end="${ ir_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ ir_list.get(j).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+			</c:if>
 			</div>
-			　
-			<div class="row" id="target">
-			<div class="col-sm-2"><a href="#Cintro">강의소개</a></div>
-			<div class="col-sm-2"><a href="#Tintro">강사소개</a></div>
-			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
-			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#target">강의목표</a></div>
-			<div class="col-sm-2"><a href="#address">강의실 주소</a></div>
-			<div class="col-sm-2"><a href="#reply">강의평</a></div>
+			<div class="col-sm-12">
+			<div id="target" style="height: 60px;"></div>
+			<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#target'">강의목표</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			</div>
 			</div>
 			<div class="col-sm-12">
 			　<br>
-				집으로 빠른 복귀를 하기 위한 강의입니다. 집돌이 집순이들의 필수요소라고 할수 있습니다.
-			
-			</div>
-			　
-			<div class="row" id="address">
-			<div class="col-sm-2"><a href="#Cintro">강의소개</a></div>
-			<div class="col-sm-2"><a href="#Tintro">강사소개</a></div>
-			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
-			<div class="col-sm-2"><a href="#target">강의목표</a></div>
-			<div class="col-sm-2" style="border-right: 1px solid black; border-bottom: 0px;"><a href="#address">강의실 주소</a></div>
-			<div class="col-sm-2"><a href="#reply">강의평</a></div>
+				${ list.L_OBJECT }
 			</div>
 			<div class="col-sm-12">
-			　
-				
-				<div id="mapC">
+			<div id="address" style="height: 60px;"></div>
+			<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
+			<div class="col-sm-2" style="border-right: 1px solid black; border-bottom: 0px;" align="center" onclick="location.href='#address'">강의실 주소</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			</div>
+			</div>
+			<div class="col-sm-12">
+				<c:if test="${ list.L_SYSTEM eq 0 }">
+					<label>이 강의는 온라인 강의이므로 위치정보를 지원하지 않습니다.</label>
+				</c:if>
+				<c:if test="${ list.L_SYSTEM eq 1 }">
+					<div id="mapC">
 					<div id="map" style="width:100%;height:350px;"></div>
 					
 					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5"></script>
@@ -173,65 +182,30 @@
 					var map = new kakao.maps.Map(mapContainer, mapOption); 
 					</script>
 				</div>
-			　
-			<div class="row" id="reply">
-			<div class="col-sm-2"><a href="#Cintro">강의소개</a></div>
-			<div class="col-sm-2"><a href="#Tintro">강사소개</a></div>
-			<div class="col-sm-2"><a href="#curr">커리큘럼</a></div>
-			<div class="col-sm-2"><a href="#target">강의목표</a></div>
-			<div class="col-sm-2"><a href="#address">강의실 주소</a></div>
-			<div class="col-sm-2" style="border-bottom: 0px;"><a href="#reply">강의평</a></div>
+				</c:if>
 			</div>
 			<div class="col-sm-12">
-			　
-			<table class="table table-striped table-hover table-bordered">
-				<tr>
-				<th width="10%">댓글번호</th>
-				<th width="60%">댓글 내용</th>
-				<th width="15%">댓글 작성자</th>
-				<th width="15%">댓글 입력일</th>
-				</tr>
-				<tr>
-				<td>1</td>
-				<td>집가는 시간이 많이 줄어들었습니다.</td>
-				<td>mr.k</td>
-				<td>2019-08-13</td>
-				</tr>
-				<tr>
-				<td>2</td>
-				<td>더 빨리 집에 가고싶어요</td>
-				<td>ms.l</td>
-				<td>2019-08-13</td>
-				</tr>
-				<tr>
-				<td>3</td>
-				<td>연구하다 더 피곤해졌어요</td>
-				<td>Zip.zip</td>
-				<td>2019-08-13</td>
-				</tr>
-				
-			</table>
-			</div>
+			<div id="reply" style="height: 40px;"></div>
+			<div class="row" style="margin-bottom: 10px;">
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
+			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'">강의평</div>
 			</div>
 			</div>
 		</div>
-	</div>
-
-
+		</div>
+		</div>
 	<div id="followquick" class="container">
 		<ul class="list-group mb-3" style="padding-top: 10px">
-			<li
-				class="list-group-item d-flex justify-content-between lh-condensed">
-				<a href="#main">
+			<li	class="list-group-item d-flex justify-content-between lh-condensed" onclick="location.href='#main'">
 				<div>
-				
 					<h5 class="my-0">강의명</h5>
-				
 					<br>
-					<small class="my-0">집으로 도망치는 빠르고 쉬운 방법</small>
-				
+					<small class="my-0">${ list.L_TITLE }</small>
 				</div>
-				</a>
 			</li>
 		</ul>
 		
@@ -240,32 +214,32 @@
 				<div>
 					<h5 class="my-0">카테고리</h5>
 					<br>
-					<h6 class="my-0">#생활기술</h6>
+					<h6 class="my-0">${ list.L_CATEGORY }</h6>
 				</div>
 			</li>
 		</ul>
 		<ul class="list-group mb-3">
-			<li class="list-group-item">
-				<a href="#Tintro">
+			<li class="list-group-item" onclick="location.href='#Tintro'">
+				
 				<div>
-					<h5 class="my-0">강사명 : 미시다김</h5>
+					<h5 class="my-0">강사명 : ${ list.M_NAME }</h5>
 					<br>
 					<div align="center">
-					<img src="<%= request.getContextPath()%>/images/class/user.png" style="height:100px;">
+					<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;">
 					</div>
 				</div>
-				</a>
+				
 			</li>
 		</ul>
 		<ul class="list-group mb-3">
-			<li class="list-group-item">
-				<a href="#target">
+			<li class="list-group-item" onclick="location.href='#target'">
+				
 				<div>
 					<h5 class="my-0">강의 목표</h5>
 					<br>
-					<h6 class="my-0">집으로 돌아가는 최단거리를 계산하는 방법을 연구 실행</h6>
+					<h6 class="my-0">${ list.L_OBJECT }</h6>
 				</div>
-				</a>
+				
 			</li>
 		</ul>
 		<ul class="list-group mb-3">
@@ -285,6 +259,12 @@
 			</div>
 			<div class="btn btn-secondary">찜에추가
 			</div>
+			<c:url var="LEMainView" value="lectureEachMainView.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+				<c:param name="l_each_num" value="1"/>
+			</c:url>
+			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'">강의보기
+			</div>
 		</div>
 	</div>
 	<script>
@@ -300,6 +280,6 @@
 		});
 	</script>
 	<!--  -->
-	<c:import url="../common/footer.jsp"/>
+	<c:import url="../common/footer.jsp" />
 </body>
 </html>
