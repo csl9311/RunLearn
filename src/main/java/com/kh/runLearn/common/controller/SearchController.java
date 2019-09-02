@@ -70,8 +70,8 @@ public class SearchController {
 		
 		if (cate.equals("강의")) {
 			int llistCount = sService.getListCount(map);
-			pi.setBoardLimit(9);
 			pi = Pagination.getPageInfo(currentPage, llistCount);
+			pi.setBoardLimit(9);
 			map.put("pi", pi);
 			list = sService.selectLecture(map);
 			
