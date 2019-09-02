@@ -373,7 +373,7 @@
 
 
 
-	<c:import url="common/header.jsp" />
+	<c:import url="../common/header.jsp" />
 
 
 
@@ -386,7 +386,8 @@
 						<div id="grade">${ loginUser.m_grade }</div>
 					</div>
 				</div>
-
+				
+				
 				<div id="rightSide1" class="rightSide1">
 					<div id="memberInformation">
 						<h3>${ loginUser.m_name } 님</h3>
@@ -396,6 +397,13 @@
 					</div>
 					<!-- memberInformation 끝 -->
 				</div>
+				
+				<script>
+						
+				
+				</script>
+				
+				
 				<!--  rightSide1 끝 -->
 
 				<div class="leftSide1" id="countImage">
@@ -798,27 +806,7 @@
 
 	<!-- -------footer------------------------------------------------------------------------------------------------------------- -->
 
-	<c:import url="common/footer.jsp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<c:import url="../common/footer.jsp" />
 
 </body>
 </html>
