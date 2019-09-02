@@ -18,6 +18,7 @@ public class LectureController {
 
 	@Autowired
 	private LectureService lService;
+
 	
 	@RequestMapping("selectLectureAllList.le")
 	public ModelAndView selectLectureAllList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
