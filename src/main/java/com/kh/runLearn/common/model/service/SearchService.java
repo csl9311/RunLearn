@@ -9,8 +9,10 @@ import com.kh.runLearn.product.model.vo.Product;
 
 public interface SearchService {
 
-	ArrayList<HashMap<String, String>> selectLecture(Map<String, String> map);
+	int getListCount(Map<String, Object> map);
+	
+	ArrayList<HashMap<String, String>> selectLecture(Map<String, Object> map);
 
-	ArrayList<HashMap<String, String>> selectProduct(Map<String, String> map);
+	ArrayList<HashMap<String, String>> selectProduct(Map<String, Object> map);
 
 }
