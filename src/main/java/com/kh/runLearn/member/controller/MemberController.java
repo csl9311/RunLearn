@@ -20,5 +20,10 @@ public class MemberController {
 	public String memberInsertForm() {
 		return "/member/signUpForm";
 	}
+	@RequestMapping("aAemberList.do")
+	public String adminMemberList() {
+		
+		return "";
+	} 
 
 }
