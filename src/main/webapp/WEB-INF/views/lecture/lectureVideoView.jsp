@@ -57,7 +57,10 @@
 	<div id="menuDiv">
 	<ul class="list-group mb-3">
 		<c:forEach var="i" begin="0" end="${ list.size()-1 }" step="1">
-		<li class="list-group-item d-flex justify-content-between lh-condensed">
+		<c:url var="mediaView" value="lectureMediaView.le">
+			<c:param name="l_each_num" value="${ list.get(i).L_EACH_NUM }"/>
+		</c:url>
+		<li class="list-group-item d-flex justify-content-between lh-condensed" onclick="location.href='${ mediaView }'">
           <div>
             <h6 class="my-0">제 ${ i+1 }회</h6>
             <small class="text-muted">${ list.get(i).L_EACH_NAME }</small>
