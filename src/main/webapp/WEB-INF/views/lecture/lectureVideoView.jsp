@@ -51,37 +51,21 @@
 <div class="MediaContainer">
 	<div class="row">
 		<div id="mediaDiv">
-			<iframe style="height:100%; width:100%" src="https://www.youtube.com/embed/JW-rE6QnWMg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<iframe style="height:100%; width:100%" src="${ media.L_FILE_VIDEO }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
 		<div id="sideDiv"></div>
 	<div id="menuDiv">
 	<ul class="list-group mb-3">
-        <a href="#">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">제 1회</h6>
-            <small class="text-muted">집으로의 복귀. 교통수단은 다양하다</small>
-          </div>
-          <span class="text-muted"></span>
-        </li>
-        </a>
-        <a href="#">
+		<c:forEach var="i" begin="0" end="${ list.size()-1 }" step="1">
 		<li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">제 2회</h6>
-            <small class="text-muted">뛰어라. 그러면 빠르게 갈수 있을것이다.</small>
+            <h6 class="my-0">제 ${ i+1 }회</h6>
+            <small class="text-muted">${ list.get(i).L_EACH_NAME }</small>
           </div>
           <span class="text-muted"></span>
         </li>
-        </a>
-        <!-- 강의가 늘어날수록 하나씩 늘어납니다 -->
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Third item</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$5</span>
-        </li>
+		</c:forEach>
+        
         
       </ul>
 

@@ -30,7 +30,7 @@
 <div class="container" style="min-height:300px; margin-top: 20px;">
 	<h1>강의 신청</h1>
 	<h6>　</h6>
-      <form class="">
+      <form class="" method="post" enctype="Multipart/form-data">
         <div class="row">
           <div class="col-md-12 mb-4">
             <label>강의 제목</label>

@@ -60,7 +60,7 @@ public class LectureDAO {
 		return (ArrayList)sqlSession.selectList("lectureMapper.classList", l_num);
 	}
 
-	public HashMap mediaEnter(int l_each_num) {
+	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
 	}
 

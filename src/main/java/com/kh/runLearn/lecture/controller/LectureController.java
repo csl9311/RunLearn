@@ -1,5 +1,6 @@
 package com.kh.runLearn.lecture.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -126,8 +127,10 @@ public class LectureController {
 	
 	@RequestMapping("lectureMediaView.le")
 	public ModelAndView lectureMediaView(@RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
-		HashMap map = lService.mediaEnter(l_each_num);
+		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
+		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
 		System.out.println(map);
+		mv.addObject("list", list);
 		mv.addObject("media", map);
 		mv.setViewName("lecture/lectureVideoView");
 		return mv;
