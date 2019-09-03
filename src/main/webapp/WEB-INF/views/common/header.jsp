@@ -580,7 +580,7 @@ header .search .lcont input[type=text] {
 	<div class="menubar-back">
 		<div class="menubar-inner">
 			<ul>
-				<li id="shopMenu">상품</li>
+				<li id="shopMenu"><a onclick="changeView();">상품</a></li>
 				<li id="lectureMenu">강의</li>
 			</ul>
 		</div>
