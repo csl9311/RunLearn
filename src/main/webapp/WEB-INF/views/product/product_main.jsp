@@ -9,11 +9,29 @@
 img:hover {
 	cursor: pointer;
 }
+#upload{
+	margin-top : 1vh;
+	background: rgba(255, 0, 90, 0.7);
+	color: white;
+	cursor:pointer;
+	right: 100px;
+	position: absolute;
+}
+.empty{
+	height: 5vh;
+}
+
 </style>
 </head>
 <body>
 	<c:import url="../common/header.jsp"/>
 		<div class="container">
+			<div class="row">
+				<div class="empty">
+					<button id="upload" class="btn btn-lg" onclick="upload();">판매등록</button>
+				</div>
+			</div>
+		
 			<div class="row">
 				<c:forEach items="${ list }" var="p">
 					<form action="get.product" method="post">
@@ -36,6 +54,12 @@ img:hover {
 				</c:forEach>
 			</div>
 		</div>
+		
+		<script>
+			function upload(){
+				location.href="upload.product";
+			}
+		</script>
 	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

@@ -57,8 +57,16 @@ public class ProductController {
 		Product p = pService.selectProduct(p_num);
 		ArrayList<Product_Image> pi = pService.selectProductImg(p_num);
 		
-		System.out.println(p);
 		request.setAttribute("p", p);
+		request.setAttribute("pi", pi);
+		
+		System.out.println(p);
+		System.out.println(pi);
 		return "product/product_detail";
+	}
+	
+	@RequestMapping("upload.product")
+	public String uploadPage() {
+		return "product/product_upload";
 	}
 }

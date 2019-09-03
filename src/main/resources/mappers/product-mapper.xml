@@ -47,13 +47,9 @@
 		WHERE P_STATUS = 'Y' AND P_NUM = #{p_num}
 	</select>
 	
-	<select id="">
-		SELECT *
-		FROM PRODUCT_IMAGE
-		WHERE P_IMAGE_
+	<select id="selectProductImg" resultType="list">
+		SELECT * FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num}
 	</select>
-	
-
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map"
