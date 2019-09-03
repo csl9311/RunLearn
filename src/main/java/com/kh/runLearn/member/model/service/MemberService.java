@@ -2,6 +2,7 @@ package com.kh.runLearn.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 
@@ -26,4 +27,7 @@ public interface MemberService {
 	int insertMemberImage(Member_Image mi);
 	int updateMemberImage(Member_Image mi);
 	int deleteMemberImage(Member_Image mi);
+	
+	
+	
 }

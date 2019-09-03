@@ -8,5 +8,18 @@
 	</update>
 	
 	
+	<update id="updateMemberImage" parameterType="Member_Image">
+		update Member_Image
+		set M_ORIGIN_NAME = #{m_origin_name}, M_CHANGED_NAME = #{m_changed_name}, M_UPLOAD_DATE = SYSDATE
+		where M_ID = #{m_id} and m_num=1
+	</update>
+	
+	
+	
+	
+
+	
+	
+	
 	
 </mapper>
