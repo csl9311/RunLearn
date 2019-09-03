@@ -4,6 +4,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
+
 @Repository("mDAO")
 public class MemberDAO {
 
@@ -11,8 +14,18 @@ public class MemberDAO {
 	private SqlSessionTemplate sqlSession;
 
 	public int checkId(String id) {
-
-		System.out.println(id);
 		return sqlSession.selectOne("memberMapper.checkId",id);
+	}
+
+	public int CheckNick(String nick) {
+		return sqlSession.selectOne("memberMapper.checkNick",nick);
+	}
+
+	public int insertMember_Image(Member_Image mi) {
+		return sqlSession.insert("memberMapper.insertMemberImg",mi);
+	}
+
+	public int insertMember(Member m) {
+		return sqlSession.insert("memberMapper.insertMember",m);
 	}
 }

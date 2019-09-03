@@ -11,7 +11,7 @@
 </head>
 <body>
 <c:import url="../common/header.jsp"/>
-<iframe src="form.do" frameborder="0" margin="auto" width="100%" height="1500px;"  scrolling="no" align="center"></iframe>
+<iframe src="form.do" frameborder="0" margin="auto" width="100%" height="2000px;"  scrolling="no" align="center"></iframe>
 <c:import url="../common/footer.jsp" />
 </body>
 </html>
