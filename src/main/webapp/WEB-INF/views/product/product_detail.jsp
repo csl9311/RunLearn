@@ -18,11 +18,11 @@
 	<div class="contents center">
 		<div class="row">
 <%-- 상품 이미지 --%>
-			<div class="p_images" style="float:none; margin:0 auto">
+			<div class="p_images center">
 				<div class="row">
 				
 					<div class="col-md-4 center">
-						<img class="img-responsive" alt="메인이미지" src="${ contextPath }/resources/images/product/test1.png">
+						<img class="img-responsive center" alt="메인이미지" src="${ contextPath }/resources/images/product/test1.png">
 					</div>
 				</div>
 				<div class="row">
@@ -65,10 +65,6 @@
 							</select>
 						</td>
 					</tr>
-					<tr>
-						<td>배송비</td>
-<%-- 						<td class="right">${ p.delivery }</td>
- --%>					</tr>
 					<tr>
 						<td>총 가격</td>
 						<td id="totalPrice" class="right"></td>
@@ -148,7 +144,7 @@
 <%-- 상품 상세 이미지 --%>
 		<div class="row">
 			<div class="p_detailImg">
-				<img alt="메인이미지" src="${ contextPath }/images/product/sample.png">
+				<img class="img-responsive center" alt="메인이미지" src="${ contextPath }/resources/images/product/test1.png">
 			</div>
 		</div>
 <%-- 상품 상세 이미지 끝 --%>
@@ -160,7 +156,7 @@
 <br>
 <%-- 리뷰 --%>	
 <!-- 라이브리 시티 설치 코드 -->
-<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" style="width : 60vh; margin: auto;">
+<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
    <script type="text/javascript">
    (function(d, s) {
       var j, e = d.getElementsByTagName(s)[0];
