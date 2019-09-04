@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
 
 @Repository("mDAO")
 public class MemberDAO {
@@ -24,5 +25,11 @@ public class MemberDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
+
+	public int updateMember(Member m) { //정보 수정
+		
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+
 	
 }

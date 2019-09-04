@@ -13,16 +13,14 @@
 	</select>
 	 -->
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+	<update id="updateMember" parameterType="Member">
+		update Member 
+		set M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone}, M_MODIFY_DATE = SYSDATE, POSTNUM = #{postnum}, G_ADDRESS = #{g_address}, R_ADDRESS = #{r_address}, D_ADDRESS = #{d_address}
+		where M_ID = #{m_id}
+	</update>
 	
 	
 	

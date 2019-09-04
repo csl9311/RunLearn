@@ -25,5 +25,4 @@ public interface MemberService {
 	int updateMember_Image(Member_Image mi);
 	int deleteMember_Image(Member_Image mi);
 	int Member_ImageInsert(Member_Image mi);
-
 }
