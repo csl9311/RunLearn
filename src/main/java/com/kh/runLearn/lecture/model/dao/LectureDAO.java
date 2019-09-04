@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
+import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 
 @Repository("lDAO")
 public class LectureDAO {
@@ -62,6 +63,10 @@ public class LectureDAO {
 
 	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
+	}
+
+	public int insertLecture_Image(Lecture_Image li) {
+		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
 	}
 
 
