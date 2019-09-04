@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.member.model.dao.MemberDAO;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
@@ -45,11 +46,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<Member> selectAllMember() {
+	public ArrayList<Member> selectAllMember(PageInfo pi) {//관리자  회원 정보 조회
 		// TODO Auto-generated method stub
-		return null;
+		return mDAO.selectAllMember(pi);
 	}
-
+	@Override
+	public int getAllUserCount() {//전체회원수 조회 블랙회원도 카운트됨
+		// TODO Auto-generated method stub
+		return mDAO.getAllUserCount();
+	}
 	@Override
 	public ArrayList<Member> selectLectureMember(int l_num) {
 		// TODO Auto-generated method stub
