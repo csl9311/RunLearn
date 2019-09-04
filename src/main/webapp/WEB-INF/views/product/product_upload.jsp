@@ -1,42 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath"
-	value="${pageContext.request.contextPath}/resources/css"
-	scope="application" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href='${ contextPath }/product/product.css'>
+<link rel="stylesheet" href='${ contextPath }/resources/css/product/product.css'>
 <style>
-.filebox label {
-	display: inline-block;
-	padding: .5em .75em;
-	color: #999;
-	font-size: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #fdfdfd;
-	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
-	border-radius: .25em;
-}
-
-.filebox input[type="file"] { /* 파일 필드 숨기기 */
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
-}
 </style>
 </head>
-<c:import url="common/header.jsp" />
+<c:import url="../common/header.jsp" />
 <body>
 	<br>
 	<br>
@@ -45,13 +18,34 @@
 	<div class="contents center">
 		<div class="row">
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
-			<form action="" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
-
-				<input type="hidden" name="m_id" value="판매자명">
-				<input type='file' id="imgInp"/>
-				<table id="imgArea" class="table center"></table>
-
-				<table class="col-md-6 table center">
+			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
+			<%-- Session에서 판매자 정보 받아와야 함. --%>
+				<input type="hidden" name="m_id" value="seller">
+				
+				<a href="javascript:" onclick="uploadThumbnail();" class="myButton">썸네일 업로드</a>
+				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
+        		<div class="row">
+					<div id="thumbnailArea"></div>
+        		</div>
+				<!-- <div class="row">
+					<label>상세 이미지</label>
+					<input type="file" id="imgInp" style="margin: auto;"/>
+					<table id="imgArea" class="table center" ></table>
+					<br>
+					<div id="imgArea"></div>
+				</div> -->
+				
+				<div>
+					<div class="input_wrap">
+						<a href="javascript:" onclick="uploadImage();" class="myButton">상세 이미지 업로드</a>
+						<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
+					</div>
+					<div>
+						<div id="imgs_wrap" class="row"></div>
+					</div>
+				</div>
+								
+				<table id="productDetail"class="col-md-6 table center">
 					<tr>
 						<td>상품명</td>
 						<td><input type="text" name="p_name"></td>
@@ -60,70 +54,189 @@
 						<td>카테고리</td>
 						<td><input type="text" name="p_category"></td>
 					</tr>
-					<tr>
+					<tr id="price">
 						<td>가격</td>
 						<td><input type="text" name="p_price"></td>
 					</tr>
-					<tr>
+					<tr id="stock">
 						<td>재고</td>
 						<td><input type="text" name="p_stock"></td>
 					</tr>
 					<tr>
-						<td><input type="button" class="btn" value="취소"></td>
-						<td><input type="submit" class="btn" value="등록"></td>
+						<td>옵션유무</td>
+						<td>
+							<input id="optionO" type="radio" name="option" value="O"><label>있음</label>
+							<input id="optionX" type="radio" name="option" value="X"><label>없음</label>
+						</td>
+					</tr>
+				</table>
+				<table class="col-md-6 table center">
+					<tr>
+						<td></td>
+						<td>
+							<input type="button" class="btn" value="취소">
+							<input type="submit" class="btn" value="등록">
+						</td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
-	
-		var i = 0; // td count
-		var j = 0; // tr id
+<%-- 이미지 미리보기 --%>
+	<%-- 썸네일 미리보기 --%>
+		function uploadThumbnail(){
+			$("#imgInp").trigger('click');
+		}
+	    $("#imgInp").change(function() {
+	        readURL(this);
+	    });
 		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var $imgArea = $('#imgArea');
-				var $image = $('#image'+j);
-				var reader = new FileReader();
-				var fileName = input.value;
-				
-				if(i % 5 == 0) {
-					j++;
-					reader.onload = function(e) {
-						$imgArea.append(
-							'<tr id="image' + j + '">'+
-								'<td>'+
-									'<img src="' + e.target.result + '" width="100vw" height="100vh"/>'+
-									'<button type="button" class="deleteImg" onclick="deleteImg();">삭제</button>' +
-									'<input type="hidden" name="p_origin_name" value="' + fileName + '">' + 
-								'</td>'+
-							'</tr>'
-						);
-					}
-				} else {
-					reader.onload = function(e) {
-						$image.append(
-							'<td>'+
-								'<img src="' + e.target.result + '" width="100vw" height="100vh"/>'+
-								'<button type="button" class="deleteImg" onclick="deleteImg();">삭제</button>' +
-								'<input type="hidden" name="p_origin_name" value="' + fileName + '">' + 
-							'</td>'
-						);
-					}
-				}
-				i++;
-				reader.readAsDataURL(input.files[0]);
-			}
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            reader.onload = function(e) {
+	            	$("#thumbnailArea").html(
+	            		'<div id="thumbnailImg">' + 
+							'<input class="btn" type="button" value="삭제" onclick="deleteImg();">' + 
+							'<img class="img-responsive" src="'+e.target.result+'">' +
+						'</div>'
+					);
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+<%-- 이미지 삭제 --%>
+		function deleteImg(){
+			var img = $('#thumbnailImg');
+			img.remove();
 		}
 
-		$("#imgInp").change(function() {
-			$('#foo').css('display', 'inherit');
-			readURL(this);
+	<%-- 상세 이미지 미리보기 --%>
+		var sel_files = [];
+		$(document).ready(function(){
+			$("#input_imgs").on("change", handleImageFileSelect);
 		});
-		function deleteImg(){
-			console.log('어케지우지..');
+		function uploadImage(){
+			$("#input_imgs").trigger('click');
 		}
+		
+		function handleImageFileSelect(e){
+			sel_files = [];
+			$("#imgs_wrap").empty();
+		
+			var files = e.target.files;
+			var filesArr = Array.prototype.slice.call(files);
+			console.log(filesArr.length);
+			
+			var index = 0;
+			filesArr.forEach(function(f){
+				if(!f.type.match("image.*")){
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+				sel_files.push(f);
+			
+				var reader = new FileReader();
+				
+				reader.onload = function(e){
+					$("#imgs_wrap").append(
+						'<div class="col-md-4" onclick="expend('+index+')" id = "img_id_'+index+'">' +
+							'<img class="img-responsive" src="'+e.target.result+'" data-file="'+f.name+'">' +
+							'<input id="deleteBtn' + index + '" class="btn" type="button" value="삭제" onclick="deleteImage(' + index + ');">' +
+						'</div>'
+					);
+					index++;
+				}
+				reader.readAsDataURL(f);
+			});
+		};
+		/* 이미지 확대 */
+		function expend(){
+			
+		};
+		/* 이미지 삭제 */
+		function deleteImage(index){
+			sel_files.splice(index,1);
+			$('#deleteBtn'+index).remove();
+			$("#img_id_"+index).remove();
+		};
+<%-- 이미지 미리보기 끝 --%>
+
+
+<%-- 옵션 --%>
+	<%-- 옵션 유무 선택 --%>
+		var $table = $('#productDetail');
+		var j = 0;
+		$('#optionO').click(function(){
+			$('#price').hide();
+			$('#stock').hide();
+			j = optionAdd(j);
+		});
+		
+		$('#optionX').click(function(){
+			j = optionDelete(j);
+			for(var q = j; q >= 0 ; q --) {
+				j = optionDelete(q);
+			}
+			$('#price').css('display', 'table-row');
+			$('#stock').css('display', 'table-row');
+		});
+	<%-- 옵션 유무 선택 끝 --%>
+
+	<%-- 옵션 추가 --%>
+		function optionAdd(num){
+			var length = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			j = length;
+			
+			$('#optionO').prop('checked', true);
+			$('#optionX').removeAttr('checked');
+			$('#add'+ num).hide();
+	
+			$table.append(
+				'<tr id="option' + j + '">'+
+					'<td>옵션</td>'+
+					'<td><input type="text" name="p_option"></td>'+
+				'</tr>'+
+				'<tr id="price' + j + '">'+
+					'<td>가격</td>'+
+					'<td><input type="text" name="p_price"></td>'+
+				'</tr>'+
+				'<tr id="stock' + j + '">'+
+					'<td>재고</td>'+
+					'<td><input type="text" name="p_stock"></td>'+
+				'</tr>'+
+				'<tr id="optionAddNDelete' + j + '">'+
+					'<td><input id="add' + j + '" class="btn" type="button" value="옵션 추가" onclick="optionAdd('+ j +');"></td>'+
+					'<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete('+ j +');"></td>'+
+				'</tr>'
+			);
+			return length;
+		};
+	<%-- 옵션 추가 끝 --%>
+	<%-- 옵션 삭제 --%>
+		function optionDelete(num){
+			$('#option' + num).remove();
+			$('#price' + num).remove();
+			$('#stock' + num).remove();
+			$('#optionAddNDelete' + num).remove();
+			
+			var length = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			if(num == length) {
+				var lastBtn = $('#productDetail').children(':last').children(':last').children(':first').children(':first');
+				lastBtn.css('display', 'inline-block');
+			}
+			if(length <= 1) {
+				$('#optionO').removeAttr('checked');
+				$('#optionX').prop('checked', true);
+				
+				$('#price').css('display', 'table-row');
+				$('#stock').css('display', 'table-row');
+			}
+			return length;
+		};
+	<%-- 옵션 삭제 끝 --%>
+<%-- 옵션 끝 --%>
 	</script>
 </body>
-<c:import url="common/footer.jsp" />
+<c:import url="../common/footer.jsp" />
 </html>

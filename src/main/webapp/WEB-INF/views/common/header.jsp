@@ -516,14 +516,14 @@ header .search .lcont input[type=text] {
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
-												<form action="" method="post">
+												<form action="login.do" method="post">
 													<div class="form-group">
 														<i class="fa fa-user"></i>
-														<input type="text" class="form-control" name="userId" placeholder="아이디" />
+														<input type="text" class="form-control" name="m_id" placeholder="아이디" />
 													</div>
 													<div class="form-group">
 														<i class="fa fa-lock"></i>
-														<input type="password" class="form-control" name="userPwd" placeholder="비밀번호" />
+														<input type="password" class="form-control" name="m_pw" placeholder="비밀번호" />
 													</div>
 													<div class="form-group">
 														<input type="submit" class="btn btn-primary btn-block btn-lg" value="로그인" />
@@ -538,13 +538,14 @@ header .search .lcont input[type=text] {
 								</div></li>
 						</c:if>
 						<c:if test="${ !empty sessionScope.loginUser }">
-							<li><a href="#">로그아웃</a></li>
+							<li><a href="logout.do">로그아웃</a></li>
 						</c:if>
 						<c:if test="${ empty sessionScope.loginUser }">
 							<li><a href="minsertView.do">회원가입</a></li>
 						</c:if>
-						<c:if test="${ !empty sessionScope.loginUser }">
-							<li id="myPage"><a href="#">마이페이지</a>
+						<%-- <c:if test="${ !empty sessionScope.loginUser }"> --%>
+						<c:url var="myPage" value="mypage.do"/>
+							<li id="myPage"><a href="${ myPage }">마이페이지</a>
 								<ul id="myPage-detail">
 									<li><a href="#">내 정보</a></li>
 									<li><a href="#">내 강의/거래</a></li>
@@ -580,7 +581,7 @@ header .search .lcont input[type=text] {
 	<div class="menubar-back">
 		<div class="menubar-inner">
 			<ul>
-				<li id="shopMenu">상품</li>
+				<li id="shopMenu"><a onclick="changeView();">상품</a></li>
 				<li id="lectureMenu">강의</li>
 			</ul>
 		</div>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.vo.Product;
+import com.kh.runLearn.product.model.vo.Product_Image;
 
 @Repository("pDAO")
 public class ProductDAO {
@@ -37,6 +38,10 @@ public class ProductDAO {
 
 	public Product selectProduct(int p_num) {
 		return (Product) sqlSession.selectOne("productMapper.selectProduct", p_num);
+	}
+
+	public ArrayList<Product_Image> selectProductImg(int p_num) {
+		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
 	}
 
 }

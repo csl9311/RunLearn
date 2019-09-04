@@ -151,7 +151,7 @@
       }
       
       .sideDiv tr:hover {
-      	 background: #f5f5f5;
+          background: #f5f5f5;
       }
       
       /* -----------------오늘의 문구----------------- */
@@ -172,15 +172,15 @@
       }
       
       .img-cover {
-      	 position: absolute;
-	     height: 100%;
-	     width: 100%;
-	     background-color: rgba(0, 0, 0, 0.5);                                                                 
-	     z-index:1;
+          position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);                                                                 
+        z-index:1;
       }
       
       .mentDiv .ment {
-      	 position: absolute;
+          position: absolute;
          top:50%;
          left:50%;
          transform: translate(-50%, -50%);                                                                   
@@ -205,7 +205,7 @@
          </div>
       </div>
       <div class="container main-bottom">
-      	 <h3>최신 강의</h3><br>
+          <h3>최신 강의</h3><br>
          <div class="detailDiv col-sm-5">
             <table>
                <tr class="imgRow">
@@ -254,11 +254,11 @@
          </div>
       </div>
       <div class="mentDiv">
-      	 <div class="ment">
-      	 	<h2>배우고 싶은 기술이 있다면, 무엇이든 어디에서든</h2>
-      	 	<img src="${contextPath}/resources/images/common/logo_footer.png" style="width: 120px; height: 50px;">
-      	 </div>
-      	 <div class="img-cover"></div>
+          <div class="ment">
+             <h2>배우고 싶은 기술이 있다면, 무엇이든 어디에서든</h2>
+             <img src="${contextPath}/resources/images/common/logo_footer.png" style="width: 120px; height: 50px;">
+          </div>
+          <div class="img-cover"></div>
       </div>
    </div>
    
