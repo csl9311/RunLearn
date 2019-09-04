@@ -6,13 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.product.model.service.ProductService;
 import com.kh.runLearn.product.model.vo.Product;
+import com.kh.runLearn.product.model.vo.Product_Image;
 
 @Controller
 public class ProductController {
@@ -54,8 +58,34 @@ public class ProductController {
 	@RequestMapping("get.product")
 	public String getProduct(@RequestParam("p_num") int p_num, HttpServletRequest request) {
 		Product p = pService.selectProduct(p_num);
-		System.out.println(p);
+		ArrayList<Product_Image> pi = pService.selectProductImg(p_num);
+		
 		request.setAttribute("p", p);
+		request.setAttribute("pi", pi);
+		
+		System.out.println(p);
+		System.out.println(pi);
 		return "product/product_detail";
+	}
+	
+	@RequestMapping("upload.product")
+	public String uploadPage() {
+		return "product/product_upload";
+	}
+	
+	@RequestMapping("insert.product")
+	public String uploadProduct(
+			ModelAndView mv,
+			@ModelAttribute Product p,
+			@RequestParam(value = "m_id", required = false) String m_id,
+			@RequestParam(value = "pi_thumbnail", required = false) MultipartFile pi_thumbnail,
+			@RequestParam(value = "pi_detail", required = false) MultipartFile pi_detail
+			) {
+		System.out.println(p);
+		System.out.println(m_id);
+		System.out.println(pi_thumbnail);
+		System.out.println(pi_detail);
+		
+		return "";
 	}
 }
