@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.lecture.model.vo.Lecture;
-import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
 
 @Controller
 public class MemberController {
@@ -45,14 +46,36 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "mypage.do")
-	public String myPage(HttpSession session) {
+	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		String userId = "nakcom06a";
+		
+
+		ArrayList<Lecture> lList = mService.selectLectureMember(userId); // 수강목록 
+		ArrayList<Lecture> noPaylList = mService.selectNoPayLecture(userId); //찜한 수강목록
+		ArrayList<Product> pList = mService.selectItemMember(userId); // 찜상품목록
+		
+		int lListCount = mService.selectLectureCount(userId); //수강목록 수
+		int noPayLectureListCount = mService.selectNoPayLectureCount(userId); // 찜한강의 수
+
 		
 		
 		
 		
+
+		mv.addObject("lList", lList);
+		mv.addObject("pList", pList);
+		mv.addObject("noPaylList", noPaylList);
 		
+		mv.addObject("noPayLectureListCount", noPayLectureListCount);
+		mv.addObject("lListCount", lListCount);
+		mv.setViewName("mypage/mypage");
+
 		
-		return "mypage/mypage";
+			
+		return mv;
 	}
 
 	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔

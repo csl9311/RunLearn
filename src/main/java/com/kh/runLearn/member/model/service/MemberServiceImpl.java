@@ -9,6 +9,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.dao.MemberDAO;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService {
@@ -116,6 +117,41 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public ArrayList<Lecture> selectLectureMember(String userId) {
+		
+		return (ArrayList)mDAO.selectLectureMember(userId);
+	}
+
+	@Override
+	public ArrayList<Product> selectItemMember(String userId) {
+		
+		return (ArrayList)mDAO.selectItemMember(userId);
+	}
+
+	@Override
+	public int selectLectureCount(String userId) {
+		
+		return mDAO.selectLectureCount(userId);
+	}
+
+	@Override
+	public ArrayList<Lecture> selectNoPayLecture(String userId) {
+		
+		return mDAO.selectNoPayLecture(userId);
+	}
+
+	@Override
+	public int selectNoPayLectureCount(String userId) {
+		
+		return mDAO.selectNoPayLectureCount(userId);
+	}
+
+
+
+
+	
 
 	
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
 
 public interface MemberService {
 	int login(Member m); // 로그인
@@ -27,6 +28,17 @@ public interface MemberService {
 	int insertMemberImage(Member_Image mi);
 	int updateMemberImage(Member_Image mi);
 	int deleteMemberImage(Member_Image mi);
+	
+	ArrayList<Lecture> selectLectureMember(String userId); // 강의정보 조회
+	
+	
+	ArrayList<Product> selectItemMember(String userId); // 찜목록 조회
+	int selectLectureCount(String userId);
+	ArrayList<Lecture> selectNoPayLecture(String userId);
+	int selectNoPayLectureCount(String userId);
+
+	
+
 	
 	
 	

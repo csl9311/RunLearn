@@ -25,7 +25,35 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateMemberImage",mi);
 	}
 
-	
 
+	public ArrayList selectLectureMember(String userId) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectLetureMember", userId);
+	}
 	
+	
+	public ArrayList selectItemMember(String userId) {
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectItemMember", userId);
+	}
+
+	public int selectLectureCount(String userId) {
+		
+		return sqlSession.selectOne("memberMapper.selectLectureCount", userId);
+	}
+
+	public ArrayList<Lecture> selectNoPayLecture(String userId) {
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectNoPayLecture", userId);
+	}
+
+	public int selectNoPayLectureCount(String userId) {
+		
+		return sqlSession.selectOne("memberMapper.selectNoPayLectureCount", userId);
+	}
+
+
+
+
+
+
 }
