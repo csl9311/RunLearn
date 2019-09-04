@@ -17,7 +17,7 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkId",id);
 	}
 
-	public int CheckNick(String nick) {
+	public int checkNick(String nick) {
 		return sqlSession.selectOne("memberMapper.checkNick",nick);
 	}
 
@@ -27,5 +27,13 @@ public class MemberDAO {
 
 	public int insertMember(Member m) {
 		return sqlSession.insert("memberMapper.insertMember",m);
+	}
+	
+	public Member login(Member m) {
+		return sqlSession.selectOne("memberMapper.login",m);
+	}
+
+	public int checkPhone(Member m) {
+		return sqlSession.selectOne("memberMapper.checkPhone",m);
 	}
 }

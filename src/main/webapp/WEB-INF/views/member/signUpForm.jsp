@@ -222,7 +222,7 @@ span.suc1{color: green;}
 								$(".pc.error3").show();
 								return;
 							} else {
-								$("pc.error3").hide();
+								$(".pc").hide();
 								$(".pc.suc1").show();
 								pwUsable1 = true;
 								console.log(pwUsable1)
@@ -304,12 +304,107 @@ span.suc1{color: green;}
 				</div>
 				<p class="title-f"><em class="color-red">* </em>전화번호</p>
 				<div class="input-group mb-2">
-					<input type="text" class="form-control" id="phone" name="m_phone" id="phoneNum" placeholder="010-1234-5678" aria-describedby="button-addon2">
+					<input type="text" class="form-control" name="m_phone" id="phoneNum" onKeyup="inputPhoneNumber(this);" maxlength="13" placeholder="010-1234-5678" aria-describedby="button-addon2">
 						<div class="input-group-append">
-		   		 			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="checkphone();">Button</button>
+		   		 			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="checkPhone();">인증</button>
 		  				</div>
 					<span id="pp" class="fontA"></span>
 				</div>
+				<div class="input-group mb-2" id="pcheck">
+					<input type="text" class="form-control" id="cCode" name="cCode" aria-describedby="button-addon2">
+						<div class="input-group-append">
+		   		 			<button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="checkPhone2();">제출</button>
+		  				</div>
+					<span id="pp" class="fontA"></span>
+				</div>
+				<script>
+					function inputPhoneNumber(obj) {
+						
+					    var number = obj.value.replace(/[^0-9]/g, "");
+					    var phone = "";
+					    
+					    if(number.length < 4) {
+					        return number;
+					    } else if(number.length < 7) {
+					        phone += number.substr(0, 3);
+					        phone += "-";
+					        phone += number.substr(3);
+					    } else if(number.length < 11) {
+					        phone += number.substr(0, 3);
+					        phone += "-";
+					        phone += number.substr(3, 3);
+					        phone += "-";
+					        phone += number.substr(6);
+					    } else {
+					        phone += number.substr(0, 3);
+					        phone += "-";
+					        phone += number.substr(3, 4);
+					        phone += "-";
+					        phone += number.substr(7);
+					    }
+					    obj.value = phone;
+					}
+					
+					
+					
+					$("#pcheck").hide();
+					$("#phoneNum").blur(function(){
+						
+					});
+					var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+					function checkPhone(){
+						var m_phone = $("#phoneNum").val();
+						var m_name = $("#m_name").val();
+						if(!regExp.test($("#phoneNum").val())){
+							alert("올바른 전화번호 형태가 아닙니다.");
+							return;
+						}
+						if(m_phone == ""){
+							alert("전화번호를 입력해주세요!");
+							return;
+						} else if(m_name == ""){
+							alert("이름을 입력해주세요!");
+							return;
+						}
+						$.ajax({
+							url: "checkPhone.do",
+							data: {m_phone: m_phone},
+							success: function(data){
+								if(data.isUsable == true){
+									$("#pcheck").show();
+									alert("인증번호가 전송되었습니다.");
+									$('#button-addon2').attr('disabled','disabled');
+								} else {
+									alert("가입되어있는 회원입니다.");
+								}
+							}, error: function(jqxhr, textStatus, errorThrown){
+								console.log("ajax 처리 실패");
+								console.log(jqxhr);
+								console.log(textStatus);
+								console.log(errorThrown);
+							}
+						});
+					}
+					function checkPhone2(){
+						var cnum = $("#button-addon3").val()
+						$.ajax({
+							url: "checkNum.do",
+							data: {num: cnum},
+							success: function(data){
+								if(data.isUsable == true){
+									alert("ㅇㅋ");
+								} else {
+									alert("ㅄ");
+								}
+							}, error: function(jqxhr, textStatus, errorThrown){
+								console.log("ajax 처리 실패");
+								console.log(jqxhr);
+								console.log(textStatus);
+								console.log(errorThrown);
+							}
+						});
+					}
+				</script>
 				
 				
 			<p class="title-f">프로필 사진</p>

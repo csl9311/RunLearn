@@ -6,7 +6,7 @@ import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 
 public interface MemberService {
-	int login(Member m); // 로그인
+	Member login(Member m); // 로그인
 	void logout(String m_id); // 로그아웃
 	Member findInfo(Member m); // id/pw 찾기
 	int changeGrade(Member m); // 튜터등록(관리자)
@@ -20,6 +20,7 @@ public interface MemberService {
 	int deleteMember(Member m); // 회원탈퇴
 	int checkId(String id); // 아이디 중복확인
 	int checkNick(String nick); // 닉네임 중복확인
+	int checkPhone(Member m); // 휴대폰 번호 확인
 	
 	int insertMember_Image(Member_Image mi);
 	int updateMember_Image(Member_Image mi);

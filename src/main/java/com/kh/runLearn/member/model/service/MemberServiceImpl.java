@@ -15,9 +15,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO mDAO;
 
 	@Override
-	public int login(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Member login(Member m) {
+		return mDAO.login(m);
 	}
 
 	@Override
@@ -103,7 +102,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int checkNick(String nick) {
-		return mDAO.CheckNick(nick);
+		return mDAO.checkNick(nick);
+	}
+
+	@Override
+	public int checkPhone(Member m) {
+		return mDAO.checkPhone(m);
 	}
 
 	
