@@ -1,6 +1,36 @@
 package com.kh.runLearn.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.common.Pagination;
+import com.kh.runLearn.lecture.model.vo.Lecture;
+import com.kh.runLearn.member.model.exception.MemberException;
+import com.kh.runLearn.member.model.service.MemberService;
+import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -10,11 +40,6 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 
-	
-	@Autowired
-	private BCryptPasswordEncoder BCryptPasswordEncoder;
-	
-	
 	@Autowired 
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -86,7 +111,6 @@ public class MemberController {
 			throw new MemberException("회원가입에 실패하였습니다.");
 		}
 	}
-	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		
 		String root
@@ -228,7 +252,7 @@ public class MemberController {
 				mi.setM_origin_name(uploadFile.getOriginalFilename());
 				mi.setM_changed_name(renameFileName);
 			}
-			mService.insertMemberImage(mi);
+			mService.insertMember_Image(mi);
 			
 		}
 		
@@ -249,31 +273,6 @@ public class MemberController {
 	}
 
 	
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		
-		String savePath = root + "\\buploadFiles";
-		
-		File folder = new File(savePath);
-		if(!folder.exists()) {
-			folder.mkdirs(); //폴더가 없으면 만들어줘
-		}
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String originalFileName = file.getOriginalFilename();
-		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".") + 1); //확장자 까지 붙여서 넣어줌
-		String renamePath = folder + "\\" + renameFileName;
-		
-		try {
-			file.transferTo(new File(renamePath)); // 전달 받은 file이 rename명으로 저장
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		return renameFileName;
-	}
 	
 	
 	

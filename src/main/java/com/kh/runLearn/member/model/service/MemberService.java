@@ -2,6 +2,12 @@ package com.kh.runLearn.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
+import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
+
 public interface MemberService {
 	Member login(Member m); // 로그인
 	void logout(String m_id); // 로그아웃
