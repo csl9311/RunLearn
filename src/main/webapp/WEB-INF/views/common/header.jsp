@@ -222,7 +222,7 @@ header .search .lcont input[type=text] {
 
 .menubar-back .shop {
 	position: relative;
-	width: 1200px;
+	width: 1000px;
 	margin: 0 auto;
 	padding: 5px 0 5px 95px;
 	margin-bottom: 8px;
@@ -254,17 +254,17 @@ header .search .lcont input[type=text] {
 	display: none;
 	position: fixed;
 	z-index: 999;
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	background: #ff005a;
 	border: 1px solid #ff005a;
 	border-radius: 50%;
 	text-align: center;
 	color: white;
 	font-weight: 700;
-	padding: 15px 0;
-	right: 2%;
-	bottom: 5%;
+	padding: 20px 0;
+	right: 6%;
+	bottom: 2%;
 	cursor: pointer;
 }
 
@@ -550,8 +550,8 @@ header .search .lcont input[type=text] {
 									<li><a href="#">내 정보</a></li>
 									<li><a href="#">내 강의/거래</a></li>
 								</ul></li>
-						<%-- </c:if> --%>
-						<li><a href="#">고객센터</a></li>
+						</c:if>
+						<li><a href="cCenterView.do?b_category=공지사항">고객센터</a></li>
 						<c:if test="${ !empty sessionScope.loginUser }">
 							<li><a href="#">ID/PWD찾기</a></li>
 						</c:if>
