@@ -20,8 +20,6 @@ public class Member {
 	
 	public Member()  {}
 
-
-
 	public Member(String m_id, String m_pw, String m_name, String m_nickname, String m_email, String m_phone,
 			Date m_create_date, Date m_modify_date, String m_grade, String m_status, String postnum, String g_address,
 			String r_address, String d_address) {
@@ -160,7 +158,5 @@ public class Member {
 				+ ", m_modify_date=" + m_modify_date + ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum="
 				+ postnum + ", g_address=" + g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
 	}
-	
-	
-	 
+
 }

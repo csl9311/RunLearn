@@ -1,8 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
+	<select id="checkId" parameterType="string" resultType="_int">
+		select count(*)
+		from member where
+		m_id = #{id}
+	</select>
+	<select id="checkNick" parameterType="string" resultType="_int">
+		select count(*)
+		from member where
+		m_nickname = #{m_nickname}
+	</select>
+	<insert id="insertMemberImg" parameterType="Member_Image">
+		insert into member_image values(MEMBER_IMAGE_SEQ.nextval, #{m_origin_name}, #{m_changed_name}, sysdate, #{m_id})
+	</insert>
+	<insert id="insertMember" parameterType="Member">
+		insert into member values(#{m_id}, #{m_pw}, #{m_name}, #{m_nickname},
+								  #{m_email}, #{m_phone},sysdate, sysdate, 
+								  default, default, #{postnum}, #{g_address}, #{r_address}, #{d_address})
+	</insert>
+	<select id="login" parameterType="Member" resultType="Member">
+		select *
+		from member
+		where m_id = #{m_id} and m_status='Y'
+	</select>
+	<select id="checkPhone" parameterType="Member" resultType="_int">
+		select count(*)
+		from member where
+		m_name = #{m_name} and m_phone = #{m_phone} and m_status='Y'
+	</select>
+  
+  
+  
 
-	<update id="updateMember" parameterType="Member"> <!--  회원정보 수정 -->
+	<select id="getAllUserCount" resultType="_int">
+	select count(*)
+	from member
+	</select>
+<!-- 	<select id="selectAllMember">
+	select * 
+	from member
+	order by M_CREATE_DATE desc
+	</select>
+	 -->
+	
+
+
+
+	<update id="updateMember" parameterType="Member">
 		update Member 
 		set M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone}, M_MODIFY_DATE = SYSDATE, POSTNUM = #{postnum}, G_ADDRESS = #{g_address}, R_ADDRESS = #{r_address}, D_ADDRESS = #{d_address}
 		where M_ID = #{m_id}
@@ -55,3 +100,4 @@
 	
 	 
 </mapper>
+

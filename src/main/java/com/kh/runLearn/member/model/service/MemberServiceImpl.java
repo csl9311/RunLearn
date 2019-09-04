@@ -3,10 +3,7 @@ package com.kh.runLearn.member.model.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.kh.runLearn.lecture.model.vo.Lecture;
-import com.kh.runLearn.member.model.dao.MemberDAO;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.product.model.vo.Product;
@@ -17,9 +14,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO mDAO;
 
 	@Override
-	public int login(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Member login(Member m) {
+		return mDAO.login(m);
 	}
 
 	@Override
@@ -47,11 +43,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<Member> selectAllMember() {
+	public ArrayList<Member> selectAllMember(PageInfo pi) {//관리자  회원 정보 조회
 		// TODO Auto-generated method stub
-		return null;
+		return mDAO.selectAllMember(pi);
 	}
-
+	@Override
+	public int getAllUserCount() {//전체회원수 조회 블랙회원도 카운트됨
+		// TODO Auto-generated method stub
+		return mDAO.getAllUserCount();
+	}
 	@Override
 	public ArrayList<Member> selectLectureMember(int l_num) {
 		// TODO Auto-generated method stub
@@ -60,8 +60,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int insertMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mDAO.insertMember(m);
 	}
 
 	@Override
@@ -101,9 +100,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertMemberImage(Member_Image mi) {
-		
-		return mDAO.insertMemberImage(mi);
+
+	public int insertMember_Image(Member_Image mi) {
+		return mDAO.insertMember_Image(mi);
 	}
 
 	@Override
@@ -161,9 +160,19 @@ public class MemberServiceImpl implements MemberService {
 
 	
 
-	
+	public int checkId(String id) {
+		return mDAO.checkId(id);
+	}
 
+	@Override
+	public int checkNick(String nick) {
+		return mDAO.checkNick(nick);
+	}
 
+	@Override
+	public int checkPhone(Member m) {
+		return mDAO.checkPhone(m);
+	}
 
 	
 

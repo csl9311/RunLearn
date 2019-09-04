@@ -222,7 +222,7 @@ header .search .lcont input[type=text] {
 
 .menubar-back .shop {
 	position: relative;
-	width: 1200px;
+	width: 1000px;
 	margin: 0 auto;
 	padding: 5px 0 5px 95px;
 	margin-bottom: 8px;
@@ -254,17 +254,17 @@ header .search .lcont input[type=text] {
 	display: none;
 	position: fixed;
 	z-index: 999;
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	background: #ff005a;
 	border: 1px solid #ff005a;
 	border-radius: 50%;
 	text-align: center;
 	color: white;
 	font-weight: 700;
-	padding: 15px 0;
-	right: 2%;
-	bottom: 5%;
+	padding: 20px 0;
+	right: 6%;
+	bottom: 2%;
 	cursor: pointer;
 }
 
@@ -516,14 +516,14 @@ header .search .lcont input[type=text] {
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
-												<form action="" method="post">
+												<form action="login.do" method="post">
 													<div class="form-group">
 														<i class="fa fa-user"></i>
-														<input type="text" class="form-control" name="userId" placeholder="아이디" />
+														<input type="text" class="form-control" name="m_id" placeholder="아이디" />
 													</div>
 													<div class="form-group">
 														<i class="fa fa-lock"></i>
-														<input type="password" class="form-control" name="userPwd" placeholder="비밀번호" />
+														<input type="password" class="form-control" name="m_pw" placeholder="비밀번호" />
 													</div>
 													<div class="form-group">
 														<input type="submit" class="btn btn-primary btn-block btn-lg" value="로그인" />
@@ -538,7 +538,7 @@ header .search .lcont input[type=text] {
 								</div></li>
 						</c:if>
 						<c:if test="${ !empty sessionScope.loginUser }">
-							<li><a href="#">로그아웃</a></li>
+							<li><a href="logout.do">로그아웃</a></li>
 						</c:if>
 						<c:if test="${ empty sessionScope.loginUser }">
 							<li><a href="minsertView.do">회원가입</a></li>
@@ -550,8 +550,8 @@ header .search .lcont input[type=text] {
 									<li><a href="#">내 정보</a></li>
 									<li><a href="#">내 강의/거래</a></li>
 								</ul></li>
-						<%-- </c:if> --%>
-						<li><a href="#">고객센터</a></li>
+						</c:if>
+						<li><a href="cCenterView.do?b_category=공지사항">고객센터</a></li>
 						<c:if test="${ !empty sessionScope.loginUser }">
 							<li><a href="#">ID/PWD찾기</a></li>
 						</c:if>
@@ -581,7 +581,7 @@ header .search .lcont input[type=text] {
 	<div class="menubar-back">
 		<div class="menubar-inner">
 			<ul>
-				<li id="shopMenu">상품</li>
+				<li id="shopMenu"><a onclick="changeView();">상품</a></li>
 				<li id="lectureMenu">강의</li>
 			</ul>
 		</div>
