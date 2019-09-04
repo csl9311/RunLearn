@@ -20,14 +20,6 @@ public class Member {
 	
 	public Member()  
 
-	@Override
-	public String toString() {
-		return "Member [m_id=" + m_id + ", m_pw=" + m_pw + ", m_name=" + m_name + ", m_nickname=" + m_nickname
-				+ ", m_email=" + m_email + ", m_phone=" + m_phone + ", m_create_date=" + m_create_date
-				+ ", m_modify_date=" + m_modify_date + ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum="
-				+ postnum + ", g_address=" + g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
-	}
-
 	public Member() {
 	} 
 
@@ -169,7 +161,5 @@ public class Member {
 				+ ", m_modify_date=" + m_modify_date + ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum="
 				+ postnum + ", g_address=" + g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
 	}
-	
-	
-	 
+
 }
