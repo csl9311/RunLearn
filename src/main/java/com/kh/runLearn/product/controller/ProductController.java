@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
@@ -68,5 +71,21 @@ public class ProductController {
 	@RequestMapping("upload.product")
 	public String uploadPage() {
 		return "product/product_upload";
+	}
+	
+	@RequestMapping("insert.product")
+	public String uploadProduct(
+			ModelAndView mv,
+			@ModelAttribute Product p,
+			@RequestParam(value = "m_id", required = false) String m_id,
+			@RequestParam(value = "pi_thumbnail", required = false) MultipartFile pi_thumbnail,
+			@RequestParam(value = "pi_detail", required = false) MultipartFile pi_detail
+			) {
+		System.out.println(p);
+		System.out.println(m_id);
+		System.out.println(pi_thumbnail);
+		System.out.println(pi_detail);
+		
+		return "";
 	}
 }
