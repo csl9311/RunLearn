@@ -50,7 +50,11 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return mDAO.selectAllMember(pi);
 	}
-
+	@Override
+	public int getAllUserCount() {//전체회원수 조회 블랙회원도 카운트됨
+		// TODO Auto-generated method stub
+		return mDAO.getAllUserCount();
+	}
 	@Override
 	public ArrayList<Member> selectLectureMember(int l_num) {
 		// TODO Auto-generated method stub

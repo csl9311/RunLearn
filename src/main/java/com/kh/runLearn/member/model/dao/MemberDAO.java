@@ -14,11 +14,15 @@ import com.kh.runLearn.member.model.vo.Member;
 public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	 public int getAllUserCount() {//회원수 가지고오기
+	      return sqlSession.selectOne("memberMapper.getAllUserCount");
+	   }
 
 	public ArrayList<Member> selectAllMember(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return null;//추후 수정예정
+		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
 	
 }
