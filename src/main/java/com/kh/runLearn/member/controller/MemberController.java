@@ -1,6 +1,5 @@
 package com.kh.runLearn.member.controller;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,10 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -38,7 +39,7 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService mService;
-	
+
 	@Autowired 
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -46,6 +47,7 @@ public class MemberController {
 	public String memberInsertView() {
 		return "/member/signUp";
 	}
+
 	@RequestMapping("form.do")
 	public String memberInsertForm() {
 		return "/member/signUpForm";
@@ -109,7 +111,6 @@ public class MemberController {
 			throw new MemberException("회원가입에 실패하였습니다.");
 		}
 	}
-	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		
 		String root
@@ -194,8 +195,36 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "mypage.do")
-	public String myPage() {
-		return "mypage/mypage";
+	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		String userId = "nakcom06a";
+		
+
+		ArrayList<Lecture> lList = mService.selectLectureMember(userId); // 수강목록 
+		ArrayList<Lecture> noPaylList = mService.selectNoPayLecture(userId); //찜한 수강목록
+		ArrayList<Product> pList = mService.selectItemMember(userId); // 찜상품목록
+		
+		int lListCount = mService.selectLectureCount(userId); //수강목록 수
+		int noPayLectureListCount = mService.selectNoPayLectureCount(userId); // 찜한강의 수
+
+		
+		
+		
+		
+
+		mv.addObject("lList", lList);
+		mv.addObject("pList", pList);
+		mv.addObject("noPaylList", noPaylList);
+		
+		mv.addObject("noPayLectureListCount", noPayLectureListCount);
+		mv.addObject("lListCount", lListCount);
+		mv.setViewName("mypage/mypage");
+
+		
+			
+		return mv;
 	}
 
 	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔
@@ -204,13 +233,28 @@ public class MemberController {
 
 	}
 
-	@RequestMapping(value = "mUpdate.do", method=RequestMethod.POST) // 정보수정
-	public String updateMember(@ModelAttribute Member m, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, HttpSession session, Model model) {
-
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		System.out.println(m);
+	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
+	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
+			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
+		if(m.getM_pw().equals("")) {
+			m.setM_pw(loginUser.getM_pw());
+		}
+		
 		int result = mService.updateMember(m);
-		System.out.println(result);
+		if(uploadFile != null && !uploadFile.isEmpty()) {
+			
+			String renameFileName = saveFile(uploadFile, request);
+			
+			if(renameFileName != null) {
+				mi.setM_origin_name(uploadFile.getOriginalFilename());
+				mi.setM_changed_name(renameFileName);
+			}
+			mService.insertMember_Image(mi);
+			
+		}
 		
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
@@ -221,13 +265,18 @@ public class MemberController {
 			loginUser.setR_address(m.getR_address());
 			loginUser.setD_address(m.getD_address());
 			
-			model.addAttribute("loginUser", loginUser);
+			session.setAttribute("loginUser", loginUser);
 		}
 		
-		System.out.println(loginUser);
+		
 		return "redirect:mypage.do";
 	}
 
+	
+	
+	
+	
+	
 //	@RequestMapping("mUpdate.do")
 //	public String boardInsert(@ModelAttribute Member_Image mi, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, HttpServletRequest request) {
 //		

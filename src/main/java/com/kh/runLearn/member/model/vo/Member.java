@@ -18,10 +18,7 @@ public class Member {
 	private String r_address;
 	private String d_address; 
 	
-	public Member()  
-
-	public Member() {
-	} 
+	public Member()  {}
 
 	public Member(String m_id, String m_pw, String m_name, String m_nickname, String m_email, String m_phone,
 			Date m_create_date, Date m_modify_date, String m_grade, String m_status, String postnum, String g_address,

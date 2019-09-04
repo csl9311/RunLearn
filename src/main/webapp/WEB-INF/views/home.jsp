@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -193,7 +194,7 @@
 </head>
 <body>
    <!-- header include -->
-   <jsp:include page="common/header.jsp"/>
+   <c:import url="common/header.jsp"/>
    
    <!-- main -->
    <div class="body">
@@ -263,7 +264,7 @@
    </div>
    
    <!-- footer include -->
-   <jsp:include page="common/footer.jsp"/>
+    <c:import url="common/footer.jsp"/>
    
    <script>
        $.noConflict();

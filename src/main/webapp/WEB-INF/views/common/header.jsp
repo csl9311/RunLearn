@@ -543,7 +543,7 @@ header .search .lcont input[type=text] {
 						<c:if test="${ empty sessionScope.loginUser }">
 							<li><a href="minsertView.do">회원가입</a></li>
 						</c:if>
-						<%-- <c:if test="${ !empty sessionScope.loginUser }"> --%>
+						<c:if test="${ !empty sessionScope.loginUser }">
 						<c:url var="myPage" value="mypage.do"/>
 							<li id="myPage"><a href="${ myPage }">마이페이지</a>
 								<ul id="myPage-detail">
