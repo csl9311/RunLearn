@@ -50,6 +50,42 @@
 	<select id="selectProductImg" resultType="list">
 		SELECT * FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num}
 	</select>
+	
+<!-- 상품 등록 -->
+	<insert id="insertProduct" parameterType="Product">
+		INSERT INTO PRODUCT VALUES(
+			PRODUCT_SEQ.NEXTVAL,
+			#{p_name}, #{p_category}, #{p_price}, #{p_stock},
+			'Y', SYSDATE, NULL, #{m_id}
+		)
+	</insert>
+	<insert id="insertProductThumbnail" parameterType="Product_Image">
+		INSERT INTO PRODUCT_IMAGE VALUES(
+			#{p_changed_name}, #{p_origin_name}, SYSDATE, 0, PRODUCT_SEQ.CURRVAL
+		)
+	</insert>
+	
+	
+	<insert id="insertProductDetail" parameterType="Product_Image">
+		<foreach collection="list" item="item" index="index" open="INSERT ALL " separator=" " close="SELECT * FROM DUAL">
+			into PRODUCT_IMAGE(
+				p_changed_name,
+				p_origin_name,
+				p_upload_date,
+				p_file_level,
+				p_num
+			) values (
+				#{item.p_changed_name},
+				#{item.p_origin_name},
+				SYSDATE,
+				'1',
+				PRODUCT_SEQ.CURRVAL
+			)
+		</foreach>
+	</insert>
+
+
+
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map"

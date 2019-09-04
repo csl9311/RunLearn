@@ -44,4 +44,16 @@ public class ProductDAO {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
 	}
 
+	public int insertProduct(Product p) {
+		return sqlSession.insert("productMapper.insertProduct", p);
+	}
+
+	public int insertProductThumbnail(Product_Image pi) {
+		return sqlSession.insert("productMapper.insertProductThumbnail", pi);
+	}
+
+	public int insertProductDetail(ArrayList<Product_Image> list) {
+		return sqlSession.insert("productMapper.insertProductDetail", list);
+	}
+
 }

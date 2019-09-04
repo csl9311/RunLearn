@@ -20,7 +20,7 @@
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
 			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
-				<input type="hidden" name="m_id" value="seller">
+				<input type="hidden" name="m_id" value="판매자">
 				
 				<a href="javascript:" onclick="uploadThumbnail();" class="myButton">썸네일 업로드</a>
 				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
