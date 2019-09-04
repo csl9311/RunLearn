@@ -1,6 +1,8 @@
 package com.kh.runLearn.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService {
-	
+
 	@Autowired
 	BoardDAO bDAO;
 
@@ -23,9 +25,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public void addReadCount(int b_num) {
+		bDAO.addReadCount(b_num);
+	}
+
+	@Override
 	public Board selectBoard(int b_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return bDAO.selectBoard(b_num);
 	}
 
 	@Override
@@ -53,20 +59,17 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int insertBoard(Board b) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDAO.insertBoard(b);
 	}
 
 	@Override
 	public int updateBoard(Board b) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDAO.updateBoard(b);
 	}
 
 	@Override
 	public int deleteBoard(int b_num) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDAO.deleteBoard(b_num);
 	}
 
 	@Override
@@ -80,6 +83,15 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
 
+	/* ---------------고객센터용---------------  */
+	@Override
+	public ArrayList<HashMap<String, String>> selectCenterBoardList(Map<String, Object> map) {
+		return bDAO.selectCenterBoardList(map);
+	}
+
+	@Override
+	public int getCenterListCount(Map<String, Object> map) {
+		return bDAO.getCenterListCount(map);
+	}
 }

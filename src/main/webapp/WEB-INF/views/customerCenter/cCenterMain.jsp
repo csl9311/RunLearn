@@ -5,10 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 <style>
 	.centerBack {
-		margin: 60px 0;
+		margin: 90px 0 130px;
 		height: auto;
 		min-height: 450px;
 		text-align: center;
@@ -75,7 +74,7 @@
 	}
 	
 	.centerBack .tdCol:hover {
-		background: #f5f5f5;		
+		background: #f6f6f6ba;		
 	}
 	
 	.centerBack table th {
@@ -91,6 +90,20 @@
 		border-top: 1px solid #dbdbdb;
 		border-left: 1px solid #dbdbdb;
 		border-right: 1px solid #dbdbdb;
+	}
+	
+	#writeBtn {
+		margin-top: 100px;
+		border: none;
+	    background: #ff005a;
+	    padding: 10px;
+	    font-size: 15px;
+	    color: white;
+	    border-radius: 4px;
+	}
+	
+	#writeBtn:hover {
+	    box-shadow: 0 0 3px 0 #ff005a;
 	}
 </style>
 </head>
@@ -131,10 +144,20 @@
 						<th style="width: 100px;">조회수</th>
 					</tr>
 					<c:forEach var="l" items="${ list }">
-					<tr class="tdCol">
+					<c:url var="bdetail" value="cCenterDetailView.do">
+						<c:param name="b_num" value="${ l.b_num }"/>
+						<c:param name="b_category" value="${ l.b_category }"/>
+						<c:param name="page" value="${ pi.currentPage }"/>
+					</c:url>
+					<tr class="tdCol" onclick="location.href='${bdetail}'">
 						<td>${ l.b_num }</td>
 						<td>${ l.b_title }</td>
+						<c:if test="${ l.m_id eq 'admin' }">
+						<td>관리자</td>
+						</c:if>
+						<c:if test="${ l.m_id ne 'admin' }">
 						<td>${ l.m_id }</td>
+						</c:if>
 						<td>${ l.b_reg_date }</td>
 						<td>${ l.b_count }</td>
 					</tr>
@@ -150,6 +173,20 @@
 				</c:if>
 				</c:if>
 			</div>
+			<div class="x-100"></div>
+			<div class="col-md">
+				
+			</div>
+			<div class="x-100"></div>
+			<c:if test="${ b_category ne '공지사항' }">
+			<c:url var="bwrite" value="cCenterInsertView.do">
+				<c:param name="b_category" value="${ b_category }" />
+				<c:param name="page" value="${ pi.currentPage }" />
+			</c:url>
+			<div class="col-md" style="text-align: center;">
+				<button id="writeBtn" onclick="location.href='${bwrite}'">작성하기</button>
+			</div>
+			</c:if>
 		</div>
 	</div>
 	
@@ -160,11 +197,6 @@
 			var b_category = $(this).children().eq(1).text();
 			
 			location.href='cCenterView.do?b_category='+b_category;
-		});
-		
-		$('.tdCol').click(function() {
-			var bNum = $(this).children().eq(0).text();
-			location.href='cCenterDetailView.do?b_category=${b_category}&b_num='+bNum;
 		});
 	</script>
 </body>
