@@ -165,6 +165,7 @@ public class LectureController {
 				li.setL_origin_name(mainImage.getOriginalFilename());
 				li.setL_changed_name(renameFileName);
 			}
+			li.setL_file_level(0);
 			lService.insertLecture_Image(li);
 		}
 		mv.setViewName("home");
