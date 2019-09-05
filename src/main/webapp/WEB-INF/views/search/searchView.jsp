@@ -77,6 +77,9 @@ ul li a:hover {
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
+.card-body {
+	height: 100px;
+}
 .card-text {
 	display: inline-block;
 	width: auto;

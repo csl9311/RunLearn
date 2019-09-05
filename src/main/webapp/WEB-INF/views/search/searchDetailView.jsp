@@ -76,6 +76,10 @@ ul li a:hover {
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
+.card-body {
+	height: 100px;
+}
+
 .card-text {
 	display: inline-block;
 	width: auto;
@@ -200,18 +204,56 @@ ul li a:hover {
 						         	<nav aria-label="Page navigation">
 									  <ul class="pagination justify-content-center">
 									    <c:if test="${ pi.currentPage <= 1 }">
-									    <li class="page-item disabled">
-									    	<span aria-hidden="true">&laquo;</span>
-									    </li>
+										    <li class="page-item disabled">
+										    	<span aria-hidden="true">&laquo;</span>
+										    </li>
 									    </c:if>
+									    
 									    <c:if test="${ pi.currentPage > 1 }">
-									    <li class="page-item">
-									      <a class="page-link" href="#" aria-label="Previous">
-									        <span aria-hidden="true">&laquo;</span>
-									      </a>
-									    </li>
+									    
+										    <c:if test="${ subcate eq null }">
+										    	<c:set var="searchType" value="searchAll.do" />
+										    </c:if>
+										    <c:if test="${ subcate ne null }">
+										    	<c:set var="searchType" value="searchCate.do" />
+										    </c:if>
+									    
+										    <c:url var="pagePrev" value="${ searchType }">
+										    	<c:param name="page" value="${ pi.currentPage - 1 }" />
+										    	<c:param name="search" value="${ search }" />
+										    	<c:param name="cate" value="${ cate }" />
+										    	<c:if test="${ subcate != null }">
+										    	<c:param name="subcate" value="${ subcate }" />
+										    	</c:if>
+										    	<c:if test="${ price != null }">
+										    	<c:param name="price" value="${ price }" />
+										    	</c:if>
+										    </c:url>			    
+										    <li class="page-item">
+										      <a class="page-link" href="${ pagePrev }" aria-label="Previous">
+										        <span aria-hidden="true">&laquo;</span>
+										      </a>
+										    </li>
 									    </c:if>
 									    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+									    	<c:if test="${ subcate eq null }">
+										    	<c:set var="searchType" value="searchAll.do" />
+										    </c:if>
+										    <c:if test="${ subcate ne null }">
+										    	<c:set var="searchType" value="searchCate.do" />
+										    </c:if>
+										    
+									    	<c:url var="pageNum" value="${ searchType }">
+										    	<c:param name="page" value="${ p }" />
+										    	<c:param name="search" value="${ search }" />
+										    	<c:param name="cate" value="${ cate }" />
+										    	<c:if test="${ subcate != null }">
+										    	<c:param name="subcate" value="${ subcate }" />
+										    	</c:if>
+										    	<c:if test="${ price != null }">
+										    	<c:param name="price" value="${ price }" />
+										    	</c:if>
+										    </c:url>
 										    <c:if test="${ p eq currentPage }">
 												<li class="page-item active" aria-current="page">
 											      <a class="page-link" href="#">[${ p }]<span class="sr-only">(current)</span></a>
@@ -219,23 +261,31 @@ ul li a:hover {
 											</c:if>
 											
 											<c:if test="${ p ne currentPage }">
-												<c:url var="pagination" value="blist.do">
-													<c:param name="page" value="${ p }"/>
-												</c:url>
-												<li class="page-item"><a class="page-link" href="#">${ p }</a></li>
+												<li class="page-item"><a class="page-link" href="${ pageNum }">${ p }</a></li>
 											</c:if>
 									    </c:forEach>
 									    <c:if test="${ pi.currentPage >= pi.maxPage }">
-									    <li class="page-item disabled">
-									        <span aria-hidden="true">&raquo;</span>
-									    </li>
+										    <li class="page-item disabled">
+										        <span aria-hidden="true">&raquo;</span>
+										    </li>
 									    </c:if>
 									    <c:if test="${ pi.currentPage < pi.maxPage }">
-									    <li class="page-item">
-									      <a class="page-link" href="#" aria-label="Next">
-									        <span aria-hidden="true">&raquo;</span>
-									      </a>
-									    </li>
+										    <c:url var="pageNext" value="${ searchType }">
+											    <c:param name="page" value="${ pi.currentPage + 1 }" />
+											    <c:param name="search" value="${ search }" />
+											   	<c:param name="cate" value="${ cate }" />
+											   	<c:if test="${ subcate != null }">
+											   	<c:param name="subcate" value="${ subcate }" />
+											   	</c:if>
+										    	<c:if test="${ price != null }">
+										    	<c:param name="price" value="${ price }" />
+										    	</c:if>
+										    </c:url>
+										    <li class="page-item">
+										      <a class="page-link" href="${ pageNext }" aria-label="Next">
+										        <span aria-hidden="true">&raquo;</span>
+										      </a>
+										    </li>
 									    </c:if>
 									  </ul>
 									</nav>
