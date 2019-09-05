@@ -39,7 +39,7 @@ public class LectureController {
 			currentPage = page;
 		}
 		int listCount = lService.getListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 12);
 		pi.setBoardLimit(12);
 		ArrayList all = lService.selectLectureList(pi);
 		
@@ -57,7 +57,7 @@ public class LectureController {
 			currentPage=page;
 		}
 		int listCount = lService.getCategoryListCount(l_category);
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 12);
 		pi.setBoardLimit(12);
 		ArrayList list = lService.selectLectureList(pi, l_category);
 		String cName = "";

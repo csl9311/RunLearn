@@ -32,13 +32,13 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
   <hr>
-  <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round  hotpink fontwhite" onclick="location.href='adminBoardInsertView.do';" style="width:175px">관리자 메인</button>
-  <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs2', 'tablink2');" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs3', 'tablink3');" style="width:175px">결제관리</button>
-  <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs4', 'tablink4');" style="width:175px">고객센터(관리자)</button>
-  <button id="tablink5" class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs5', 'tablink5');" style="width:175px">고객센터(요청)</button>
-  <button id="tablink6" class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs6', 'tablink6');" style="width:175px">(작업용)게시판뷰</button>
-  <button id="tablink8" class="w3-bar-item tablink hoverpink w3-round" onclick="sideTab(event, 'sideTabs8', 'tablink8');" style="width:175px">(작업용)게시판작성</button>
+  <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round  hotpink fontwhite" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
+  <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
+  <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터(관리자)</button>
+  <button id="tablink5" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeUser.do';" style="width:175px">고객센터(요청)</button>
+  <button id="tablink6" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminBoardDetailView.do';" style="width:175px">(작업용)게시판뷰</button>
+  <button id="tablink8" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminBoardInsertForm.do';" style="width:175px">(작업용)게시판작성</button>
 </div>
 
 <div class="minh"style="margin-left:190px"><!--관리자 페이지 주화면영역  -->
@@ -52,7 +52,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
     <div style="width:1100px;height:1100px;border-right:2px solid #ff005a;float:left;">
     <div id="adminmain1" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
     <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">회원 관리</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn" onclick="sideTab(event, 'sideTabs2','tablink2')">more</button>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn" onclick="location.href='adminUser.do';">more</button>
     <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
     	<table class="w3-table-all hoverTablePink">
   	<thead>
@@ -75,7 +75,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
     </div>
   	<div id="adminmain2" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
     <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">결제 관리</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="sideTab(event, 'sideTabs3','tablink3')">more</button>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="location.href='adminPayManage.do';">more</button>
  	<hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
  		<table class="w3-table-all hoverTablePink">
   	<thead>
@@ -99,7 +99,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
   	</div>	
   	<div id="adminmain3" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
     <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">고겍센터(관리자)</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="sideTab(event, 'sideTabs4','tablink4')">more</button>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="location.href='adminNoticeAdmin.do';">more</button>
    <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
    	<table class="w3-table-all hoverTablePink">
   	<thead>
@@ -122,7 +122,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
   	</div>
   	<div id="adminmain4" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
    	<span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">고객센터(요청)</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="sideTab(event, 'sideTabs5','tablink5')">more</button>
+    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="location.href='adminNoticeUser.do';">more</button>
     <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
     	<table class="w3-table-all hoverTablePink">
   	<thead>
