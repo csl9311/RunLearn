@@ -1,18 +1,28 @@
 package com.kh.runLearn.lecture.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.lecture.model.service.LectureService;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
+import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 
 @Controller
 public class LectureController {
@@ -20,10 +30,10 @@ public class LectureController {
 	@Autowired
 	private LectureService lService;
 
-	
+
 	@RequestMapping("selectLectureAllList.le")
 	public ModelAndView selectLectureAllList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
-		
+
 		int currentPage=1;
 		if(page != null) {
 			currentPage = page;
@@ -32,14 +42,14 @@ public class LectureController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		pi.setBoardLimit(12);
 		ArrayList all = lService.selectLectureList(pi);
-		
+
 		System.out.println(all);
 		mv.addObject("list", all);
 		mv.addObject("pi", pi);
 		mv.setViewName("lecture/lectureMain");
 		return mv;
 	}
-	
+
 	@RequestMapping("selectLectureList.le")
 	public ModelAndView selectLectureList(@RequestParam(value="page", required=false) Integer page, @RequestParam("l_category") String l_category, ModelAndView mv) {
 		int currentPage = 1;
@@ -74,10 +84,10 @@ public class LectureController {
 		mv.setViewName("lecture/lectureMain");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureDetailView.le")
 	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv) {
-		
+
 //		ArrayList list = lService.selectLecture(l_num);
 		HashMap<String, String> list = lService.selectLecture(l_num);
 		HashMap<String, Integer> map = new HashMap<>();
@@ -99,7 +109,7 @@ public class LectureController {
 		mv.setViewName("lecture/lectureDetailView");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureEachMainView.le")
 	public ModelAndView lectureEachMainView(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num", required=false) int l_each_num, ModelAndView mv) {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -123,18 +133,65 @@ public class LectureController {
 		mv.setViewName("lecture/lectureEachView");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureMediaView.le")
 	public ModelAndView lectureMediaView(@RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
-		HashMap map = lService.mediaEnter(l_each_num);
+		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
+		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
 		System.out.println(map);
+		mv.addObject("list", list);
 		mv.addObject("media", map);
 		mv.setViewName("lecture/lectureVideoView");
 		return mv;
 	}
-	
-	
-	
-	
-	
+
+	@RequestMapping("lectureApply.le")
+	public ModelAndView permissionLecture(Lecture l,
+										  @RequestParam("mainImage") MultipartFile mainImage,
+										  @RequestParam("contImgs") MultipartFile[] contImgs,
+										  @RequestParam("currImgs") MultipartFile[] currImgs,
+										  @RequestParam("adr1") String adr1,
+										  @RequestParam("adr2") String adr2,
+										  ModelAndView mv, MultipartHttpServletRequest request) {
+		System.out.println(l);
+		System.out.println(mainImage.getOriginalFilename());
+		System.out.println(currImgs.length);
+		System.out.println(adr1);
+		System.out.println(adr2);
+		Lecture_Image li = new Lecture_Image();
+		if(mainImage != null && !mainImage.isEmpty()) {
+			String renameFileName = saveFile(mainImage, request);
+			if(renameFileName != null) {
+				li.setL_origin_name(mainImage.getOriginalFilename());
+				li.setL_changed_name(renameFileName);
+			}
+			li.setL_file_level(0);
+			lService.insertLecture_Image(li);
+		}
+		mv.setViewName("home");
+		return mv;
+	}
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root+"\\lectureUploadFiles";
+
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originalFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+		String renamePath = folder + "\\" + renameFileName;
+		try {
+			file.transferTo(new File(renamePath));
+			//전달 받은 파일을 rename명으로 저장
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return renameFileName;
+	}
 }

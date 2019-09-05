@@ -14,8 +14,8 @@ public interface ProductService {
 	ArrayList<Product> selectProductList(PageInfo pi); // 상품 전체 목록 조회
 	ArrayList<Product> selectProductList(PageInfo pi, String p_category); // 상품 카테고리별 목록 조회
 	
-	ArrayList<Product_Image> selectProductImg(Product p); // 상품이미지
 	Product selectProduct(int p_num); // 상품 상세 조회
+	ArrayList<Product_Image> selectProductImg(int p_num); // 상품이미지
 	
 	int insertProduct(Product p); // 상품 등록
 	int updateProduct(Product p); // 상품 수정

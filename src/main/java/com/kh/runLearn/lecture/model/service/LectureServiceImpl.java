@@ -21,12 +21,12 @@ public class LectureServiceImpl implements LectureService {
 	public int getListCount() {
 		return lDAO.getListCount();
 	}
-	
+
 	@Override
 	public int getCategoryListCount(String l_category) {
 		return lDAO.getCategoryListCount(l_category);
 	}
-	
+
 	@Override
 	public ArrayList selectLectureList(PageInfo pi) {
 		return lDAO.getLectureList(pi);
@@ -98,13 +98,14 @@ public class LectureServiceImpl implements LectureService {
 	public Lecture_Each classEnter(HashMap<String, Integer> map) {
 		return lDAO.classEnter(map);
 	}
+
 	@Override
 	public ArrayList classList(int l_num) {
 		return lDAO.classList(l_num);
 	}
 
 	@Override
-	public HashMap mediaEnter(int l_each_num) {
+	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return lDAO.mediaEnter(l_each_num);
 	}
 
@@ -122,8 +123,7 @@ public class LectureServiceImpl implements LectureService {
 
 	@Override
 	public int insertLecture_Image(Lecture_Image li) {
-		// TODO Auto-generated method stub
-		return 0;
+		return lDAO.insertLecture_Image(li);
 	}
 
 	@Override

@@ -37,9 +37,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product_Image> selectProductImg(Product p) {
-		
-		return null;
+	public ArrayList<Product_Image> selectProductImg(int p_num) {
+		return pDAO.selectProductImg(p_num);
 	}
 
 	@Override

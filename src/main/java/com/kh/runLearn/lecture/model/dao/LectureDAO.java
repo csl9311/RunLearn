@@ -11,16 +11,17 @@ import org.springframework.stereotype.Repository;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
+import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 
 @Repository("lDAO")
 public class LectureDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	public int getListCount() {
 		return sqlSession.selectOne("lectureMapper.getListCount");
 	}
-	
+
 	public ArrayList getLectureList(PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -60,39 +61,16 @@ public class LectureDAO {
 		return (ArrayList)sqlSession.selectList("lectureMapper.classList", l_num);
 	}
 
-	public HashMap mediaEnter(int l_each_num) {
+	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
 	}
 
-	public ArrayList<Lecture> selectLectureView(String userId) { //마이페이지 수강목록
-		
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureView", userId);
-	}
-	
-	public int selectLetureCount(String userId) { // 마이페이지 전체 수강 수
-	
-		return sqlSession.selectOne("lectureMapper.selectLetureCount", userId);
-	}
-	
-	
-	
-
-	public ArrayList<Lecture> selectNoPayLectureView(String userId) { // 마이페이ㅣ강의찜목록
-		
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId);
-	}
-
-	public int selectNopayLectureCount(String userId) { //  마이페이지 강의 찜목록 전체 수 
-		
-		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);  
+	public int insertLecture_Image(Lecture_Image li) {
+		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
 	}
 
 
 
-	
 
 
-	
-
-	
 }

@@ -69,7 +69,7 @@ public class Lecture_Image {
 		return l_upload_date;
 	}
 
-	public void setL_uploaddate(Date l_upload_date) {
+	public void setL_upload_date(Date l_upload_date) {
 		this.l_upload_date = l_upload_date;
 	}
 
