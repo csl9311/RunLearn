@@ -47,8 +47,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int insertProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
+		return pDAO.insertProduct(p);
+	}
+
+	@Override
+	public int insertProductThumbnail(Product_Image pi) {
+		return pDAO.insertProductThumbnail(pi);
 	}
 
 	@Override
@@ -76,15 +80,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int insertProduct_Image(Product_Image pi) {
+	public int updateProduct_Image(Product_Image pi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateProduct_Image(Product_Image pi) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertProductDetail(ArrayList<Product_Image> list) {
+		return pDAO.insertProductDetail(list);
 	}
 
 }

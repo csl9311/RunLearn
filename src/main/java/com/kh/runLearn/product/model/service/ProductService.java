@@ -23,8 +23,11 @@ public interface ProductService {
 	int insertCart(Product p); // 장바구니에 추가
 	int deleteCart(int p_num); // 장바구니에서 삭제 (진짜 삭제)
 	
-	int insertProduct_Image(Product_Image pi); // 상품 이미지 등록
+	int insertProductThumbnail(Product_Image pi); // 상품 이미지 등록
 	int updateProduct_Image(Product_Image pi); // 상품 이미지 수정
+
+	
+	int insertProductDetail(ArrayList<Product_Image> list); // 상품 상세 이미지 등록
 
 	
 }

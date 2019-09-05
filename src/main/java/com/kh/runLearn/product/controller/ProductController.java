@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
-import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.product.model.service.ProductService;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
@@ -78,54 +77,70 @@ public class ProductController {
 		return "product/product_upload";
 	}
 
+// 상품 등록
 	@RequestMapping("insert.product")
-	public void insertProduct(
-
-			@ModelAttribute Product p,
+	public String insertProduct(@ModelAttribute Product p,
 			@RequestParam(value = "pi_thumbnail", required = false) MultipartFile pi_thumbnail,
-			HttpSession session
-
-	) {
-		System.out.println(p);
-//		Member m = (Member)session.getAttribute("loginUser");
-//		p.setM_id(m.getM_id());
-//		
-//		pService.insertProduct(p);
-	}
-
-	@RequestMapping("insert.productImg")
-	public String uploadProductImages(
-
-			@ModelAttribute Product p,
-			@RequestParam(value = "m_id", required = false) String m_id,
-			@RequestParam(value = "pi_detail", required = false) MultipartFile pi_detail,
-			HttpServletRequest request
+			@RequestParam(value = "pi_detail", required = false) MultipartFile[] pi_detail, HttpServletRequest request
 
 	) throws Exception {
-		String p_changed_name = "";
-		if (pi_detail != null && !pi_detail.isEmpty()) {
-			// 저장할 경로를 지정하는 saveFile() 메소드 생성
-			p_changed_name = saveFile(pi_detail, request);
+
+		// 상품 정보 DB 저장
+		int result = pService.insertProduct(p);
+		if (result < 0) {
+			throw new Exception("상품 등록에 실패했습니다.");
 		}
-		Product_Image pi = new Product_Image();
+
+		// 썸네일 파일 저장 및 DB 저장
+		if (pi_thumbnail != null && !pi_thumbnail.isEmpty()) {
+			result = uploadProductThumbnail(pi_thumbnail, request);
+			if (result < 0) {
+				throw new Exception("상품 썸네일 등록에 실패했습니다.");
+			}
+		}
+
+		// 상품 상세 이미지 저장 및 DB 저장
+		boolean check = pi_detail[0].isEmpty();
+		if (!check) {
+			result = uploadProductDetailImg(pi_detail, request);
+			if (result < 0) {
+				throw new Exception("상품 상세 이미지 등록에 실패했습니다.");
+			}
+		}
+
+		return "getList.Product";
+	}
+
+// 썸네일 파일 저장 및 DB 저장
+	public int uploadProductThumbnail(MultipartFile pi_thumbnail, HttpServletRequest request) throws Exception {
+		Product_Image pi = null;
+		String p_changed_name = saveFile(pi_thumbnail, request, 0);
 		if (p_changed_name != null) {
-			pi.setP_num(p.getP_num());
-			pi.setP_file_level(0);
-			pi.setP_origin_name(pi_detail.getOriginalFilename());
+			pi = new Product_Image();
+			pi.setP_origin_name(pi_thumbnail.getOriginalFilename());
 			pi.setP_changed_name(p_changed_name);
 		}
-		int result = pService.insertProduct_Image(pi);
+		return pService.insertProductThumbnail(pi);
+	}
 
-		if (result > 0) {
-			return "redirect:blist.do";
-		} else {
-			throw new Exception("게시글 등록에 실패하였습니다.");
+// 상세 이미지 저장 및 DB 저장
+	public int uploadProductDetailImg(MultipartFile[] pi_detail, HttpServletRequest request) throws Exception {
+		ArrayList<Product_Image> list = new ArrayList<>();
+		for (int i = 0; i < pi_detail.length; i++) {
+			Product_Image pi = null;
+			String p_changed_name = saveFile(pi_detail[i], request, i + 1);
+			if (p_changed_name != null) {
+				pi = new Product_Image();
+				pi.setP_origin_name(pi_detail[i].getOriginalFilename());
+				pi.setP_changed_name(p_changed_name);
+			}
+			list.add(pi);
 		}
-
+		return pService.insertProductDetail(list);
 	}
 
 // 파일 업로드
-	private String saveFile(MultipartFile file, HttpServletRequest request) {
+	private String saveFile(MultipartFile file, HttpServletRequest request, int fileNum) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\images\\product";
 		File folder = new File(savePath);
@@ -135,7 +150,7 @@ public class ProductController {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-		String originalFileName = file.getOriginalFilename();
+		String originalFileName = fileNum + file.getOriginalFilename();
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
 				+ originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
 		String renamePath = folder + "\\" + renameFileName;
