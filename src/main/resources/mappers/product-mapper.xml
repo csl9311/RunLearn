@@ -47,7 +47,9 @@
 		WHERE P_STATUS = 'Y' AND P_NUM = #{p_num}
 	</select>
 	
-
+	<select id="selectProductImg" resultType="list">
+		SELECT * FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num}
+	</select>
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map"
@@ -82,7 +84,7 @@
 	<select id="search-getListCount" parameterType="map" resultType="_int">
 		select count(*)
     	from psearch_view
-    	where p_status='Y'
+    	where p_name like '%' || #{search} || '%'
     	<if test="subcate != null">
         	and p_category = #{subcate}
         </if>

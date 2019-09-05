@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.dao.MemberDAO;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.vo.Product;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService {
@@ -16,9 +18,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO mDAO;
 
 	@Override
-	public int login(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Member login(Member m) {
+		return mDAO.login(m);
 	}
 
 	@Override
@@ -63,14 +64,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int insertMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mDAO.insertMember(m);
 	}
 
 	@Override
 	public int updateMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return mDAO.updateMember(m);
 	}
 
 	@Override
@@ -80,9 +80,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertMember_Image(Member_Image mi) {
+	public int Member_ImageInsert(Member_Image mi) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+
+	public int insertMember_Image(Member_Image mi) {
+		return mDAO.insertMember_Image(mi);
 	}
 
 	@Override
@@ -98,9 +104,60 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int Member_ImageInsert(Member_Image mi) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<Lecture> selectLectureMember(String userId) {
+		
+		return (ArrayList)mDAO.selectLectureMember(userId);
+	}
+
+	@Override
+	public ArrayList<Product> selectItemMember(String userId) {
+		
+		return (ArrayList)mDAO.selectItemMember(userId);
+	}
+
+	@Override
+	public int selectLectureCount(String userId) {
+		
+		return mDAO.selectLectureCount(userId);
+	}
+
+	@Override
+	public ArrayList<Lecture> selectNoPayLecture(String userId) {
+		
+		return mDAO.selectNoPayLecture(userId);
+	}
+
+	@Override
+	public int selectNoPayLectureCount(String userId) {
+		
+		return mDAO.selectNoPayLectureCount(userId);
+	}
+
+
+
+
+	
+
+	
+
+
+
+
+
+	
+
+	public int checkId(String id) {
+		return mDAO.checkId(id);
+	}
+
+	@Override
+	public int checkNick(String nick) {
+		return mDAO.checkNick(nick);
+	}
+
+	@Override
+	public int checkPhone(Member m) {
+		return mDAO.checkPhone(m);
 	}
 
 	

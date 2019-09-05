@@ -8,12 +8,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
+
+
 
 @Repository("mDAO")
 public class MemberDAO {
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	public int checkId(String id) {
+		return sqlSession.selectOne("memberMapper.checkId",id);
+	}
+
+	public int checkNick(String nick) {
+		return sqlSession.selectOne("memberMapper.checkNick",nick);
+	}
+
+	public int insertMember_Image(Member_Image mi) {
+		return sqlSession.insert("memberMapper.insertMemberImg",mi);
+	}
+
+	public int insertMember(Member m) {
+		return sqlSession.insert("memberMapper.insertMember",m);
+	}
+	
+	public Member login(Member m) {
+		return sqlSession.selectOne("memberMapper.login",m);
+	}
+
+	public int checkPhone(Member m) {
+		return sqlSession.selectOne("memberMapper.checkPhone",m);
+	}
 	
 	 public int getAllUserCount() {//회원수 가지고오기
 	      return sqlSession.selectOne("memberMapper.getAllUserCount");
@@ -24,5 +53,46 @@ public class MemberDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
+
+	public int updateMember(Member m) { //정보 수정
+		
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+
+	public int insertMemberImage(Member_Image mi) {
+		
+		return sqlSession.update("memberMapper.updateMemberImage",mi);
+	}
+
+
+	public ArrayList selectLectureMember(String userId) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectLetureMember", userId);
+	}
 	
+	
+	public ArrayList selectItemMember(String userId) {
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectItemMember", userId);
+	}
+
+	public int selectLectureCount(String userId) {
+		
+		return sqlSession.selectOne("memberMapper.selectLectureCount", userId);
+	}
+
+	public ArrayList<Lecture> selectNoPayLecture(String userId) {
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectNoPayLecture", userId);
+	}
+
+	public int selectNoPayLectureCount(String userId) {
+		
+		return sqlSession.selectOne("memberMapper.selectNoPayLectureCount", userId);
+	}
+
+
+
+
+
+
 }

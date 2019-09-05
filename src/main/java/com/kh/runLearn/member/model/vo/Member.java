@@ -16,18 +16,9 @@ public class Member {
 	private String postnum;
 	private String g_address;
 	private String r_address;
-	private String d_address;
-
-	@Override
-	public String toString() {
-		return "Member [m_id=" + m_id + ", m_pw=" + m_pw + ", m_name=" + m_name + ", m_nickname=" + m_nickname
-				+ ", m_email=" + m_email + ", m_phone=" + m_phone + ", m_create_date=" + m_create_date
-				+ ", m_modify_date=" + m_modify_date + ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum="
-				+ postnum + ", g_address=" + g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
-	}
-
-	public Member() {
-	}
+	private String d_address; 
+	
+	public Member()  {}
 
 	public Member(String m_id, String m_pw, String m_name, String m_nickname, String m_email, String m_phone,
 			Date m_create_date, Date m_modify_date, String m_grade, String m_status, String postnum, String g_address,
@@ -159,6 +150,13 @@ public class Member {
 
 	public void setD_address(String d_address) {
 		this.d_address = d_address;
+	} 
+	@Override
+	public String toString() {
+		return "Member [m_id=" + m_id + ", m_pw=" + m_pw + ", m_name=" + m_name + ", m_nickname=" + m_nickname
+				+ ", m_email=" + m_email + ", m_phone=" + m_phone + ", m_create_date=" + m_create_date
+				+ ", m_modify_date=" + m_modify_date + ", m_grade=" + m_grade + ", m_status=" + m_status + ", postnum="
+				+ postnum + ", g_address=" + g_address + ", r_address=" + r_address + ", d_address=" + d_address + "]";
 	}
 
 }

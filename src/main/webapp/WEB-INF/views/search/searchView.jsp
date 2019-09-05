@@ -101,7 +101,6 @@ ul li a:hover {
                         <li style="font-weight: 700">카테고리</li>
                         <li><a class="selectedList list" href="search.do?search=${ search }&price=전체">전체</a></li>
                         <li>
-                           <%-- <a class="list" href="lsearchAll.do?search=${ search }">강의</a> --%>
                            <a class="list" href="searchAll.do?search=${ search }&cate=강의&price=전체">강의</a>
                            <ul class="search-subList lList listCate">
                               <li><a class="list">- 디자인</a></li>
@@ -115,7 +114,6 @@ ul li a:hover {
                            </ul>
                         </li>
                         <li>
-                           <%-- <a class="list" href="psearchAll.do?search=${ search }">상품</a> --%>
                            <a class="list" href="searchAll.do?search=${ search }&cate=상품&price=전체">상품</a>
                            <ul class="search-subList pList listCate">
                               <li><a class="list">- 가방</a></li>
@@ -163,29 +161,37 @@ ul li a:hover {
 			                  		<div class="col" style="text-align: center;"><h4>일치하는 강의정보가 없습니다.</h4></div>
 			                  	</c:if>
 			                  	<c:if test="${!empty lList}">
-			                    <c:forEach var="l" items="${ lList }">
-			                    	<div class="col-md-4">
-				                      <div class="card mb-4 shadow-sm">
-				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
-				                        <div class="card-body" style="width: 90%;">
-				                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
-				                          <p class="card-text">${ l.L_CONTENT }</p><br>
-				                          <p class="card-text"><small class="text-muted">${ l.L_PRICE }￦</small></p>
-				                        </div>
-				                      </div>
-				                    </div>
-				                    <script>
-					                    $(function() {
-					                    	var title = '${l.L_TITLE}';
-					            			title = title.replace(/${search}/gi, '<span style="background: yellowgreen;">${search}</span>');
-					            			$('.card-title').children('b').html(title);
-					            			console.log(title);
-					            		});
-				                    </script>
-			                    </c:forEach>
-			                    <c:if test="lList.size() > 6">
+			                  	<c:if test="${ lList.size() > 6 }">
+			                  		<c:forEach var="l" items="${ lList }" begin="0" end="5">
+				                  		<div class="col-md-4">
+					                      <div class="card mb-4 shadow-sm">
+					                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+					                        <div class="card-body" style="width: 90%;">
+					                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
+					                          <p class="card-text">${ l.L_CONTENT }</p><br>
+					                          <p class="card-text"><small class="text-muted">${ l.L_PRICE }￦</small></p>
+					                        </div>
+					                      </div>
+					                    </div>
+				                    </c:forEach>
+			                  	</c:if>
+			                  	<c:if test="${ lList.size() <= 6 }">
+				                    <c:forEach var="l" items="${ lList }">
+				                    	<div class="col-md-4">
+					                      <div class="card mb-4 shadow-sm">
+					                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+					                        <div class="card-body" style="width: 90%;">
+					                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
+					                          <p class="card-text">${ l.L_CONTENT }</p><br>
+					                          <p class="card-text"><small class="text-muted">${ l.L_PRICE }￦</small></p>
+					                        </div>
+					                      </div>
+					                    </div>
+				                    </c:forEach>
+			                  	</c:if>
+			                    <c:if test="${ lList.size() > 6 }">
 			                    <div class="col-md-12" style="text-align: right; padding-right: 50px;">
-			                    	<button type="submit" class="btn btn-secondary" onclick="location.href='searchAll.do?search=${ search }&cate=강의'">더 보기</button>
+			                    	<button type="submit" class="btn btn-secondary" onclick="location.href='searchAll.do?search=${ search }&cate=강의&price=전체'">더 보기</button>
 			                    </div>
 			                    </c:if>
 			                    </c:if>
@@ -205,7 +211,8 @@ ul li a:hover {
 			                  		<div class="col" style="text-align: center;"><h4>일치하는 상품정보가 없습니다.</h4></div>
 			                  	</c:if>
 			                  	<c:if test="${!empty pList}">
-			                    <c:forEach var="p" items="${ pList }">
+			                    <c:if test="${ pList.size() > 6 }">
+			                  		<c:forEach var="p" items="${ pList }" begin="0" end="5">
 				                    <div class="col-md-4">
 				                      <div class="card mb-4 shadow-sm">
 				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
@@ -216,9 +223,23 @@ ul li a:hover {
 				                      </div>
 				                    </div>
 			                    </c:forEach>
-			                    <c:if test="pList.size() > 6">
+			                    </c:if>
+			                    <c:if test="${ pList.size() <= 6 }">
+				                    <c:forEach var="p" items="${ pList }">
+				                    <div class="col-md-4">
+				                      <div class="card mb-4 shadow-sm">
+				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+				                        <div class="card-body" style="width: 90%;">
+				                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
+				                          <p class="card-text"><small class="text-muted">${ p.P_PRICE }￦</small></p>
+				                        </div>
+				                      </div>
+				                    </div>
+				                	</c:forEach>
+				                </c:if>
+			                    <c:if test="${ pList.size() > 6 }">
 			                    <div class="col-md-12" style="text-align: right; padding-right: 50px;">
-			                    	<button type="submit" class="btn btn-secondary moreBtn" onclick="location.href='searchAll.do?search=${ search }&cate=상품'">더 보기</button>
+			                    	<button type="submit" class="btn btn-secondary moreBtn" onclick="location.href='searchAll.do?search=${ search }&cate=상품&price=전체'">더 보기</button>
 			                    </div>
 			                    </c:if>
 			                    </c:if>

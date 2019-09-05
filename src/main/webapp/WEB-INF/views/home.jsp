@@ -1,15 +1,16 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="UTF-8">
-   <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/slick/slick.css"/>
-   <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/slick/slick-theme.css"/>
+   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-   <script type="text/javascript" src="${ contextPath }/resources/slick/slick.min.js"></script>
+   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
    <style>
       /* ------------------슬라이드------------------ */
       .body {
@@ -151,7 +152,7 @@
       }
       
       .sideDiv tr:hover {
-      	 background: #f5f5f5;
+          background: #f5f5f5;
       }
       
       /* -----------------오늘의 문구----------------- */
@@ -172,15 +173,15 @@
       }
       
       .img-cover {
-      	 position: absolute;
-	     height: 100%;
-	     width: 100%;
-	     background-color: rgba(0, 0, 0, 0.5);                                                                 
-	     z-index:1;
+          position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);                                                                 
+        z-index:1;
       }
       
       .mentDiv .ment {
-      	 position: absolute;
+          position: absolute;
          top:50%;
          left:50%;
          transform: translate(-50%, -50%);                                                                   
@@ -193,7 +194,7 @@
 </head>
 <body>
    <!-- header include -->
-   <jsp:include page="common/header.jsp"/>
+   <c:import url="common/header.jsp"/>
    
    <!-- main -->
    <div class="body">
@@ -205,7 +206,7 @@
          </div>
       </div>
       <div class="container main-bottom">
-      	 <h3>최신 강의</h3><br>
+          <h3>최신 강의</h3><br>
          <div class="detailDiv col-sm-5">
             <table>
                <tr class="imgRow">
@@ -254,16 +255,16 @@
          </div>
       </div>
       <div class="mentDiv">
-      	 <div class="ment">
-      	 	<h2>배우고 싶은 기술이 있다면, 무엇이든 어디에서든</h2>
-      	 	<img src="${contextPath}/resources/images/common/logo_footer.png" style="width: 120px; height: 50px;">
-      	 </div>
-      	 <div class="img-cover"></div>
+          <div class="ment">
+             <h2>배우고 싶은 기술이 있다면, 무엇이든 어디에서든</h2>
+             <img src="${contextPath}/resources/images/common/logo_footer.png" style="width: 120px; height: 50px;">
+          </div>
+          <div class="img-cover"></div>
       </div>
    </div>
    
    <!-- footer include -->
-   <jsp:include page="common/footer.jsp"/>
+    <c:import url="common/footer.jsp"/>
    
    <script>
        $.noConflict();
