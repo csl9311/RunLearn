@@ -44,6 +44,7 @@ public class ProductDAO {
 
 	public ArrayList<Product> selectProductView(String userId) { // 마이 페이지 상품 찜목록
 		return (ArrayList)sqlSession.selectList("productMapper.selectProductView", userId);
+	}
 	public ArrayList<Product_Image> selectProductImg(int p_num) {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
 	}

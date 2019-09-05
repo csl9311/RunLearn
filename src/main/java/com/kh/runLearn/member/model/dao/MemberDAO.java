@@ -59,10 +59,12 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateMember", m);
 	}
 
-	public int insertMemberImage(Member_Image mi) {
+	public int updateMember_Image(Member_Image mi) { //프로필 수정
 		
-		return sqlSession.update("memberMapper.updateMemberImage",mi);
+		return sqlSession.update("memberMapper.updateMember_Image", mi);
 	}
+
+	
 
 
 	

@@ -23,9 +23,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
+import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
@@ -48,9 +48,6 @@ public class MemberController {
 
 	@Autowired
 	private ProductService pService;
-
-	@Autowired
-	private BCryptPasswordEncoder BCryptPasswordEncoder;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -189,7 +186,7 @@ public class MemberController {
 		}
 		int listCount = mService.getAllUserCount();
 
-		PageInfo pi= Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi= Pagination.getPageInfo(currentPage, listCount, 5);
 
 		ArrayList<Member> list=mService.selectAllMember(pi);
 
@@ -206,13 +203,16 @@ public class MemberController {
 		return mv;
 	}
 
+	
+	
 	@RequestMapping(value = "mypage.do")
 	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
 
 		String userId = loginUser.getM_id();
-
+		
+		
 		ArrayList<Lecture> lList = lService.selectLectureView(userId); // 수강목록
 		int lListCount = lService.selectLectureCount(userId); // 전체 수강 목록 수
 
@@ -224,14 +224,10 @@ public class MemberController {
 
 		ArrayList<Product> pList = pService.selectProductView(userId); // 상품 찜목록
 
-
-
-
-
 		mv.addObject("lList", lList);
 		mv.addObject("lListCount", lListCount);
-
-
+		
+		
 		mv.addObject("noPaylList", noPaylList);
 		mv.addObject("noPaylListCount", noPaylListCount);
 
@@ -249,15 +245,25 @@ public class MemberController {
 
 	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
 	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
-			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request) {
+		@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request) {
 
+		
 		Member loginUser = (Member) session.getAttribute("loginUser");
-
+		
 		if(m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
+			
+		}else {
+			String encpwd = bcryptPasswordEncoder.encode(m.getM_pw());
+			m.setM_pw(encpwd);
 		}
+		
+		
 
 		int result = mService.updateMember(m);
+		
+		
+		
 		if(uploadFile != null && !uploadFile.isEmpty()) {
 
 			String renameFileName = saveFile(uploadFile, request);
@@ -266,7 +272,7 @@ public class MemberController {
 				mi.setM_origin_name(uploadFile.getOriginalFilename());
 				mi.setM_changed_name(renameFileName);
 			}
-			mService.insertMember_Image(mi);
+			mService.updateMember_Image(mi);
 
 		}
 
@@ -318,11 +324,11 @@ public class MemberController {
 //
 //	}
 
-//	public String saveFile(MultipartFile file, HttpServletRequest request) {
+//	public String saveFile2(MultipartFile file, HttpServletRequest request) {
 //
 //		String root = request.getSession().getServletContext().getRealPath("resources");
 //
-//		String savePath = root + "\\buploadFiles";
+//		String savePath = root + "\\mypageUpload";
 //
 //		File folder = new File(savePath);
 //		if (!folder.exists()) {

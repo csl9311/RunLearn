@@ -93,8 +93,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember_Image(Member_Image mi) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return mDAO.updateMember_Image(mi);
 	}
 
 	@Override
@@ -104,24 +104,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	
-
-	
-
-
-
-
-
-
-	
-
-	
-
-
-
-
-
-	
-
 	public int checkId(String id) {
 		return mDAO.checkId(id);
 	}
@@ -135,6 +117,10 @@ public class MemberServiceImpl implements MemberService {
 	public int checkPhone(Member m) {
 		return mDAO.checkPhone(m);
 	}
+
+
+
+	
 
 	
 
