@@ -516,22 +516,22 @@ header .search .lcont input[type=text] {
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
-												<form action="login.do" method="post">
+												<form action="login.do" method="post" id="loginForm">
 													<div class="form-group">
 														<i class="fa fa-user"></i>
-														<input type="text" class="form-control" name="m_id" placeholder="아이디" />
+														<input type="text" class="form-control" id="m_id" name="m_id" placeholder="아이디" />
 													</div>
 													<div class="form-group">
 														<i class="fa fa-lock"></i>
-														<input type="password" class="form-control" name="m_pw" placeholder="비밀번호" />
+														<input type="password" class="form-control" id="m_pw" name="m_pw" placeholder="비밀번호" />
 													</div>
 													<div class="form-group">
-														<input type="submit" class="btn btn-primary btn-block btn-lg" value="로그인" />
+														<input type="button" onclick="signUp();" class="btn btn-primary btn-block btn-lg" value="로그인" />
 													</div>
 												</form>
 											</div>
 											<div class="modal-footer">
-												<a href="minsertView.do">회원가입</a> / <a href="#">아이디/패스워드 찾기</a>
+												<a href="minsertView.do">회원가입</a> / <a href="fmember.do">아이디/패스워드 찾기</a>
 											</div>
 										</div>
 									</div>
@@ -723,6 +723,31 @@ header .search .lcont input[type=text] {
 			}
 		}
 		
+	</script>
+	<script>
+	function signUp(){
+		m_id = $("#m_id");
+		m_pw = $("#m_pw");
+		$.ajax({
+			url: "checkUser.do",
+			data: {id : m_id.val(),
+				   pw : m_pw.val()},
+			method: "post",
+			success: function(data){
+				if(data.check == true){
+					$("#loginForm").submit();
+				} else {
+					alert("회원정보를 확인해주세요!");
+					return false;
+				}
+			}, error: function(jqxhr, textStatus, errorThrown){
+				console.log("ajax 처리 실패");
+				console.log(jqxhr);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
+	}
 	</script>
 </body>
 </html>
