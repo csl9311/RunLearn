@@ -506,7 +506,7 @@
             <div class="leftSide1" id="countImage">
                <div class="count1">
                   <img src="${contextPath}/resources/images/mypage/menu01.png" width="40px" height="40px">
-                  <h4>신청수업 수</h4>
+                  <h4>수강목록 수</h4>
                   <h5>${ lListCount }권</h5>
                </div>
             </div>
@@ -515,7 +515,7 @@
                <div class="count1">
                   <img src="${contextPath}/resources/images/mypage/menu02.png" width="40px" height="40px">
                   <h4>찜한 강의 수</h4>
-                  <h5>${ noPayLectureListCount }권</h5>
+                  <h5>${ noPaylListCount }권</h5>
                </div>
             </div>
 
@@ -709,19 +709,23 @@
                   <th style="width: 200px;"><div class="lDate" id="lDate1">상품가격</div></th>
                   <th style="width: 150px;"><div class="lDate" id="lDate1">상품수량</div></th>
                </tr>
-
-            <c:forEach var="i" begin="1" end="5">
+			<c:if test="${empty pList }">
+				<td colspan="5" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+			</c:if>
+			
+			
+            <c:forEach var="i" items="${ pList }">
                <tr id="tr1">
                   <td class="td1" style="height: 100px;"><div
-                        id="tableCategory1">디자인</div></td>
+                        id="tableCategory1">${ i.p_category }</div></td>
                   <td class="td1"><div id="image1">
                         <img src="${contextPath}/resources/images/mypage/testitem1.jpg" width="150px" height="80px">
                      </div></td>
                   <td>
-                     <div id="lectureTitle" style="text-align: center;">모나미</div> 
+                     <div id="lectureTitle" style="text-align: center;">${ i.p_name }</div> 
                   </td>
-                  <td><div id="lecturePrice" class="lDate" style="text-align:center;" >1000￦</div></td>
-                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black">5개</div></td>
+                  <td><div id="lecturePrice" class="lDate" style="text-align:center;" >${ i.p_price} }￦</div></td>
+                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black">${ i.p_stock }개</div></td>
                </tr>
             </c:forEach>
                

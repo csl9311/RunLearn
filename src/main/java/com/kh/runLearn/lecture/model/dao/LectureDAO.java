@@ -64,6 +64,33 @@ public class LectureDAO {
 		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
 	}
 
+	public ArrayList<Lecture> selectLectureView(String userId) { //마이페이지 수강목록
+		
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureView", userId);
+	}
+	
+	public int selectLetureCount(String userId) { // 마이페이지 전체 수강 수
+	
+		return sqlSession.selectOne("lectureMapper.selectLetureCount", userId);
+	}
+	
+	
+	
+
+	public ArrayList<Lecture> selectNoPayLectureView(String userId) { // 마이페이ㅣ강의찜목록
+		
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId);
+	}
+
+	public int selectNopayLectureCount(String userId) { //  마이페이지 강의 찜목록 전체 수 
+		
+		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);  
+	}
+
+
+
+	
+
 
 	
 

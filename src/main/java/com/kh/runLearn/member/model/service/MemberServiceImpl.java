@@ -118,35 +118,11 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	@Override
-	public ArrayList<Lecture> selectLectureMember(String userId) {
-		
-		return (ArrayList)mDAO.selectLectureMember(userId);
-	}
+	
 
-	@Override
-	public ArrayList<Product> selectItemMember(String userId) {
-		
-		return (ArrayList)mDAO.selectItemMember(userId);
-	}
+	
 
-	@Override
-	public int selectLectureCount(String userId) {
-		
-		return mDAO.selectLectureCount(userId);
-	}
 
-	@Override
-	public ArrayList<Lecture> selectNoPayLecture(String userId) {
-		
-		return mDAO.selectNoPayLecture(userId);
-	}
-
-	@Override
-	public int selectNoPayLectureCount(String userId) {
-		
-		return mDAO.selectNoPayLectureCount(userId);
-	}
 
 
 

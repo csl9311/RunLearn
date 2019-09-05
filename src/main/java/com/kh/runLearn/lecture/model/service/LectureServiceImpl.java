@@ -148,4 +148,32 @@ public class LectureServiceImpl implements LectureService {
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
 		return lDAO.selectLectureImage(map);
 	}
+
+	@Override
+	public ArrayList<Lecture> selectLectureView(String userId) { //마이페이지 수강목록
+		
+		return lDAO.selectLectureView(userId);
+	}
+	
+	@Override
+	public int selectLectureCount(String userId) { // 마이페이지 수강목록 전체 수
+		
+		return lDAO.selectLetureCount(userId);
+	}
+	
+	
+
+	@Override
+	public ArrayList<Lecture> selectNoPayLectureView(String userId) { // 마이페이지 강의찜 목록
+	
+		return lDAO.selectNoPayLectureView(userId);
+	}
+
+	@Override
+	public int selectNopayLectureCount(String userId) {  // 마이페이지 강의 찜목록 전체 수 
+		
+		return lDAO.selectNopayLectureCount(userId);
+	}
+
+
 }

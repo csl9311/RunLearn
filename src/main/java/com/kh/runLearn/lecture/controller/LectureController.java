@@ -132,4 +132,9 @@ public class LectureController {
 		mv.setViewName("lecture/lectureVideoView");
 		return mv;
 	}
+	
+	
+	
+	
+	
 }

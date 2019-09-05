@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.vo.Product;
 
 @Repository("pDAO")
@@ -37,6 +38,10 @@ public class ProductDAO {
 
 	public Product selectProduct(int p_num) {
 		return (Product) sqlSession.selectOne("productMapper.selectProduct", p_num);
+	}
+
+	public ArrayList<Product> selectProductView(String userId) { // 마이 페이지 상품 찜목록
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductView", userId);
 	}
 
 }

@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.service.ProductService;
 import com.kh.runLearn.product.model.vo.Product;
 
 @Controller
@@ -29,7 +31,12 @@ public class MemberController {
 
 	@Autowired
 	private MemberService mService;
-
+	
+	@Autowired
+	private LectureService lService;
+	
+	@Autowired
+	private ProductService pService;
 	
 	@Autowired
 	private BCryptPasswordEncoder BCryptPasswordEncoder;
@@ -50,31 +57,33 @@ public class MemberController {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		String userId = "nakcom06a";
+		String userId = loginUser.getM_id();
+		
+		ArrayList<Lecture> lList = lService.selectLectureView(userId); // 수강목록 
+		int lListCount = lService.selectLectureCount(userId); // 전체 수강 목록 수
+		
+		
+		
+		ArrayList<Lecture> noPaylList = lService.selectNoPayLectureView(userId); //강의 찜목록
+		int noPaylListCount = lService.selectNopayLectureCount(userId); // 강의 찜 목록 수
+		
+		
+		ArrayList<Product> pList = pService.selectProductView(userId); // 상품 찜목록
+		
+		
 		
 
-		ArrayList<Lecture> lList = mService.selectLectureMember(userId); // 수강목록 
-		ArrayList<Lecture> noPaylList = mService.selectNoPayLecture(userId); //찜한 수강목록
-		ArrayList<Product> pList = mService.selectItemMember(userId); // 찜상품목록
 		
-		int lListCount = mService.selectLectureCount(userId); //수강목록 수
-		int noPayLectureListCount = mService.selectNoPayLectureCount(userId); // 찜한강의 수
-
-		
-		
-		
-		
-
 		mv.addObject("lList", lList);
-		mv.addObject("pList", pList);
-		mv.addObject("noPaylList", noPaylList);
-		
-		mv.addObject("noPayLectureListCount", noPayLectureListCount);
 		mv.addObject("lListCount", lListCount);
-		mv.setViewName("mypage/mypage");
-
 		
-			
+		
+		mv.addObject("noPaylList", noPaylList);
+		mv.addObject("noPaylListCount", noPaylListCount);
+		
+		mv.addObject("pList", pList);
+
+		mv.setViewName("mypage/mypage");
 		return mv;
 	}
 

@@ -16,42 +16,5 @@
 	</update>
 	
 	
- 	<select id="selectLetureMember" parameterType="string"  resultType="hashmap"> <!-- 수강목록 출력 -->
-		select *
-		from LEC_VIEW
-		where M_ID = #{m_id}
-	</select>
-	
-	
-	<select id="selectNoPayLecture" parameterType="string" resultType="hashmap"> <!-- 강의 찜목록 -->
-	select *
-	from LEC_NOPAYVIEW
-	WHERE M_ID = #{m_id}
-	</select>
-	
-	<select id="selectItemMember" parameterType="string" resultType="hashmap">  <!-- 물건 찜목록 출력 -->
-		select *
-		from ITEM_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select>
-	
-	
-	<select id="selectLectureCount" parameterType="string" resultType="_int"> <!--  수강목록 카운트 -->
-	select count(*)
-	from LEC_VIEW
-	where M_ID = #{m_id}
-	</select>
-	
-	<select id="selectNoPayLectureCount" parameterType="string" resultType="_int"> <!--  강의 찜목록 카운트 -->
-	select count(*)
-	from LEC_NOPAYVIEW
-	where M_ID = #{m_id}
-	</select>
-	
 
-	
-	
-
-	
-	 
 </mapper>

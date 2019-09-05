@@ -29,14 +29,10 @@ public interface MemberService {
 	int updateMemberImage(Member_Image mi);
 	int deleteMemberImage(Member_Image mi);
 	
-	ArrayList<Lecture> selectLectureMember(String userId); // 강의정보 조회
 	
 	
-	ArrayList<Product> selectItemMember(String userId); // 찜목록 조회
-	int selectLectureCount(String userId);
-	ArrayList<Lecture> selectNoPayLecture(String userId);
-	int selectNoPayLectureCount(String userId);
-
+	
+	
 	
 
 	

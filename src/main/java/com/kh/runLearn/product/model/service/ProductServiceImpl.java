@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.dao.ProductDAO;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
@@ -86,6 +87,12 @@ public class ProductServiceImpl implements ProductService {
 	public int updateProduct_Image(Product_Image pi) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<Product> selectProductView(String userId) { // 마이페이지 상품 찜목록
+		
+		return pDAO.selectProductView(userId);
 	}
 
 }

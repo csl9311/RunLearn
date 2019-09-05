@@ -3,6 +3,7 @@ package com.kh.runLearn.product.model.service;
 import java.util.ArrayList;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 
@@ -25,6 +26,9 @@ public interface ProductService {
 	
 	int insertProduct_Image(Product_Image pi); // 상품 이미지 등록
 	int updateProduct_Image(Product_Image pi); // 상품 이미지 수정
+	
+	
+	ArrayList<Product> selectProductView(String userId);  //마이페이지  상품 찜목록
 
 	
 }
