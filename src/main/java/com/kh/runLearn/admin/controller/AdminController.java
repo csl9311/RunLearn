@@ -12,7 +12,7 @@ import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.product.model.service.ProductService;
 
 @Controller
-public class adminController {
+public class AdminController {
 	@Autowired
 	private BoardService bService;
 	@Autowired
