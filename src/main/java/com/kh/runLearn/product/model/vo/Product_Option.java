@@ -2,14 +2,11 @@ package com.kh.runLearn.product.model.vo;
 
 public class Product_Option {
 	private String p_option;
-	private String p_num;
-	
-	public Product_Option() {}
-	
-	public Product_Option(String p_option, String p_num) {
-		super();
-		this.p_option = p_option;
-		this.p_num = p_num;
+	private int p_optionPrice;
+	private int p_stock;
+	private int p_num;
+
+	public Product_Option() {
 	}
 
 	public String getP_option() {
@@ -20,16 +17,42 @@ public class Product_Option {
 		this.p_option = p_option;
 	}
 
-	public String getP_num() {
+	public int getP_optionPrice() {
+		return p_optionPrice;
+	}
+
+	public void setP_optionPrice(int p_optionPrice) {
+		this.p_optionPrice = p_optionPrice;
+	}
+
+	public int getP_stock() {
+		return p_stock;
+	}
+
+	public void setP_stock(int p_stock) {
+		this.p_stock = p_stock;
+	}
+
+	public int getP_num() {
 		return p_num;
 	}
 
-	public void setP_num(String p_num) {
+	public void setP_num(int p_num) {
+		this.p_num = p_num;
+	}
+
+	public Product_Option(String p_option, int p_optionPrice, int p_stock, int p_num) {
+		super();
+		this.p_option = p_option;
+		this.p_optionPrice = p_optionPrice;
+		this.p_stock = p_stock;
 		this.p_num = p_num;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductOption [p_option=" + p_option + ", p_num=" + p_num + "]";
+		return "Product_Option [p_option=" + p_option + ", p_optionPrices=" + p_optionPrice + ", p_stock=" + p_stock
+				+ ", p_num=" + p_num + "]";
 	}
+
 }

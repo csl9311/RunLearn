@@ -14,8 +14,7 @@ public interface ProductService {
 	ArrayList<Product> selectProductList(PageInfo pi); // 상품 전체 목록 조회
 	ArrayList<Product> selectProductList(PageInfo pi, String p_category); // 상품 카테고리별 목록 조회
 	
-	Product selectProduct(int p_num); // 상품 상세 조회
-	ArrayList<Product_Image> selectProductImg(int p_num); // 상품이미지
+	ArrayList<?> selectProduct(int p_num); // 상품 상세 조회
 	
 	int insertProduct(HashMap<String, Object> pList); // 상품 등록
 	int updateProduct(Product p); // 상품 수정
@@ -29,7 +28,6 @@ public interface ProductService {
 
 	
 	int insertProductDetail(ArrayList<Product_Image> list); // 상품 상세 이미지 등록
-//	int insertProductOption(ArrayList<Product_Option> poList);
 
 	
 }

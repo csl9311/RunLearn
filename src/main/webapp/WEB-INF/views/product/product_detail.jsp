@@ -154,31 +154,48 @@
 <br>
 <br>
 <br>
-<%-- 리뷰 --%>	
-<!-- 라이브리 시티 설치 코드 -->
-<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
-   <script type="text/javascript">
-   (function(d, s) {
-      var j, e = d.getElementsByTagName(s)[0];
-
-      if (typeof LivereTower === 'function') { return; }
-
-      j = d.createElement(s);
-      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-      j.async = true;
-
-      e.parentNode.insertBefore(j, e);
-   })(document, 'script');
-   </script>
-<noscript> 라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
-</div>
-<!-- 시티 설치 코드 끝 -->
-<%-- 리뷰 끝 --%>
-
-
-
-
+		<%-- 리뷰 --%>	
+		<!-- 라이브리 시티 설치 코드 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
+		   <script type="text/javascript">
+		   (function(d, s) {
+		      var j, e = d.getElementsByTagName(s)[0];
+		
+		      if (typeof LivereTower === 'function') { return; }
+		
+		      j = d.createElement(s);
+		      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		      j.async = true;
+		
+		      e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		   </script>
+		<noscript> 라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
+		</div>
+		<!-- 시티 설치 코드 끝 -->
+		<%-- 리뷰 끝 --%>
 	</div>
+	
+	<!-- <script>
+		$(document).ready(function() {
+			setInterval("deleteAd()", 100);
+		});
+		function deleteAd(){
+			var $ad = $('#taboola-livere');
+			$ad.remove();
+		}
+	</script>
+	<div id="eotrmfduddur"></div>
+	<script>
+		var page = "";
+		$(document).ready(function(page){
+			$('#eotrmfduddur').append(
+				'<table>' + 
+				
+				'</table>'		
+			);
+		});
+	</script> -->
 </body>
 <c:import url="../common/footer.jsp"/>
 </html>

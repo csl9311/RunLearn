@@ -25,13 +25,11 @@
 		parameterType="string">
 		SELECT COUNT(*)
 		FROM PRODUCT
-		WHERE P_STATUS = 'Y'
-			AND P_CATEGORY = #{p_category}
+		WHERE P_STATUS = 'Y' AND P_CATEGORY = #{p_category}
 	</select>
 
 <!-- 카테고리별 목록 조회 -->
-	<select id="selectProductListCate" resultType="hashmap"
-		parameterType="string">
+	<select id="selectProductListCate" resultType="hashmap" parameterType="string">
 		SELECT *
 		FROM PRODUCT
 			LEFT JOIN product_image USING(P_NUM)
@@ -44,11 +42,9 @@
 <!-- 상품 디테일 조회 -->
 	<select id="selectProduct" parameterType="_int" resultType="Product">
 		SELECT * FROM PRODUCT
+			JOIN PRODUCT_IMAGE USING(P_NUM)
+			JOIN PRODUCT_OPTION USING(P_NUM)
 		WHERE P_STATUS = 'Y' AND P_NUM = #{p_num}
-	</select>
-	
-	<select id="selectProductImg" resultType="list">
-		SELECT * FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num}
 	</select>
 	
 <!-- 상품 등록 -->
@@ -56,7 +52,7 @@
 	<insert id="insertProduct" parameterType="map">
 		INSERT ALL
 			INTO PRODUCT VALUES (
-				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, #{p.p_stock}, 'Y', SYSDATE, NULL, #{p.m_id}
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, 'Y', SYSDATE, NULL, #{p.m_id}
 			)
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL

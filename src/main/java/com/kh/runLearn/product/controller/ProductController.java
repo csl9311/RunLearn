@@ -67,14 +67,11 @@ public class ProductController {
 			@RequestParam("p_num") int p_num,
 			HttpServletRequest request
 		) {
-		Product p = pService.selectProduct(p_num);
-		ArrayList<Product_Image> pi = pService.selectProductImg(p_num);
+		ArrayList<?> list = pService.selectProduct(p_num);
 
-		request.setAttribute("p", p);
-		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
 
-		System.out.println(p);
-		System.out.println(pi);
+		System.out.println(list);
 		return "product/product_detail";
 	}
 
@@ -87,24 +84,37 @@ public class ProductController {
 	@RequestMapping("insert.product")
 	public String insertProduct(
 			@ModelAttribute Product p,
-			@ModelAttribute Product_Option po,
+			@RequestParam(value = "p_option", required = false) String[] p_option,
+			@RequestParam(value = "p_optionPrice", required = false) int[] p_optionPrice,
+			@RequestParam(value = "p_stock", required = false) int[] p_stock,
 			@RequestParam(value = "pi_thumbnail", required = false) MultipartFile pi_thumbnail,
 			@RequestParam(value = "pi_detail", required = false) MultipartFile[] pi_detail,
 			HttpServletRequest request
 	) throws Exception {
-		// 상품 정보 add
+
+		
+		// 상품 정보 list add
 		HashMap<String, Object> pList = new HashMap<>();
 		pList.put("p", p);
 		
-		// 썸네일 파일 저장 및 add
+		for(int i = 0; i < p_option.length; i++) {
+			Product_Option po = new Product_Option();
+			po.setP_option(p_option[i]);
+			po.setP_optionPrice(p_optionPrice[i]);
+			po.setP_stock(p_stock[i]);
+			System.out.println(p_option[i]);
+			System.out.println(p_optionPrice[i]);
+			System.out.println(p_stock[i]);
+			pList.put("po", po);
+		}
+		// 썸네일 파일 저장 및 list add
 		if (pi_thumbnail != null && !pi_thumbnail.isEmpty()) {
-			Product_Image pi = null;
 			String p_changed_name = saveFile(pi_thumbnail, request, 0);
 			
 			if (p_changed_name != null) {
-				pi = new Product_Image();
+				Product_Image pi = new Product_Image();
+				pi.setP_changed_name("0" + p_changed_name);
 				pi.setP_origin_name(pi_thumbnail.getOriginalFilename());
-				pi.setP_changed_name(p_changed_name);
 				pi.setP_file_level(0);
 				pList.put("pi", pi);
 			}
@@ -115,18 +125,9 @@ public class ProductController {
 		if (result < 0) {
 			throw new Exception("상품 등록에 실패했습니다.");
 		}
-		
-		// 상품 옵션 DB저장
-		System.out.println(po);
-//		for(int i = 0; i < po.length; i ++) {
-//			System.out.println(po[i]);
-//			poList.add(po[i]);
-//		}
-//		result = pService.insertProductOption(poList);
-		
 
 		// 상품 상세 이미지 저장 및 DB 저장
-		boolean check = pi_detail[0].isEmpty();
+		boolean check = pi_detail[0] != null && pi_detail[0].isEmpty();
 		if (!check) {
 			result = uploadProductDetailImg(pi_detail, request);
 			if (result < 0) {
@@ -134,7 +135,7 @@ public class ProductController {
 			}
 		}
 
-		return "getList.Product";
+		return "redirect:getList.product";
 	}
 
 // 상세 이미지 저장 및 DB 저장
@@ -148,8 +149,8 @@ public class ProductController {
 			String p_changed_name = saveFile(pi_detail[i], request, i + 1);
 			if (p_changed_name != null) {
 				pi = new Product_Image();
+				pi.setP_changed_name((i+1) + p_changed_name);
 				pi.setP_origin_name(pi_detail[i].getOriginalFilename());
-				pi.setP_changed_name(p_changed_name);
 				pi.setP_file_level(1);
 			}
 			list.add(pi);
@@ -172,10 +173,10 @@ public class ProductController {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-		String originalFileName = fileNum + file.getOriginalFilename();
+		String originalFileName = file.getOriginalFilename();
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
 				+ originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-		String renamePath = folder + "\\" + renameFileName;
+		String renamePath = folder + "\\" + String.valueOf(fileNum) + renameFileName;
 
 		try {
 			file.transferTo(new File(renamePath)); // 전달 받은 file이 rename 명으로 저장

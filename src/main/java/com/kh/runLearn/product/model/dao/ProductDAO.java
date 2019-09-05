@@ -38,12 +38,8 @@ public class ProductDAO {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductListCate", p_category, rowBounds);
 	}
 
-	public Product selectProduct(int p_num) {
-		return (Product) sqlSession.selectOne("productMapper.selectProduct", p_num);
-	}
-
-	public ArrayList<Product_Image> selectProductImg(int p_num) {
-		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
+	public ArrayList<?> selectProduct(int p_num) {
+		return (ArrayList<?>) sqlSession.selectOne("productMapper.selectProduct", p_num);
 	}
 
 	public int insertProduct(HashMap<String, Object> pList) {

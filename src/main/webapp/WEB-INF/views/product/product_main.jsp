@@ -38,7 +38,7 @@ img:hover {
 						<input type="hidden" value="${ p.P_NUM }" name="p_num">
 						<div class="col-md-4">
 							<div class="row" style="margin: 30px;" id="mainImage">
-								<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/test1.png" onclick="submit();">
+								<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/test1.png" onclick='submit();'>
 							</div>
 							<div class="col-md-6" id="productInfo">
 								<p>${ p.P_NAME }</p>
