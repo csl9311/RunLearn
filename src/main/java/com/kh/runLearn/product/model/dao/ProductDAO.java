@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
+import com.kh.runLearn.product.model.vo.Product_Option;
 
 @Repository("pDAO")
 public class ProductDAO {
@@ -44,8 +46,8 @@ public class ProductDAO {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
 	}
 
-	public int insertProduct(Product p) {
-		return sqlSession.insert("productMapper.insertProduct", p);
+	public int insertProduct(HashMap<String, Object> pList) {
+		return sqlSession.insert("productMapper.insertProduct", pList);
 	}
 
 	public int insertProductThumbnail(Product_Image pi) {
@@ -55,5 +57,10 @@ public class ProductDAO {
 	public int insertProductDetail(ArrayList<Product_Image> list) {
 		return sqlSession.insert("productMapper.insertProductDetail", list);
 	}
+
+//	public int insertProductOption(ArrayList<Product_Option> poList) {
+//		return sqlSession.insert("productMapper.insertProductOption", poList);
+//	}
+
 
 }

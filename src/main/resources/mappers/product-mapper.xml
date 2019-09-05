@@ -52,20 +52,18 @@
 	</select>
 	
 <!-- 상품 등록 -->
-	<insert id="insertProduct" parameterType="Product">
-		INSERT INTO PRODUCT VALUES(
-			PRODUCT_SEQ.NEXTVAL,
-			#{p_name}, #{p_category}, #{p_price}, #{p_stock},
-			'Y', SYSDATE, NULL, #{m_id}
-		)
-	</insert>
-	<insert id="insertProductThumbnail" parameterType="Product_Image">
-		INSERT INTO PRODUCT_IMAGE VALUES(
-			#{p_changed_name}, #{p_origin_name}, SYSDATE, 0, PRODUCT_SEQ.CURRVAL
-		)
-	</insert>
 	
-	
+	<insert id="insertProduct" parameterType="map">
+		INSERT ALL
+			INTO PRODUCT VALUES (
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, #{p.p_stock}, 'Y', SYSDATE, NULL, #{p.m_id}
+			)
+			INTO PRODUCT_IMAGE VALUES(
+				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
+			)
+		SELECT * FROM DUAL
+	</insert>
+
 	<insert id="insertProductDetail" parameterType="Product_Image">
 		<foreach collection="list" item="item" index="index" open="INSERT ALL " separator=" " close="SELECT * FROM DUAL">
 			into PRODUCT_IMAGE(
@@ -78,18 +76,19 @@
 				#{item.p_changed_name},
 				#{item.p_origin_name},
 				SYSDATE,
-				'1',
+				#{item.p_file_level},
 				PRODUCT_SEQ.CURRVAL
 			)
 		</foreach>
 	</insert>
-
-
-
+	
+	
+	<!-- <insert id="insertProductOption">
+	
+	</insert> -->
 
 <!-- 상품검색 쿼리 -->
-	<select id="search-selectProduct" parameterType="map"
-		resultType="hashmap">
+	<select id="search-selectProduct" parameterType="map" resultType="hashmap">
 		select *
 		from psearch_view
 		where p_name like '%' || #{search} || '%'

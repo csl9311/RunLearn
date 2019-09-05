@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.dao.ProductDAO;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
+import com.kh.runLearn.product.model.vo.Product_Option;
 
 @Service("pService")
 public class ProductServiceImpl implements ProductService {
@@ -46,8 +48,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int insertProduct(Product p) {
-		return pDAO.insertProduct(p);
+	public int insertProduct(HashMap<String, Object> pList) {
+		return pDAO.insertProduct(pList);
 	}
 
 	@Override
@@ -89,5 +91,11 @@ public class ProductServiceImpl implements ProductService {
 	public int insertProductDetail(ArrayList<Product_Image> list) {
 		return pDAO.insertProductDetail(list);
 	}
+
+//	@Override
+//	public int insertProductOption(ArrayList<Product_Option> poList) {
+//		return pDAO.insertProductOption(poList);
+//	}
+
 
 }

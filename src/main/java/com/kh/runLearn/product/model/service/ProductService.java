@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.vo.Product;
@@ -16,7 +17,7 @@ public interface ProductService {
 	Product selectProduct(int p_num); // 상품 상세 조회
 	ArrayList<Product_Image> selectProductImg(int p_num); // 상품이미지
 	
-	int insertProduct(Product p); // 상품 등록
+	int insertProduct(HashMap<String, Object> pList); // 상품 등록
 	int updateProduct(Product p); // 상품 수정
 	int deleteProduct(Product p); // 상품 및 이미지 삭제 (파일 삭제)
 	
@@ -28,6 +29,7 @@ public interface ProductService {
 
 	
 	int insertProductDetail(ArrayList<Product_Image> list); // 상품 상세 이미지 등록
+//	int insertProductOption(ArrayList<Product_Option> poList);
 
 	
 }
