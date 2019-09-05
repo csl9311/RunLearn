@@ -437,49 +437,49 @@ header .search .lcont input[type=text] {
 							</li>
 							<li>
 								<c:url var="design" value="selectLectureList.le">
-									<c:param name="l_category" value="D"/>
+									<c:param name="l_category" value="디자인"/>
 								</c:url>
 								<a href="${ design }">디자인</a>
 							</li>
 							<li>
 								<c:url var="working" value="selectLectureList.le">
-									<c:param name="l_category" value="W"/>
+									<c:param name="l_category" value="실무역량"/>
 								</c:url>
 								<a href="${ working }">실무역량</a>
 							</li>
 							<li>
 								<c:url var="beauty" value="selectLectureList.le">
-									<c:param name="l_category" value="B"/>
+									<c:param name="l_category" value="뷰티"/>
 								</c:url>
 								<a href="${ beauty }">뷰티</a>
 							</li>
 							<li>
 								<c:url var="video" value="selectLectureList.le">
-									<c:param name="l_category" value="V"/>
+									<c:param name="l_category" value="영상"/>
 								</c:url>
 								<a href="${ video }">영상</a>
 							</li>
 							<li>
 								<c:url var="foreign" value="selectLectureList.le">
-									<c:param name="l_category" value="F"/>
+									<c:param name="l_category" value="외국어"/>
 								</c:url>
 								<a href="${ foreign }">외국어</a>
 							</li>
 							<li>
 								<c:url var="music" value="selectLectureList.le">
-									<c:param name="l_category" value="M"/>
+									<c:param name="l_category" value="음악"/>
 								</c:url>
 								<a href="${ music }">음악</a>
 							</li>
 							<li>
 								<c:url var="lifeStyle" value="selectLectureList.le">
-									<c:param name="l_category" value="L"/>
+									<c:param name="l_category" value="라이프스타일"/>
 								</c:url>
 								<a href="${ lifeStyle }">라이프스타일</a>
 							</li>
 							<li>
 								<c:url var="JTec" value="selectLectureList.le">
-									<c:param name="l_category" value="J"/>
+									<c:param name="l_category" value="제테크"/>
 								</c:url>
 								<a href="${ JTec }">재테크</a>
 							</li>
@@ -582,7 +582,7 @@ header .search .lcont input[type=text] {
 		<div class="menubar-inner">
 			<ul>
 				<li id="shopMenu"><a onclick="changeView();">상품</a></li>
-				<li id="lectureMenu">강의</li>
+				<li id="lectureMenu"><a href="${ all }">강의</a></li>
 			</ul>
 		</div>
 		<div class="menu-sub shop">
@@ -599,53 +599,53 @@ header .search .lcont input[type=text] {
 			<ul>
 				<li>
 							<c:url var="all" value="selectLectureAllList.le"/>
-							<a href="${ all }">인기수업</a>
+								<a href="${ all }">인기수업</a>
 							</li>
 							<li>
 								<c:url var="design" value="selectLectureList.le">
-									<c:param name="l_category" value="D"/>
+									<c:param name="l_category" value="디자인"/>
 								</c:url>
 								<a href="${ design }">디자인</a>
 							</li>
 							<li>
 								<c:url var="working" value="selectLectureList.le">
-									<c:param name="l_category" value="W"/>
+									<c:param name="l_category" value="실무역량"/>
 								</c:url>
 								<a href="${ working }">실무역량</a>
 							</li>
 							<li>
 								<c:url var="beauty" value="selectLectureList.le">
-									<c:param name="l_category" value="B"/>
+									<c:param name="l_category" value="뷰티"/>
 								</c:url>
 								<a href="${ beauty }">뷰티</a>
 							</li>
 							<li>
 								<c:url var="video" value="selectLectureList.le">
-									<c:param name="l_category" value="V"/>
+									<c:param name="l_category" value="영상"/>
 								</c:url>
 								<a href="${ video }">영상</a>
 							</li>
 							<li>
 								<c:url var="foreign" value="selectLectureList.le">
-									<c:param name="l_category" value="F"/>
+									<c:param name="l_category" value="외국어"/>
 								</c:url>
 								<a href="${ foreign }">외국어</a>
 							</li>
 							<li>
 								<c:url var="music" value="selectLectureList.le">
-									<c:param name="l_category" value="M"/>
+									<c:param name="l_category" value="음악"/>
 								</c:url>
 								<a href="${ music }">음악</a>
 							</li>
 							<li>
 								<c:url var="lifeStyle" value="selectLectureList.le">
-									<c:param name="l_category" value="L"/>
+									<c:param name="l_category" value="라이프스타일"/>
 								</c:url>
 								<a href="${ lifeStyle }">라이프스타일</a>
 							</li>
 							<li>
 								<c:url var="JTec" value="selectLectureList.le">
-									<c:param name="l_category" value="J"/>
+									<c:param name="l_category" value="재테크"/>
 								</c:url>
 								<a href="${ JTec }">재테크</a>
 							</li>

@@ -6,20 +6,18 @@ public class Lecture_Image {
 	private int l_image_num;
 	private String l_origin_name;
 	private String l_changed_name;
-	private String l_file_path;
 	private int l_file_level;	
 	private Date l_upload_date;
 	private int l_num;
 	
 	public Lecture_Image() {}
 
-	public Lecture_Image(int l_image_num, String l_origin_name, String l_changed_name, String l_file_path,
-			int l_file_level, Date l_upload_date, int l_num) {
+	public Lecture_Image(int l_image_num, String l_origin_name, String l_changed_name, int l_file_level,
+			Date l_upload_date, int l_num) {
 		super();
 		this.l_image_num = l_image_num;
 		this.l_origin_name = l_origin_name;
 		this.l_changed_name = l_changed_name;
-		this.l_file_path = l_file_path;
 		this.l_file_level = l_file_level;
 		this.l_upload_date = l_upload_date;
 		this.l_num = l_num;
@@ -49,14 +47,6 @@ public class Lecture_Image {
 		this.l_changed_name = l_changed_name;
 	}
 
-	public String getL_file_path() {
-		return l_file_path;
-	}
-
-	public void setL_file_path(String l_file_path) {
-		this.l_file_path = l_file_path;
-	}
-
 	public int getL_file_level() {
 		return l_file_level;
 	}
@@ -83,9 +73,9 @@ public class Lecture_Image {
 
 	@Override
 	public String toString() {
-		return "LectureImage [l_image_num=" + l_image_num + ", l_origin_name=" + l_origin_name + ", l_changed_name="
-				+ l_changed_name + ", l_file_path=" + l_file_path + ", l_file_level=" + l_file_level + ", l_uploaddate="
-				+ l_upload_date + ", l_num=" + l_num + "]";
+		return "Lecture_Image [l_image_num=" + l_image_num + ", l_origin_name=" + l_origin_name + ", l_changed_name="
+				+ l_changed_name + ", l_file_level=" + l_file_level + ", l_upload_date=" + l_upload_date + ", l_num="
+				+ l_num + "]";
 	}
 	
 }

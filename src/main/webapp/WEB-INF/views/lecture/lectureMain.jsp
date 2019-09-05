@@ -70,7 +70,7 @@
 				<div class="col-md-4" onclick="location.href='${ detailView }'">
 					<div class="card mb-4 shadow-sm">
 						<img class="bd-placeholder-img card-img-top" width="100%"
-							height="225" src="${contextPath}/resources/images/lecture/${list.L_ORIGIN_NAME}">
+							height="225" src="${contextPath}/resources/images/lecture/${list.L_CHANGED_NAME}">
 						<div class="card-body row">
 							<div class="col-md-8">
 								<p style="font-weight: bolder;">${ list.L_TITLE }</p>

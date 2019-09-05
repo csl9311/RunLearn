@@ -1,10 +1,5 @@
 package com.kh.runLearn.lecture.model.vo;
 
-import java.util.ArrayList;
-
-import com.kh.runLearn.member.model.vo.Member;
-import com.kh.runLearn.member.model.vo.Member_Image;
-
 public class Lecture {
 	private int l_num;
 	private String l_category;
