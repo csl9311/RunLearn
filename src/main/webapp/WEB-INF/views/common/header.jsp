@@ -533,7 +533,7 @@ header .search .lcont input[type=text] {
 											<div class="modal-footer">
 												<a href="minsertView.do">회원가입</a> / <a href="#">아이디/패스워드 찾기</a>
 											</div>
-										</div>
+										</div> 
 									</div>
 								</div></li>
 						</c:if>
@@ -543,7 +543,7 @@ header .search .lcont input[type=text] {
 						<c:if test="${ empty sessionScope.loginUser }">
 							<li><a href="minsertView.do">회원가입</a></li>
 						</c:if>
-						<c:if test="${ !empty sessionScope.loginUser }">
+						<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id ne 'admin1' }">
 						<c:url var="myPage" value="mypage.do"/>
 							<li id="myPage"><a href="${ myPage }">마이페이지</a>
 								<ul id="myPage-detail">
@@ -551,8 +551,11 @@ header .search .lcont input[type=text] {
 									<li><a href="#">내 강의/거래</a></li>
 								</ul></li>
 						</c:if>
+						<c:if test="${ sessionScope.loginUser.m_id eq 'admin1' }">
+							<li><a href="adminMain.do">관리자페이지</a></li>
+						</c:if>
 						<li><a href="cCenterView.do?b_category=공지사항">고객센터</a></li>
-						<c:if test="${ !empty sessionScope.loginUser }">
+						<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id ne 'admin1' }">
 							<li><a href="#">ID/PWD찾기</a></li>
 						</c:if>
 					</ul>
