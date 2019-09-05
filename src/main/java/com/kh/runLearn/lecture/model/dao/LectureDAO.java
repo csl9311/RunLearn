@@ -2,6 +2,7 @@ package com.kh.runLearn.lecture.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -67,6 +68,11 @@ public class LectureDAO {
 
 	public int insertLecture_Image(Lecture_Image li) {
 		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
+	}
+
+	// home.jsp에 최신강의 조회
+	public ArrayList<Map<String, String>> selectNewLectureList() {
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectNewLectureList");
 	}
 
 

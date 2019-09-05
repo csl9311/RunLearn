@@ -208,25 +208,25 @@
       <div class="container main-bottom">
           <h3>최신 강의</h3><br>
          <div class="detailDiv col-sm-5">
-            <table>
+            <table class="topItem">
                <tr class="imgRow">
                   <td>
                      <img id="img-detail" src="${contextPath}/resources/images/main/lectureImg_sample.PNG">
                   </td>
                </tr>
                <tr class="subRow title">
-                  <td><br>포토샵책 저자한테 배우는 포토샵/일러스트</td>
+                  <td><br></td>
                </tr>
                <tr class="subRow sub">
-                  <td>어려운 포토샵? No! 하루만에 끝내는 간단한 포토샵</td>
+                  <td></td>
                </tr>
                <tr class="subRow price">
-                  <td><br>10,000￦</td>
+                  <td><br></td>
                </tr>
             </table>
          </div>
          <div class="sideDiv col-sm-7">
-            <div>
+            <div class="newListDiv">
                <button id="lectureBtn" class="list-select">강의</button>
                <button id="productBtn">상품</button>
             </div>
@@ -267,6 +267,35 @@
     <c:import url="common/footer.jsp"/>
    
    <script>
+	   $(function() {
+		   getNewList('강의');
+	   });
+	   
+	   function getNewList(cate) {
+		   var type = '';
+		   
+		   if (cate == '강의') {
+			   type = 'getNewLectureList.do';
+		   } else if (cate == '상품') {
+			   type = 'getNewProductList.do';
+		   }
+		   
+		   $.ajax({
+				url: type,
+				dataType: "json",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success: function(data) {
+					$('.imgRow').siblings('.title').children('td').html("<br>"+data[0].L_TITLE);
+					$('.imgRow').siblings('.sub').children('td').html(data[0].L_CONTENT);
+					$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
+					
+					for (var i = 1; i < 5; i++) {
+						
+					}
+				}
+			});
+	   }
+	   
        $.noConflict();
        $('.slide').slick({
             dots: true,
