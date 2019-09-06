@@ -108,8 +108,10 @@
 			</c:url>
 			<div class="col-md" style="text-align: center; margin-bottom: 50px;">
 				<button class="backBtn" onclick="location.href='${blist}'" style="margin-right: 20px;">목록으로</button>
+				<c:if test="${ b.b_category ne '공지사항'}">
 				<button onclick="location.href='${cCenterupdateView}'" style="margin-right: 20px;">수정하기</button>
 				<button onclick="confirmCheck();">삭제하기</button>
+				</c:if>
 			</div>
 		</div>
 	</div>

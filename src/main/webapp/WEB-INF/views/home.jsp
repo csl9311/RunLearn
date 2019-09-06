@@ -134,10 +134,15 @@
          cursor: pointer;
       }
       
+      .imgRow-side{
+      	width: 35%;
+      	paddig-left: 30px;
+      }
+      
       .imgRow-side img {
          width: 80px;
          height: 80px;
-         margin: 0 30px;
+         margin: 0 40px;
       }
       
       .sideDiv .title {
@@ -158,7 +163,7 @@
       /* -----------------오늘의 문구----------------- */
       .mentDiv {
          position: relative;
-         background-image: url(${contextPath}/resources/images/main/ment_sample.jpg);
+         background-image: url(resources/images/main/ment_sample.jpg);
          background-size: 100% 100%;
          background-repeat: no-repeat;
          margin: 0 auto;
@@ -208,49 +213,44 @@
       <div class="container main-bottom">
           <h3>최신 강의</h3><br>
          <div class="detailDiv col-sm-5">
-            <table>
+            <table class="topItem">
                <tr class="imgRow">
                   <td>
                      <img id="img-detail" src="${contextPath}/resources/images/main/lectureImg_sample.PNG">
                   </td>
                </tr>
                <tr class="subRow title">
-                  <td><br>포토샵책 저자한테 배우는 포토샵/일러스트</td>
+                  <td><br></td>
                </tr>
                <tr class="subRow sub">
-                  <td>어려운 포토샵? No! 하루만에 끝내는 간단한 포토샵</td>
+                  <td></td>
                </tr>
                <tr class="subRow price">
-                  <td><br>10,000￦</td>
+                  <td><br></td>
                </tr>
             </table>
          </div>
          <div class="sideDiv col-sm-7">
-            <div>
+            <div class="newListDiv">
                <button id="lectureBtn" class="list-select">강의</button>
                <button id="productBtn">상품</button>
             </div>
-            <table>
-               <% for(int i=0; i<2; i++) { %>
-               <tr class="rows">
-                  <td class="imgRow-side">
-                     <img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">
-                  </td>
-                  <td>
-                     <div class="title">포토샵책 저자한테 배우는 포토샵/일러스트</div>
-                     <div class="price">10,000￦</div>
-                  </td>
-               </tr>
-               <tr class="rows">
-                  <td class="imgRow-side">
-                     <img src="${contextPath}/resources/images/main/lectureImg_sample2.PNG">
-                  </td>
-                  <td>
-                     <div class="title">[완전기초!]프리미어만으로 꽉찬 4주 완성</div>
-                     <div class="price">9,000￦</div>
-                  </td>
-               </tr>
-               <% } %>
+            <script>
+            	window.onload=function(){
+            		$('.rows').hover(function() {
+					     var src = $(this).children().children('img').attr('src');
+					     var title = $(this).children().children('.title').text();
+					     var sub = $(this).children().children('.sub').text();
+					     var price = $(this).children().children('.price').text();
+					     
+					     $('#img-detail').attr('src', src);
+					     $('.detailDiv .title td').html('<br>'+title);
+					     $('.detailDiv .sub td').html(sub);
+					     $('.detailDiv .price td').html('<br>'+price);
+					  });
+            	}
+		      </script>
+            <table class="sideItems">
             </table>
          </div>
       </div>
@@ -267,6 +267,75 @@
     <c:import url="common/footer.jsp"/>
    
    <script>
+	   $(function() {
+		   getNewList('강의');
+		   
+		   $('#productBtn').click(function() {
+			   getNewList('상품');
+			   $(this).toggleClass('list-select');
+			   $('#lectureBtn').toggleClass('list-select');
+		   });
+		   
+		   $('#lectureBtn').click(function() {
+			   getNewList('강의');
+			   $(this).toggleClass('list-select');
+			   $('#productBtn').toggleClass('list-select');
+		   });
+	   });
+	   
+	   function getNewList(cate) {
+		   var type = '';
+		   
+		   if (cate == '강의') {
+			   type = 'getNewLectureList.do';
+		   } else if (cate == '상품') {
+			   type = 'getNewProductList.do';
+		   }
+		   
+		   $.ajax({
+				url: type,
+				dataType: "json",
+				success: function(data) {
+					$table = $(".sideItems");
+		            $table.html("");
+		            
+		            var $tr;
+		            var $img;
+		            var $td;
+		            var $title;
+		            var $sub;
+		            var $price;
+		            
+		            if (cate == '강의') {
+		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].L_TITLE.replace(/\+/g,' ')));
+						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_CONTENT.replace(/\+/g,' ')));
+						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
+						
+		            	for (var i = 0; i < 4; i++) {
+							$tr = $('<tr class="rows">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
+							$td = $('<td>');
+							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
+							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')))
+							$price = $('<div class="price">').text(data[i].L_PRICE+"￦");
+							
+							$tr.append($img);
+							
+							$td.append($title);
+							$td.append($sub);
+							$td.append($price);
+							
+							$tr.append($td);
+							
+							$table.append($tr);
+						}
+		            } else if (cate == '상품') {
+		            	console.log(data);
+		            }
+				}
+			});
+	   }
+	   
        $.noConflict();
        $('.slide').slick({
             dots: true,
@@ -276,15 +345,6 @@
             autoplaySpeed: 2000
        });
        
-       $('.rows').hover(function() {
-         var src = $(this).children().children('img').attr('src');
-         var title = $(this).children().children('.title').text();
-         var price = $(this).children().children('.price').text();
-         
-         $('#img-detail').attr('src', src);
-         $('.detailDiv .title td').html('<br>'+title);
-         $('.detailDiv .price td').html(price);
-      });
    </script>
 </body>
 </html>

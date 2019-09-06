@@ -52,6 +52,7 @@ footer .company_info {
 .company_etc li {
 	display: inline;
 	margin-left: 20px;
+	cursor: pointer;
 }
 </style>
 </head>
@@ -71,8 +72,8 @@ footer .company_info {
 				</div>
 				<div class="company_etc col-sm-6">
 					<ul>
-						<li>Join Us</li>
-						<li>고객센터</li>
+						<li onclick="location.href='minsertView.do'">Join Us</li>
+						<li onclick="location.href='cCenterView.do?b_category=공지사항'">고객센터</li>
 						<li>이용약관</li>
 						<li>개인정보취급방침</li>
 					</ul>
@@ -81,17 +82,17 @@ footer .company_info {
 		</div>
 	</footer>
 	<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-         s1.async=true;
-         s1.src='https://embed.tawk.to/5d5df956eb1a6b0be608b410/default';
-         s1.charset='UTF-8';
-         s1.setAttribute('crossorigin','*');
-         s0.parentNode.insertBefore(s1,s0);
-      })();
-</script>
-<!--End of Tawk.to Script-->
+	<script type="text/javascript">
+	   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	      (function(){
+	         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	         s1.async=true;
+	         s1.src='https://embed.tawk.to/5d5df956eb1a6b0be608b410/default';
+	         s1.charset='UTF-8';
+	         s1.setAttribute('crossorigin','*');
+	         s0.parentNode.insertBefore(s1,s0);
+	      })();
+	</script>
+	<!--End of Tawk.to Script-->
 </body>
 </html>

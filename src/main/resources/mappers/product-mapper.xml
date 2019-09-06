@@ -145,4 +145,12 @@
         	</choose>
         </if>
 	</select>
+	
+	<!-- home.jsp에 최신상품 조회 -->
+	<select id="selectNewProductList" resultType="hashmap">
+		<![CDATA[
+		select rownum, pv.*
+		from ( select p.* from psearch_view p order by p.p_num desc) pv
+        where rownum <= 5]]>
+	</select>
 </mapper>

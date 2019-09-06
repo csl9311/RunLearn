@@ -17,10 +17,18 @@
 		height: auto;
 	}
 	
+	.centerBack .centerInfo {
+		text-align: right;
+		font-size: 12px;
+		color: gray;
+		margin-right: 55px;
+		margin-bottom: 20px;
+	}
+	
 	.centerMenu ul {
 		width: 90%;
 		align-items: center;
-    	border-bottom: 1px solid #dbdbdb;
+    	border-bottom: 2px solid #dbdbdb;
     	margin: 0 auto;
     	display: flex;
     	flex-shrink: 0;
@@ -87,13 +95,13 @@
 	}
 	
 	.active-menu {
-		border-top: 1px solid #dbdbdb;
-		border-left: 1px solid #dbdbdb;
-		border-right: 1px solid #dbdbdb;
+		border-top: 2px solid #dbdbdb;
+		border-left: 2px solid #dbdbdb;
+		border-right: 2px solid #dbdbdb;
 	}
 	
 	#writeBtn {
-		margin-top: 100px;
+		margin-top: 60px;
 		border: none;
 	    background: #ff005a;
 	    padding: 10px;
@@ -112,12 +120,19 @@
 	
 	<div class="container centerBack">
 		<div class="row">
+			<c:if test="${ empty loginUser }">
+				<div class="col-md centerInfo">
+					※공지사항을 제외한 다른 게시판들은 로그인이 필요한 서비스입니다!
+				</div>
+				<div class="x-100"></div>
+			</c:if>
 			<div class="col-md centerMenu">
 				<ul>
-					<li>
+					<li class="active-menu">
 				    	<span><img src="${ contextPath }/resources/images/cCenter/noticeIcon.png"></span>
 				        <span class="center-menuList">공지사항</span>
 					</li>
+					<c:if test="${ !empty loginUser }">
 					<li>
 				        <span><img src="${ contextPath }/resources/images/cCenter/questionIcon.png"></span>
 				        <span class="center-menuList">질문</span>
@@ -130,6 +145,7 @@
 				        <span><img src="${ contextPath }/resources/images/cCenter/declarationIcon.png"></span>
 				        <span class="center-menuList">신고글</span>
 					</li>
+					</c:if>
 				</ul>
 			</div>
 			<div class="x-100"></div>
@@ -174,9 +190,61 @@
 				</c:if>
 			</div>
 			<div class="x-100"></div>
-			<div class="col-md">
-				
+			<c:if test="${ !empty list }">
+			<div class="col-md-12" style="text-align: center; margin-top: 20px;">
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+					<c:if test="${ pi.currentPage <= 1 }">
+						<li class="page-item disabled">
+							<span aria-hidden="true">&laquo;</span>
+						</li>
+					 </c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="pagePrev" value="cCenterView.do">
+							<c:param name="page" value="${ pi.currentPage - 1 }" />
+							<c:param name="b_category" value="${ b_category }" />
+						</c:url>
+						<li class="page-item">
+							<a class="page-link" href="${ pagePrev }" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:if>
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq currentPage }">
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">[${ p }]<span class="sr-only">(current)</span></a>
+						</li>
+						</c:if>
+											
+						<c:if test="${ p ne currentPage }">
+							<c:url var="pageNum" value="cCenterView.do">
+								<c:param name="page" value="${ p }"/>
+								<c:param name="b_category" value="${ b_category }" />
+							</c:url>
+							<li class="page-item"><a class="page-link" href="${ pageNum }">${ p }</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<li class="page-item disabled">
+							<span aria-hidden="true">&raquo;</span>
+						</li>
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="pageNext" value="cCenterView.do">
+							<c:param name="page" value="${ pi.currentPage + 1 }" />
+							<c:param name="b_category" value="${ b_category }" />
+						</c:url>
+						<li class="page-item">
+							<a class="page-link" href="${ pageNext }" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</c:if>
+					</ul>
+				</nav>
 			</div>
+			</c:if>
 			<div class="x-100"></div>
 			<c:if test="${ b_category ne '공지사항' }">
 			<c:url var="bwrite" value="cCenterInsertView.do">
@@ -198,6 +266,15 @@
 			
 			location.href='cCenterView.do?b_category='+b_category;
 		});
+
+		var list = $('.centerMenu').children('ul');
+		for (var i = 0; i < 4; i++) {
+			if (list.children('li').eq(i).children('.center-menuList').text() == '${b_category}') {
+				list.children('li').eq(i).addClass('active-menu');
+			} else {
+				list.children('li').eq(i).removeClass('active-menu');
+			}
+		}
 	</script>
 </body>
 </html>

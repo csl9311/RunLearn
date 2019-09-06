@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,9 @@ public class ProductServiceImpl implements ProductService {
 	public int insertProductDetail(ArrayList<Product_Image> list) {
 		return pDAO.insertProductDetail(list);
 	}
-
-
-
+	// home.jsp에 최신상품 조회
+	@Override
+	public ArrayList<Map<String, String>> selectNewProductList() {
+		return pDAO.selectNewProductList();
+	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
+import com.kh.runLearn.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -29,14 +31,18 @@ public class BoardController {
 	// 고객센터페이지 이동
 	@RequestMapping("cCenterView.do")
 	public ModelAndView cCenterView(ModelAndView mv, @RequestParam(value = "page", required = false) Integer page,
-										@RequestParam("b_category") String b_category, HttpServletRequest session) {
+										@RequestParam("b_category") String b_category, HttpSession session) {
 
-//		String m_id = ((Member)session.getAttribute("loginUser")).getM_id();
-
+		String m_id = null;
+		
+		if ((Member)session.getAttribute("loginUser") != null) {
+			m_id = ((Member)session.getAttribute("loginUser")).getM_id();
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("b_category", b_category);
-		map.put("m_id", "tnals");
-
+		map.put("m_id", m_id);
+		
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = page;
@@ -44,12 +50,12 @@ public class BoardController {
 
 		int listCount = bService.getCenterListCount(map);
 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 7);
 		map.put("pi", pi);
 
 		ArrayList list = bService.selectCenterBoardList(map);
 
-		mv.addObject("b_category", b_category).addObject("list", list)
+		mv.addObject("b_category", b_category).addObject("list", list).addObject("pi", pi)
 			.setViewName("customerCenter/cCenterMain");
 
 		return mv;
@@ -82,7 +88,7 @@ public class BoardController {
 	// 고객센터 게시글 등록
 	@RequestMapping(value = "cCenterInsert.do", method = RequestMethod.POST)
 	public String cCenterInsert(@ModelAttribute Board b, Model model) {
-		b.setM_id("tnals");
+		System.out.println(b.getM_id());
 		int result = bService.insertBoard(b);
 
 		if (result > 0) {

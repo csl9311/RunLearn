@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
@@ -44,6 +45,11 @@ public class ProductDAO {
 
 	public ArrayList<Product_Option> selectProductOption(int p_num) {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductOption", p_num);
+	}
+
+	// home.jsp에 최신상품 조회
+	public ArrayList<Map<String, String>> selectNewProductList() {
+		return (ArrayList)sqlSession.selectList("productMapper.selectNewProductList");
 	}
 
 	public int insertProduct(HashMap<String, Object> pList) {
