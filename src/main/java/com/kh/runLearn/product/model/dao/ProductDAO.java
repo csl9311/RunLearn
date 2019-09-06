@@ -2,6 +2,7 @@ package com.kh.runLearn.product.model.dao;
 
 import java.util.ArrayList;
 import java.util.Map;
+
 import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -18,7 +20,7 @@ import com.kh.runLearn.product.model.vo.Product_Option;
 public class ProductDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	public int getListCount() {
 		return sqlSession.selectOne("productMapper.getListCount");
 	}
@@ -41,6 +43,21 @@ public class ProductDAO {
 
 	public ArrayList<HashMap<String, Object>> selectProduct(int p_num) {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProduct", p_num);
+	}
+
+
+	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이 페이지 상품 찜목록
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("productMapper.selectProductView", userId, rowBounds);
+	}
+	public ArrayList<Product_Image> selectProductImg(int p_num) {
+		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
+	}
+
+	public int selectPlistCount(String userId) { //마이페이지 상품 찜목록수
+		
+		return sqlSession.selectOne("productMapper.selectPlistCount", userId);
 	}
 
 	public ArrayList<Product_Option> selectProductOption(int p_num) {

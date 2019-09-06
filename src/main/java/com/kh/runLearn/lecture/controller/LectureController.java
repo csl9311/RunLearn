@@ -30,10 +30,10 @@ public class LectureController {
 	@Autowired
 	private LectureService lService;
 
-	
+
 	@RequestMapping("selectLectureAllList.le")
 	public ModelAndView selectLectureAllList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
-		
+
 		int currentPage=1;
 		if(page != null) {
 			currentPage = page;
@@ -42,14 +42,14 @@ public class LectureController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		pi.setBoardLimit(12);
 		ArrayList all = lService.selectLectureList(pi);
-		
+
 		System.out.println(all);
 		mv.addObject("list", all);
 		mv.addObject("pi", pi);
 		mv.setViewName("lecture/lectureMain");
 		return mv;
 	}
-	
+
 	@RequestMapping("selectLectureList.le")
 	public ModelAndView selectLectureList(@RequestParam(value="page", required=false) Integer page, @RequestParam("l_category") String l_category, ModelAndView mv) {
 		int currentPage = 1;
@@ -84,10 +84,10 @@ public class LectureController {
 		mv.setViewName("lecture/lectureMain");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureDetailView.le")
 	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv) {
-		
+
 //		ArrayList list = lService.selectLecture(l_num);
 		HashMap<String, String> list = lService.selectLecture(l_num);
 		HashMap<String, Integer> map = new HashMap<>();
@@ -109,7 +109,7 @@ public class LectureController {
 		mv.setViewName("lecture/lectureDetailView");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureEachMainView.le")
 	public ModelAndView lectureEachMainView(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num", required=false) int l_each_num, ModelAndView mv) {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -133,7 +133,7 @@ public class LectureController {
 		mv.setViewName("lecture/lectureEachView");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureMediaView.le")
 	public ModelAndView lectureMediaView(@RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
 		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
@@ -144,7 +144,7 @@ public class LectureController {
 		mv.setViewName("lecture/lectureVideoView");
 		return mv;
 	}
-	
+
 	@RequestMapping("lectureApply.le")
 	public ModelAndView permissionLecture(Lecture l,
 										  @RequestParam("mainImage") MultipartFile mainImage,
@@ -174,12 +174,12 @@ public class LectureController {
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root+"\\lectureUploadFiles";
-		
+
 		File folder = new File(savePath);
 		if(!folder.exists()) {
 			folder.mkdirs();
 		}
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String originalFileName = file.getOriginalFilename();
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);

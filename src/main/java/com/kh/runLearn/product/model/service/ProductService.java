@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -30,10 +32,15 @@ public interface ProductService {
 	int updateProduct_Image(Product_Image pi); // 상품 이미지 수정
 	
 	
+
+	ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi);  //마이페이지  상품 찜목록
+	int selectPlistCount(String userId); //마이페이지 상품 찜 목록 수
+
 	ArrayList<Map<String, String>> selectNewProductList(); // home.jsp에 최신상품 조회
 
 	
 	int insertProductDetail(ArrayList<Product_Image> list); // 상품 상세 이미지 등록
+
 
 	
 }

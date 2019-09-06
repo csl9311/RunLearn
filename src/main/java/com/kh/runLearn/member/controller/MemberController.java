@@ -25,11 +25,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
+import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.product.model.service.ProductService;
 import com.kh.runLearn.product.model.vo.Product;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -41,6 +43,20 @@ import com.twilio.type.PhoneNumber;
 @Controller
 public class MemberController {
 	private int phoneCheck;
+
+	@Autowired
+	private MemberService mService;
+
+
+	@Autowired
+	private LectureService lService;
+
+	@Autowired
+	private ProductService pService;
+
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+
 	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
 	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
 	
@@ -67,7 +83,6 @@ public class MemberController {
 	public String memberInsertForm() {
 		return "/member/signUpForm";
 	}
-	
 	/* 로그아웃 */
 	@RequestMapping("logout.do")
 	public String logout(SessionStatus status) {
@@ -129,12 +144,13 @@ public class MemberController {
 	
 	
 	/* 아이디 중복확인 */
+
 	@RequestMapping("checkId.do")
 	public ModelAndView checkId(ModelAndView mv, String id) throws IOException {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		
+
 		boolean isUsable = mService.checkId(id) == 0 ? true : false;
-		
+
 		map.put("isUsable", isUsable);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
@@ -145,14 +161,15 @@ public class MemberController {
 	@RequestMapping("checkNick.do")
 	public ModelAndView checkNick(ModelAndView mv, String nick) throws IOException {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		
+
 		boolean isUsable = mService.checkNick(nick) == 0 ? true : false;
-		
+
 		map.put("isUsable", isUsable);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
 		return mv;
 	}
+
 	
 	/* 전화번호 중복확인, 인증번호발송 */
 	@RequestMapping("checkPhone.do")
@@ -204,6 +221,7 @@ public class MemberController {
 	}
 	
 	/* 회원가입 */
+
 	@RequestMapping(value = "minsert.do", method = RequestMethod.POST )
 	public void memberInsert(@ModelAttribute Member m,
 							 @ModelAttribute Member_Image mi,
@@ -214,7 +232,7 @@ public class MemberController {
 		
 		if(profileImg != null && !profileImg.isEmpty()) {
 			String renameFileName = saveFile(profileImg, request);
-			
+
 			if(renameFileName != null) {
 				mi.setM_origin_name(profileImg.getOriginalFilename());
 				mi.setM_changed_name(renameFileName);
@@ -223,14 +241,14 @@ public class MemberController {
 			mi.setM_origin_name("기본 프로필 이미지.jpg");
 			mi.setM_changed_name("20190905142135.jpg");
 		}
-		
+
 		String mid = m.getM_id();
 		mi.setM_id(mid);
-		
+
 		String encPwd = bcryptPasswordEncoder.encode(m.getM_pw());
 		m.setM_pw(encPwd);
 		System.out.println(encPwd);
-		
+
 		int result = mService.insertMember(m);
 		
 		if(result > 0) {
@@ -247,22 +265,24 @@ public class MemberController {
 	
 	/* 파일 저장 */
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		
+
 		String root
 			= request.getSession().getServletContext().getRealPath("resources");
+
 		String savePath = root + "\\images\\member";
 		
+
 		File folder = new File(savePath);
 		if(!folder.exists()) {
 			folder.mkdirs();
 		}
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String originalFileName = file.getOriginalFilename();
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-		
+
 		String renamePath = folder + "\\" + renameFileName;
-		
+
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (IllegalStateException e) {
@@ -270,18 +290,19 @@ public class MemberController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return renameFileName;
+
 	}
 	
 	//회원가입 끝
 	
-	
+
 	//규범어드민관련
 	@RequestMapping("getAllUserCount.do")
 	public int getAllUserCount() {//모든 회원수조회(블랙포함)
 		int uCount= mService.getAllUserCount();
-		
+
 		return uCount;
 	}
 	@RequestMapping("ulist.do")//모든회원조회
@@ -292,12 +313,12 @@ public class MemberController {
 			currentPage= page;
 		}
 		int listCount = mService.getAllUserCount();
-	
-		PageInfo pi= Pagination.getPageInfo(currentPage, listCount);
-		
+
+		PageInfo pi= Pagination.getPageInfo(currentPage, listCount, 5);
+
 		ArrayList<Member> list=mService.selectAllMember(pi);
-		
-		
+
+
 		if(list != null) {
 			mv.addObject("list",list);
 			mv.addObject("pi",pi);
@@ -306,40 +327,75 @@ public class MemberController {
 		/*    exception페이지 만들어지면 사용
 		 * else { throw new BoardException("게시글 전 체 조회에 실패 하였습니다."); }
 		 */
-		
+
 		return mv;
 	}
 
+	
+	
 	@RequestMapping(value = "mypage.do")
-	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
-		
+	public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		
-		String userId = "nakcom06a";
-		
-
-		ArrayList<Lecture> lList = mService.selectLectureMember(userId); // 수강목록 
-		ArrayList<Lecture> noPaylList = mService.selectNoPayLecture(userId); //찜한 수강목록
-		ArrayList<Product> pList = mService.selectItemMember(userId); // 찜상품목록
-		
-		int lListCount = mService.selectLectureCount(userId); //수강목록 수
-		int noPayLectureListCount = mService.selectNoPayLectureCount(userId); // 찜한강의 수
-
+		String userId = loginUser.getM_id();
+		int currentPage = 1;
+		int boardLimit = 5;
+		int lCount = lService.selectLectureCount(userId);
+		int nPayLcount = lService.selectNopayLectureCount(userId);
+		int nPayPcount = pService.selectPlistCount(userId);
 		
 		
+		if(page != null) {  
+			currentPage = page;
+		}
 		
 		
-
-		mv.addObject("lList", lList);
-		mv.addObject("pList", pList);
-		mv.addObject("noPaylList", noPaylList);
-		
-		mv.addObject("noPayLectureListCount", noPayLectureListCount);
-		mv.addObject("lListCount", lListCount);
-		mv.setViewName("mypage/mypage");
-
-		
+		if(cate.equals("수강목록")) {
+			int listCount = lService.selectLectureCount(userId);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> lList = lService.selectLectureView(userId, pi); // 수강목록	
+			mv.addObject("lList", lList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi",pi);
 			
+			
+		
+		}
+
+		
+		if(cate.equals("강의찜목록")) {
+			int listCount = lService.selectNopayLectureCount(userId);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> noPaylList = lService.selectNoPayLectureView(userId, pi); //강의 찜목록
+			mv.addObject("noPaylList", noPaylList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi",pi);
+			
+			
+		}
+		
+		if(cate.equals("상품찜목록")) {
+			int listCount =  pService.selectPlistCount(userId); //상품 찜 목록수
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> pList = pService.selectProductView(userId, pi); // 상품 찜목록
+			mv.addObject("pList", pList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi", pi);
+		}
+		
+		if(cate.equals("튜터")) {
+			int listCount = pService.selectPlistCount(userId);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> pList = pService.selectProductView(userId, pi); // 상품 찜목록
+			mv.addObject("pList", pList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi", pi);
+		}
+		
+		mv.addObject("lCount", lCount);
+		mv.addObject("nPayLcount", nPayLcount);
+		mv.addObject("nPayPcount", nPayPcount);
+		mv.addObject("cate", cate);
+		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
 
@@ -351,27 +407,37 @@ public class MemberController {
 
 	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
 	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
-			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request) {
+		@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request, Model model) {
+
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		
 		if(m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
+			
+		}else {
+			String encpwd = bcryptPasswordEncoder.encode(m.getM_pw());
+			m.setM_pw(encpwd);
 		}
 		
+		
+
 		int result = mService.updateMember(m);
+		
+		
+		
 		if(uploadFile != null && !uploadFile.isEmpty()) {
-			
+
 			String renameFileName = saveFile(uploadFile, request);
-			
+
 			if(renameFileName != null) {
 				mi.setM_origin_name(uploadFile.getOriginalFilename());
 				mi.setM_changed_name(renameFileName);
 			}
-			mService.insertMember_Image(mi);
-			
+			mService.updateMember_Image(mi);
+
 		}
-		
+
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
 			loginUser.setM_email(m.getM_email());
@@ -380,51 +446,51 @@ public class MemberController {
 			loginUser.setG_address(m.getG_address());
 			loginUser.setR_address(m.getR_address());
 			loginUser.setD_address(m.getD_address());
-			
+
 			session.setAttribute("loginUser", loginUser);
 		}
 		
-		
-		return "redirect:mypage.do";
+		model.addAttribute("cate", "수강목록");
+		return "redirect:mypage.do?";
 	}
 
-	
-	
-	
-	
-	
+
+
+
+
+
 //	@RequestMapping("mUpdate.do")
 //	public String boardInsert(@ModelAttribute Member_Image mi, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, HttpServletRequest request) {
-//		
+//
 //		System.out.println(uploadFile);
 //		System.out.println(uploadFile.getOriginalFilename());
 //		// 파일을 넣지 않은 경우 파일 이름은 ""로 들어감
-//		
+//
 //		if(!uploadFile.getOriginalFilename().equals("")) {
 //		if(uploadFile != null && !uploadFile.isEmpty()) {
 //			// 저장할 경로를 지정하는 savaFile()메소드 생성
 //			String renameFileName = saveFile(uploadFile, request);
-//			
+//
 //			if(renameFileName != null) {
 //				mi.setM_origin_name(uploadFile.getOriginalFilename());
 //				mi.setM_changed_name(renameFileName);
 //			}
-//			
+//
 //		}
 //		System.out.println(mi);
 //		int result = mService.updateMemberImage(mi);
-//		
+//
 //		}
 //		return "redirect:mypage.do";
-//		
-//		
+//
+//
 //	}
 
-//	public String saveFile(MultipartFile file, HttpServletRequest request) {
+//	public String saveFile2(MultipartFile file, HttpServletRequest request) {
 //
 //		String root = request.getSession().getServletContext().getRealPath("resources");
 //
-//		String savePath = root + "\\buploadFiles";
+//		String savePath = root + "\\mypageUpload";
 //
 //		File folder = new File(savePath);
 //		if (!folder.exists()) {
@@ -449,5 +515,5 @@ public class MemberController {
 
 
 
-	
+
 }
