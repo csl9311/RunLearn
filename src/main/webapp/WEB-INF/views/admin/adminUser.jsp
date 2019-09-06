@@ -84,13 +84,14 @@
 			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
 			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
 			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
-			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="${ a.m_id }SA">수정</button></td>
+			<td style="text-align:center;">
+			<button type="button" class="listbtn fontwhite" onclick="SA('${ a.m_id }A');">수정</button></td>
 			
 		</tr>
 		<script>
-		function ${ a.m_id }SA(){
-			var qwe=${ a.m_id }
-			$('.${ a.m_id }A').attr('readonly',false);
+		function SA(qwe){
+			
+			$('.'+qwe).removeAttr('readonly');
 			console.log(typeof(qwe));
 			
 			
