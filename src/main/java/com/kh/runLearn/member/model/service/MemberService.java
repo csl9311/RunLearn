@@ -15,9 +15,11 @@ public interface MemberService {
 	int changeGrade(Member m); // 튜터등록(관리자)
 
 	Member selectMember(Member m); // 개인정보조회
-	int getAllUserCount();//회원수조회 블랙포함
-	ArrayList<Member> selectAllMember(PageInfo pi); // 관리자 회원정보 조회
-	ArrayList<Member> selectLectureMember(int l_num); // 강의별 수강생 조회
+
+	  int getAllUserCount();//회원수조회 블랙포함 
+	  ArrayList<Member> selectAllMember(PageInfo pi); // 관리자 회원정보 조회
+		ArrayList<Member> selectLectureMember(int l_num); // 강의별 수강생 조회
+
 
 	int insertMember(Member m); // 회원가입
 	int updateMember(Member m); // 개인정보수정
@@ -43,9 +45,6 @@ public interface MemberService {
 	
 
 
-	
-	 
-	
 	
 
 
