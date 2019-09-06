@@ -90,9 +90,9 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectNoPayLectureCount", userId);
 	}
 
-
-
-
+	public String checkPw(String id) {
+		return sqlSession.selectOne("memberMapper.selectPw", id);
+	}
 
 
 }

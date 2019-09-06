@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href='${ contextPath }/resources/css/product/product.css'>
 <style>
+.img-responsive{
+	margin: auto;
+}
 </style>
 </head>
 <c:import url="../common/header.jsp" />
@@ -20,10 +23,11 @@
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
 			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
-				<input type="hidden" name="m_id" value="seller">
+				<input type="hidden" name="p_num" value="0">
+				<input type="hidden" name="m_id" value="판매자">
 				
 				<a href="javascript:" onclick="uploadThumbnail();" class="myButton">썸네일 업로드</a>
-				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
+				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;" required="required">
         		<div class="row">
 					<div id="thumbnailArea"></div>
         		</div>
@@ -48,25 +52,23 @@
 				<table id="productDetail"class="col-md-6 table center">
 					<tr>
 						<td>상품명</td>
-						<td><input type="text" name="p_name"></td>
+						<td><input id="p_name" type="text" name="p_name" required="required"></td>
 					</tr>
 					<tr>
 						<td>카테고리</td>
-						<td><input type="text" name="p_category"></td>
+						<td><input id="p_category" type="text" name="p_category" required="required"></td>
 					</tr>
 					<tr id="price">
-						<td>가격</td>
-						<td><input type="text" name="p_price"></td>
-					</tr>
-					<tr id="stock">
-						<td>재고</td>
-						<td><input type="text" name="p_stock"></td>
+						<td>기본가격(￦)</td>
+						<td><input type="number" step="100" min="0" name="p_price" required="required"></td>
 					</tr>
 					<tr>
-						<td>옵션유무</td>
+						<td>옵션추가</td>
 						<td>
-							<input id="optionO" type="radio" name="option" value="O"><label>있음</label>
-							<input id="optionX" type="radio" name="option" value="X"><label>없음</label>
+							<input id="optionO" type="radio" name="option" value="O" required="required">
+							<label>추가</label>
+							<input id="optionX" type="radio" name="option" value="X" required="required">
+							<label>삭제</label>
 						</td>
 					</tr>
 				</table>
@@ -75,7 +77,7 @@
 						<td></td>
 						<td>
 							<input type="button" class="btn" value="취소">
-							<input type="submit" class="btn" value="등록">
+							<input type="submit" class="btn" value="등록" onsubmit="return check();">
 						</td>
 					</tr>
 				</table>
@@ -126,7 +128,6 @@
 		
 			var files = e.target.files;
 			var filesArr = Array.prototype.slice.call(files);
-			console.log(filesArr.length);
 			
 			var index = 0;
 			filesArr.forEach(function(f){
@@ -166,51 +167,55 @@
 <%-- 옵션 --%>
 	<%-- 옵션 유무 선택 --%>
 		var $table = $('#productDetail');
-		var j = 0;
+		
+		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+		console.log(j);
+		$('#optionX').prop('checked', true).prop('disabled', true);
+		
 		$('#optionO').click(function(){
-			$('#price').hide();
-			$('#stock').hide();
-			j = optionAdd(j);
+			$('#optionO').prop('disabled', 'disabled');
+			$('#optionX').removeAttr('disabled');
+			optionAdd(j);
+			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			console.log(j);
 		});
 		
 		$('#optionX').click(function(){
-			j = optionDelete(j);
 			for(var q = j; q >= 0 ; q --) {
-				j = optionDelete(q);
+				optionDelete(q);
 			}
-			$('#price').css('display', 'table-row');
-			$('#stock').css('display', 'table-row');
+			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			console.log(j);
 		});
+		
 	<%-- 옵션 유무 선택 끝 --%>
 
 	<%-- 옵션 추가 --%>
 		function optionAdd(num){
-			var length = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			j = length;
-			
 			$('#optionO').prop('checked', true);
-			$('#optionX').removeAttr('checked');
+			$('#optionX').prop('checked', false);
 			$('#add'+ num).hide();
 	
 			$table.append(
 				'<tr id="option' + j + '">'+
 					'<td>옵션</td>'+
-					'<td><input type="text" name="p_option"></td>'+
+					'<td><input type="text" name="p_option" required="required"></td>'+
 				'</tr>'+
 				'<tr id="price' + j + '">'+
-					'<td>가격</td>'+
-					'<td><input type="text" name="p_price"></td>'+
+					'<td>가격(￦)</td>'+
+					'<td><input type="number" min="0" step="100" name="p_optionPrice" required="required"></td>'+
 				'</tr>'+
 				'<tr id="stock' + j + '">'+
 					'<td>재고</td>'+
-					'<td><input type="text" name="p_stock"></td>'+
+					'<td><input type="number" min="0" name="p_stock" required="required"></td>'+
 				'</tr>'+
 				'<tr id="optionAddNDelete' + j + '">'+
 					'<td><input id="add' + j + '" class="btn" type="button" value="옵션 추가" onclick="optionAdd('+ j +');"></td>'+
 					'<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete('+ j +');"></td>'+
 				'</tr>'
 			);
-			return length;
+			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			console.log(j);
 		};
 	<%-- 옵션 추가 끝 --%>
 	<%-- 옵션 삭제 --%>
@@ -221,20 +226,24 @@
 			$('#optionAddNDelete' + num).remove();
 			
 			var length = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			console.log(length);
+			console.log(num);
+			
 			if(num == length) {
-				var lastBtn = $('#productDetail').children(':last').children(':last').children(':first').children(':first');
+				var lastBtn = $table.children(':last').children(':last').children(':first').children(':first');
 				lastBtn.css('display', 'inline-block');
 			}
 			if(length <= 1) {
-				$('#optionO').removeAttr('checked');
+				$('#optionO').removeAttr('disabled');
+				$('#optionX').prop('disabled', 'disabled');
+				$('#optionO').prop('checked', false);
 				$('#optionX').prop('checked', true);
-				
-				$('#price').css('display', 'table-row');
-				$('#stock').css('display', 'table-row');
 			}
-			return length;
+			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
+			console.log(j);
 		};
 	<%-- 옵션 삭제 끝 --%>
+	
 <%-- 옵션 끝 --%>
 	</script>
 </body>
