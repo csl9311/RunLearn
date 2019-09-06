@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.dao.ProductDAO;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
@@ -97,4 +98,19 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<Map<String, String>> selectNewProductList() {
 		return pDAO.selectNewProductList();
 	}
+
+
+	@Override
+	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이페이지 상품 찜목록
+		
+		return pDAO.selectProductView(userId, pi);
+	}
+
+	@Override
+	public int selectPlistCount(String userId) { // 마이페이지 상품 찜목록 수
+		
+		return pDAO.selectPlistCount(userId);
+	}
+
+
 }

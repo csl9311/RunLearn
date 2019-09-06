@@ -543,9 +543,12 @@ header .search .lcont input[type=text] {
 						<c:if test="${ empty sessionScope.loginUser }">
 							<li><a href="minsertView.do">회원가입</a></li>
 						</c:if>
+
 						<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id ne 'admin1' }">
-						<c:url var="myPage" value="mypage.do"/>
-							<li id="myPage"><a href="${ myPage }">마이페이지</a>
+						<c:url var="lListView" value="mypage.do">
+ 						<c:param name="cate" value="수강목록"/>
+ 					 	</c:url>
+							<li id="myPage"><a href="${ lListView }">마이페이지</a>
 								<ul id="myPage-detail">
 									<li><a href="#">내 정보</a></li>
 									<li><a href="#">내 강의/거래</a></li>

@@ -18,11 +18,11 @@ import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 public class LectureDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	public int getListCount() {
 		return sqlSession.selectOne("lectureMapper.getListCount");
 	}
-	
+
 	public ArrayList getLectureList(PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -69,6 +69,38 @@ public class LectureDAO {
 	public int insertLecture_Image(Lecture_Image li) {
 		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
 	}
+	
+	public int selectLetureCount(String userId) { // 마이페이지 전체 수강 수
+	
+		return sqlSession.selectOne("lectureMapper.selectLetureCount", userId);
+	}
+	
+	
+	
+
+	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지강의찜목록
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId, rowBounds);
+	}
+
+	public int selectNopayLectureCount(String userId) { //  마이페이지 강의 찜목록 전체 수 
+		
+		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);  
+	}
+
+	public ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureView", userId, rowBounds);
+	}
+
+
 
 	// home.jsp에 최신강의 조회
 	public ArrayList<Map<String, String>> selectNewLectureList() {
@@ -76,7 +108,5 @@ public class LectureDAO {
 	}
 
 
-	
 
-	
 }
