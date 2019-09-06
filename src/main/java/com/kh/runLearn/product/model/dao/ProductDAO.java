@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,6 +43,11 @@ public class ProductDAO {
 
 	public ArrayList<Product_Image> selectProductImg(int p_num) {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
+	}
+
+	// home.jsp에 최신상품 조회
+	public ArrayList<Map<String, String>> selectNewProductList() {
+		return (ArrayList)sqlSession.selectList("productMapper.selectNewProductList");
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.vo.Product;
@@ -25,6 +26,9 @@ public interface ProductService {
 	
 	int insertProduct_Image(Product_Image pi); // 상품 이미지 등록
 	int updateProduct_Image(Product_Image pi); // 상품 이미지 수정
+	
+	
+	ArrayList<Map<String, String>> selectNewProductList(); // home.jsp에 최신상품 조회
 
 	
 }

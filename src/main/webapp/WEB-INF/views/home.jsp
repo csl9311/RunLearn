@@ -134,10 +134,15 @@
          cursor: pointer;
       }
       
+      .imgRow-side{
+      	width: 35%;
+      	paddig-left: 30px;
+      }
+      
       .imgRow-side img {
          width: 80px;
          height: 80px;
-         margin: 0 30px;
+         margin: 0 40px;
       }
       
       .sideDiv .title {
@@ -230,27 +235,7 @@
                <button id="lectureBtn" class="list-select">강의</button>
                <button id="productBtn">상품</button>
             </div>
-            <table>
-               <% for(int i=0; i<2; i++) { %>
-               <tr class="rows">
-                  <td class="imgRow-side">
-                     <img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">
-                  </td>
-                  <td>
-                     <div class="title">포토샵책 저자한테 배우는 포토샵/일러스트</div>
-                     <div class="price">10,000￦</div>
-                  </td>
-               </tr>
-               <tr class="rows">
-                  <td class="imgRow-side">
-                     <img src="${contextPath}/resources/images/main/lectureImg_sample2.PNG">
-                  </td>
-                  <td>
-                     <div class="title">[완전기초!]프리미어만으로 꽉찬 4주 완성</div>
-                     <div class="price">9,000￦</div>
-                  </td>
-               </tr>
-               <% } %>
+            <table class="sideItems">
             </table>
          </div>
       </div>
@@ -269,6 +254,10 @@
    <script>
 	   $(function() {
 		   getNewList('강의');
+		   
+		   $('#productBtn').click(function() {
+			   getNewList('상품');
+		   });
 	   });
 	   
 	   function getNewList(cate) {
@@ -283,19 +272,61 @@
 		   $.ajax({
 				url: type,
 				dataType: "json",
-				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 				success: function(data) {
-					$('.imgRow').siblings('.title').children('td').html("<br>"+data[0].L_TITLE);
-					$('.imgRow').siblings('.sub').children('td').html(data[0].L_CONTENT);
-					$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
-					
-					for (var i = 1; i < 5; i++) {
+					$table = $(".sideItems");
+		            $table.html("");
+		            
+		            var $tr;
+		            var $img;
+		            var $td;
+		            var $title;
+		            var $sub;
+		            var $price;
+		            
+		            if (cate == '강의') {
+		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].L_TITLE.replace(/\+/g,' ')));
+						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_CONTENT.replace(/\+/g,' ')));
+						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
 						
-					}
+		            	for (var i = 1; i < 5; i++) {
+							$tr = $('<tr class="rows">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
+							$td = $('<td>');
+							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
+							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')))
+							$price = $('<div class="price">').text(data[i].L_PRICE+"￦");
+							
+							$tr.append($img);
+							
+							$td.append($title);
+							$td.append($sub);
+							$td.append($price);
+							
+							$tr.append($td);
+							
+							$table.append($tr);
+						}
+		            } else if (cate == '상품') {
+		            	console.log(data);
+		            }
 				}
 			});
 	   }
 	   
+	   window.onload=function(){
+		   $('.rows').hover(function() {
+             var src = $(this).children().children('img').attr('src');
+             var title = $(this).children().children('.title').text();
+             var sub = $(this).children().children('.sub').text();
+             var price = $(this).children().children('.price').text();
+             
+             $('#img-detail').attr('src', src);
+             $('.detailDiv .title td').html('<br>'+title);
+             $('.detailDiv .sub td').html(sub);
+             $('.detailDiv .price td').html(price);
+          });
+	   }
+       
        $.noConflict();
        $('.slide').slick({
             dots: true,
@@ -305,15 +336,6 @@
             autoplaySpeed: 2000
        });
        
-       $('.rows').hover(function() {
-         var src = $(this).children().children('img').attr('src');
-         var title = $(this).children().children('.title').text();
-         var price = $(this).children().children('.price').text();
-         
-         $('#img-detail').attr('src', src);
-         $('.detailDiv .title td').html('<br>'+title);
-         $('.detailDiv .price td').html(price);
-      });
    </script>
 </body>
 </html>

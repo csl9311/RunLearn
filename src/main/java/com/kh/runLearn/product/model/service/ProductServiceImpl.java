@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,12 @@ public class ProductServiceImpl implements ProductService {
 	public int updateProduct_Image(Product_Image pi) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	// home.jsp에 최신상품 조회
+	@Override
+	public ArrayList<Map<String, String>> selectNewProductList() {
+		return pDAO.selectNewProductList();
 	}
 
 }
