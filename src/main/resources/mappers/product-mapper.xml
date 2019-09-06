@@ -16,7 +16,7 @@
 			LEFT JOIN product_image USING(P_NUM)
 			LEFT JOIN member USING(M_ID)
 			LEFT JOIN member_image USING(M_ID)
-		WHERE P_STATUS = 'Y'
+		WHERE P_STATUS = 'Y' AND P_FILE_LEVEL = 0
 		ORDER BY P_NUM DESC
 	</select>
 
@@ -35,18 +35,19 @@
 			LEFT JOIN product_image USING(P_NUM)
 			LEFT JOIN member USING(M_ID)
 			LEFT JOIN member_image USING(M_ID)
-		WHERE P_STATUS = 'Y'
+		WHERE P_STATUS = 'Y' AND P_FILE_LEVEL = 0
 			AND P_CATEGORY = #{p_category}
 		ORDER BY P_NUM DESC
 	</select>
 <!-- 상품 디테일 조회 -->
-	<select id="selectProduct" parameterType="_int" resultType="Product">
-		SELECT * FROM PRODUCT
-			JOIN PRODUCT_IMAGE USING(P_NUM)
-			JOIN PRODUCT_OPTION USING(P_NUM)
-		WHERE P_STATUS = 'Y' AND P_NUM = #{p_num}
+	<select id="selectProduct" parameterType="_int" resultType="map">
+		SELECT * FROM PRODUCT_DETAIL
+		WHERE P_NUM = #{p_num}
 	</select>
-	
+	<select id="selectProductOption" resultType="Product_Option" parameterType="_int">
+		SELECT * FROM PRODUCT_OPTION
+		WHERE P_NUM = #{p_num}
+	</select>
 <!-- 상품 등록 -->
 	
 	<insert id="insertProduct" parameterType="map">
@@ -57,6 +58,11 @@
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
 			)
+			<foreach collection="poList" item="item" index="index" separator=" ">
+				INTO PRODUCT_OPTION VALUES(
+					#{item.p_option}, #{item.p_optionPrice}, #{item.p_stock}, PRODUCT_SEQ.CURRVAL
+				)
+			</foreach>
 		SELECT * FROM DUAL
 	</insert>
 

@@ -38,8 +38,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<?> selectProduct(int p_num) {
+	public ArrayList<HashMap<String, Object>> selectProduct(int p_num) {
 		return pDAO.selectProduct(p_num);
+	}
+
+	@Override
+	public ArrayList<Product_Option> selectProductOption(int p_num) {
+		return pDAO.selectProductOption(p_num);
 	}
 
 	@Override
@@ -87,10 +92,6 @@ public class ProductServiceImpl implements ProductService {
 		return pDAO.insertProductDetail(list);
 	}
 
-//	@Override
-//	public int insertProductOption(ArrayList<Product_Option> poList) {
-//		return pDAO.insertProductOption(poList);
-//	}
 
 
 }

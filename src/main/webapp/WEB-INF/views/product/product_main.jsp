@@ -34,7 +34,7 @@ img:hover {
 		
 			<div class="row">
 				<c:forEach items="${ list }" var="p">
-					<form action="get.product" method="post">
+					<form action="select.product" method="post">
 						<input type="hidden" value="${ p.P_NUM }" name="p_num">
 						<div class="col-md-4">
 							<div class="row" style="margin: 30px;" id="mainImage">

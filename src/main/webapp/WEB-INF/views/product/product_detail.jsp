@@ -10,8 +10,6 @@
 <link rel="stylesheet" href='${ contextPath }/resources/css/product/product.css'>
 </head>
 <body>
-
-<c:set value="${ p }" var="p"></c:set>
 <br>
 <br>
 <br>
@@ -20,16 +18,21 @@
 <%-- 상품 이미지 --%>
 			<div class="p_images center">
 				<div class="row">
+					<c:forEach var="p" items="${ list }">
+						<c:if test="${ p.P_FILE_LEVEL+0 == 0 }">
+							<div class="col-md-3 center">
+								<img class="img-responsive center" alt="썸네일" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
+							</div>
+						</c:if>
+						<c:if test="${ p.P_FILE_LEVEL+0 == 1 }">
+							<div class="row">
+								<div class="col-md-3 center">
+									<img class="img-responsive center" alt="상세이미지" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
 				
-					<div class="col-md-4 center">
-						<img class="img-responsive center" alt="메인이미지" src="${ contextPath }/resources/images/product/test1.png">
-					</div>
-				</div>
-				<div class="row">
-					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
-					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
-					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
-					<img alt="이미지" src="${ contextPath }/resources/images/product/test1.png" width="50px" height="50px">
 				</div>
 			</div>
 <%-- 상품 이미지 끝--%>
@@ -42,27 +45,27 @@
 				<table class="table" id="p_info">
 					<tr>
 						<td>상품명</td>
-						<td class="right"> ${ p.p_name }</td>
+						<td class="right"> ${ list.get(0).P_NAME }</td>
 					</tr>
 					
 					<tr>
-						<td>가격</td>
-						<td class="right">${ p.p_price }</td>
+						<td>기본가격</td>
+						<td class="right">${ list.get(0).P_PRICE }</td>
 					</tr>
 					<tr>
 						<td>판매자명</td>
-						<td class="right">${ p.m_id }</td>
+						<td class="right">${ list.get(0).M_ID }</td>
 					</tr>
 					<tr>
 						<td>옵션</td>
 						<td class="right">
-							<select id="option" name="option" onchange="choice();">
-								<option>옵션1</option>
-								<option>옵션2</option>
-								<option>옵션3</option>
-								<option>옵션4</option>
-								<option>옵션5</option>
-							</select>
+							<datalist id="option" name="option" onchange="choice();">
+								<c:forEach items="${ poList }" var="po">
+									<c:if test="${ po.p_stock+0 ne 0 }">
+										<option value="${ po.p_optionPrice }">${ po.p_option }</option>
+									</c:if>
+								</c:forEach>
+							</datalist>
 						</td>
 					</tr>
 					<tr>

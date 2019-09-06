@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href='${ contextPath }/resources/css/product/product.css'>
 <style>
+.img-responsive{
+	margin: auto;
+}
 </style>
 </head>
 <c:import url="../common/header.jsp" />
@@ -24,7 +27,7 @@
 				<input type="hidden" name="m_id" value="판매자">
 				
 				<a href="javascript:" onclick="uploadThumbnail();" class="myButton">썸네일 업로드</a>
-				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
+				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;" required="required">
         		<div class="row">
 					<div id="thumbnailArea"></div>
         		</div>

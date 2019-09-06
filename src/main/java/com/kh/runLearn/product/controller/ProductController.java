@@ -62,16 +62,17 @@ public class ProductController {
 		return "product/product_main";
 	}
 
-	@RequestMapping("get.product")
-	public String getProduct(
+	@RequestMapping("select.product")
+	public String selectProduct(
 			@RequestParam("p_num") int p_num,
 			HttpServletRequest request
 		) {
-		ArrayList<?> list = pService.selectProduct(p_num);
-
+		ArrayList<HashMap<String, Object>> list = pService.selectProduct(p_num);
+		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
+		
 		request.setAttribute("list", list);
+		request.setAttribute("poList", poList);
 
-		System.out.println(list);
 		return "product/product_detail";
 	}
 
@@ -94,19 +95,23 @@ public class ProductController {
 
 		
 		// 상품 정보 list add
-		HashMap<String, Object> pList = new HashMap<>();
-		pList.put("p", p);
 		
+		HashMap<String, Object> pMap = new HashMap<>();
+		pMap.put("p", p);
+		
+		
+		ArrayList<Object> poList = new ArrayList<>();
 		for(int i = 0; i < p_option.length; i++) {
 			Product_Option po = new Product_Option();
 			po.setP_option(p_option[i]);
 			po.setP_optionPrice(p_optionPrice[i]);
 			po.setP_stock(p_stock[i]);
-			System.out.println(p_option[i]);
-			System.out.println(p_optionPrice[i]);
-			System.out.println(p_stock[i]);
-			pList.put("po", po);
+			
+			System.out.println(po);
+			poList.add(po);
 		}
+		pMap.put("poList", poList);
+		
 		// 썸네일 파일 저장 및 list add
 		if (pi_thumbnail != null && !pi_thumbnail.isEmpty()) {
 			String p_changed_name = saveFile(pi_thumbnail, request, 0);
@@ -116,12 +121,12 @@ public class ProductController {
 				pi.setP_changed_name("0" + p_changed_name);
 				pi.setP_origin_name(pi_thumbnail.getOriginalFilename());
 				pi.setP_file_level(0);
-				pList.put("pi", pi);
+				pMap.put("pi", pi);
 			}
 		}
 		
 		// DB 저장
-		int result = pService.insertProduct(pList);
+		int result = pService.insertProduct(pMap);
 		if (result < 0) {
 			throw new Exception("상품 등록에 실패했습니다.");
 		}
