@@ -5,19 +5,17 @@ import java.sql.Date;
 public class Product_Image {
 	private String p_changed_name;
 	private String p_origin_name;
-	private String p_file_path;
 	private Date p_upload_date;
 	private int p_file_level;
 	private int p_num;
-	
-	public Product_Image() {}
-	
-	public Product_Image(String p_changed_name, String p_origin_name, String p_file_path, Date p_upload_date,
-			int p_file_level, int p_num) {
+
+	public Product_Image() {
+	}
+
+	public Product_Image(String p_changed_name, String p_origin_name, Date p_upload_date, int p_file_level, int p_num) {
 		super();
 		this.p_changed_name = p_changed_name;
 		this.p_origin_name = p_origin_name;
-		this.p_file_path = p_file_path;
 		this.p_upload_date = p_upload_date;
 		this.p_file_level = p_file_level;
 		this.p_num = p_num;
@@ -37,14 +35,6 @@ public class Product_Image {
 
 	public void setP_origin_name(String p_origin_name) {
 		this.p_origin_name = p_origin_name;
-	}
-
-	public String getP_file_path() {
-		return p_file_path;
-	}
-
-	public void setP_file_path(String p_file_path) {
-		this.p_file_path = p_file_path;
 	}
 
 	public Date getP_upload_date() {
@@ -73,8 +63,8 @@ public class Product_Image {
 
 	@Override
 	public String toString() {
-		return "ProductImage [p_changed_name=" + p_changed_name + ", p_origin_name=" + p_origin_name + ", p_file_path="
-				+ p_file_path + ", p_file_level=" + p_file_level + ", p_num=" + p_num + "]";
+		return "Product_Image [p_changed_name=" + p_changed_name + ", p_origin_name=" + p_origin_name
+				+ ", p_upload_date=" + p_upload_date + ", p_file_level=" + p_file_level + ", p_num=" + p_num + "]";
 	}
-	
+
 }

@@ -2,6 +2,7 @@ package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.dao.ProductDAO;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
+import com.kh.runLearn.product.model.vo.Product_Option;
 
 @Service("pService")
 public class ProductServiceImpl implements ProductService {
@@ -38,19 +40,23 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product_Image> selectProductImg(int p_num) {
-		return pDAO.selectProductImg(p_num);
-	}
-
-	@Override
-	public Product selectProduct(int p_num) {
+	public ArrayList<HashMap<String, Object>> selectProduct(int p_num) {
 		return pDAO.selectProduct(p_num);
 	}
 
 	@Override
-	public int insertProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<Product_Option> selectProductOption(int p_num) {
+		return pDAO.selectProductOption(p_num);
+	}
+
+	@Override
+	public int insertProduct(HashMap<String, Object> pList) {
+		return pDAO.insertProduct(pList);
+	}
+
+	@Override
+	public int insertProductThumbnail(Product_Image pi) {
+		return pDAO.insertProductThumbnail(pi);
 	}
 
 	@Override
@@ -78,16 +84,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int insertProduct_Image(Product_Image pi) {
+	public int updateProduct_Image(Product_Image pi) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateProduct_Image(Product_Image pi) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertProductDetail(ArrayList<Product_Image> list) {
+		return pDAO.insertProductDetail(list);
 	}
+	// home.jsp에 최신상품 조회
+	@Override
+	public ArrayList<Map<String, String>> selectNewProductList() {
+		return pDAO.selectNewProductList();
+	}
+
 
 	@Override
 	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이페이지 상품 찜목록
@@ -100,5 +111,6 @@ public class ProductServiceImpl implements ProductService {
 		
 		return pDAO.selectPlistCount(userId);
 	}
+
 
 }

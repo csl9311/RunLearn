@@ -69,9 +69,9 @@ public class MemberDAO {
 
 	
 
-
-
-
+	public String checkPw(String id) {
+		return sqlSession.selectOne("memberMapper.selectPw", id);
+	}
 
 
 }

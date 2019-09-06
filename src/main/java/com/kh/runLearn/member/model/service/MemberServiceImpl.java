@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-	
+
 	public int checkId(String id) {
 		return mDAO.checkId(id);
 	}
@@ -118,10 +118,8 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.checkPhone(m);
 	}
 
-
-
-	
-
-	
-
+	@Override
+	public String checkPw(String id) {
+		return mDAO.checkPw(id);
+	}
 }

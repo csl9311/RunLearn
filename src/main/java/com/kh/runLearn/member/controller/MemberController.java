@@ -33,6 +33,11 @@ import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.product.model.service.ProductService;
 import com.kh.runLearn.product.model.vo.Product;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -52,15 +57,93 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
+	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
+	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
+	
+	@Autowired
+	private MemberService mService;
+	/* 암호화 */
+	@Autowired 
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")
 	public String memberInsertView() {
 		return "/member/signUp";
 	}
-
+	
+	/* 홈으로 이동 */
+	@RequestMapping("home.do")
+	public String Home() {
+		return "home";
+	}
+	
+	/* 회원가입폼  */
 	@RequestMapping("form.do")
 	public String memberInsertForm() {
 		return "/member/signUpForm";
 	}
+	/* 로그아웃 */
+	@RequestMapping("logout.do")
+	public String logout(SessionStatus status) {
+		status.setComplete(); 
+		return "home";
+	}
+	
+	/* 아이디, 패스워드 찾기 뷰 이동 */
+	@RequestMapping("fmember.do")
+	public String fmember() {
+		return "member/findMemberView";
+	}
+	
+								/************** 로그인 관련 ***************/
+	
+	
+	/* 로그인, 패스워드 체크 */
+	@RequestMapping(value="checkUser.do", method=RequestMethod.POST)
+	public ModelAndView checkUser(ModelAndView mv, String id, String pw) throws IOException {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		boolean check = false;
+		String checkPw = mService.checkPw(id);
+		boolean idCheck = mService.checkId(id) == 1 ? true : false;
+		
+		System.out.println(checkPw);
+		System.out.println(id);
+		System.out.println("비번" + pw);
+		
+		if(bcryptPasswordEncoder.matches(pw, checkPw) && idCheck == true) {
+			check = true;
+		}
+		System.out.println(check);
+		map.put("check", check);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	/* 암호화 로그인 */
+	@RequestMapping(value="login.do", method=RequestMethod.POST)
+	public String memberLogin(Member m, Model model) {
+
+		Member loginUser = mService.login(m);
+		System.out.println(m);
+		System.out.println(m.getM_pw());
+		System.out.println(loginUser.getM_pw());
+			
+		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
+			model.addAttribute("loginUser",loginUser);
+		} else {
+			throw new MemberException("로그인에 실패하였습니다.");
+		}
+			
+		return "home";
+			
+	}
+	// 로그인 끝
+								/************** 회원가입 관련 ***************/	
+	
+	
+	/* 아이디 중복확인 */
 
 	@RequestMapping("checkId.do")
 	public ModelAndView checkId(ModelAndView mv, String id) throws IOException {
@@ -73,7 +156,8 @@ public class MemberController {
 		mv.setViewName("jsonView");
 		return mv;
 	}
-
+	
+	/* 닉네임 중복확인 */
 	@RequestMapping("checkNick.do")
 	public ModelAndView checkNick(ModelAndView mv, String nick) throws IOException {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
@@ -86,12 +170,66 @@ public class MemberController {
 		return mv;
 	}
 
+	
+	/* 전화번호 중복확인, 인증번호발송 */
+	@RequestMapping("checkPhone.do")
+	public ModelAndView  checkPhone(ModelAndView mv, Member m) {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		String phoneNum1 = m.getM_phone();
+		String phoneNum2 = (phoneNum1.replace("-", "")).substring(1);
+		System.out.println(phoneNum1);
+		System.out.println(phoneNum2);
+		
+		boolean isUsable = mService.checkPhone(m) == 0 ? true : false;
+		int random = (int)(Math.random() * 10000);
+		phoneCheck = random;
+		System.out.println(phoneCheck);
+		
+		/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		
+		Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
+										  new PhoneNumber("+12563716554"), // from
+										  "만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
+
+		map.put("isUsable", isUsable);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		
+		return mv;
+		
+	}
+	
+	/* 인증번호 확인 */
+	@RequestMapping("checkNum.do")
+	public ModelAndView checkNum(ModelAndView mv, String num) throws IOException {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		System.out.println("저장된 값" + phoneCheck + "입력한 값" + num);
+		boolean isUsable;
+		int num1 = Integer.parseInt(num);
+		if(phoneCheck == num1) {
+			isUsable = true;
+		} else {
+			isUsable = false;
+		}
+		
+		map.put("isUsable", isUsable);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	/* 회원가입 */
+
 	@RequestMapping(value = "minsert.do", method = RequestMethod.POST )
 	public void memberInsert(@ModelAttribute Member m,
 							 @ModelAttribute Member_Image mi,
 							 @RequestParam(value="profileImg", required=false) MultipartFile profileImg,
 							 HttpServletRequest request) {
+		
 		System.out.println(profileImg.getOriginalFilename());
+		
 		if(profileImg != null && !profileImg.isEmpty()) {
 			String renameFileName = saveFile(profileImg, request);
 
@@ -99,6 +237,9 @@ public class MemberController {
 				mi.setM_origin_name(profileImg.getOriginalFilename());
 				mi.setM_changed_name(renameFileName);
 			}
+		} else {
+			mi.setM_origin_name("기본 프로필 이미지.jpg");
+			mi.setM_changed_name("20190905142135.jpg");
 		}
 
 		String mid = m.getM_id();
@@ -107,10 +248,11 @@ public class MemberController {
 		String encPwd = bcryptPasswordEncoder.encode(m.getM_pw());
 		m.setM_pw(encPwd);
 		System.out.println(encPwd);
-		int result = mService.insertMember_Image(mi);
 
+		int result = mService.insertMember(m);
+		
 		if(result > 0) {
-			int result2 = mService.insertMember(m);
+			int result2 = mService.insertMember_Image(mi);
 			if(result2 > 0) {
 				return ;
 			} else {
@@ -120,11 +262,15 @@ public class MemberController {
 			throw new MemberException("회원가입에 실패하였습니다.");
 		}
 	}
+	
+	/* 파일 저장 */
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 
 		String root
 			= request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\muploadFiles";
+
+		String savePath = root + "\\images\\member";
+		
 
 		File folder = new File(savePath);
 		if(!folder.exists()) {
@@ -138,7 +284,7 @@ public class MemberController {
 		String renamePath = folder + "\\" + renameFileName;
 
 		try {
-			file.transferTo(new File(renamePath)); // 전달 받은 file이 rename명으로 저장
+			file.transferTo(new File(renamePath));
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -148,28 +294,10 @@ public class MemberController {
 		return renameFileName;
 
 	}
+	
+	//회원가입 끝
+	
 
-	@RequestMapping("logout.do")
-	public String logout(SessionStatus status) {
-		status.setComplete();
-		return "home";
-	}
-
-	// 암호화 후 로그인
-	@RequestMapping(value="login.do", method=RequestMethod.POST)
-	public String memberLogin(Member m, Model model) {
-
-		Member loginUser = mService.login(m);
-
-		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
-			model.addAttribute("loginUser",loginUser);
-    } else {
-			throw new MemberException("로그인에 실패하였습니다.");
-		}
-
-		return "home";
-
-	}
 	//규범어드민관련
 	@RequestMapping("getAllUserCount.do")
 	public int getAllUserCount() {//모든 회원수조회(블랙포함)
@@ -387,39 +515,5 @@ public class MemberController {
 
 
 
-	@RequestMapping("checkPhone.do")
-	public ModelAndView  checkPhone(ModelAndView mv, Member m) {
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
 
-		boolean isUsable = mService.checkPhone(m) == 0 ? true : false;
-		int random = (int)(Math.random() * 10000);
-		phoneCheck = random;
-		System.out.println(phoneCheck);
-
-		map.put("isUsable", isUsable);
-		mv.addAllObjects(map);
-		mv.setViewName("jsonView");
-
-		return mv;
-
-	}
-	//10분 3번
-	@RequestMapping("checkNum.do")
-	public ModelAndView checkNum(ModelAndView mv, String num) throws IOException {
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		System.out.println("염병" + phoneCheck);
-		boolean isUsable;
-		int num1 = Integer.parseInt(num);
-		if(phoneCheck == num1) {
-			isUsable = true;
-		} else {
-			isUsable = false;
-		}
-
-		map.put("isUsable", isUsable);
-		mv.addAllObjects(map);
-		mv.setViewName("jsonView");
-
-		return mv;
-	}
 }

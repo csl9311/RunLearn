@@ -50,6 +50,8 @@ public interface LectureService {
 	ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi); // 마이페이지 강의 찜목록
 	int selectNopayLectureCount(String userId); // 마이페이지 강의 찜목록 전체 수
 	
+	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
+
 	
 	
 	

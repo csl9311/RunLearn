@@ -147,8 +147,10 @@
 		where l_each_num = #{l_each_num}
 	</select>
 	
+
+  
 	
-	
+	<!-- 석민 -->
 	<select id="selectLectureView" parameterType="string" resultType="hashmap">  <!--  마이페이지 수강목록 -->
 		select *
 		from LEC_VIEW
@@ -161,9 +163,6 @@
 		where M_ID = #{m_id}
 	</select>
 	
-	
-
-
  	<select id="selectNoPayLectureView" parameterType="string" resultType="hashmap">  <!-- 마이페이지 강의찜목록 -->
 		select *
 		from LEC_NOPAYVIEW
@@ -175,5 +174,14 @@
 		from LEC_NOPAYVIEW
 		where M_ID = #{m_id}
 	</select> 
-	
+	<!-- 석민 -->
+  
+	<select id="selectNewLectureList" resultType="hashmap">
+		<![CDATA[
+		select rownum, lv.*
+		from ( select l.* from lsearch_view l order by l.l_num desc) lv
+        where rownum <= 5]]>
+	</select>
+
+  
 </mapper>

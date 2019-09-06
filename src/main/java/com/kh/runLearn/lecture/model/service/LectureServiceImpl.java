@@ -149,10 +149,6 @@ public class LectureServiceImpl implements LectureService {
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
 		return lDAO.selectLectureImage(map);
 	}
-
-
-	
-
 	
 	
 
@@ -181,4 +177,9 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.selectLetureCount(userId);
 	}
 
+	// home.jsp에 최신강의 조회
+	@Override
+	public ArrayList<Map<String, String>> selectNewLectureList() {
+		return lDAO.selectNewLectureList();
+	}
 }

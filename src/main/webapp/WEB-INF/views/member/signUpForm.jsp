@@ -68,6 +68,18 @@
 	font-size: 14px;
 }
 
+.nc{
+	padding-left: 10px;
+	color: #6c757d;
+	font-size: 14px;
+}
+
+.pnc{
+	padding-left: 10px;
+	color: #6c757d;
+	font-size: 14px;
+}
+
 span.ok{color: green;}
 span.error1{color: red}
 span.error2{color: red}
@@ -317,6 +329,9 @@ span.suc1{color: green;}
 		  				</div>
 					<span id="pp" class="fontA"></span>
 				</div>
+				<span class="pnc suc">인증 완료되었습니다.</span>
+				<span class="pnc error1">인증 번호를 확인해주세요.</span>
+				<input type="hidden" id="checkr" value="0">
 				<script>
 					function inputPhoneNumber(obj) {
 						
@@ -351,6 +366,10 @@ span.suc1{color: green;}
 					$("#phoneNum").blur(function(){
 						
 					});
+
+					$(".pnc.suc").hide();
+					$(".pnc.error1").hide();
+					
 					var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 					function checkPhone(){
 						var m_phone = $("#phoneNum").val();
@@ -386,15 +405,19 @@ span.suc1{color: green;}
 						});
 					}
 					function checkPhone2(){
-						var cnum = $("#button-addon3").val()
+						var cnum = $("#cCode").val()
 						$.ajax({
 							url: "checkNum.do",
 							data: {num: cnum},
 							success: function(data){
 								if(data.isUsable == true){
-									alert("ㅇㅋ");
+									$(".pnc").hide();
+									$(".pnc.suc").show();
+									$("#checkr").prop("value", "1");
+									$('#button-addon3').attr('disabled','disabled');
 								} else {
-									alert("ㅄ");
+									$(".pnc").hide();
+									$(".pnc.error1").show();
 								}
 							}, error: function(jqxhr, textStatus, errorThrown){
 								console.log("ajax 처리 실패");
@@ -604,6 +627,8 @@ span.suc1{color: green;}
 					alert("전화번호를 입력해주세요.");
 					$("#phone").focus();
 					return false;
+				} else if($("#checkr").val() == 0) {
+					alert("휴대전화 인증을 완료해주세요.")
 				} else if(postNum == "" || daddress == "") {
 					alert("주소를 입력해주세요.");
 					$("#sample4_detailAddress").focus();

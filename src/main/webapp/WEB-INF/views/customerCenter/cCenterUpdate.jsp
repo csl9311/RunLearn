@@ -88,6 +88,7 @@
 			<input type="hidden" name="b_num" value="${ b.b_num }">
 			<input type="hidden" name="b_category" value="${ b.b_category }">
 			<input type="hidden" name="page" value="${ page }">
+			<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 			<div class="row">
 				<h3>●&nbsp;${ b.b_category } 수정</h3>
 				<div class="col-md">
