@@ -7,22 +7,25 @@ public class Product {
 	private String p_name;
 	private String p_category;
 	private int p_price;
-	private int p_stock;
 	private String p_status;
 	private Date p_reg_date;
 	private Date p_modify_date;
 	private String m_id;
-	
-	public Product() {}
 
-	public Product(int p_num, String p_name, String p_category, int p_price, int p_stock, String p_status,
-			Date p_reg_date, Date p_modify_date, String m_id) {
+	@Override
+	public String toString() {
+		return "Product [p_num=" + p_num + ", p_name=" + p_name + ", p_category=" + p_category + ", p_price=" + p_price
+				+ ", p_status=" + p_status + ", p_reg_date=" + p_reg_date + ", p_modify_date=" + p_modify_date
+				+ ", m_id=" + m_id + "]";
+	}
+
+	public Product(int p_num, String p_name, String p_category, int p_price, String p_status, Date p_reg_date,
+			Date p_modify_date, String m_id) {
 		super();
 		this.p_num = p_num;
 		this.p_name = p_name;
 		this.p_category = p_category;
 		this.p_price = p_price;
-		this.p_stock = p_stock;
 		this.p_status = p_status;
 		this.p_reg_date = p_reg_date;
 		this.p_modify_date = p_modify_date;
@@ -61,14 +64,6 @@ public class Product {
 		this.p_price = p_price;
 	}
 
-	public int getP_stock() {
-		return p_stock;
-	}
-
-	public void setP_stock(int p_stock) {
-		this.p_stock = p_stock;
-	}
-
 	public String getP_status() {
 		return p_status;
 	}
@@ -101,11 +96,4 @@ public class Product {
 		this.m_id = m_id;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [p_num=" + p_num + ", p_name=" + p_name + ", p_category=" + p_category + ", p_price=" + p_price
-				+ ", p_stock=" + p_stock + ", p_status=" + p_status + ", p_reg_date=" + p_reg_date + ", p_modify_date="
-				+ p_modify_date + ", m_id=" + m_id + "]";
-	}
-	
 }
