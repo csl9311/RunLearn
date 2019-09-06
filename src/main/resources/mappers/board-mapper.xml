@@ -53,7 +53,7 @@
 		from board
 		where b_status = 'Y'
 			and b_category = #{b_category}
-		<if test="b_category != '공지사항' ">
+		<if test="b_category != '공지사항' and m_id != null ">
 			and m_id = #{m_id}
 		</if>
 	</select>
@@ -63,7 +63,7 @@
 		from board
 		where b_status = 'Y'
 			and b_category = #{b_category}
-		<if test="b_category != '공지사항'">
+		<if test="b_category != '공지사항' and m_id != null">
 			and m_id = #{m_id}
 		</if>
 		order by B_REG_DATE desc

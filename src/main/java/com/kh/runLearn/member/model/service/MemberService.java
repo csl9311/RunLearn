@@ -26,6 +26,7 @@ public interface MemberService {
 	int checkId(String id); // 아이디 중복확인
 	int checkNick(String nick); // 닉네임 중복확인
 	int checkPhone(Member m); // 휴대폰 번호 확인
+	String checkPw(String id); // 암호 확인
 	
 	int insertMember_Image(Member_Image mi);
 	int updateMember_Image(Member_Image mi);
@@ -38,6 +39,7 @@ public interface MemberService {
 	int selectLectureCount(String userId);
 	ArrayList<Lecture> selectNoPayLecture(String userId);
 	int selectNoPayLectureCount(String userId);
+	
 
 
 	

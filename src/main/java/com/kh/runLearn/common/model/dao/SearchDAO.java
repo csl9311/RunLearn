@@ -26,8 +26,6 @@ public class SearchDAO {
 	}
 	
 	public ArrayList<HashMap<String, String>> selectLecture(Map<String, Object> map) {
-		System.out.println("강의pi : " + map.get("pi"));
-		
 		PageInfo pi = (PageInfo) map.get("pi");
 		
 		if (pi != null) {
@@ -40,8 +38,6 @@ public class SearchDAO {
 	}
 
 	public ArrayList<HashMap<String, String>> selectProduct(Map<String, Object> map) {
-		System.out.println("상품pi : " + map.get("pi"));
-		
 		PageInfo pi = (PageInfo) map.get("pi");
 		
 		if (pi != null) {

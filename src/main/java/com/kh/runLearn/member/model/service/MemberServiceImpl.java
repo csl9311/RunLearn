@@ -133,19 +133,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.selectNoPayLectureCount(userId);
 	}
 
-
-
-
-	
-
-	
-
-
-
-
-
-	
-
 	public int checkId(String id) {
 		return mDAO.checkId(id);
 	}
@@ -160,6 +147,8 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.checkPhone(m);
 	}
 
-	
-
+	@Override
+	public String checkPw(String id) {
+		return mDAO.checkPw(id);
+	}
 }

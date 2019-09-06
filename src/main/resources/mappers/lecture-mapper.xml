@@ -146,4 +146,11 @@
 		from lectureFileView
 		where l_each_num = #{l_each_num}
 	</select>
+	
+	<select id="selectNewLectureList" resultType="hashmap">
+		<![CDATA[
+		select rownum, lv.*
+		from ( select l.* from lsearch_view l order by l.l_num desc) lv
+        where rownum <= 5]]>
+	</select>
 </mapper>

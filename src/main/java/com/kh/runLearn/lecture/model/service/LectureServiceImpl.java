@@ -2,6 +2,7 @@ package com.kh.runLearn.lecture.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -147,5 +148,11 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
 		return lDAO.selectLectureImage(map);
+	}
+
+	// home.jsp에 최신강의 조회
+	@Override
+	public ArrayList<Map<String, String>> selectNewLectureList() {
+		return lDAO.selectNewLectureList();
 	}
 }
