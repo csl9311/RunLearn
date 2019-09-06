@@ -2,6 +2,7 @@ package com.kh.runLearn.lecture.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Lecture;
@@ -41,12 +42,12 @@ public interface LectureService {
 	int deleteWishlist(int l_num, String m_id); // 강의찜목록에서 삭제
 	
 	
-	ArrayList<Lecture> selectLectureView(String userId); // 마이페이지 수강목록
+	ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi); // 마이페이지 수강목록
 	int selectLectureCount(String userId); // 마이페이지 수강목록 전체 수
 	
 	
 	
-	ArrayList<Lecture> selectNoPayLectureView(String userId); // 마이페이지 강의 찜목록
+	ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi); // 마이페이지 강의 찜목록
 	int selectNopayLectureCount(String userId); // 마이페이지 강의 찜목록 전체 수
 	
 	

@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Lecture;
@@ -28,7 +29,8 @@ public interface ProductService {
 	int updateProduct_Image(Product_Image pi); // 상품 이미지 수정
 	
 	
-	ArrayList<Product> selectProductView(String userId);  //마이페이지  상품 찜목록
+	ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi);  //마이페이지  상품 찜목록
+	int selectPlistCount(String userId); //마이페이지 상품 찜 목록 수
 
 	
 }

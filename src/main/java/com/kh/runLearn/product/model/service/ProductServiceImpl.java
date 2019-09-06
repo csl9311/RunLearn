@@ -1,6 +1,7 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,9 +90,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ArrayList<Product> selectProductView(String userId) { // 마이페이지 상품 찜목록
+	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이페이지 상품 찜목록
 		
-		return pDAO.selectProductView(userId);
+		return pDAO.selectProductView(userId, pi);
+	}
+
+	@Override
+	public int selectPlistCount(String userId) { // 마이페이지 상품 찜목록 수
+		
+		return pDAO.selectPlistCount(userId);
 	}
 
 }

@@ -2,6 +2,7 @@ package com.kh.runLearn.lecture.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -69,12 +70,6 @@ public class LectureDAO {
 		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
 	}
 	
-
-	public ArrayList<Lecture> selectLectureView(String userId) { //마이페이지 수강목록
-		
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureView", userId);
-	}
-	
 	public int selectLetureCount(String userId) { // 마이페이지 전체 수강 수
 	
 		return sqlSession.selectOne("lectureMapper.selectLetureCount", userId);
@@ -83,14 +78,26 @@ public class LectureDAO {
 	
 	
 
-	public ArrayList<Lecture> selectNoPayLectureView(String userId) { // 마이페이ㅣ강의찜목록
+	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지강의찜목록
 		
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId);
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId, rowBounds);
 	}
 
 	public int selectNopayLectureCount(String userId) { //  마이페이지 강의 찜목록 전체 수 
 		
 		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);  
+	}
+
+	public ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureView", userId, rowBounds);
 	}
 
 

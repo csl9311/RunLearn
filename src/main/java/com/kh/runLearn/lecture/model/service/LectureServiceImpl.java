@@ -2,6 +2,7 @@ package com.kh.runLearn.lecture.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -149,24 +150,16 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.selectLectureImage(map);
 	}
 
-	@Override
-	public ArrayList<Lecture> selectLectureView(String userId) { //마이페이지 수강목록
-		
-		return lDAO.selectLectureView(userId);
-	}
+
 	
-	@Override
-	public int selectLectureCount(String userId) { // 마이페이지 수강목록 전체 수
-		
-		return lDAO.selectLetureCount(userId);
-	}
+
 	
 	
 
 	@Override
-	public ArrayList<Lecture> selectNoPayLectureView(String userId) { // 마이페이지 강의찜 목록
+	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지 강의찜 목록
 	
-		return lDAO.selectNoPayLectureView(userId);
+		return lDAO.selectNoPayLectureView(userId, pi);
 	}
 
 	@Override
@@ -175,5 +168,17 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.selectNopayLectureCount(userId);
 	}
 
+	@Override
+	public ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi) { //마이페이지 강의 수강목록
+		
+		return lDAO.selectLectureView(userId, pi);
+	}
+	
+	
+	@Override
+	public int selectLectureCount(String userId) { // 마이페이지 수강목록 전체 수
+		
+		return lDAO.selectLetureCount(userId);
+	}
 
 }

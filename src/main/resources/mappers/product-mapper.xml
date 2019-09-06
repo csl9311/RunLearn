@@ -115,4 +115,18 @@
 		where M_ID = #{m_id}
 	</select>
 	
+	
+	
+	<select id="selectPlistCount" parameterType="string" resultType="_int">
+		select count(*)
+		from PRODUCT_NOPAYVIEW
+		where M_ID = #{m_id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
 </mapper>

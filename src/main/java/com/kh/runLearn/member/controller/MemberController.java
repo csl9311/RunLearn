@@ -206,34 +206,68 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "mypage.do")
-	public ModelAndView myPage(HttpSession session, ModelAndView mv) {
-
+	public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-
 		String userId = loginUser.getM_id();
+		int currentPage = 1;
+		int boardLimit = 5;
+		int lCount = lService.selectLectureCount(userId);
+		int nPayLcount = lService.selectNopayLectureCount(userId);
+		int nPayPcount = pService.selectPlistCount(userId);
 		
 		
-		ArrayList<Lecture> lList = lService.selectLectureView(userId); // 수강목록
-		int lListCount = lService.selectLectureCount(userId); // 전체 수강 목록 수
-
-
-
-		ArrayList<Lecture> noPaylList = lService.selectNoPayLectureView(userId); //강의 찜목록
-		int noPaylListCount = lService.selectNopayLectureCount(userId); // 강의 찜 목록 수
-
-
-		ArrayList<Product> pList = pService.selectProductView(userId); // 상품 찜목록
-
-		mv.addObject("lList", lList);
-		mv.addObject("lListCount", lListCount);
+		if(page != null) {  
+			currentPage = page;
+		}
 		
 		
-		mv.addObject("noPaylList", noPaylList);
-		mv.addObject("noPaylListCount", noPaylListCount);
+		if(cate.equals("수강목록")) {
+			int listCount = lService.selectLectureCount(userId);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> lList = lService.selectLectureView(userId, pi); // 수강목록	
+			mv.addObject("lList", lList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi",pi);
+			
+			
+		
+		}
 
-		mv.addObject("pList", pList);
-
-		mv.setViewName("mypage/mypage");
+		
+		if(cate.equals("강의찜목록")) {
+			int listCount = lService.selectNopayLectureCount(userId);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> noPaylList = lService.selectNoPayLectureView(userId, pi); //강의 찜목록
+			mv.addObject("noPaylList", noPaylList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi",pi);
+			
+			
+		}
+		
+		if(cate.equals("상품찜목록")) {
+			int listCount =  pService.selectPlistCount(userId); //상품 찜 목록수
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> pList = pService.selectProductView(userId, pi); // 상품 찜목록
+			mv.addObject("pList", pList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi", pi);
+		}
+		
+		if(cate.equals("튜터")) {
+			int listCount = pService.selectPlistCount(userId);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, String>> pList = pService.selectProductView(userId, pi); // 상품 찜목록
+			mv.addObject("pList", pList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi", pi);
+		}
+		
+		mv.addObject("lCount", lCount);
+		mv.addObject("nPayLcount", nPayLcount);
+		mv.addObject("nPayPcount", nPayPcount);
+		mv.addObject("cate", cate);
+		mv.setViewName("/mypage/mypage");
 		return mv;
 	}
 
@@ -245,7 +279,7 @@ public class MemberController {
 
 	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
 	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
-		@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request) {
+		@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request, Model model) {
 
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
@@ -287,9 +321,9 @@ public class MemberController {
 
 			session.setAttribute("loginUser", loginUser);
 		}
-
-
-		return "redirect:mypage.do";
+		
+		model.addAttribute("cate", "수강목록");
+		return "redirect:mypage.do?";
 	}
 
 

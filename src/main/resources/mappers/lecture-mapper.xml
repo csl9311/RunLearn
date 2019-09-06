@@ -148,6 +148,7 @@
 	</select>
 	
 	
+	
 	<select id="selectLectureView" parameterType="string" resultType="hashmap">  <!--  마이페이지 수강목록 -->
 		select *
 		from LEC_VIEW
