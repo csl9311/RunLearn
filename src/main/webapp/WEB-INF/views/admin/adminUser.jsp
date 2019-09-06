@@ -48,12 +48,12 @@
   </div>
   
   <div id="st2menu1" class="w3-container borderhotpink sidetab2menus animate-fading" style="border-top:white">
-    <h3 class="fonthotpink" style="font-weight:bold">모든회원</h3><span class="fonthotpink">${ pi.listCount }명의 회원이있습니다</span>
+    <h3 class="fonthotpink" style="font-weight:bold">모든회원</h3><span class="fonthotpink">${ pia.listCount }명의 회원이있습니다</span>
     <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단버튼</button>
-    <table class="w3-table-all hoverTablePink">
+    <table class="w3-table-all hoverTablePink" style="width:100%;">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:auto;text-align:center;">회원번호</th>
+ <!--  		<th style="width:auto;text-align:center;">회원번호</th> -->
   		<th style="width:auto;text-align:center;">회원 사진</th>
   		
   		<th style="width:auto;text-align:center;">아이디</th>
@@ -70,7 +70,34 @@
   		
   	</tr>
   	</thead>
-  	<tr>
+  	<c:forEach var="a" items="${ userList }">
+  		<tr>
+			<td style="text-align:center;width:100px;">사진 넣을거임</td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }A" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
+			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
+			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="${ a.m_id }SA">수정</button></td>
+			
+		</tr>
+		<script>
+		function ${ a.m_id }SA(){
+			var qwe=${ a.m_id }
+			$('.${ a.m_id }A').attr('readonly',false);
+			console.log(typeof(qwe));
+			
+			
+		}
+		</script>
+		</c:forEach>
+  	<!-- <tr>
   		<th style="text-align:center;">실험용</th>
   		<th>실험용</th>
   		<th style="text-align:center;">실험용</th>
@@ -78,18 +105,18 @@
   		<th style="text-align:center;">실험용</th>
   		<th style="text-align:center;">실험용</th>
   		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr>
+  	</tr> -->
   	</table>
     
   </div>
   
   <div id="st2menu2" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
-    <h3 class="fonthotpink" style="font-weight:bold">튜티회원조회</h3><span class="fonthotpink">명의 튜티회원이있습니다</span>
+    <h3 class="fonthotpink" style="font-weight:bold">튜티회원조회</h3><span class="fonthotpink">${ pitee.listCount }명의 튜티회원이있습니다</span>
     <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단버튼</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:auto;text-align:center;">회원번호</th>
+ <!--  		<th style="width:auto;text-align:center;">회원번호</th> -->
   		<th style="width:auto;text-align:center;">회원 사진</th>
   		
   		<th style="width:auto;text-align:center;">아이디</th>
@@ -106,29 +133,44 @@
   		
   	</tr>
   	</thead>
-  	<tr>
-  		<th style="text-align:center;">실험용</th>
-  		<th>실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr>
+  	<c:forEach var="a" items="${ userList }">
+  		<c:if test="${a.m_grade eq '튜티'}">
+		<tr>
+			<td style="text-align:center;width:100px;">사진 넣을거임</td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
+			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
+			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="insert();">수정</button></td>
+			
+		</tr>
+		<script>
+	
+		</script>
+		</c:if>
+		</c:forEach>
   	</table>
     
   </div>
 
   <div id="st2menu3" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
 
-    <h3 class="fonthotpink" style="font-weight:bold">튜터회원조회 lecture조인 아코디언으로 해야 정확한 프로필 열람가능 할거같음</h3><span class="fonthotpink">명의 튜터회원이있습니다</span>
+    <h3 class="fonthotpink" style="font-weight:bold">튜터회원조회 lecture조인 아코디언으로 해야 정확한 프로필 열람가능 할거같음</h3><span class="fonthotpink">${ pitor.listCount }명의 튜터회원이있습니다</span>
     <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단 버튼</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:auto;text-align:center;">회원번호</th>
+ <!--  		<th style="width:auto;text-align:center;">회원번호</th> -->
   		<th style="width:auto;text-align:center;">회원 사진</th>
-  		<th style="width:auto;text-align:center;">이이디</th>
+  		
+  		<th style="width:auto;text-align:center;">아이디</th>
   		<th style="width:auto;text-align:center;">이름</th>
   		<th style="width:auto;text-align:center;">닉네임</th>
   		<th style="width:auto;text-align:center;">이메일</th>
@@ -137,26 +179,35 @@
   		<th style="width:auto;text-align:center;">정보수정일</th>  		
   		<th style="width:auto;text-align:center;">등급</th>
   		<th style="width:auto;text-align:center;">상태</th>
-  		<th style="width:auto;text-align:center;">주소</th>
+  		<th style="width:auto;text-align:center;">주소</th> 
   		<th style="width:auto;text-align:center;">수정</th>
+  		
   	</tr>
   	</thead>
-  	<tr>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr>
+  	
+  	<c:forEach var="a" items="${ userList }">
+  		<c:if test="${a.m_grade eq '튜터'}">
+		<tr>
+			<td style="text-align:center;width:100px;">사진 넣을거임</td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
+			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
+			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="${ a.m_id }">수정</button></td>
+			
+		</tr>
+		<script>
+
+		</script>
+		</c:if>
+		</c:forEach>
   	</table>
   </div>
 
@@ -167,7 +218,7 @@
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:auto;text-align:center;">회원번호</th>
+ <!--  		<th style="width:auto;text-align:center;">회원번호</th> -->
   		<th style="width:auto;text-align:center;">회원 사진</th>
   		
   		<th style="width:auto;text-align:center;">아이디</th>
@@ -179,57 +230,85 @@
   		<th style="width:auto;text-align:center;">정보수정일</th>  		
   		<th style="width:auto;text-align:center;">등급</th>
   		<th style="width:auto;text-align:center;">상태</th>
-  		<th style="width:auto;text-align:center;">주소</th>
+  		<th style="width:auto;text-align:center;">주소</th> 
   		<th style="width:auto;text-align:center;">수정</th>
+  		
   	</tr>
   	</thead>
-  	<tr>
-  		<th style="text-align:center;">실험용</th>
-  		<th>실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr>
+  	<c:forEach var="a" items="${ userList }">
+  		<c:if test="${a.m_grade eq '튜티'}">
+		<tr>
+			
+			<td style="text-align:center;width:100px;">사진 넣을거임</td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="abc" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
+			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
+			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
+			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="${ a.m_id }();">수정</button></td>
+			
+		</tr>
+		<script>
+
+		</script>
+		</c:if>
+		</c:forEach>
   	</table>
   </div>
   
   <div id="st2menu5" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
 
-    <h3 class="fonthotpink" style="font-weight:bold">블랙회원관리 목록</h3><span class="fonthotpink">명의 블랙회원이있습니다</span>
+    <h3 class="fonthotpink" style="font-weight:bold">블랙회원관리 목록</h3><span class="fonthotpink">${ pib.listCount }명의 블랙회원이있습니다</span>
     <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단버튼</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:auto;text-align:center;">회원번호</th>
+ <!--  		<th style="width:auto;text-align:center;">회원번호</th> -->
+  		<th style="width:auto;text-align:center;">회원 사진</th>
+  		
   		<th style="width:auto;text-align:center;">아이디</th>
-  		<th style="width:20%;text-align:center;">블랙사유</th>
   		<th style="width:auto;text-align:center;">이름</th>
   		<th style="width:auto;text-align:center;">닉네임</th>
   		<th style="width:auto;text-align:center;">이메일</th>
   		<th style="width:auto;text-align:center;">전화번호</th>
   		<th style="width:auto;text-align:center;">가입일</th>
-  		<th style="width:auto;text-align:center;">블랙변경일</th>  		
+  		<th style="width:auto;text-align:center;">정보수정일</th>  		
   		<th style="width:auto;text-align:center;">등급</th>
   		<th style="width:auto;text-align:center;">상태</th>
+  		<th style="width:auto;text-align:center;">주소</th> 
   		<th style="width:auto;text-align:center;">수정</th>
+  		
   	</tr>
   	</thead>
-  	<tr>
-  		<th style="text-align:center;">실험용</th>
-		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr>
+ <c:forEach var="a" items="${ userList }">
+  		<c:if test="${a.m_grade eq '튜티/블랙' or a.m_grade eq '튜터/블랙'}">
+		<tr>
+			<td style="text-align:center;width:100px;">사진 넣을거임</td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
+			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
+			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="insert();">수정</button></td>
+			
+		</tr>
+		<script>
+	
+		</script>
+		</c:if>
+		</c:forEach>
   	</table>
   </div>
 </div>

@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
-
-
+	<select id="allUserCount" resultType="_int"><!-- 모든 유저 수 조회 -->
+	select count(*)
+	from member
+	</select>
+	<select id="tuteeUserCount" resultType="_int"><!-- 튜티 회원수조회 -->
+	select count(*)
+	from member
+	where m_grade = '튜티'
+	</select>
+	<select id="tutorUserCount" resultType="_int"><!-- 튜터회원수 조회  -->
+	select count(*)
+	from member
+	where m_grade ='튜터'
+	</select>
+	<select id="blackUserCount" resultType="_int"><!-- 블랙회원 수 조회 -->
+	select count(*)
+	from member
+	where m_grade = '튜티/블랙' or m_grade = '튜터/블랙'
+	</select>
+	
+	<select id="allUserList" resultType="Member">
+	select *
+	from member
+	order by m_create_date desc
+	</select>
 
 
 
