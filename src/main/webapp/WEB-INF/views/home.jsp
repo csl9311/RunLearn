@@ -163,7 +163,7 @@
       /* -----------------오늘의 문구----------------- */
       .mentDiv {
          position: relative;
-         background-image: url(${contextPath}/resources/images/main/ment_sample.jpg);
+         background-image: url(resources/images/main/ment_sample.jpg);
          background-size: 100% 100%;
          background-repeat: no-repeat;
          margin: 0 auto;
@@ -235,6 +235,21 @@
                <button id="lectureBtn" class="list-select">강의</button>
                <button id="productBtn">상품</button>
             </div>
+            <script>
+            	window.onload=function(){
+            		$('.rows').hover(function() {
+					     var src = $(this).children().children('img').attr('src');
+					     var title = $(this).children().children('.title').text();
+					     var sub = $(this).children().children('.sub').text();
+					     var price = $(this).children().children('.price').text();
+					     
+					     $('#img-detail').attr('src', src);
+					     $('.detailDiv .title td').html('<br>'+title);
+					     $('.detailDiv .sub td').html(sub);
+					     $('.detailDiv .price td').html('<br>'+price);
+					  });
+            	}
+		      </script>
             <table class="sideItems">
             </table>
          </div>
@@ -257,6 +272,14 @@
 		   
 		   $('#productBtn').click(function() {
 			   getNewList('상품');
+			   $(this).toggleClass('list-select');
+			   $('#lectureBtn').toggleClass('list-select');
+		   });
+		   
+		   $('#lectureBtn').click(function() {
+			   getNewList('강의');
+			   $(this).toggleClass('list-select');
+			   $('#productBtn').toggleClass('list-select');
 		   });
 	   });
 	   
@@ -288,7 +311,7 @@
 						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_CONTENT.replace(/\+/g,' ')));
 						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
 						
-		            	for (var i = 1; i < 5; i++) {
+		            	for (var i = 0; i < 4; i++) {
 							$tr = $('<tr class="rows">');
 							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
 							$td = $('<td>');
@@ -313,20 +336,6 @@
 			});
 	   }
 	   
-	   window.onload=function(){
-		   $('.rows').hover(function() {
-             var src = $(this).children().children('img').attr('src');
-             var title = $(this).children().children('.title').text();
-             var sub = $(this).children().children('.sub').text();
-             var price = $(this).children().children('.price').text();
-             
-             $('#img-detail').attr('src', src);
-             $('.detailDiv .title td').html('<br>'+title);
-             $('.detailDiv .sub td').html(sub);
-             $('.detailDiv .price td').html(price);
-          });
-	   }
-       
        $.noConflict();
        $('.slide').slick({
             dots: true,
