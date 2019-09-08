@@ -18,6 +18,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/login.css">
+<!-- 검색어 highlight jQuery plugin -->
+<script type="text/javascript" src="${ contextPath }/resources/js/jquery.highlight-5.js"></script>
 
 <title>만취남녀</title>
 <style>
