@@ -94,6 +94,19 @@ public class LectureDAO {
 		return sqlSession.insert("lectureMapper.insertLecture", le);
 	}
 
+	public int insertLecture_cImage(Lecture_Image li) {
+		return sqlSession.insert("lectureMapper.insertLecture_cImage", li);
+	}
+
+	public int insertLectureFile(Lecture_File lf) {
+		return sqlSession.insert("lectureMapper.insertLectureFile", lf);
+	}
+
+	public int insertLecture(Lecture_Each le) {
+		return sqlSession.insert("lectureMapper.insertLecture", le);
+	}
+
+
 
 
 	

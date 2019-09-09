@@ -32,7 +32,6 @@ public class LectureController {
 	@Autowired
 	private LectureService lService;
 
-
 	//전체강의 메인페이지
 	@RequestMapping("selectLectureAllList.le")
 	public ModelAndView selectLectureAllList(@RequestParam(value="page",required=false) Integer page, ModelAndView mv) {
@@ -51,7 +50,7 @@ public class LectureController {
 		mv.addObject("pi", pi);
 		mv.setViewName("lecture/lectureMain");
 		return mv;
-	}
+	
 	//강의 카테고리별 메인페이지
 	@RequestMapping("selectLectureList.le")
 	public ModelAndView selectLectureList(@RequestParam(value="page", required=false) Integer page, @RequestParam("l_category") String l_category, ModelAndView mv) {
