@@ -235,21 +235,6 @@
                <button id="lectureBtn" class="list-select">강의</button>
                <button id="productBtn">상품</button>
             </div>
-            <script>
-            	window.onload=function(){
-            		$('.rows').hover(function() {
-					     var src = $(this).children().children('img').attr('src');
-					     var title = $(this).children().children('.title').text();
-					     var sub = $(this).children().children('.sub').text();
-					     var price = $(this).children().children('.price').text();
-					     
-					     $('#img-detail').attr('src', src);
-					     $('.detailDiv .title td').html('<br>'+title);
-					     $('.detailDiv .sub td').html(sub);
-					     $('.detailDiv .price td').html('<br>'+price);
-					  });
-            	}
-		      </script>
             <table class="sideItems">
             </table>
          </div>
@@ -267,6 +252,20 @@
     <c:import url="common/footer.jsp"/>
    
    <script>
+   	   $(function() {
+   		   $(document).on('mouseover','.rows', function(){
+   			   var src = $(this).children().children('img').attr('src');
+   			   var title = $(this).children().children('.title').text();
+   			   var sub = $(this).children().children('.sub').text();
+   			   var price = $(this).children().children('.price').text();
+   			   
+   			   $('#img-detail').attr('src', src);
+		       $('.detailDiv .title td').html('<br>'+title);
+		       $('.detailDiv .sub td').html(sub);
+		       $('.detailDiv .price td').html('<br>'+price);
+   		   });
+	   });
+   	   
 	   $(function() {
 		   getNewList('강의');
 		   
@@ -316,7 +315,7 @@
 							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
-							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')))
+							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')));
 							$price = $('<div class="price">').text(data[i].L_PRICE+"￦");
 							
 							$tr.append($img);
@@ -330,7 +329,26 @@
 							$table.append($tr);
 						}
 		            } else if (cate == '상품') {
-		            	console.log(data);
+		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].P_NAME.replace(/\+/g,' ')));
+		            	$('.imgRow').siblings('.sub').children('td').html('');
+						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_PRICE+"￦");
+						
+						for (var i = 0; i < 4; i++) {
+							$tr = $('<tr class="rows">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
+							$td = $('<td>');
+							$title =  $('<div class="title">').text(decodeURIComponent(data[i].P_NAME.replace(/\+/g,' ')));
+							$price = $('<div class="price">').text(data[i].P_PRICE+"￦");
+							
+							$tr.append($img);
+							
+							$td.append($title);
+							$td.append($price);
+							
+							$tr.append($td);
+							
+							$table.append($tr);
+						}
 		            }
 				}
 			});

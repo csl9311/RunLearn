@@ -88,6 +88,11 @@ ul li a:hover {
 .card img, .card-title b, .card-body .card-text, .text-muted {
 	cursor: pointer;
 }
+
+.highlight {
+	background: #ff00003b;
+	box-shadow: 0px 0px 0px 2px #ff00003b;
+}
 </style>
 </head>
 <body>
@@ -259,6 +264,11 @@ ul li a:hover {
    <c:import url="../common/footer.jsp" />
    
    <script>
+   		$(document).ready(function() {
+			$('.card-title').highlight('${search}');
+			$('.card-text').highlight('${search}');
+		});
+   		
    		$('.moreBtn').click(function() {
    			$(this).parent().submit();
 		});

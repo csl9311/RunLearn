@@ -88,6 +88,11 @@ ul li a:hover {
 .card img, .card-title b, .card-body .card-text, .text-muted {
 	cursor: pointer;
 }
+
+.highlight {
+	background: #ff00003b;
+	box-shadow: 0px 0px 0px 2px #ff00003b;
+}
 </style>
 </head>
 <body>
@@ -312,6 +317,9 @@ ul li a:hover {
 				$('#cate-lecture').removeClass('selectedList');
 				$('#cate-product').addClass('selectedList');
 			}
+			
+			$('.card-title').highlight('${search}');
+			$('.card-text').highlight('${search}');
 		});
    		
    		var searchList = $('.searchListDiv').text();
