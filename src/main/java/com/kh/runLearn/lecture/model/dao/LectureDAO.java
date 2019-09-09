@@ -25,9 +25,9 @@ public class LectureDAO {
 	}
 
 	public ArrayList getLectureList(PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureList", null, rowBounds);
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectLectureList", null, rowBounds);
 	}
 
 	public int getCategoryListCount(String l_category) {
@@ -35,16 +35,16 @@ public class LectureDAO {
 	}
 
 	public ArrayList selectLectureList(PageInfo pi, String l_category) {
-		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureCategoryList", l_category, rowBounds);
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectLectureCategoryList", l_category, rowBounds);
 	}
 
 //	public ArrayList selectLecture(int l_num) {
 //		return (ArrayList)sqlSession.selectList("lectureMapper.selectLecture", l_num);
 //	}
 	public HashMap<String, String> selectLecture(int l_num) {
-		return (HashMap)sqlSession.selectOne("lectureMapper.selectLecture", l_num);
+		return (HashMap) sqlSession.selectOne("lectureMapper.selectLecture", l_num);
 	}
 
 //	public ArrayList selectLectureImage(int i) {
@@ -52,7 +52,7 @@ public class LectureDAO {
 //	}
 
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureImage", map);
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectLectureImage", map);
 	}
 
 	public Lecture_Each classEnter(HashMap<String, Integer> map) {
@@ -60,13 +60,13 @@ public class LectureDAO {
 	}
 
 	public ArrayList classList(int l_num) {
-		return (ArrayList)sqlSession.selectList("lectureMapper.classList", l_num);
+		return (ArrayList) sqlSession.selectList("lectureMapper.classList", l_num);
 	}
 
 	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
 	}
-	
+
 	public int permissionLecture(Lecture l) {
 		return sqlSession.insert("lectureMapper.permissionLecture", l);
 	}
@@ -74,13 +74,11 @@ public class LectureDAO {
 	public int insertLecture_Image(Lecture_Image li) {
 		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
 	}
-	
+
 	public int selectLetureCount(String userId) { // 마이페이지 전체 수강 수
-	
+
 		return sqlSession.selectOne("lectureMapper.selectLetureCount", userId);
 	}
-	
-	
 
 	public int insertLecture_cImage(Lecture_Image li) {
 		return sqlSession.insert("lectureMapper.insertLecture_cImage", li);
@@ -93,53 +91,32 @@ public class LectureDAO {
 	public int insertLecture(Lecture_Each le) {
 		return sqlSession.insert("lectureMapper.insertLecture", le);
 	}
-
-	public int insertLecture_cImage(Lecture_Image li) {
-		return sqlSession.insert("lectureMapper.insertLecture_cImage", li);
-	}
-
-	public int insertLectureFile(Lecture_File lf) {
-		return sqlSession.insert("lectureMapper.insertLectureFile", lf);
-	}
-
-	public int insertLecture(Lecture_Each le) {
-		return sqlSession.insert("lectureMapper.insertLecture", le);
-	}
-
-
-
-
-	
 
 	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지강의찜목록
-		
+
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		
+
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId, rowBounds);
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId, rowBounds);
 	}
 
-	public int selectNopayLectureCount(String userId) { //  마이페이지 강의 찜목록 전체 수 
-		
-		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);  
+	public int selectNopayLectureCount(String userId) { // 마이페이지 강의 찜목록 전체 수
+
+		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);
 	}
 
 	public ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi) {
-		
+
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		
+
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectLectureView", userId, rowBounds);
+
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectLectureView", userId, rowBounds);
 	}
-
-
 
 	// home.jsp에 최신강의 조회
 	public ArrayList<Map<String, String>> selectNewLectureList() {
-		return (ArrayList)sqlSession.selectList("lectureMapper.selectNewLectureList");
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectNewLectureList");
 	}
-
-
 
 }

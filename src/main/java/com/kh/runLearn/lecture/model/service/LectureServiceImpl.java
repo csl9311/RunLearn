@@ -117,11 +117,6 @@ public class LectureServiceImpl implements LectureService {
 	public int insertLecture_Image(Lecture_Image li) {
 		return lDAO.insertLecture_Image(li);
 	}
-	
-	@Override
-	public int insertLecture_cImage(Lecture_Image li) {
-		return lDAO.insertLecture_cImage(li);
-	}
 
 	@Override
 	public int insertLecture_cImage(Lecture_Image li) {
@@ -178,7 +173,7 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.selectNewLectureList();
 	}
 
-	@Overrid
+	@Override
 	public int insertLectureFile(Lecture_File lf) {
 		return lDAO.insertLectureFile(lf);
 	}
