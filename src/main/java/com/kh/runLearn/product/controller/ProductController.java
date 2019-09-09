@@ -92,30 +92,24 @@ public class ProductController {
 			@RequestParam(value = "pi_detail", required = false) MultipartFile[] pi_detail,
 			HttpServletRequest request
 	) throws Exception {
-
-		
-		// 상품 정보 list add
-		
+		// 상품 정보 map에 등록
 		HashMap<String, Object> pMap = new HashMap<>();
 		pMap.put("p", p);
-		
-		
-		ArrayList<Object> poList = new ArrayList<>();
-		for(int i = 0; i < p_option.length; i++) {
-			Product_Option po = new Product_Option();
-			po.setP_option(p_option[i]);
-			po.setP_optionPrice(p_optionPrice[i]);
-			po.setP_stock(p_stock[i]);
-			
-			System.out.println(po);
-			poList.add(po);
+		if(p_option != null) {
+			ArrayList<Object> poList = new ArrayList<>();
+			for(int i = 0; i < p_option.length; i++) {
+				Product_Option po = new Product_Option();
+				po.setP_option(p_option[i]);
+				po.setP_optionPrice(p_optionPrice[i]);
+				po.setP_stock(p_stock[i]);
+				poList.add(po);
+			}
+			pMap.put("poList", poList);
 		}
-		pMap.put("poList", poList);
 		
-		// 썸네일 파일 저장 및 list add
+		// 썸네일 파일 저장 및 map put
 		if (pi_thumbnail != null && !pi_thumbnail.isEmpty()) {
 			String p_changed_name = saveFile(pi_thumbnail, request, 0);
-			
 			if (p_changed_name != null) {
 				Product_Image pi = new Product_Image();
 				pi.setP_changed_name("0" + p_changed_name);
@@ -125,45 +119,33 @@ public class ProductController {
 			}
 		}
 		
+		// 상세 이미지 저장 및 map put
+		boolean check = pi_detail[0] != null && pi_detail[0].isEmpty();
+		if (!check) {
+			ArrayList<Product_Image> piList = new ArrayList<>();
+			for (int i = 0; i < pi_detail.length; i++) {
+				Product_Image pi = null;
+				String p_changed_name = saveFile(pi_detail[i], request, i + 1);
+				if (p_changed_name != null) {
+					pi = new Product_Image();
+					pi.setP_changed_name((i+1) + p_changed_name);
+					pi.setP_origin_name(pi_detail[i].getOriginalFilename());
+					pi.setP_file_level(1);
+				}
+				piList.add(pi);
+			}
+			pMap.put("piList", piList);
+		}
+		
 		// DB 저장
 		int result = pService.insertProduct(pMap);
 		if (result < 0) {
 			throw new Exception("상품 등록에 실패했습니다.");
 		}
-
-		// 상품 상세 이미지 저장 및 DB 저장
-		boolean check = pi_detail[0] != null && pi_detail[0].isEmpty();
-		if (!check) {
-			result = uploadProductDetailImg(pi_detail, request);
-			if (result < 0) {
-				throw new Exception("상품 상세 이미지 등록에 실패했습니다.");
-			}
-		}
-
 		return "redirect:getList.product";
 	}
 
-// 상세 이미지 저장 및 DB 저장
-	public int uploadProductDetailImg(
-			MultipartFile[] pi_detail,
-			HttpServletRequest request
-		) throws Exception {
-		ArrayList<Product_Image> list = new ArrayList<>();
-		for (int i = 0; i < pi_detail.length; i++) {
-			Product_Image pi = null;
-			String p_changed_name = saveFile(pi_detail[i], request, i + 1);
-			if (p_changed_name != null) {
-				pi = new Product_Image();
-				pi.setP_changed_name((i+1) + p_changed_name);
-				pi.setP_origin_name(pi_detail[i].getOriginalFilename());
-				pi.setP_file_level(1);
-			}
-			list.add(pi);
-		}
-		return pService.insertProductDetail(list);
-	}
-
-// 파일 업로드
+// 파일 저장
 	private String saveFile(
 			MultipartFile file,
 			HttpServletRequest request,
@@ -197,7 +179,7 @@ public class ProductController {
 			HttpServletRequest request
 		) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\buploadFiles";
+		String savePath = root + "\\images\\product";
 		File file = new File(savePath + "\\" + fileName);
 
 		if (file.exists()) {

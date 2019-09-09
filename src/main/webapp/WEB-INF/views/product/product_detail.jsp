@@ -32,7 +32,6 @@
 							</div>
 						</c:if>
 					</c:forEach>
-				
 				</div>
 			</div>
 <%-- 상품 이미지 끝--%>
@@ -49,7 +48,7 @@
 					</tr>
 					
 					<tr>
-						<td>기본가격</td>
+						<td>기본가격(￦)</td>
 						<td class="right">${ list.get(0).P_PRICE }</td>
 					</tr>
 					<tr>
@@ -59,18 +58,13 @@
 					<tr>
 						<td>옵션</td>
 						<td class="right">
-							<datalist id="option" name="option" onchange="choice();">
-								<c:forEach items="${ poList }" var="po">
-									<c:if test="${ po.p_stock+0 ne 0 }">
-										<option value="${ po.p_optionPrice }">${ po.p_option }</option>
-									</c:if>
+							<input id="item" type="text" name="productOption" list="option" onchange="choice();" placeholder="옵션을 선택해주세요.">
+		                    <datalist id="option" style="text-align: center;">
+			                    <c:forEach items="${ poList }" var="po">
+									<option value="${ po.p_option }">${ po.p_optionPrice }원</option>
 								</c:forEach>
-							</datalist>
+		                    </datalist>
 						</td>
-					</tr>
-					<tr>
-						<td>총 가격</td>
-						<td id="totalPrice" class="right"></td>
 					</tr>
 				</table>
 				<button class="btn" onclick="addCart();">장바구니에 추가</button>
@@ -87,28 +81,31 @@
 			var $option = $('#option');
 			/* amount의 id 지정 */
 			var i = 0;
-			var $p_info = $('#p_info');
-			
+			var $item = $('#item');
 			/* 옵션 변경 시 */
 		 	function choice() {
-				/* selectedOption = 옵션 출력 영역 */
-				var $selectedOption = $('#selectedOption'+i);
-				var $pId = $('#pId'+i);
+				var $p_num = $('#p_num'+i);
 				var $script = $('#abcd');
 				
-		 		/* $selectedOption.css('display', 'table-row'); */
+				var $price = $('');
+				var $total = $('#total');
+				var $totalTr = $('#totalTr');
+				$totalTr.remove();
 		 		$p_info.append(
 		 			'<tr>'+
-			 			'<td>'+
-			 			'<input name="pId" type="hidden" id="pId'+i+'">'+
-							'${ p.p_name }'+
-						'</td>'+
+			 			'<td>'+ $item.val() + '</td>'+
 			 			'<td class="right">'+
 				 			'<input class="btn" type="button" value="-" id="del'+i+'">'+
 				 			'<input name="amount" class="form-control" type="text" value="0" onchange="change();" id="amount'+i+'" style="display: inline-block; width: 80px;">' +
 				 			'<input class="btn" type="button" value="+" id="add'+i+'">'+
 			 			'</td>'+
-		 			'</tr>' 
+		 			'</tr>' + 
+		 			'<tr id="totalTr">' + 
+		 				'<td>총 금액</td>'+
+		 				'<td id="total">' +
+		 					$total.val() +
+		 				'</td>' + 
+		 			'</tr>'
 		 		);
 		 		/* div에 script 추가 */
 		 		$script.append(
@@ -127,8 +124,9 @@
 		 			'<\/script>'
 		 		);
 		 		
+				$item.val('');
 		 		/* pId 들어가야 함 */
-		 		$pId.val(i * 10);
+		 		console.log($p_num.val());
 		 		i++;
 			};
 		 	function change(){
@@ -157,7 +155,7 @@
 <br>
 <br>
 <br>
-		<%-- 리뷰 --%>	
+		
 		<!-- 라이브리 시티 설치 코드 -->
 		<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
 		   <script type="text/javascript">
@@ -173,32 +171,19 @@
 		      e.parentNode.insertBefore(j, e);
 		   })(document, 'script');
 		   </script>
-		<noscript> 라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
+			<noscript> 라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
+			<div class="row center">
+				<button type="button" class="btn" onclick="deleteAd();">광고 지우기</button>
+			</div>
+			<script>
+				function deleteAd(){
+					var $ad = $('#taboola-livere');
+					$ad.remove();
+				}
+			</script>
 		</div>
 		<!-- 시티 설치 코드 끝 -->
-		<%-- 리뷰 끝 --%>
 	</div>
-	
-	<!-- <script>
-		$(document).ready(function() {
-			setInterval("deleteAd()", 100);
-		});
-		function deleteAd(){
-			var $ad = $('#taboola-livere');
-			$ad.remove();
-		}
-	</script>
-	<div id="eotrmfduddur"></div>
-	<script>
-		var page = "";
-		$(document).ready(function(page){
-			$('#eotrmfduddur').append(
-				'<table>' + 
-				
-				'</table>'		
-			);
-		});
-	</script> -->
 </body>
 <c:import url="../common/footer.jsp"/>
 </html>
