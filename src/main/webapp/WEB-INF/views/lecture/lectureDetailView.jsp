@@ -31,7 +31,7 @@
 	margin-right: 480px;
 	text-align: center;
 	width: 200px;
-	height: 600px;
+	min-height: 400px;
 	background-color: aliceblue;
 	color: black;
 }
@@ -42,7 +42,7 @@
 	right: 50%;
 	margin-right: 480px;
 	width: 200px;
-	min-height: 600px;
+	min-height: 400px;
 	background-color: aliceblue;
 	color: black;
 	margin-top: 100px;
@@ -50,21 +50,22 @@
 #followquick li:hover{
 	background-color: lightgray;
 }
-.row .col-sm-2{
-	height: 30px;
+.row .col-sm-2 {
+	height: 50px;
 	border: 1px solid black;
-	background-color: silver;
+	background-color: aliceblue;
 	color: black;
 	font-size: 12px;
-	font-weight : 20px;
-	
+	font-weight: 20px;
 }
-.row .col-sm-2:hover{
-	background-color: snow;
-	color:black;
+
+.row .col-sm-2:hover {
+	background-color: azure;
+	color: gray;
 }
-.row .col-sm-2 a:hover{
-	cursor:pointer;
+
+.row .col-sm-2 a:hover {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -90,8 +91,11 @@
 			</div>
 			</div>
 			<div class="col-sm-12">
+			<c:if test="${ list.L_CONTENT ne null }">
+				<div>${ list.L_CONTENT }</div>
+			</c:if>
 			<br>
-			<c:if test="${ ic_list ne null }">
+			<c:if test="${ !ic_list.isEmpty() }">
 				<c:forEach var="i" begin="0" end="${ ic_list.size()-1 }" step="1">
 					<img src="${contextPath}/resources/images/lecture/${ ic_list.get(i).L_CHANGED_NAME }" style="width:100%;">
 				</c:forEach>
@@ -111,7 +115,7 @@
 			<div class="col-sm-12">
 			<br>
 				<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;"><br>
-				<label style="font-size: 15pt; font-weight: bold;">강사명 : 미시다 김</label><br>
+				<label style="font-size: 15pt; font-weight: bold;">강사명 : ${ list.M_NAME }</label><br>
 				
 				<label style="font-size: 12pt; font-weight: bold;">연혁</label><br>
 				1999년 첫 탈출 시도<br>
@@ -130,7 +134,8 @@
 			</div>
 			</div>
 			<div class="col-sm-12">
-			<c:if test="${ ir_list ne null }">
+			
+			<c:if test="${ !ir_list.isEmpty() }">
 				<c:forEach var="j" begin="0" end="${ ir_list.size()-1 }" step="1">
 					<img src="${contextPath}/resources/images/lecture/${ ir_list.get(j).L_CHANGED_NAME }" style="width:100%;">
 				</c:forEach>
@@ -168,20 +173,49 @@
 				</c:if>
 				<c:if test="${ list.L_SYSTEM eq 1 }">
 					<div id="mapC">
-					<div id="map" style="width:100%;height:350px;"></div>
-					
-					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5"></script>
-					<script>
-					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-					    mapOption = { 
-					        center: new kakao.maps.LatLng(37.49956, 127.03390), // 지도의 중심좌표
-					        level: 3 // 지도의 확대 레벨
-					    };
-					
-					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-					var map = new kakao.maps.Map(mapContainer, mapOption); 
-					</script>
+					<div id="map" style="width: 100%; height: 350px;"></div>
+					<input type="hidden" value="${ list.L_ADDRESS }" id="adr"/> 
 				</div>
+				<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5&libraries=services"></script>
+				<script>
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+					mapOption = {
+					center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					level: 5 // 지도의 확대 레벨
+				};
+				
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption); 
+				
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch($('#adr').val(), function(result, status) {
+				
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker = new kakao.maps.Marker({
+				            map: map,
+				            position: coords
+				        });
+				
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				        var infowindow = new kakao.maps.InfoWindow({
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;">강의장소</div>'
+				        });
+				        infowindow.open(map, marker);
+				
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(coords);
+				    }
+				});
+				</script>
 				</c:if>
 			</div>
 			<div class="col-sm-12">
@@ -242,17 +276,7 @@
 				
 			</li>
 		</ul>
-		<ul class="list-group mb-3">
-			<li class="list-group-item">
-				<div>
-					<h5 class="my-0">강의 기간</h5>
-					<br>
-					<h6 class="my-0">2019-08-13</h6>
-					<h6>~</h6>
-					<h6 class="my-0">2019-08-16</h6>
-				</div>
-			</li>
-		</ul>
+		
 		
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
 			<div class="btn btn-primary">결제하기
