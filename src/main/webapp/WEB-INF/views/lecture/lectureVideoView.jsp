@@ -28,40 +28,22 @@
 	height:720px;
 	margin-top:20px;
 }
-#mediaDiv{
-	width:75%;
-	height:720px;
-}
-#sideDiv{
-	width:2%
-}
-#menuDiv{
-	width:23%;
-	height:720px;
-	overflow: auto;
-}
-#menuDiv li:hover{
-	cursor: pointer;
-	background-color: aliceblue;
-}
 </style>
 </head>
 <body>
 <c:import url="../common/header.jsp" />
 <div class="MediaContainer">
 	<div class="row">
-		<div id="mediaDiv">
-			<iframe style="height:100%; width:100%" src="${ media.L_FILE_VIDEO }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<div id="mediaDiv" class="col-sm-9">
+			<object type="text/html" width="100%" height="700px" data="https://www.youtube.com/embed/${ media.L_FILE_VIDEO }" allowFullScreen></object>
 		</div>
-		<div id="sideDiv"></div>
-	<div id="menuDiv">
-	<ul class="list-group mb-3">
+		<div id="menuDiv" class="col-sm-3">
+		<ul class="list-group mb-3">
 		<c:forEach var="i" begin="0" end="${ list.size()-1 }" step="1">
 		<c:url var="mediaView" value="lectureMediaView.le">
 			<c:param name="l_each_num" value="${ list.get(i).L_EACH_NUM }"/>
 		</c:url>
 		<li class="list-group-item d-flex justify-content-between lh-condensed" onclick="location.href='${ mediaView }'">
-		<li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0">제 ${ i+1 }회</h6>
             <small class="text-muted">${ list.get(i).L_EACH_NAME }</small>
@@ -74,21 +56,11 @@
       </ul>
 
       
-    </div>
+    	</div>
 	</div>
 </div>
 <script type="text/javascript">
-<script>
-$(window).scroll(function() {
-	var scrollTop = $(document).scrollTop();
-	if (scrollTop < 100) {
-		scrollTop = 100;
-	}
-	$("#menuDiv").stop();
-	$("#menuDiv").animate({
-		"top" : scrollTop
-	});
-});
+
 </script>
 <c:import url="../common/footer.jsp" />
 </body>

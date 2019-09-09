@@ -48,7 +48,7 @@
 
 </head>
 <body>
-	<c:import url="common/header.jsp" />
+	<c:import url="../common/header.jsp" />
 	<div class="container" style="min-height: 300px; margin-top: 20px;">
 		<h1>강의 신청</h1>
 		<h6></h6>
@@ -130,7 +130,7 @@
 				<h4>메인 이미지추가</h4>
 				<div class="input_wrap">
 					<a href="javascript:" onclick="MainFileUploadAction();" class="my_button">[파일 업로드]</a>
-					<input type="file" id="input_main_imgs" name="MainImgs" style="display: none;" accept="image/gif, image/jpeg, image/png"/>
+					<input type="file" id="input_main_imgs" name="mainImage" style="display: none;" accept="image/gif, image/jpeg, image/png"/>
 				</div>
 				<div>
 					<div class="main_imgs_wrap" style="width: 100%">
@@ -300,11 +300,8 @@
 						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 				</div>
 			</div>
-			<div class="col-sm-12">
-				<br>
-				<textarea rows="5" cols="" class="form-control"
-					style="resize: none;" name="introduce"
-					placeholder="자기소개 혹은 연혁을 기입해 주십시오"></textarea>
+			<div class="col-sm-12" align="center">
+				<h3>강사 사진, 이미지와 이름 닉네임등의 소개가 들어갈 공간입니다.</h3>
 			</div>
 			<div class="col-sm-12">
 				<div id="curr" style="height: 60px;"></div>
@@ -462,7 +459,7 @@
 						<label>강의 주소</label> <input type="hidden" id="sample4_postcode"
 							placeholder="우편번호"> <input type="text"
 							class="form-control" id="sample4_roadAddress"
-							placeholder="도로명주소*" name="adr1" required>
+							placeholder="도로명주소*" name="adr1">
 					</div>
 					<div class="col-md-3 mb-3">
 						<label>　</label> <input type="text" class="form-control"
@@ -699,6 +696,6 @@
 		<h4></h4>
 	</div>
 
-	<c:import url="common/footer.jsp" />
+	<c:import url="../common/footer.jsp" />
 </body>
 </html>

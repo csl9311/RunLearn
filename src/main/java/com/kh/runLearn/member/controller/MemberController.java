@@ -26,16 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.lecture.model.service.LectureService;
-import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.product.model.service.ProductService;
-import com.kh.runLearn.product.model.vo.Product;
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 
 
 
@@ -59,12 +54,6 @@ public class MemberController {
 
 	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
 	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
-	
-	@Autowired
-	private MemberService mService;
-	/* 암호화 */
-	@Autowired 
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")

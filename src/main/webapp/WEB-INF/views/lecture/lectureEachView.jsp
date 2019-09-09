@@ -24,7 +24,7 @@
 </head>
 <body>
 	<c:import url="../common/header.jsp" />
-	<div class="container">
+	<div class="container" style="min-height:750px;">
 		<h1>${ etc.L_TITLE }</h1>
 		<h6>　</h6>
 		<h2>${ l_each.l_each_name }</h2>
@@ -55,7 +55,6 @@
 			</c:forEach>
 		</table>
 		</c:if>
-		
 	</div>
 
 	<c:import url="../common/footer.jsp" />
