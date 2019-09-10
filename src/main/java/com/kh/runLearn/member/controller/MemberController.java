@@ -129,7 +129,8 @@ public class MemberController {
 			
 	}
 	// 로그인 끝
-								/************** 회원가입 관련 ***************/	
+	
+				/************** 회원가입 관련 ***************/	
 	
 	
 	/* 아이디 중복확인 */
@@ -162,25 +163,65 @@ public class MemberController {
 	
 	/* 전화번호 중복확인, 인증번호발송 */
 	@RequestMapping("checkPhone.do")
-	public ModelAndView  checkPhone(ModelAndView mv, Member m) {
+	public ModelAndView  checkPhone(ModelAndView mv, Member m, String typecheck) {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		
 		String phoneNum1 = m.getM_phone();
 		String phoneNum2 = (phoneNum1.replace("-", "")).substring(1);
 		System.out.println(phoneNum1);
 		System.out.println(phoneNum2);
+		System.out.println("타입" + typecheck);
+		boolean isUsable;
+		/*
+		typecheck
+		0 - 회원가입 
+		00 - 아이디 찾기 
+		1 - 비밀번호 찾기
+		 */
+		if(typecheck.equals("0") || typecheck.equals("00")) {
+			isUsable = mService.checkPhone(m) == 0 ? true : false;
+		} else {
+			isUsable = mService.checkPhone2(m) == 0 ? true : false;
+		}
 		
-		boolean isUsable = mService.checkPhone(m) == 0 ? true : false;
-		int random = (int)(Math.random() * 10000);
-		phoneCheck = random;
-		System.out.println(phoneCheck);
+		if(typecheck.equals("0")) {
+			if(isUsable == true) {
+				int random = (int)(Math.random() * 10000);
+				phoneCheck = random;
+				System.out.println(phoneCheck);
+				
+				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
+												  new PhoneNumber("+12563716554"), // from
+												  "만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
+			}
+		} else if(typecheck.equals("1")) {
+			if(isUsable == false) {
+				int random = (int)(Math.random() * 10000);
+				phoneCheck = random;
+				System.out.println(phoneCheck);
+				
+				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
+												  new PhoneNumber("+12563716554"), // from
+												  "만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
+			}
+		} else if(typecheck.equals("00")) {
+			if(isUsable == false) {
+				int random = (int)(Math.random() * 10000);
+				phoneCheck = random;
+				System.out.println(phoneCheck);
+				
+				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
+												  new PhoneNumber("+12563716554"), // from
+												  "만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
+			}
+		}
 		
-		/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-		
-		Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
-										  new PhoneNumber("+12563716554"), // from
-										  "만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
-
 		map.put("isUsable", isUsable);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
@@ -284,7 +325,7 @@ public class MemberController {
 
 	}
 	
-	//회원가입 끝
+		/**********   회원가입 끝   ***********/
 	
 
 	//규범어드민관련

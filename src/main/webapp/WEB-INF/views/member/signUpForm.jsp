@@ -113,6 +113,7 @@ span.suc1{color: green;}
 				<div class="form-group">
 					<p class="title-f"><em class="color-red">* </em>아이디</p>
 					<input type="text" class="form-control" id="m_id" name="m_id" placeholder="아이디">
+					<input type="hidden" name="typecheck" id="typecheck" value="0">
 					<input type="hidden" id="check1" value="0">
 					<span id="idp"class="fontA"></span>
 					<span class="text-muted">5~20자의 영문자, 숫자를 입력해주세요 </span>
@@ -374,6 +375,8 @@ span.suc1{color: green;}
 					function checkPhone(){
 						var m_phone = $("#phoneNum").val();
 						var m_name = $("#m_name").val();
+						var typecheck = $("#typecheck").val();
+						
 						if(!regExp.test($("#phoneNum").val())){
 							alert("올바른 전화번호 형태가 아닙니다.");
 							return;
@@ -387,7 +390,9 @@ span.suc1{color: green;}
 						}
 						$.ajax({
 							url: "checkPhone.do",
-							data: {m_phone: m_phone},
+							data: {m_phone: m_phone,
+								   m_name: m_name,
+								   typecheck: typecheck},
 							success: function(data){
 								if(data.isUsable == true){
 									$("#pcheck").show();
