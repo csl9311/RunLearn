@@ -491,7 +491,7 @@ header .search .lcont input[type=text] {
 		</div>
 		<div class="search">
 			<div class="lcont">
-				<select name="" class="search-cate">
+				<select class="search-cate">
 					<option value="전체">--전체--</option>
 					<option value="상품">상품</option>
 					<option value="강의">강의</option>
@@ -711,16 +711,18 @@ header .search .lcont input[type=text] {
 		});
     
     $('.searchBtn').click(function() {
-	          var cate = $(this).siblings('select option:selected').val();
-			  console.log(cate);
+	          var cate = $(this).siblings('.search-cate').val();
+	          var search = $(this).siblings('input[type=text]').val();
 			  
 	          switch (cate) {
 				case '전체':
-					location.href='search.do?search='+$(this).siblings('input[type=text]').val()+'&price=전체';
+					location.href='search.do?search='+search+'&price=전체';
 					break;
 				case '상품':
+					location.href='searchAll.do?search='+search+'&cate='+cate+'&price=전체';
 					break;
 				case '강의':
+					location.href='searchAll.do?search='+search+'&cate='+cate+'&price=전체';
 					break;
 				default:
 					break;
