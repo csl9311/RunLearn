@@ -122,29 +122,29 @@
   
 	
 	<!-- 석민 -->
-<!-- 	<select id="selectLectureView" parameterType="string" resultType="hashmap">   마이페이지 수강목록
+	<select id="selectLectureView" parameterType="string" resultType="hashmap">  <!--  마이페이지 수강목록 -->
 		select *
 		from LEC_VIEW
 		where M_ID = #{m_id}
 	</select>
 	
-	<select id="selectLetureCount" parameterType="string" resultType="_int">  마이페이지 수강목록 전체 수
+	<select id="selectLetureCount" parameterType="string" resultType="_int"> <!--  마이페이지 수강목록 전체 수 -->
 		select count(*)
 		from LEC_VIEW
 		where M_ID = #{m_id}
 	</select>
 	
- 	<select id="selectNoPayLectureView" parameterType="string" resultType="hashmap">  마이페이지 강의찜목록
+ 	<select id="selectNoPayLectureView" parameterType="string" resultType="hashmap">  <!-- 마이페이지 강의찜목록 -->
 		select *
 		from LEC_NOPAYVIEW
 		where M_ID = #{m_id}
 	</select>
 	
-	<select id="selectNopayLectureCount" parameterType="string" resultType="_int">  마이페이지 강의 찜목록 전체 수 
+	<select id="selectNopayLectureCount" parameterType="string" resultType="_int">  <!-- 마이페이지 강의 찜목록 전체 수  -->
 		select count(*)
 		from LEC_NOPAYVIEW
 		where M_ID = #{m_id}
-	</select>  -->
+	</select> 
 	<!-- 석민 -->
   
 	<select id="selectNewLectureList" resultType="hashmap">

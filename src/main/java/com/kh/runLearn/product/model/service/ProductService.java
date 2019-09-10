@@ -40,9 +40,6 @@ public interface ProductService {
 
 	
 	int insertProductDetail(ArrayList<Product_Image> list); // 상품 상세 이미지 등록
-	
-	
-
 
 
 	

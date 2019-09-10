@@ -122,36 +122,4 @@ public class MemberServiceImpl implements MemberService {
 	public String checkPw(String id) {
 		return mDAO.checkPw(id);
 	}
-
-	@Override
-	public ArrayList<Lecture> selectLectureMember(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Product> selectItemMember(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int selectLectureCount(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ArrayList<Lecture> selectNoPayLecture(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int selectNoPayLectureCount(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
 }

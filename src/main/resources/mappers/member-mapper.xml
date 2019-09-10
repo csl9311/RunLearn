@@ -52,18 +52,18 @@
 
 
 
-<!-- 	<update id="updateMember" parameterType="Member">
+	<update id="updateMember" parameterType="Member">
 		update member 
 		set M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone}, M_MODIFY_DATE = SYSDATE, POSTNUM = #{postnum}, G_ADDRESS = #{g_address}, R_ADDRESS = #{r_address}, D_ADDRESS = #{d_address}
 		where M_ID = #{m_id}
 	</update>
 	
 	
-	<update id="updateMember_Image" parameterType="Member_Image">  회원정보 수정 이미지 첨부
+	<update id="updateMember_Image" parameterType="Member_Image"> <!--  회원정보 수정 이미지 첨부 -->
 		update Member_Image
 		set M_ORIGIN_NAME = #{m_origin_name}, M_CHANGED_NAME = #{m_changed_name}, M_UPLOAD_DATE = SYSDATE
 		where M_ID = #{m_id}
-	</update> -->
+	</update>
 	
 <!-- 석민 -->
 	<select id="selectNoPayLectureCount" parameterType="string" resultType="_int"> <!--  강의 찜목록 카운트 -->

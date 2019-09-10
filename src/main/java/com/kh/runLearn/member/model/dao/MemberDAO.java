@@ -54,15 +54,15 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
 
-//	public int updateMember(Member m) { //정보 수정
-//		
-//		return sqlSession.update("memberMapper.updateMember", m);
-//	}
-//
-//	public int updateMember_Image(Member_Image mi) { //프로필 수정
-//		
-//		return sqlSession.update("memberMapper.updateMember_Image", mi);
-//	}
+	public int updateMember(Member m) { //정보 수정
+		
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+
+	public int updateMember_Image(Member_Image mi) { //프로필 수정
+		
+		return sqlSession.update("memberMapper.updateMember_Image", mi);
+	}
 
 	
 
