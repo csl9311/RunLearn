@@ -58,10 +58,10 @@
 					<tr>
 						<td>옵션</td>
 						<td class="right">
-							<input id="item" type="text" name="productOption" list="option" onchange="choice();" placeholder="옵션을 선택해주세요.">
-		                    <datalist id="option" style="text-align: center;">
+							<input id="item" type="text" name="productOption" list="datalist" onchange="choice();" placeholder="옵션을 선택해주세요.">
+		                    <datalist id="datalist" style="text-align: center;">
 			                    <c:forEach items="${ poList }" var="po">
-									<option value="${ po.p_option }">${ po.p_optionPrice }원</option>
+									<option value="${ po.p_option }" id="${ po.p_option }">${ po.p_optionPrice }원</option>
 								</c:forEach>
 		                    </datalist>
 						</td>
@@ -77,8 +77,6 @@
 		<script type="text/javascript">
 			/* p_info = table명 */
 			var $p_info = $('#p_info');
-			/* option = 옵션 선택 */
-			var $option = $('#option');
 			/* amount의 id 지정 */
 			var i = 0;
 			var $item = $('#item');
@@ -87,23 +85,25 @@
 				var $p_num = $('#p_num'+i);
 				var $script = $('#abcd');
 				
-				var $price = $('');
-				var $total = $('#total');
+				var won = $('#'+$item.val()).text();
+				var price = Number(won.substring(0, won.length-1));
+				
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
+				// 테이블에 내용 추가
 		 		$p_info.append(
 		 			'<tr>'+
 			 			'<td>'+ $item.val() + '</td>'+
 			 			'<td class="right">'+
 				 			'<input class="btn" type="button" value="-" id="del'+i+'">'+
-				 			'<input name="amount" class="form-control" type="text" value="0" onchange="change();" id="amount'+i+'" style="display: inline-block; width: 80px;">' +
+				 			'<input name="amount" class="form-control" type="text" value="1" onchange="change();" id="amount'+i+'" style="display: inline-block; text-align: center; width: 80px;">' +
 				 			'<input class="btn" type="button" value="+" id="add'+i+'">'+
 			 			'</td>'+
 		 			'</tr>' + 
 		 			'<tr id="totalTr">' + 
 		 				'<td>총 금액</td>'+
-		 				'<td id="total">' +
-		 					$total.val() +
+		 				'<td class="right">' +
+		 					'<input id="total" type="text" value="' + price +'" readonly>원' + 
 		 				'</td>' + 
 		 			'</tr>'
 		 		);
@@ -113,24 +113,30 @@
 			 			'$("#del' + i + '").click(function(){'+
 					 		'if($("#amount' + i +'").val()>1){'+
 						 		'$("#amount' + i +'").val($("#amount' + i +'").val() - 1);'+
-						 		'change();' +
+						 		'del(' + i + ');' +
 					 		'}'+
 					 	'});'+
 					 	
 						'$("#add' + i + '").click(function(){'+
 					 		'$("#amount' + i +'").val($("#amount' + i +'").val()-(-1));'+
-					 		'change();'+
+					 		'add(' + i + ');'+
 					 	'});'+
 		 			'<\/script>'
 		 		);
 		 		
 				$item.val('');
-		 		/* pId 들어가야 함 */
-		 		console.log($p_num.val());
 		 		i++;
 			};
-		 	function change(){
+		 	function add(i){
+		 		var $total = $('#total');
+		 		var amount = Number($('#amount'+ i).val());
+		 		var price = Number($total.val()) / (amount-1);
+		 		var total = price * amount;
 		 		
+		 		console.log(price);
+		 		$total.val('0');
+		 		console.log(amount);
+		 		$total.val(total);
 		 	};
 		 	function addCart(){
 		 		
