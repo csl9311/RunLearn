@@ -16,4 +16,5 @@ public interface AdminService {
 	int tutorUserCount();
 	int tuteeUserCount();
 	int blackUserCount();
+	int targetUserUpdate(Member m);
 }

@@ -26,7 +26,24 @@
 	from member
 	order by m_create_date desc
 	</select>
-
+	
+	<update id="targetUserUpdate" parameterType="Member"><!-- 특정 회원 수정 -->
+		update member
+      set 
+      M_NAME=#{m_name},
+      M_NICKNAME=#{m_nickname},
+      M_EMAIL=#{m_email},
+      M_PHONE=#{m_phone},
+      M_MODIFY_DATE = sysdate,
+      M_GRADE=#{m_grade},
+      M_STATUS=#{m_status},
+      POSTNUM=#{postnum},
+      G_ADDRESS=#{g_address},
+      R_ADDRESS=#{r_address},
+      D_ADDRESS=#{d_address}
+                
+      where M_ID = #{m_id}
+	</update>
 
 
 </mapper>

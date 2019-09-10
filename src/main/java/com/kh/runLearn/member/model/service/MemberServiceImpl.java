@@ -122,4 +122,6 @@ public class MemberServiceImpl implements MemberService {
 	public String checkPw(String id) {
 		return mDAO.checkPw(id);
 	}
+	
+	
 }

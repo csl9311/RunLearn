@@ -2,12 +2,17 @@ package com.kh.runLearn.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
@@ -16,6 +21,7 @@ import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.admin.model.service.AdminService;
 import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.product.model.service.ProductService;
 
@@ -70,6 +76,18 @@ public class AdminController {
 		
 		return mv;
 	}
+	@RequestMapping("targetUserUpdate.do")
+	public String targetTrInsert(@ModelAttribute Member m,@ModelAttribute Member_Image mi,@RequestParam("page") Integer page,HttpSession session,HttpServletRequest request) {//해당회원 정보수정
+		int result = aService.targetUserUpdate(m);
+		System.out.println("con"+ m);
+		if(result>0) {
+	return "redirect:adminUser.do";
+		} else {
+			throw new Exception("회원수정에 실패하였습니다");
+		}
+		
+	}
+	
 	@RequestMapping("adminPayManage.do")
 	public String adminPayManage() {//어드민 결제관리
 		

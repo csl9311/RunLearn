@@ -21,6 +21,10 @@ table{margin-bottom:10px;}
 .mainlistfont{font-size:10px;}
 .mainlistfont>th>tr{font-size:5px;}
 .sideTabs{min-height:700px;}
+.borderInform{text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;}
+.borderInform2{background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;width:100px;}
+.borderReplace{text-align:center;background-color:rgba(0,0,0,0);border:2px solid #8e9ad9;width:100px;}
+.borderReplace2{background-color:rgba(0,0,0,0);border:2px solid #8e9ad9;width:100px;}
 /* 버튼 글씨체 알 맞게 적용할것  */
 
 /* 스크롤바 */

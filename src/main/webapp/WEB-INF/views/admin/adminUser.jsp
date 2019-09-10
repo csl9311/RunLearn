@@ -49,13 +49,13 @@
   
   <div id="st2menu1" class="w3-container borderhotpink sidetab2menus animate-fading" style="border-top:white">
     <h3 class="fonthotpink" style="font-weight:bold">모든회원</h3><span class="fonthotpink">${ pia.listCount }명의 회원이있습니다</span>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단버튼</button>
+    <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
+   	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button>
     <table class="w3-table-all hoverTablePink" style="width:100%;">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
  <!--  		<th style="width:auto;text-align:center;">회원번호</th> -->
   		<th style="width:auto;text-align:center;">회원 사진</th>
-  		
   		<th style="width:auto;text-align:center;">아이디</th>
   		<th style="width:auto;text-align:center;">이름</th>
   		<th style="width:auto;text-align:center;">닉네임</th>
@@ -69,51 +69,117 @@
   		<th style="width:auto;text-align:center;">수정</th>
   		
   	</tr>
+  	
+  <%-- 	<input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
+			class="${ a.m_id } borderInform2 allUser" style="width:100%;" readonly><br> --%>
   	</thead>
   	<c:forEach var="a" items="${ userList }">
+  		<form action="targetUserUpdate.do" method="post" enctype="Multipart/form-data">
+  		
   		<tr>
+  			<input type="hidden" name="page" value="${ page }">
+  			<input type="hidden" name=m_pw valiue="${a.m_pw}">
 			<td style="text-align:center;width:100px;">사진 넣을거임</td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }A" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }A"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
-			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
+			<td style="text-align:center;"><input type="text" name="m_id"  value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_name" value="${ a.m_name }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_nickname" value="${ a.m_nickname }" class="${ a.m_id } borderInform allUser"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_email" value="${ a.m_email }" class="${ a.m_id } borderInform2 allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_phone" value="${ a.m_phone }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_create_date" value="${ a.m_create_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_modify_date" value="${ a.m_modify_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_grade" value="${ a.m_grade }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_status" value="${ a.m_status }" class="${ a.m_id } borderInform allUser" readonly></td>
+	
+			<td>
+			<input type="text" name="postnum" value="${ a.postnum }" class="${ a.m_id } borderInform2 allUser" style="width:15%;" readonly>
+			<input type="text" name="g_address" value="${ a.g_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="r_address" value="${ a.r_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="d_address" value="${ a.d_address }" class="${ a.m_id } borderInform2 allUser" style="width:10%;" readonly>
+			</td>
 			<td style="text-align:center;">
-			<button type="button" class="listbtn fontwhite" onclick="SA('${ a.m_id }A');">수정</button></td>
-			
+			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
+			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
+			</td>
+		
 		</tr>
+		
 		<script>
-		function SA(qwe){
+	
+		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			$('.'+target).removeAttr('readonly').attr;
+			x = document.getElementsByClassName(target);
+			console.log(typeof(target));
+			listInform = document.getElementsByClassName(target);
+			  for (i = 0; i < x.length; i++) {
+				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
+				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
+			  };
 			
-			$('.'+qwe).removeAttr('readonly');
-			console.log(typeof(qwe));
-			
+			  y = document.getElementsByClassName(targetB);
+			  z = document.getElementsByClassName(targetBC);
+			  for (i = 0; i < y.length; i++) {
+			  y[i].style.display="none";
+			  }
+			  for (i = 0; i < y.length; i++) {
+				  z[i].style.display="";
+				}
 			
 		}
 		</script>
+			</form>
 		</c:forEach>
-  	<!-- <tr>
-  		<th style="text-align:center;">실험용</th>
-  		<th>실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr> -->
+				<!-- 페이징 -->
+		<tr align="center" height="20" id="buttonTab">
+			<td style="text-align:center;" colspan="12">
+			
+				<!-- [이전] -->
+				<c:if test="${ pia.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pia.currentPage > 1 }">
+					<c:url var="before" value="adminUser.do">
+						<c:param name="page" value="${ pia.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pia.startPage }" end="${ pia.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="adminUser.do">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;<!--blist.do?page=1 페이지라는 변수가지고 컨트롤러를 짜야함  -->
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pia.currentPage >= pia.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pia.currentPage < pia.maxPage }">
+					<c:url var="after" value="blist.do">
+						<c:param name="page" value="${ pia.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		<!-- /페이징 -->
   	</table>
-    
+   
+		
+		
   </div>
   
   <div id="st2menu2" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
     <h3 class="fonthotpink" style="font-weight:bold">튜티회원조회</h3><span class="fonthotpink">${ pitee.listCount }명의 튜티회원이있습니다</span>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단버튼</button>
+ <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
+   	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
@@ -136,27 +202,103 @@
   	</thead>
   	<c:forEach var="a" items="${ userList }">
   		<c:if test="${a.m_grade eq '튜티'}">
-		<tr>
+		 		<form action="targetUserUpdate.do" method="post" enctype="Multipart/form-data">
+  		
+  		<tr>
+  			<input type="hidden" name="page" value="${ page }">
+  			<input type="hidden" name=m_pw valiue="${a.m_pw}">
 			<td style="text-align:center;width:100px;">사진 넣을거임</td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
-			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
-			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="insert();">수정</button></td>
-			
+			<td style="text-align:center;"><input type="text" name="m_id"  value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_name" value="${ a.m_name }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_nickname" value="${ a.m_nickname }" class="${ a.m_id } borderInform allUser"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_email" value="${ a.m_email }" class="${ a.m_id } borderInform2 allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_phone" value="${ a.m_phone }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_create_date" value="${ a.m_create_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_modify_date" value="${ a.m_modify_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_grade" value="${ a.m_grade }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_status" value="${ a.m_status }" class="${ a.m_id } borderInform allUser" readonly></td>
+	
+			<td>
+			<input type="text" name="postnum" value="${ a.postnum }" class="${ a.m_id } borderInform2 allUser" style="width:15%;" readonly>
+			<input type="text" name="g_address" value="${ a.g_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="r_address" value="${ a.r_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="d_address" value="${ a.d_address }" class="${ a.m_id } borderInform2 allUser" style="width:10%;" readonly>
+			</td>
+			<td style="text-align:center;">
+			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
+			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
+			</td>
+		
 		</tr>
+		
 		<script>
 	
+		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			$('.'+target).removeAttr('readonly').attr;
+			x = document.getElementsByClassName(target);
+			console.log(typeof(target));
+			listInform = document.getElementsByClassName(target);
+			  for (i = 0; i < x.length; i++) {
+				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
+				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
+			  };
+			
+			  y = document.getElementsByClassName(targetB);
+			  z = document.getElementsByClassName(targetBC);
+			  for (i = 0; i < y.length; i++) {
+			  y[i].style.display="none";
+			  }
+			  for (i = 0; i < y.length; i++) {
+				  z[i].style.display="";
+				}
+			
+		}
 		</script>
-		</c:if>
+			</form>
+			</c:if>
 		</c:forEach>
+				<!-- 페이징 -->
+		<tr align="center" height="20" id="buttonTab">
+			<td style="text-align:center;" colspan="12">
+			
+				<!-- [이전] -->
+				<c:if test="${ pitee.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pitee.currentPage > 1 }">
+					<c:url var="before" value="adminUser.do">
+						<c:param name="page" value="${ pia.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pitee.startPage }" end="${ pitee.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="adminUser.do">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;<!--blist.do?page=1 페이지라는 변수가지고 컨트롤러를 짜야함  -->
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pitee.currentPage >= pitee.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pitee.currentPage < pitee.maxPage }">
+					<c:url var="after" value="blist.do">
+						<c:param name="page" value="${ pitee.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		<!-- /페이징 -->
   	</table>
     
   </div>
@@ -164,7 +306,8 @@
   <div id="st2menu3" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
 
     <h3 class="fonthotpink" style="font-weight:bold">튜터회원조회 lecture조인 아코디언으로 해야 정확한 프로필 열람가능 할거같음</h3><span class="fonthotpink">${ pitor.listCount }명의 튜터회원이있습니다</span>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단 버튼</button>
+ <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
+   	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
@@ -188,34 +331,111 @@
   	
   	<c:forEach var="a" items="${ userList }">
   		<c:if test="${a.m_grade eq '튜터'}">
-		<tr>
+		 		<form action="targetUserUpdate.do" method="post" enctype="Multipart/form-data">
+  		
+  		<tr>
+  			<input type="hidden" name="page" value="${ page }">
+  			<input type="hidden" name=m_pw valiue="${a.m_pw}">
 			<td style="text-align:center;width:100px;">사진 넣을거임</td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
-			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
-			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="${ a.m_id }">수정</button></td>
-			
+			<td style="text-align:center;"><input type="text" name="m_id"  value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_name" value="${ a.m_name }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_nickname" value="${ a.m_nickname }" class="${ a.m_id } borderInform allUser"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_email" value="${ a.m_email }" class="${ a.m_id } borderInform2 allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_phone" value="${ a.m_phone }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_create_date" value="${ a.m_create_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_modify_date" value="${ a.m_modify_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_grade" value="${ a.m_grade }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_status" value="${ a.m_status }" class="${ a.m_id } borderInform allUser" readonly></td>
+	
+			<td>
+			<input type="text" name="postnum" value="${ a.postnum }" class="${ a.m_id } borderInform2 allUser" style="width:15%;" readonly>
+			<input type="text" name="g_address" value="${ a.g_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="r_address" value="${ a.r_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="d_address" value="${ a.d_address }" class="${ a.m_id } borderInform2 allUser" style="width:10%;" readonly>
+			</td>
+			<td style="text-align:center;">
+			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
+			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
+			</td>
+		
 		</tr>
+		
 		<script>
-
+	
+		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			$('.'+target).removeAttr('readonly').attr;
+			x = document.getElementsByClassName(target);
+			console.log(typeof(target));
+			listInform = document.getElementsByClassName(target);
+			  for (i = 0; i < x.length; i++) {
+				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
+				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
+			  };
+			
+			  y = document.getElementsByClassName(targetB);
+			  z = document.getElementsByClassName(targetBC);
+			  for (i = 0; i < y.length; i++) {
+			  y[i].style.display="none";
+			  }
+			  for (i = 0; i < y.length; i++) {
+				  z[i].style.display="";
+				}
+			
+		}
 		</script>
+			</form>
 		</c:if>
 		</c:forEach>
+		<!-- 페이징 -->
+		<tr align="center" height="20" id="buttonTab">
+			<td style="text-align:center;" colspan="12">
+			
+				<!-- [이전] -->
+				<c:if test="${ pitor.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pitor.currentPage > 1 }">
+					<c:url var="before" value="adminUser.do">
+						<c:param name="page" value="${ pitor.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pitor.startPage }" end="${ pitor.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="adminUser.do">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;<!--blist.do?page=1 페이지라는 변수가지고 컨트롤러를 짜야함  -->
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pitor.currentPage >= pitor.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pitor.currentPage < pitor.maxPage }">
+					<c:url var="after" value="blist.do">
+						<c:param name="page" value="${ pitor.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		<!-- /페이징 -->
   	</table>
   </div>
 
   <div id="st2menu4" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
  
     <h3 class="fonthotpink" style="font-weight:bold">튜터신청 목록</h3><span class="fonthotpink">명이 신청하였습니다</span>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단 버튼</button>
+ <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
+   	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
@@ -238,35 +458,111 @@
   	</thead>
   	<c:forEach var="a" items="${ userList }">
   		<c:if test="${a.m_grade eq '튜티'}">
-		<tr>
-			
+		 		<form action="targetUserUpdate.do" method="post" enctype="Multipart/form-data">
+  		
+  		<tr>
+  			<input type="hidden" name="page" value="${ page }">
+  			<input type="hidden" name=m_pw valiue="${a.m_pw}">
 			<td style="text-align:center;width:100px;">사진 넣을거임</td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="abc" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:70px;" readonly></td>
-			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
-			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
-			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="${ a.m_id }();">수정</button></td>
-			
+			<td style="text-align:center;"><input type="text" name="m_id"  value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_name" value="${ a.m_name }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_nickname" value="${ a.m_nickname }" class="${ a.m_id } borderInform allUser"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_email" value="${ a.m_email }" class="${ a.m_id } borderInform2 allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_phone" value="${ a.m_phone }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_create_date" value="${ a.m_create_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_modify_date" value="${ a.m_modify_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_grade" value="${ a.m_grade }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_status" value="${ a.m_status }" class="${ a.m_id } borderInform allUser" readonly></td>
+	
+			<td>
+			<input type="text" name="postnum" value="${ a.postnum }" class="${ a.m_id } borderInform2 allUser" style="width:15%;" readonly>
+			<input type="text" name="g_address" value="${ a.g_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="r_address" value="${ a.r_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="d_address" value="${ a.d_address }" class="${ a.m_id } borderInform2 allUser" style="width:10%;" readonly>
+			</td>
+			<td style="text-align:center;">
+			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
+			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
+			</td>
+		
 		</tr>
+		
 		<script>
-
+	
+		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			$('.'+target).removeAttr('readonly').attr;
+			x = document.getElementsByClassName(target);
+			console.log(typeof(target));
+			listInform = document.getElementsByClassName(target);
+			  for (i = 0; i < x.length; i++) {
+				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
+				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
+			  };
+			
+			  y = document.getElementsByClassName(targetB);
+			  z = document.getElementsByClassName(targetBC);
+			  for (i = 0; i < y.length; i++) {
+			  y[i].style.display="none";
+			  }
+			  for (i = 0; i < y.length; i++) {
+				  z[i].style.display="";
+				}
+			
+		}
 		</script>
+			</form>
 		</c:if>
 		</c:forEach>
+		<!-- 페이징 -->
+		<tr align="center" height="20" id="buttonTab">
+			<td style="text-align:center;" colspan="12">
+			
+				<!-- [이전] -->
+				<c:if test="${ pia.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pia.currentPage > 1 }">
+					<c:url var="before" value="adminUser.do">
+						<c:param name="page" value="${ pia.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pia.startPage }" end="${ pia.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="adminUser.do">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;<!--blist.do?page=1 페이지라는 변수가지고 컨트롤러를 짜야함  -->
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pia.currentPage >= pia.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pia.currentPage < pia.maxPage }">
+					<c:url var="after" value="blist.do">
+						<c:param name="page" value="${ pia.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		<!-- /페이징 -->
   	</table>
   </div>
   
   <div id="st2menu5" class="w3-container borderhotpink sidetab2menus animate-fading" style="display:none;border-top:white">
 
     <h3 class="fonthotpink" style="font-weight:bold">블랙회원관리 목록</h3><span class="fonthotpink">${ pib.listCount }명의 블랙회원이있습니다</span>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">일단버튼</button>
+ <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
+   	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
@@ -289,27 +585,103 @@
   	</thead>
  <c:forEach var="a" items="${ userList }">
   		<c:if test="${a.m_grade eq '튜티/블랙' or a.m_grade eq '튜터/블랙'}">
-		<tr>
+		 		<form action="targetUserUpdate.do" method="post" enctype="Multipart/form-data">
+  		
+  		<tr>
+  			<input type="hidden" name="page" value="${ page }">
+  			<input type="hidden" name=m_pw valiue="${a.m_pw}">
 			<td style="text-align:center;width:100px;">사진 넣을거임</td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_name }" class="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_nickname }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_email }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_phone }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_create_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_modify_date }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;"readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_grade }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td style="text-align:center;"><input type="text" value="${ a.m_status }" class="${ a.m_id }"style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
-			<td><input type="text" value="${ a.postnum }/${ a.g_address }/${ a.r_address }/${ a.d_address }" 
-			class="${ a.m_id }" style="background-color:rgba(0,0,0,0);border:0.3px solid #ff005a;" readonly> </td>
-			<td style="text-align:center;"><button class="listbtn fontwhite" onclick="insert();">수정</button></td>
-			
+			<td style="text-align:center;"><input type="text" name="m_id"  value="${ a.m_id }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_name" value="${ a.m_name }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_nickname" value="${ a.m_nickname }" class="${ a.m_id } borderInform allUser"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_email" value="${ a.m_email }" class="${ a.m_id } borderInform2 allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_phone" value="${ a.m_phone }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_create_date" value="${ a.m_create_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_modify_date" value="${ a.m_modify_date }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_grade" value="${ a.m_grade }" class="${ a.m_id } borderInform allUser" readonly></td>
+			<td style="text-align:center;"><input type="text" name="m_status" value="${ a.m_status }" class="${ a.m_id } borderInform allUser" readonly></td>
+	
+			<td>
+			<input type="text" name="postnum" value="${ a.postnum }" class="${ a.m_id } borderInform2 allUser" style="width:15%;" readonly>
+			<input type="text" name="g_address" value="${ a.g_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="r_address" value="${ a.r_address }" class="${ a.m_id } borderInform2 allUser" style="width:30%;" readonly>
+			<input type="text" name="d_address" value="${ a.d_address }" class="${ a.m_id } borderInform2 allUser" style="width:10%;" readonly>
+			</td>
+			<td style="text-align:center;">
+			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
+			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
+			</td>
+		
 		</tr>
+		
 		<script>
 	
+		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			$('.'+target).removeAttr('readonly').attr;
+			x = document.getElementsByClassName(target);
+			console.log(typeof(target));
+			listInform = document.getElementsByClassName(target);
+			  for (i = 0; i < x.length; i++) {
+				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
+				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
+			  };
+			
+			  y = document.getElementsByClassName(targetB);
+			  z = document.getElementsByClassName(targetBC);
+			  for (i = 0; i < y.length; i++) {
+			  y[i].style.display="none";
+			  }
+			  for (i = 0; i < y.length; i++) {
+				  z[i].style.display="";
+				}
+			
+		}
 		</script>
+			</form>
 		</c:if>
 		</c:forEach>
+		<!-- 페이징 -->
+		<tr align="center" height="20" id="buttonTab">
+			<td style="text-align:center;" colspan="12">
+			
+				<!-- [이전] -->
+				<c:if test="${ pib.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ pib.currentPage > 1 }">
+					<c:url var="before" value="adminUser.do">
+						<c:param name="page" value="${ pib.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pib.startPage }" end="${ pib.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="adminUser.do">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;<!--blist.do?page=1 페이지라는 변수가지고 컨트롤러를 짜야함  -->
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pib.currentPage >= pib.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pib.currentPage < pib.maxPage }">
+					<c:url var="after" value="blist.do">
+						<c:param name="page" value="${ pib.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		<!-- /페이징 -->
   	</table>
   </div>
 </div>
@@ -329,7 +701,64 @@ function st2menu(evt, sidetab2menu) {
   document.getElementById(sidetab2menu).style.display = "block";
   evt.currentTarget.className += " hotpink fontwhite";
 }
+function insertTrAll(target, targetB, targetBC){/*모든 회원 정보 수정 */
+	$('.'+target).removeAttr('readonly').attr;
+	x = document.getElementsByClassName(target);
+	console.log(typeof(target));
+	listInform = document.getElementsByClassName(target);
+	  for (i = 0; i < x.length; i++) {
+		  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
+		  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
+	  };
+	
+	  y = document.getElementsByClassName(targetB);
+	  z = document.getElementsByClassName(targetBC);
+	  for (i = 0; i < y.length; i++) {
+	  y[i].style.display="none";
+	  }
+	  for (i = 0; i < y.length; i++) {
+		  z[i].style.display="";
+		}
+	  a = document.getElementsByClassName("allUserChangeBtn");
+	  b = document.getElementsByClassName("allUserChangeBtnCan");
+	  for (i = 0; i < a.length; i++) {
+		  a[i].style.display="none";
+		  }
+		  for (i = 0; i < b.length; i++) {
+			  b[i].style.display="";
+			}
+}
+function insertTrAllRollback(target, targetB, targetBC){/*모든 회원 정보 수정 취소 */
+	$('.'+target).attr('readonly',true);
+
+	x = document.getElementsByClassName(target);
+	console.log(typeof(target));
+	listInform = document.getElementsByClassName(target);
+	  for (i = 0; i < x.length; i++) {
+		  listInform[i].className = listInform[i].className.replace(" borderReplace"," borderInform");
+		  listInform[i].className = listInform[i].className.replace(" borderReplace2"," borderInform2");
+	  };
+	
+	  y = document.getElementsByClassName(targetB);
+	  z = document.getElementsByClassName(targetBC);
+	  for (i = 0; i < y.length; i++) {
+	  y[i].style.display="";
+	  }
+	  for (i = 0; i < z.length; i++) {
+		  z[i].style.display="none";
+	}
+	  a = document.getElementsByClassName("allUserChangeBtn");
+	  b = document.getElementsByClassName("allUserChangeBtnCan");
+	  for (i = 0; i < a.length; i++) {
+		  a[i].style.display="";
+		  }
+	  for (i = 0; i < b.length; i++) {
+			  b[i].style.display="none";
+			}
+		
+}
 </script>
+
    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

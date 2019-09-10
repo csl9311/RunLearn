@@ -62,5 +62,10 @@ public class AdminServiceImpl implements AdminService {
 		
 		return aDAO.allUserList(pi);
 	}
-	
+	@Override
+	public int targetUserUpdate(Member m) {
+		// TODO Auto-generated method stub
+		System.out.println("pl"+ m);
+		return aDAO.targetUserUpdate(m);
+	}
 }

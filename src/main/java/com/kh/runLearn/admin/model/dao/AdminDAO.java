@@ -37,6 +37,10 @@ public class AdminDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.allUserList", null, rowBounds); // arraylist로 형변환해주기
 	}
+	public int targetUserUpdate(Member m) {
+		System.out.println("dao"+m);
+		return sqlSession.update("adminMapper.targetUserUpdate",m);
+	}
 	
 
 }
