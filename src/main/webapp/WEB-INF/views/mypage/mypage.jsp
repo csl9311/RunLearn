@@ -1,26 +1,10 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%
-   java.sql.Date time = new java.sql.Date(new java.util.Date().getTime());
-   HttpSession session2 = request.getSession();
-   Member loginUser = new Member("nakcom05a","12345", "김수민", "고석민123", "nakcom05a@naver.com", "010-9177-9509", time, time, "t", "Y", "10415", "서울특별시", "성동구 독서당로 62길 43", "2동802호");
-   
-   String grade = "";
-   if(loginUser.getM_grade().equals("U")){
-      grade = "튜티";
-   }else{
-      grade = "튜터";
-   }
-   
-   loginUser.setM_grade(grade);
-   
-   session2.setAttribute("loginUser", loginUser);
 
-   
 
-   
-%> --%>
+
 <!DOCTYPE html>
 
 <html>
@@ -84,14 +68,14 @@
    font-size: 17px;
 }
 #content21 {
-   background:white;
+
+   background:#ffff5d;
    color:black;
-   box-shadow: inset -1px 0px 9px 0px #f1acac;
+   box-shadow: 0px 0px 20px 3px yellow;
   
 }
 
 #content21:hover{
-   background: #FFF0F5;
    color:#F4A460;
    cursor:pointer;
 	
@@ -100,14 +84,14 @@
 #content22 {
    background:white;
    color:black;
-   box-shadow: inset -1px 0px 9px 0px #f1acac;
+   box-shadow: inset -1px 0px 9px 0px #c9c9c9;
   
   
 }
 
 #content22:hover{
-   background: #FFF0F5;
-   color:#F4A460;
+   background: black;
+   color:white;
    cursor:pointer;	
 	
 
@@ -115,30 +99,27 @@
 #content201 {
    background:white;
    color:black;
-   box-shadow: inset -1px 0px 9px 0px #f1acac;
+   box-shadow: inset -1px 0px 9px 0px #c9c9c9;
 }
 
 #content201:hover{
-   background: #FFF0F5;
-   color:#F4A460;
+   background: black;
+   color:white;
    cursor:pointer;
 }
 #content202 {
-   background:white;
+   background :#ffff5d;
+   box-shadow :0px 0px 20px 3px yellow;
    color:black;
-   box-shadow: inset -1px 0px 9px 0px #f1acac;
-}
+
 }
 
 #content202:hover{
-   background: #FFF0F5;
    color:#F4A460;
    cursor:pointer; 
 }
 
-#contentMenu1 {
-   border-right: 2px solid #f8f9fa;
-}
+
 
 #contentMenu1:hover{
 	     border-bottom:1px dashed #F08080;
@@ -171,8 +152,7 @@
 #sub1 {
    font-size: 20px;
    font-weight: border;
-   margin-left: 15px;
-   width: 100%;
+   width: 1100;
    height: auto;
    padding: 20px;
    border-bottom: 2px solid #f8f9fa;
@@ -462,9 +442,7 @@
 
 
    <c:import url="../common/header.jsp" />
-
-
-
+	
    <div id="paper">
       <div class="container" id="enrty1">
          <div class="row" id="row1">
@@ -481,14 +459,14 @@
                   <label class="label1" id="update1" onclick="location.href='memberUpdate.do'">정보수정</label> 
                   
                   
-                  <c:if test="${loginUser.m_grade eq '튜티' }">
+                  <c:if test="${m_grade eq 'T' }">
                   <label class="label1" id="insertTuter">튜터신청</label>
                   </c:if>
                   
-                     <c:if test="${loginUser.m_grade ne '튜티'}"> 
+                     <c:if test="${m_grade ne 'T'}"> 
                      <label class="label1" id="classInsertButton" onclick="location.href='#'">강의등록</label>
                      </c:if>
-                     <label class="label1" id="logout">로그아웃</label>
+                     <label class="label1" id="logout" onclick="location.href='logout.do'">로그아웃</label>
                </div>
                <!-- memberInformation 끝 -->
             </div>
@@ -551,7 +529,7 @@
                </div>
                
                <div id="wGrade" style="margin-top:5px;">
-               	<label>${ loginUser.m_grade }</label>
+               	<label>${ m_grade }</label>
                </div>
                
                <div id="wemail">
@@ -577,45 +555,55 @@
 
 
 
+	
 
+		<c:url var="tuterPage" value="mypage.do">
+ 			<c:param name="cate" value="튜터"/>
+ 		</c:url>
+	
    <div id="paper2" style="height: auto;">
       <br>
+      
       <div class="container" id="entry2"
          style="border: 1px solid lightgray;">
          <div class="row">
             <div id="content21" class="content21">수강생</div>
-            <div id="content22" class="content21">튜터</div>
+            <div id="content22" class="content21" <c:if test="${ m_grade ne '튜터' }">onclick="NotTuterPage();"</c:if> <c:if test="${ m_grade eq '튜터' }">onclick="location.href='${ tuterPage }'";</c:if>>튜터</div>
          </div>
          <!--  row끝 -->
-
+		
+		
+		
 		<c:url var="lListView" value="mypage.do">
  					<c:param name="cate" value="수강목록"/>
- 				</c:url>
+ 					
+ 		</c:url>
+ 		
  		<c:url var="selectList" value="mypage.do">
  					<c:param name="cate" value="강의찜목록"/>
- 				</c:url>
- 		<c:url var="productList" value="mypage.do">
- 					<c:param name="cate" value="상품찜목록"/>
+ 					
  		</c:url>
+ 		
+ 		<c:url var="productList" value="mypage.do">
+ 					<c:param name="cate" value="상품찜목록"/>			
+ 		</c:url>
+ 		
+ 	
  		
 
          <div class="row" id="sub1">
-            <div class="content22" onclick="location.href='${ lListView }'"> id="contentMenu1">
-            	수강목록
-            	<script>
-            		function test1(){
-            			location.href="${ lListView }";
-            		}
-            	
-            	
-            	</script>
+         
+            <div class="content22" onclick="location.href='${ lListView }'" id="contentMenu1" <c:if test="${ cate eq '수강목록' }">style="background: white;  font-weight:bold;"</c:if>>
+            	수강목록   
          	</div>
-            <div class="content22" onclick="location.href='${ selectList }'" id="contentMenu3">
+            <div class="content22" onclick="location.href='${ selectList }'" id="contentMenu3" <c:if test="${ cate eq '강의찜목록' }">style="background: white;  font-weight:bold;"</c:if>>
             	강의찜목록
             </div>
-            <div class="content22" onclick="location.href='${ productList }'" id="contentMenu4">
+            <div class="content22" onclick="location.href='${ productList }'" id="contentMenu4" <c:if test="${ cate eq '상품찜목록' }">style="background: white; font-weight:bold;"</c:if>>
          		상품찜목록
          	</div>
+         	
+         	
          	
          	
          </div>
@@ -655,7 +643,7 @@
                      </div></td>
                   <td>
                      <div id="lectureTitle" style="text-align: left;">${ l.L_TITLE }</div> <!-- 제목 -->
-                     <div id="lectureContent" style="text-align: left;">${ l.L_CONTENT }
+                     <div id="lectureContent" style="text-align: left;">${ l.L_OBJECT }
  					</div>
                      <div class="row" id="lecturebox1">
                         <div id="left">
@@ -670,17 +658,21 @@
                      </div>
                   </td>
                   <td><div id="lectureDate" class="lDate">${ l.PAY_DATE }</div></td>
+                  
                </tr>
             </c:forEach>
             </table>
+            
          </div>
+         
+         
          </c:if>
          <!--  content23끝 -->
          
 		 <c:if test="${cate eq '강의찜목록' }">
          <div id="content25">
          	<c:if test="${ empty noPaylList}">
-			 	<h3>찜한 강의가 없습니다.</h3>
+			 	<h3 style="text-align:center">찜한 강의가 없습니다.</h3>
 			 </c:if>
 			 <c:if test="${ !empty noPaylList}">
             <table>
@@ -700,7 +692,7 @@
                   <td>
                      <div id="lectureTitle" style="text-align: left;">${ i.L_TITLE }</div> <!-- 제목 -->
                      <div id="lectureContent" style="text-align: left;">
-                      ${ i.L_CONTENT }
+                      ${ i.L_OBJECT }
                         </div>
                      <div class="row" id="lecturebox1">
                         <div id="left">
@@ -756,10 +748,130 @@
             
             </table>
          </div>
-        </c:if>
+         </c:if> 
          <!--  content26끝 -->
    		
-         <div id="pagging">
+
+
+     
+     
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      <!-- entry2 끝 -->
+      <br>
+      <br>
+      
+ 
+      
+      
+   </div>
+   <!--  paper2 끝 -->
+
+
+	
+ 	
+   <div id="paper3" >
+   
+      <br>
+      <br>
+      
+      <div class="container" id="entry3" style="border: 1px solid lightgray;">
+      
+         <div class="row">
+            <div id="content201" class="content21" onclick="location.href='${lListView}'">수강생</div>
+            <div id="content202" class="content21" >튜터</div>
+         </div>
+                  
+         <!--  row끝 -->
+
+         <div class="row" id="sub1">
+            <div id="contentMenu5">
+          			 <label>내 강의목록</label>
+            </div>
+            
+            <div id="classInsertMenu">
+            <button type="button" id="classInsert" onclick="location.href='#'" >강의등록</button>
+            </div>
+         </div>
+         <!-- sub1끝 -->
+         <br>
+         <br>
+		
+		 
+		 <c:if test="${cate eq '튜터' }">
+         <div id="content27">
+            <table>
+               <tr class="tr3" style="text-align: center;">
+                  <th style="width: 150px;"><div class="title123">카테고리</div></th>
+                  <th style="width: 300px; height: 25px;"><div class="title123">강의이미지</div></th>
+                  <th style="width: 500px;"><div class="title123">강의정보</div></th>
+                  <th style="width: 200px;"><div class="lDate" id="lDate1">수강생 수</div></th>
+                  <th style="width: 150px;"><div class="lDate" id="lDate1">총수입</div></th>
+               </tr>
+               
+               
+      			<c:if test="${empty tLectureList }">
+               	<td colspan="5" style="text-align:center; font-size:20px;">등록한 강의가 없습니다.</td> 
+           		</c:if>
+               
+               
+               
+		
+           <c:forEach var="i" items="${ tLectureList }">
+               <tr id="tr1">
+                  <td class="td1" style="height: 100px;"><div
+                        id="tableCategory1">${ i.L_CATEGORT }</div></td>
+                  <td class="td1"><div id="image1">
+                        <img src="${contextPath}/resources/images/mypage/testitem1.jpg" width="150px" height="80px">
+                     </div></td>
+                  <td>
+                     <div id="lectureTitle" style="text-align: left;">${ i.L_TITLE }</div> <!-- 제목 -->
+                     <div id="lectureContent" style="text-align: left;">
+                      ${ i.L_OBJECT }
+                      </div>
+                     <div class="row" id="lecturebox1">
+                        <div id="right">
+                           <div id="lecturePrice" style="text-align:left;">${ i.L_PRICE }</div>
+                        </div>
+                     </div>
+                     
+
+                  </td>
+                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black;" >${ i.L_PRICE }</div></td>
+                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black">◎</div></td>
+               </tr>
+            </c:forEach>
+               
+            
+            </table>
+         </div>
+        </c:if>
+         <!--  content27끝 -->
+  
+        
+        
+      </div>
+      <!--  entry3끝 -->
+	
+
+
+
+
+
+   </div>
+   <!--  paper3끝 -->
+
+                   <div id="pagging">
          		<c:if test="${ pi.currentPage <= 1 }">
 					[이전] &nbsp;
 				</c:if>
@@ -800,140 +912,41 @@
 					<a href="${ after }">[다음]</a>
 				</c:if>
          </div>
-
-     
-     
-     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      <!-- entry2 끝 -->
-      <br>
-      <br>
-   </div>
-   <!--  paper2 끝 -->
-	 	<c:url var="tuterPage" value="mypage.do">
- 			<c:param name="cate" value="튜터"/>
- 		</c:url>
-
-   <div id="paper3" >
-      <br>
-      <br>
-      <div class="container" id="entry3" style="border: 1px solid lightgray;"">
-         <div class="row">
-            <div id="content201" class="content21">수강생</div>
-            <div id="content202" class="content21">튜터</div>
-         </div>
-         <!--  row끝 -->
-
-         <div class="row" id="sub1">
-            <div id="contentMenu5">
-          			 <label>내 강의목록</label>
-            </div>
-            
-            <div id="classInsertMenu">
-            <button type="button" id="classInsert" onclick="location.href='#'" >강의등록</button>
-            </div>
-         </div>
-         <!-- sub1끝 -->
-         <br>
-         <br>
-
-         <div id="content27">
-            <table>
-               <tr class="tr3" style="text-align: center;">
-                  <th style="width: 150px;"><div class="title123">카테고리</div></th>
-                  <th style="width: 300px; height: 25px;"><div class="title123">강의이미지</div></th>
-                  <th style="width: 500px;"><div class="title123">강의정보</div></th>
-                  <th style="width: 200px;"><div class="lDate" id="lDate1">수강생 수</div></th>
-                  <th style="width: 150px;"><div class="lDate" id="lDate1">승낙여부</div></th>
-               </tr>
-
-            <c:forEach var="i" begin="1" end="5">
-               <tr id="tr1">
-                  <td class="td1" style="height: 100px;"><div
-                        id="tableCategory1">디자인</div></td>
-                  <td class="td1"><div id="image1">
-                        <img src="${contextPath}/resources/images/mypage/testitem1.jpg" width="150px" height="80px">
-                     </div></td>
-                  <td>
-                     <div id="lectureTitle" style="text-align: left;">JAVA프레임워크 개발자 양성 과정</div> <!-- 제목 -->
-                     <div id="lectureContent" style="text-align: left;">시간이 없다면
-                        ! 3시간 만에 박살 내는 일러스트레이터 기초 1:1시간이 없다면 ! 3시간 만에 박살 내는 일러스트레이터 기초
-                        1:1</div>
-                     <div class="row" id="lecturebox1">
-                        <div id="right">
-                           <div id="lecturePrice" style="text-align:left;">가격 : 1000원</div>
-                        </div>
-                     </div>
-                     
-
-                  </td>
-                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black;" >5명</div></td>
-                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black">◎</div></td>
-               </tr>
-            </c:forEach>
-               
-            
-            </table>
-         </div>
-         <!--  content27끝 -->
-         <div id="pagging2">[이전] [다음]</div>
-         <div id="lectureInsert" style="text-align:right;">
-         
-         </div>
-         
-                 <!--  pagging2 끝 -->
-      </div>
-      <!--  entry3끝 -->
-
-   </div>
-   <!--  paper3끝 -->
+ 
+   
+   
+   
    <script>
-   	  var cate = "";
-   	  
-      $("#content22").click(function() {
+   	  function tuterPage(){
+   		$("paper2").hide();
+        $("paper3").css("display", "block");
+         
+   		  
+   	  }	  
+   
+  
+      function NotTuterPage(){
+
          var bool = confirm("튜터 등록하시겠습니까?");
          if (bool == true) {
-        	
             location.href = "tuterInsert.jsp";
-         } else {
-            $("#paper2").hide();
-            $("#paper3").css("display", "block");
          }
-      });
+      }
 
-      $("#content21").click(function() {
-    	 $("#paper2").css("display", "block");
-         $("#paper3").hide();
-         
-      });
 
       $("#insertTuter").click(function() {
          location.href = "##";
       })
 
-      $("#logout").click(function() {
-         location.href = "##";
-      })
 
-      $("#content201").click(function() {
-         $("#paper2").css("display", "block");
-         $("#paper3").hide();
-      });
+      
+     
+      
+      
+      
+      
 
-      $("#content202").click(function() {
-         $("#paper2").css("display", "block");
-         $("#paper3").hide();
-      });
+     
    </script>
 
 
@@ -945,4 +958,8 @@
 
 </body>
 </html>
+
+
+
+
 
