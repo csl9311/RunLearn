@@ -67,11 +67,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.insertMember(m);
 	}
 
-	@Override
-	public int updateMember(Member m) {
-		
-		return mDAO.updateMember(m);
-	}
 
 	@Override
 	public int deleteMember(Member m) {
@@ -91,11 +86,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.insertMember_Image(mi);
 	}
 
-	@Override
-	public int updateMember_Image(Member_Image mi) {
-		
-		return mDAO.updateMember_Image(mi);
-	}
 
 	@Override
 	public int deleteMember_Image(Member_Image mi) {
@@ -121,5 +111,35 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String checkPw(String id) {
 		return mDAO.checkPw(id);
+	}
+
+	@Override
+	public ArrayList<Lecture> selectLectureMember(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Product> selectItemMember(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int selectLectureCount(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Lecture> selectNoPayLecture(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int selectNoPayLectureCount(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

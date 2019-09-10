@@ -146,26 +146,6 @@
         </if>
 	</select>
 	
-  <!-- 석민 -->
-	<select id="selectProductView" parameterType="string" resultType="hashmap">   <!-- 마이페이지 상품 찜목록  -->
-		select *
-		from PRODUCT_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select>
-	
-	
-	
-	<select id="selectPlistCount" parameterType="string" resultType="_int">
-		select count(*)
-		from PRODUCT_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select>
-	<!-- 석민 -->
-	
-	
-	
-	
-	
 	<!-- home.jsp에 최신상품 조회 -->
 	<select id="selectNewProductList" resultType="hashmap">
 		<![CDATA[

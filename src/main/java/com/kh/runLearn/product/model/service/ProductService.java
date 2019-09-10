@@ -31,10 +31,6 @@ public interface ProductService {
 	int insertProductThumbnail(Product_Image pi); // 상품 이미지 등록
 	int updateProduct_Image(Product_Image pi); // 상품 이미지 수정
 	
-	
-
-	ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi);  //마이페이지  상품 찜목록
-	int selectPlistCount(String userId); //마이페이지 상품 찜 목록 수
 
 	ArrayList<Map<String, String>> selectNewProductList(); // home.jsp에 최신상품 조회
 
