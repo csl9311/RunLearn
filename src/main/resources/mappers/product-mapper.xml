@@ -147,7 +147,7 @@
 	</select>
 	
   <!-- 석민 -->
-	<select id="selectProductView" parameterType="string" resultType="hashmap">   <!-- 마이페이지 상품 찜목록  -->
+<!-- 	<select id="selectProductView" parameterType="string" resultType="hashmap">   마이페이지 상품 찜목록 
 		select *
 		from PRODUCT_NOPAYVIEW
 		where M_ID = #{m_id}
@@ -159,7 +159,7 @@
 		select count(*)
 		from PRODUCT_NOPAYVIEW
 		where M_ID = #{m_id}
-	</select>
+	</select> -->
 	<!-- 석민 -->
 	
 	
