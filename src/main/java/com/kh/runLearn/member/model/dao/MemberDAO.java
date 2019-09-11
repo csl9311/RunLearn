@@ -48,12 +48,26 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkPhone2",m);
 	}
 	
+	public int checkEmail(Member m) {
+		return sqlSession.selectOne("memberMapper.checkEmail",m);
+	}
+
+	public int checkEmail2(Member m) {
+		return sqlSession.selectOne("memberMapper.checkEmail2",m);
+	}
+	
 	public String checkPw(String id) {
 		return sqlSession.selectOne("memberMapper.selectPw", id);
 	}
 	
+	public Member findMember(Member m) {
+		return sqlSession.selectOne("memberMapper.findMember", m);
+	}
 	
-	
+	public int pwChange(Member m) {
+		return sqlSession.update("memberMapper.pwChange", m);
+	}
+
 	 public int getAllUserCount() {//회원수 가지고오기
 	      return sqlSession.selectOne("memberMapper.getAllUserCount");
 	   }
@@ -64,14 +78,15 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
 
-//	public int updateMember(Member m) { //정보 수정
-//		
-//		return sqlSession.update("memberMapper.updateMember", m);
-//	}
-//
-//	public int updateMember_Image(Member_Image mi) { //프로필 수정
-//		
-//		return sqlSession.update("memberMapper.updateMember_Image", mi);
-//	}
+	
+	public int updateMember(Member m) { //정보 수정
+		
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+
+	public int updateMember_Image(Member_Image mi) { //프로필 수정
+		
+		return sqlSession.update("memberMapper.updateMember_Image", mi);
+	}
 
 }

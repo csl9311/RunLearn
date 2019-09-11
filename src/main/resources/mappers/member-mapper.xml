@@ -29,16 +29,42 @@
 		from member where
 		m_name = #{m_name} and m_phone = #{m_phone} and m_status='Y'
 	</select>
-		<select id="checkPhone2" parameterType="Member" resultType="_int">
+	<select id="checkPhone2" parameterType="Member" resultType="_int">
 		select count(*)
 		from member where
 		m_name = #{m_name} and m_phone = #{m_phone} and m_id = #{m_id} and m_status='Y'
+	</select>
+	<select id="checkEmail" parameterType="Member" resultType="_int">
+		select count(*)
+		from member where
+		m_name = #{m_name} and m_email = #{m_email} and m_status='Y'
+	</select>
+	<select id="checkEmail2" parameterType="Member" resultType="_int">
+		select count(*)
+		from member where
+		m_name = #{m_name} and m_email = #{m_email} and m_id = #{m_id} and m_status='Y'
 	</select>
 	<select id="selectPw" parameterType="string" resultType="string">
 		select m_pw
 		from member
 		where m_id = #{id} and m_status='Y'
 	</select>
+	<select id="findMember" parameterType="Member" resultType="Member">
+		select * 
+		from member
+		where m_name = #{m_name} and m_status='Y'
+		<if test="m_phone != null">
+			and m_phone = #{m_phone}
+		</if>
+		<if test="m_email != null">
+			and m_email = #{m_email}
+		</if>
+	</select>
+	<update id="pwChange" parameterType="Member">
+		update member
+		set m_pw = #{m_pw}
+		where m_id = #{m_id} and m_status = 'Y'
+	</update>
 
 
 

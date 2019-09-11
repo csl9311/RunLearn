@@ -203,7 +203,7 @@
 				<form name="form2" id="form2" method="post" action="findmemberid.do">
 					<div class="index" id="ief">
 						<p class="sub-text">회원 가입에 사용한 이메일 주소와 일치해야 합니다.</p>
-						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"></div>
+						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"><input type="hidden" name="typecheck" value="01"></div>
 						<div class="space"></div>
 						<div class="col1">이메일</div><div class="col2"><input type="text" name="m_email" class="text-field"><span><button type="button" onclick="checkphone(this);" class="sub-btn btn btn-danger">인증번호전송</button></span></div>
 						<div class="space"></div>
@@ -228,7 +228,7 @@
 						<div class="space"></div>
 						<div class="col1">휴대폰 번호</div><div class="col2"><input type="text" name="m_phone" onkeyup="inputPhoneNumber(this);" maxlength="13" class="text-field"><span><button type="button" onclick="checkphone(this);" class="sub-btn btn btn-danger">인증번호전송</button></span></div>
 						<div class="space"></div>
-						<div class="col1"></div><div class="col2"><input type="text" name="pcheckNum"class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
+						<div class="col1"></div><div class="col2"><input type="text" name="pcheckNum" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
 					</div>
 				</form>
 			</div>
@@ -238,7 +238,7 @@
 				<form name="form4" id="form4" method="post" action="findmemberpw.do">
 					<div class="index" id="pef">
 						<p class="sub-text">회원 가입에 사용한 이메일 주소와 일치해야 합니다.</p>
-						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"></div>
+						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"><input type="hidden" name="typecheck" value="02"></div>
 						<div class="space"></div>
 						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"></div>
 						<div class="space"></div>
@@ -332,14 +332,17 @@
 	function checkphone(e){
 		var m_name = $(e).closest(".index").children('.col2').children('input:text[name=m_name]').val();
 		var m_id = $(e).closest(".index").children('.col2').children('input:text[name=m_id]').val();
+		var m_email = $(e).closest(".index").children('.col2').children('input:text[name=m_email]').val();
 		var m_phone = $(e).closest(".index").children('.col2').children('input:text[name=m_phone]').val();
 		var typecheck = $(e).closest(".index").children('.col2').children('input:hidden[name=typecheck]').val();
-		if(ido == true){
+		console.log($(e).closest(".index").children('.col2').children('input:text[name=m_email]').val());
+		if(ido == false){
 			$.ajax({
 				url: "checkPhone.do",
 				data: {m_phone: m_phone,
 					   m_name: m_name,
 					   m_id: m_id,
+					   m_email: m_email,
 					   typecheck: typecheck},
 				success: function(data){
 					if(data.isUsable == false){
@@ -359,6 +362,7 @@
 				url: "checkPhone.do",
 				data: {m_phone: m_phone,
 					   m_name: m_name,
+					   m_email: m_email,
 					   typecheck: typecheck},
 				success: function(data){
 					if(data.isUsable == false){
@@ -377,26 +381,91 @@
 	}
 	
 	
-	/* submit 처리 */ 
+	/* submit 처리(아이디 찾기) */ 
 	function submit1(){
+		var num1 = $("#ipf").children('.col2').children('input:text[name=pcheckNum]').val();
+		var num2 = $("#ief").children('.col2').children('input:text[name=pcheckNum]').val();
 		form1 = document.form1;
 		form2 = document.form2;
 		
 		if($("#pp").is(":checked") == true && ido == true) {
-			form1.submit();
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num1},
+				success: function(data){
+					if(data.isUsable == true){
+						form1.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
 		} else {
-			form2.submit();
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num2},
+				success: function(data){
+					if(data.isUsable == true){
+						form2.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
 		}
 	}
 	
+	/* submit 처리(비밀번호 찾기) */
 	function submit2(){
+		var num1 = $("#ppf").children('.col2').children('input:text[name=pcheckNum]').val();
+		var num2 = $("#pef").children('.col2').children('input:text[name=pcheckNum]').val();
 		form3 = document.form3;
 		form4 = document.form4;
 		
 		if($("#pp2").is(":checked") == true && pwo == true) {
-			form3.submit();
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num1},
+				success: function(data){
+					if(data.isUsable == true){
+						form3.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
 		} else {
-			form4.submit();
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num2},
+				success: function(data){
+					if(data.isUsable == true){
+						form4.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
 		}
 	}
 </script>

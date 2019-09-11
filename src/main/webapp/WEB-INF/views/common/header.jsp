@@ -529,6 +529,7 @@ header .search .lcont input[type=text] {
 													</div>
 													<div class="form-group">
 														<input type="button" onclick="signUp();" class="btn btn-primary btn-block btn-lg" value="로그인" />
+														<input id="urlInput" type="hidden" name="url" value="${document.location.href}">
 													</div>
 												</form>
 											</div>
@@ -734,6 +735,11 @@ header .search .lcont input[type=text] {
 	</script>
 	<script>
 	function signUp(){
+		var url = $(location).attr('pathname').split('/');
+		console.log(url[2]);
+		$('#urlInput').val(url[2]);
+		
+		
 		m_id = $("#m_id");
 		m_pw = $("#m_pw");
 		$.ajax({

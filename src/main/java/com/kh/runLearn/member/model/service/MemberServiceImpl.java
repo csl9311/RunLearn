@@ -41,12 +41,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member selectMember(Member m) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Member> selectAllMember(PageInfo pi) {//관리자  회원 정보 조회
 		// TODO Auto-generated method stub
 		return mDAO.selectAllMember(pi);
@@ -66,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member m) {
 		return mDAO.insertMember(m);
 	}
-
+ 
 	@Override
 	public int updateMember(Member m) {
 		return mDAO.updateMember(m);
@@ -123,9 +117,30 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int checkEmail(Member m) {
+		return mDAO.checkEmail(m);
+	}
+
+	@Override
+	public int checkEmail2(Member m) {
+		return mDAO.checkEmail2(m);
+	}
+	
+	@Override
 	public String checkPw(String id) {
 		return mDAO.checkPw(id);
 	}
+	
+	@Override
+	public Member findMember(Member m) {
+		return mDAO.findMember(m);
+	}
+	
+	@Override
+	public int pwChange(Member m) {
+		return mDAO.pwChange(m);
+	}
+	
 
 	@Override
 	public ArrayList<Lecture> selectLectureMember(String userId) {
@@ -157,7 +172,11 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
-
-
+	@Override
+	public Member selectMember(Member m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

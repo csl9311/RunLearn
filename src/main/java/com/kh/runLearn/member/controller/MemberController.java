@@ -7,13 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +53,9 @@ public class MemberController {
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
 	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
@@ -96,10 +101,6 @@ public class MemberController {
 		String checkPw = mService.checkPw(id);
 		boolean idCheck = mService.checkId(id) == 1 ? true : false;
 		
-		System.out.println(checkPw);
-		System.out.println(id);
-		System.out.println("비번" + pw);
-		
 		if(bcryptPasswordEncoder.matches(pw, checkPw) && idCheck == true) {
 			check = true;
 		}
@@ -112,20 +113,17 @@ public class MemberController {
 	
 	/* 암호화 로그인 */
 	@RequestMapping(value="login.do", method=RequestMethod.POST)
-	public String memberLogin(Member m, Model model) {
+	public String memberLogin(Member m, String url, HttpSession session) {
 
 		Member loginUser = mService.login(m);
-		System.out.println(m);
-		System.out.println(m.getM_pw());
-		System.out.println(loginUser.getM_pw());
 			
 		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
-			model.addAttribute("loginUser",loginUser);
+			session.setAttribute("loginUser", loginUser);
 		} else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
 			
-		return "home";
+		return "redirect:"+url;
 			
 	}
 	// 로그인 끝
@@ -157,96 +155,6 @@ public class MemberController {
 		map.put("isUsable", isUsable);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
-		return mv;
-	}
-
-	
-	/* 전화번호 중복확인, 인증번호발송 */
-	@RequestMapping("checkPhone.do")
-	public ModelAndView  checkPhone(ModelAndView mv, Member m, String typecheck) {
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		
-		String phoneNum1 = m.getM_phone();
-		String phoneNum2 = (phoneNum1.replace("-", "")).substring(1);
-		System.out.println(phoneNum1);
-		System.out.println(phoneNum2);
-		System.out.println("타입" + typecheck);
-		boolean isUsable;
-		/*
-		typecheck
-		0 - 회원가입 
-		00 - 아이디 찾기 
-		1 - 비밀번호 찾기
-		 */
-		if(typecheck.equals("0") || typecheck.equals("00")) {
-			isUsable = mService.checkPhone(m) == 0 ? true : false;
-		} else {
-			isUsable = mService.checkPhone2(m) == 0 ? true : false;
-		}
-		
-		if(typecheck.equals("0")) {
-			if(isUsable == true) {
-				int random = (int)(Math.random() * 10000);
-				phoneCheck = random;
-				System.out.println(phoneCheck);
-				
-				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				
-				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
-												  new PhoneNumber("+12563716554"), // from
-												  "만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
-			}
-		} else if(typecheck.equals("1")) {
-			if(isUsable == false) {
-				int random = (int)(Math.random() * 10000);
-				phoneCheck = random;
-				System.out.println(phoneCheck);
-				
-				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				
-				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
-												  new PhoneNumber("+12563716554"), // from
-												  "만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
-			}
-		} else if(typecheck.equals("00")) {
-			if(isUsable == false) {
-				int random = (int)(Math.random() * 10000);
-				phoneCheck = random;
-				System.out.println(phoneCheck);
-				
-				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				
-				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
-												  new PhoneNumber("+12563716554"), // from
-												  "만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
-			}
-		}
-		
-		map.put("isUsable", isUsable);
-		mv.addAllObjects(map);
-		mv.setViewName("jsonView");
-		
-		return mv;
-		
-	}
-	
-	/* 인증번호 확인 */
-	@RequestMapping("checkNum.do")
-	public ModelAndView checkNum(ModelAndView mv, String num) throws IOException {
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		System.out.println("저장된 값" + phoneCheck + "입력한 값" + num);
-		boolean isUsable;
-		int num1 = Integer.parseInt(num);
-		if(phoneCheck == num1) {
-			isUsable = true;
-		} else {
-			isUsable = false;
-		}
-		
-		map.put("isUsable", isUsable);
-		mv.addAllObjects(map);
-		mv.setViewName("jsonView");
-		
 		return mv;
 	}
 	
@@ -326,7 +234,184 @@ public class MemberController {
 	}
 	
 		/**********   회원가입 끝   ***********/
+
 	
+	/* 전화번호 중복확인 및 인증번호발송 */
+	@RequestMapping("checkPhone.do")
+	public ModelAndView  checkPhone(ModelAndView mv, Member m, String typecheck) {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		String phoneNum1;
+		String phoneNum2;
+		
+		if(typecheck.equals("0") || typecheck.equals("00") || typecheck.equals("1")) {
+			phoneNum1 = m.getM_phone();
+			phoneNum2 = (phoneNum1.replace("-", "")).substring(1);
+		}
+		String email = m.getM_email();
+		System.out.println(email);
+		System.out.println("타입" + typecheck);
+		boolean isUsable;
+		
+		/**********************
+
+		typecheck
+		0 - 회원가입 
+		00 - 아이디 찾기 / 휴대폰 인증 
+		1 - 비밀번호 찾기 / 휴대폰 인증
+		01 - 아이디찾기 / 이메일 인증
+		02 - 비밀번호 찾기 / 이메일 인증
+		
+		***********************/
+		
+		if(typecheck.equals("0") || typecheck.equals("00")) {
+			isUsable = mService.checkPhone(m) == 0 ? true : false;
+		} else if(typecheck.equals("1")) {
+			isUsable = mService.checkPhone2(m) == 0 ? true : false;
+		} else if(typecheck.equals("01")) {
+			isUsable = mService.checkEmail(m) == 0 ? true : false;
+		} else {
+			isUsable = mService.checkEmail2(m) == 0 ? true : false;
+		}
+		
+		if(typecheck.equals("0")) {
+			if(isUsable == true) {
+				int random = (int)(Math.random() * 10000);
+				phoneCheck = random;
+				System.out.println(phoneCheck);
+				
+				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
+												  new PhoneNumber("+12563716554"), // from
+												  "만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
+			}
+		} else if(typecheck.equals("1") || typecheck.equals("00")) {
+			if(isUsable == false) {
+				int random = (int)(Math.random() * 10000);
+				phoneCheck = random;
+				System.out.println(phoneCheck);
+			
+				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to
+												  new PhoneNumber("+12563716554"), // from
+												  "만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();*/
+								
+			}
+		} else if(typecheck.equals("01") || typecheck.equals("02")) {
+			if(isUsable == false) {
+				int random = (int)(Math.random() * 10000);
+				phoneCheck = random;
+				System.out.println(phoneCheck);
+				
+				String setfrom = "soomin3333@gmail.com";
+				String tomail = email;
+				String title = "만취남녀 인증번호"; // 제목
+				String content = "만취남녀 인증번호는 " + random + " 입니다."; // 내용
+
+				try {
+					MimeMessage message = mailSender.createMimeMessage();
+					MimeMessageHelper messageHelper = new MimeMessageHelper(message,
+							true, "UTF-8");
+
+					messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+					messageHelper.setTo(tomail); // 받는사람 이메일
+					messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+					messageHelper.setText(content); // 메일 내용
+
+					mailSender.send(message);
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+			}
+		}
+		
+		map.put("isUsable", isUsable);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		
+		return mv;
+		
+	}
+	
+	/* 인증번호 확인 */
+	@RequestMapping("checkNum.do")
+	public ModelAndView checkNum(ModelAndView mv, String num) throws IOException {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		System.out.println("저장된 값" + phoneCheck + "입력한 값" + num);
+		boolean isUsable;
+		int num1 = Integer.parseInt(num);
+		if(phoneCheck == num1) {
+			isUsable = true;
+		} else {
+			isUsable = false;
+		}
+		
+		map.put("isUsable", isUsable);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	
+	/****** 인증 끝 ******/
+	
+	
+	/****** 아이디, 비밀번호 찾기 ******/
+	
+	
+
+	@RequestMapping("findmemberid.do") 
+	public ModelAndView findMember(Member m,ModelAndView mv) {
+		System.out.println(m.getM_name());
+		System.out.println(m.getM_phone());
+	
+		Member member = mService.findMember(m); 
+	
+		if(member != null) {
+			mv.addObject("member", member) 
+			.setViewName("member/findResultView"); 
+		} else {
+			throw new MemberException("회원정보가 없어요 8ㅅ8"); 
+		}
+		
+	return mv;
+	
+	}
+	
+	@RequestMapping("pwFind.do")
+	public ModelAndView pwFind(ModelAndView mv, String m_id) {
+		
+		System.out.println(m_id);
+		
+		Member member = new Member();
+		member.setM_id(m_id);
+		mv.addObject("member", member) 
+		.setViewName("member/pwChange"); 
+		
+		System.out.println(member);
+		
+		return mv;	
+	}
+	
+	@RequestMapping("pwChange.do")
+	public String pwChange(Member m) {
+		System.out.println(m.getM_id() + "dd" + m.getM_pw());
+		String encPwd = bcryptPasswordEncoder.encode(m.getM_id());
+		m.setM_pw(encPwd);
+		
+		int result = mService.pwChange(m);
+		
+		if(result > 0) {
+			System.out.println("dd");
+			return "home";
+		} else {
+			throw new MemberException("암호 변경에 실패하였습니다 ;ㅅ;");
+		}
+	}
+	
+	/****** 아이디, 비밀번호 찾기 끝 ******/
 
 	//규범어드민관련
 	@RequestMapping("getAllUserCount.do")
