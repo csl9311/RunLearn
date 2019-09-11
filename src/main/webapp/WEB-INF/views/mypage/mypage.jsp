@@ -445,7 +445,7 @@
          <div class="row" id="row1">
             <div id="leftSide1" class="leftSide1">
                <div id=memberImage1>
-                  <img src="${contextPath}/resources/images/member/ width="120px" height="120px">
+                  <img src="${contextPath}/resources/images/member/${ profile.m_changed_name }" width="120px" height="120px">
                </div>
             </div>
             
@@ -709,6 +709,7 @@
          <div id="content26">
             <table>
                <tr class="tr3" style="text-align: center;">
+               	  <th style="width: 150px;"><div class="title123">체크</div>
                   <th style="width: 150px;"><div class="title123">카테고리</div></th>
                   <th style="width: 300px; height: 25px;"><div class="title123">상품이미지</div></th>
                   <th style="width: 350px;"><div class="title123">상품명</div></th>
@@ -721,6 +722,7 @@
 			
             <c:forEach var="i" items="${ pList }">
                <tr id="tr1">
+               	  <td style="text-align:center"><input type="checkbox" value="체크"> </td>
                   <td class="td1" style="height: 100px;"><div
                         id="tableCategory1">${ i.P_CATEGORY }</div></td>
                   <td class="td1"><div id="image1">
@@ -730,7 +732,7 @@
                      <div id="lectureTitle" style="text-align: center;">${ i.P_NAME }</div> 
                   </td>
                   <td><div id="lecturePrice" class="lDate" style="text-align:center;" >${ i.P_PRICE}￦</div></td>
-                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black">${ i.P_STOCK } 개</div></td>
+                  <td><div id="lecturePrice" class="lDate" style="text-align:center; color:black"><input type="number" step="1" min="1" name="p_count" required="required" style="width:60px;"></div></td>
                </tr>
             </c:forEach>
                
@@ -760,8 +762,47 @@
       <br>
       <br>
       
- 
-      
+                         <div id="pagging">
+         		<c:if test="${ pi.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:url var="before" value="mypage.do">
+						<c:param name="cate" value="${ cate }"/>
+						<c:param name="page" value="${ pi.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+         		
+         		
+         	<!-- 페이지 -->
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="mypage.do">
+							<c:param name="cate" value="${ cate }"/>
+							<c:param name="page" value="${ p }"/> <!--  blist.do?page=1과 같음  -->
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;
+					</c:if>
+				</c:forEach>
+				
+				<!-- [다음] -->
+				<c:if test="${ pi.currentPage >= pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:url var="after" value="mypage.do">
+						<c:param name="cate" value="${ cate }"/>
+						<c:param name="page" value="${ pi.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+         </div>
       
    </div>
    <!--  paper2 끝 -->
@@ -776,9 +817,6 @@
   	<c:if test="${ cate eq '튜터' }">
   	<script>
   		$("#paper2").hide();
-  	
-  	
-  	
   	</script>
    <div id="paper3" >
       <br>
@@ -860,17 +898,11 @@
         
         <br>
       </div>
+      
       <!--  entry3끝 -->
 	
 <br>
-
-
-
-
-   </div><br>
-   <!--  paper3끝 -->
-   </c:if>
-                   <div id="pagging">
+	 <div id="pagging">
          		<c:if test="${ pi.currentPage <= 1 }">
 					[이전] &nbsp;
 				</c:if>
@@ -911,6 +943,13 @@
 					<a href="${ after }">[다음]</a>
 				</c:if>
          </div>
+
+
+
+   </div><br>
+   <!--  paper3끝 -->
+   </c:if>
+                  
  <br><br>
    
    

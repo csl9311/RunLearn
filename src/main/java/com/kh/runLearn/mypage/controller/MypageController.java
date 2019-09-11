@@ -69,10 +69,14 @@ public class MypageController {
 	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
 	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
 		@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request, Model model) {
-
 		
+		
+	
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
+		
+	
+		
 		
 		if(m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
@@ -166,6 +170,12 @@ public class MypageController {
 		int nPayLcount = myService.selectNopayLectureCount(userId);
 		int nPayPcount = myService.selectPlistCount(userId);
 		int count = 1;
+		Member_Image profile = myService.selectProfile(userId);
+		
+		
+	
+		
+		
 		if(page != null) {  
 			currentPage = page;
 		}
@@ -176,7 +186,7 @@ public class MypageController {
 			m_grade = "튜터";
 
 		}else if(loginUser.getM_grade().equals("U")) {
-			m_grade = "유저";
+			m_grade = "튜티";
 		}
 		
 	
@@ -189,7 +199,7 @@ public class MypageController {
 			mv.addObject("listCount", listCount);
 			mv.addObject("pi",pi);
 			mv.addObject("count",count);	
-		
+			
 		}
 
 		
@@ -214,14 +224,14 @@ public class MypageController {
 		}
 		
 		if(cate.equals("튜터")) {
-			int listCount = myService.selectLectureCount(userId);
+			int listCount = myService.tuterLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, String>> tLectureList = myService.selectTuterLecturePageView(userId, pi);
 			mv.addObject("pi",pi);
 			mv.addObject("tLectureList", tLectureList);
 		}
 		
-		
+		mv.addObject("profile", profile);
 		mv.addObject("m_grade", m_grade);
 		mv.addObject("lCount", lCount);
 		mv.addObject("nPayLcount", nPayLcount);

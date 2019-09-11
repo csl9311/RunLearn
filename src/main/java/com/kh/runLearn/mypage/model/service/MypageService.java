@@ -28,6 +28,12 @@ public interface MypageService {
 
 	int updateMember_Image(Member_Image mi); // 회원 정보 프로필 수정
 
+	Member_Image selectProfile(String userId); // 회원 프로필 사진 
+
+	int tuterLectureCount(String userId); //튜터페이지 강의 수
+
+	
+
 	
 
 	

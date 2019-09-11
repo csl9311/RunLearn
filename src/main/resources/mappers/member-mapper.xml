@@ -48,16 +48,6 @@
 	order by M_CREATE_DATE desc
 	</select>
 	 -->
-	
-
-
-
-
-	
-	
-
-	
-
-
+	 
 </mapper>
 

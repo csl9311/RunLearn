@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +29,7 @@ import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.mypage.model.service.MypageService;
 import com.kh.runLearn.product.model.service.ProductService;
 
 
@@ -48,7 +48,7 @@ public class MemberController {
 
 	@Autowired
 	private ProductService pService;
-
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -96,6 +96,7 @@ public class MemberController {
 		String checkPw = mService.checkPw(id);
 		boolean idCheck = mService.checkId(id) == 1 ? true : false;
 		
+		
 		System.out.println(checkPw);
 		System.out.println(id);
 		System.out.println("비번" + pw);
@@ -104,6 +105,7 @@ public class MemberController {
 			check = true;
 		}
 		System.out.println(check);
+	
 		map.put("check", check);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
@@ -115,10 +117,14 @@ public class MemberController {
 	public String memberLogin(Member m, Model model) {
 
 		Member loginUser = mService.login(m);
+		String userId = loginUser.getM_id();
+		
 		System.out.println(m);
 		System.out.println(m.getM_pw());
 		System.out.println(loginUser.getM_pw());
-			
+		
+		
+
 		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
 			model.addAttribute("loginUser",loginUser);
 		} else {

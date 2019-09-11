@@ -43,6 +43,7 @@ public interface MemberService {
 	ArrayList<Lecture> selectNoPayLecture(String userId);
 	int selectNoPayLectureCount(String userId);
 	
+	
 
 
 	

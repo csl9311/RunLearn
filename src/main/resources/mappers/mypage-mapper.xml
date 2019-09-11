@@ -68,6 +68,19 @@
 		where M_ID = #{m_id} and P_STATUS = 'Y'
 	</select>
 	
+	<select id="selectProfile" parameterType="string" resultType="Member_Image">  <!--  프로필 사진 -->
+		select *
+		from MEMBER_IMAGE
+		where M_ID = #{m_id}
+	</select>
+	
+	<select id="tuterLectureCount" parameterType="string" resultType="_int"> <!--  튜터 강의 수 -->
+		select count(*)
+		from TUTER_LECTUREVIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y'
+	
+	
+	</select>
 	
 	
 	

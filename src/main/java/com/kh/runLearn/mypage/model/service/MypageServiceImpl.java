@@ -72,6 +72,18 @@ public class MypageServiceImpl implements MypageService {
 		
 	}
 
+	@Override
+	public Member_Image selectProfile(String userId) { //회원 프로필 사진 
+		
+		return myDAO.selectProfile(userId);
+	}
+
+	@Override
+	public int tuterLectureCount(String userId) { //튜터 페이지 강의 수
+	
+		return myDAO.tuterLectureCount(userId);
+	}
+
 	
 
 

@@ -68,14 +68,14 @@
 	</select>
 	
 	
-	<select id="selectLectureList" resultType="hashmap">
+ 	<select id="selectLectureList" resultType="hashmap">
 		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, l_image_num, l_origin_name, l_changed_name, m_name, m_nickname, m_changed_name
 		from lecture l
 			left join lecture_image li using(l_num)
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0
-	</select>
+	</select> 
 	<select id="getCategoryListCount" parameterType="string" resultType="_int">
 		select count(*)
 		from lecture
@@ -119,12 +119,12 @@
 	</select>
 	
 
-	<select id="selectNewLectureList" resultType="hashmap">
+ 	<select id="selectNewLectureList" resultType="hashmap">
 		<![CDATA[
 		select rownum, lv.*
 		from ( select l.* from lsearch_view l order by l.l_num desc) lv
         where rownum <= 5]]>
-	</select>
+	</select> 
 
   
 	<insert id="permissionLecture" parameterType="Lecture">
