@@ -26,27 +26,18 @@
 				<input type="hidden" name="p_num" value="0">
 				<input type="hidden" name="m_id" value="판매자">
 				
-				<a href="javascript:" onclick="uploadThumbnail();" class="myButton">썸네일 업로드</a>
+				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 업로드</button>
 				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;" required="required">
+				
+				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 업로드</button>
+				<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
+				
         		<div class="row">
 					<div id="thumbnailArea"></div>
         		</div>
-				<!-- <div class="row">
-					<label>상세 이미지</label>
-					<input type="file" id="imgInp" style="margin: auto;"/>
-					<table id="imgArea" class="table center" ></table>
-					<br>
-					<div id="imgArea"></div>
-				</div> -->
 				
 				<div>
-					<div class="input_wrap">
-						<a href="javascript:" onclick="uploadImage();" class="myButton">상세 이미지 업로드</a>
-						<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
-					</div>
-					<div>
-						<div id="imgs_wrap" class="row"></div>
-					</div>
+					<div id="detailImgArea" class="row"></div>
 				</div>
 								
 				<table id="productDetail"class="col-md-6 table center">
@@ -76,7 +67,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input type="button" class="btn" value="취소">
+							<input type="button" class="btn" value="이전 페이지로" onclick="history.go(-1);">
 							<input type="submit" class="btn" value="등록" onsubmit="return check();">
 						</td>
 					</tr>
@@ -99,8 +90,8 @@
 	            reader.onload = function(e) {
 	            	$("#thumbnailArea").html(
 	            		'<div id="thumbnailImg">' + 
-							'<input class="btn" type="button" value="삭제" onclick="deleteImg();">' + 
 							'<img class="img-responsive" src="'+e.target.result+'">' +
+							'<input class="btn" type="button" value="썸네일 삭제" onclick="deleteImg();">' + 
 						'</div>'
 					);
 	            }
@@ -124,7 +115,7 @@
 		
 		function handleImageFileSelect(e){
 			sel_files = [];
-			$("#imgs_wrap").empty();
+			$("#detailImgArea").empty();
 		
 			var files = e.target.files;
 			var filesArr = Array.prototype.slice.call(files);
@@ -140,10 +131,10 @@
 				var reader = new FileReader();
 				
 				reader.onload = function(e){
-					$("#imgs_wrap").append(
+					$("#detailImgArea").append(
 						'<div class="col-md-4" onclick="expend('+index+')" id = "img_id_'+index+'">' +
 							'<img class="img-responsive" src="'+e.target.result+'" data-file="'+f.name+'">' +
-							'<input id="deleteBtn' + index + '" class="btn" type="button" value="삭제" onclick="deleteImage(' + index + ');">' +
+							'<input id="deleteBtn' + index + '" class="btn" type="button" value="이미지 삭제" onclick="deleteImage(' + index + ');">' +
 						'</div>'
 					);
 					index++;

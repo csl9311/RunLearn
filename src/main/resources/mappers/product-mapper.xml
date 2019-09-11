@@ -44,7 +44,7 @@
 		SELECT * FROM PRODUCT_DETAIL
 		WHERE P_NUM = #{p_num}
 	</select>
-	<select id="selectProductOption" resultType="Product_Option" parameterType="_int">
+	<select id="selectProductOption" resultType="Product_Option" parameterType="list">
 		SELECT * FROM PRODUCT_OPTION
 		WHERE P_NUM = #{p_num}
 	</select>
@@ -63,10 +63,17 @@
 					#{item.p_option}, #{item.p_optionPrice}, #{item.p_stock}, PRODUCT_SEQ.CURRVAL
 				)
 			</foreach>
+			<if test='piList!=null'>
+				<foreach collection="piList" item="item" index="index" separator=" ">
+					into PRODUCT_IMAGE VALUES(
+						#{item.p_changed_name}, #{item.p_origin_name}, SYSDATE, #{item.p_file_level}, PRODUCT_SEQ.CURRVAL
+					)
+				</foreach>
+			</if>
 		SELECT * FROM DUAL
 	</insert>
 
-	<insert id="insertProductDetail" parameterType="Product_Image">
+	<!-- <insert id="insertProductDetail" parameterType="Product_Image">
 		<foreach collection="list" item="item" index="index" open="INSERT ALL " separator=" " close="SELECT * FROM DUAL">
 			into PRODUCT_IMAGE(
 				p_changed_name,
@@ -82,13 +89,8 @@
 				PRODUCT_SEQ.CURRVAL
 			)
 		</foreach>
-	</insert>
-	
-	
-	<!-- <insert id="insertProductOption">
-	
 	</insert> -->
-
+	
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map" resultType="hashmap">
 		select *
