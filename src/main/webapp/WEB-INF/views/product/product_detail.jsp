@@ -40,37 +40,89 @@
 <br>
 <br>
 <%-- 상품 정보 --%>
-			<form action="" method="post" style="float:none; margin:0 auto; width: 50vw;">
+			<form action="product.pay" method="post" style="float:none; margin:0 auto; width: 50vw;">
+				<input type="hidden" value="${ loginUser }">
+				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
+				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
+				<input type="hidden" name="m_nickname" value="${ loginUser.m_nickname }">
+				<input type="hidden" name="m_email" value="${ loginUser.m_email }">
+				<input type="hidden" name="m_phone" value="${ loginUser.m_phone }">
+				<input type="hidden" name="postnum" value="${ loginUser.postnum }">
+				<input type="hidden" name="g_address" value="${ loginUser.g_address }">
+				<input type="hidden" name="r_address" value="${ loginUser.r_address }">
+				<input type="hidden" name="d_address" value="${ loginUser.d_address }">
+				
+				<input type="hidden" name="p_num" value="${ list.get(0).P_NUM }">
+				<input type="hidden" name="p_status" value="${ list.get(0).P_STATUS }">
 				<table class="table" id="p_info">
 					<tr>
 						<td>상품명</td>
-						<td class="right"> ${ list.get(0).P_NAME }</td>
+						<td class="right">
+							${ list.get(0).P_NAME }
+							<input type="hidden" name="p_name" value="${ list.get(0).P_NAME }">
+						</td>
 					</tr>
 					
 					<tr>
 						<td>기본가격(￦)</td>
-						<td class="right">${ list.get(0).P_PRICE }원</td>
+						<td class="right">
+							${ list.get(0).P_PRICE }원
+							<input type="hidden" name="p_price" value="${ list.get(0).P_PRICE }">
+						</td>
 					</tr>
 					<tr>
 						<td>판매자명</td>
-						<td class="right">${ list.get(0).M_ID }</td>
-					</tr>
-					<tr>
-						<td>옵션</td>
 						<td class="right">
-							<input id="item" type="text" name="productOption" list="datalist" onchange="choice();" placeholder="옵션을 선택해주세요.">
-							<datalist id="datalist" style="text-align: center;">
-								<c:if test="${ poList != null }">
-									<c:forEach items="${ poList }" var="po">
-										<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
-									</c:forEach>
-								</c:if>
-								<c:if test="${ poList == null }">
-									<option id="basicalOption" value="기본옵션">${ list.get(0).P_PRICE }원</option>
-								</c:if>
-							</datalist>
+							${ list.get(0).M_ID }
+							<input type="hidden" name="m_id" value="${ list.get(0).M_ID }">
 						</td>
 					</tr>
+						<c:if test="${ poList.size() ne 0}">
+							<tr>
+								<td>옵션</td>
+								<td class="right">
+									<input id="item" type="text" name="productOption" list="datalist" onchange="choice();" placeholder="옵션 선택">
+									<datalist id="datalist" style="text-align: center;">
+										<c:forEach items="${ poList }" var="po">
+											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
+										</c:forEach>
+									</datalist>
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${ poList.size() eq 0}">
+							<tr>
+								<td>수량</td>
+								<td class="right">
+								
+					 			<input id="del" class="btn" type="button" value="-" >
+					 			<input id="amount" name="amount" class="form-control" type="text" value="1" onchange="getTotal();" style="display: inline-block; text-align: center; width: 80px;">
+					 			<input id="add" class="btn" type="button" value="+" >
+					 			<br><input name="priceArr" type="hidden" value="${ list.get(0).P_PRICE }">
+				 				</td>
+							</tr>
+							<tr id="totalTr"> 
+				 				<td>총 금액</td>
+				 				<td class="right">
+			 						<input id="total" name="total" class="center" type="text" placeholder="수량을 선택해주세요." readonly> 
+				 				</td>
+		 					</tr>
+		 					
+		 					
+		 					<script>
+			 				$("#del").click(function(){
+						 		if($("#amount").val()>1){
+							 		$("#amount").val($("#amount").val() - 1);
+							 		getTotal();
+						 		}
+					 		});
+					 	
+							$("#add").click(function(){
+						 		$("#amount").val($("#amount").val()-(-1));
+						 		getTotal();
+					 		});
+		 				</script>
+						</c:if>
 				</table>
 				<button class="btn" onclick="addCart();">장바구니에 추가</button>
 				<input class="btn" type="submit" value="바로구매">
@@ -99,10 +151,10 @@
 				
 		 		$p_info.append(
 		 			'<tr>'+
-			 			'<td>'+ $item.val() + '<br>' + price + '원</td>'+
+			 			'<td>'+ $item.val() + '<input type="hidden" name="item" value="' + $item.val() + '"><br> 1 / ' + price + '원</td>'+
 			 			'<td class="right">'+
 				 			'<input class="btn" type="button" value="-" id="del'+i+'">'+
-				 			'<input name="amount" class="form-control" type="text" value="1" onchange="change();" id="amount'+i+'" style="display: inline-block; text-align: center; width: 80px;">' +
+				 			'<input name="amount" class="form-control" type="text" value="1" onchange="getTotal();" id="amount'+i+'" style="display: inline-block; text-align: center; width: 80px;">' +
 				 			'<input class="btn" type="button" value="+" id="add'+i+'">'+
 				 			'<br><input name="priceArr" type="hidden" value='+price+'>' +
 			 			'</td>'+
@@ -110,7 +162,7 @@
 		 			'<tr id="totalTr">' + 
 		 				'<td>총 금액</td>'+
 		 				'<td class="right">' +
-		 					'<input id="total" class="center" type="text" placeholder="수량을 선택해주세요." readonly>' + 
+		 					'<input id="total" name="total" class="center" type="text" placeholder="수량을 선택해주세요." readonly>' + 
 		 				'</td>' + 
 		 			'</tr>'
 		 		);
@@ -145,7 +197,6 @@
 		 		for(var index = 0 ; index < amountArr.length ; index++){
 			 		total += amountArr[index].value * priceArr[index].value;
 		 		}
-		 		total += '원';
 		 		// 값 대입
 		 		$total.val(total);
 		 	};

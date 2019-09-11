@@ -112,7 +112,7 @@ public class MemberController {
 	
 	/* 암호화 로그인 */
 	@RequestMapping(value="login.do", method=RequestMethod.POST)
-	public String memberLogin(Member m, Model model) {
+	public String memberLogin(Member m, HttpSession session) {
 
 		Member loginUser = mService.login(m);
 		System.out.println(m);
@@ -120,11 +120,10 @@ public class MemberController {
 		System.out.println(loginUser.getM_pw());
 			
 		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
-			model.addAttribute("loginUser",loginUser);
+			session.setAttribute("loginUser",loginUser); 
 		} else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
-			
 		return "home";
 			
 	}

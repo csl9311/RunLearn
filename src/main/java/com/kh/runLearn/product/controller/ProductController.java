@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,11 +29,12 @@ public class ProductController {
 
 	@Autowired
 	private ProductService pService;
-
+// 상품 목록 조회(카테고리 포함)
 	@RequestMapping("getList.product")
 	public String getProductList(
 		@RequestParam(value = "page", required = false) Integer page,
 		@RequestParam(value = "p_category", required = false) String p_category,
+		HttpSession session,
 		HttpServletRequest request
 	)throws Exception {
 		ArrayList<Product> list = null;
@@ -46,7 +48,7 @@ public class ProductController {
 		if (p_category == null) {
 			listCount = pService.getListCount();
 			pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			// 상품목록 조회
+			// 전체 상품목록 조회
 			list = pService.selectProductList(pi);
 		} else {
 			listCount = pService.getListCount(p_category);
@@ -59,9 +61,13 @@ public class ProductController {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}
+		for(int i = 0 ; i < list.size(); i ++) {
+			System.out.println(list.get(i));
+		}
 		return "product/product_main";
 	}
-
+	
+// 상품정보 조회
 	@RequestMapping("select.product")
 	public String selectProduct(
 			@RequestParam("p_num") int p_num,
@@ -75,7 +81,7 @@ public class ProductController {
 
 		return "product/product_detail";
 	}
-
+// 상품등록페이지로 이동
 	@RequestMapping("upload.product")
 	public String uploadPage() {
 		return "product/product_upload";
@@ -186,4 +192,5 @@ public class ProductController {
 			file.delete();
 		}
 	}
+
 }

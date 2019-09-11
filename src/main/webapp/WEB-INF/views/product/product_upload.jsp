@@ -24,7 +24,7 @@
 			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
 				<input type="hidden" name="p_num" value="0">
-				<input type="hidden" name="m_id" value="판매자">
+				<input type="hidden" name="m_id" value="${ sessionScope.loginUser.m_id }">
 				
 				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 업로드</button>
 				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;" required="required">
@@ -160,7 +160,6 @@
 		var $table = $('#productDetail');
 		
 		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		console.log(j);
 		$('#optionX').prop('checked', true).prop('disabled', true);
 		
 		$('#optionO').click(function(){
@@ -168,7 +167,6 @@
 			$('#optionX').removeAttr('disabled');
 			optionAdd(j);
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		});
 		
 		$('#optionX').click(function(){
@@ -176,7 +174,6 @@
 				optionDelete(q);
 			}
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		});
 		
 	<%-- 옵션 유무 선택 끝 --%>
@@ -206,7 +203,6 @@
 				'</tr>'
 			);
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		};
 	<%-- 옵션 추가 끝 --%>
 	<%-- 옵션 삭제 --%>
@@ -217,8 +213,6 @@
 			$('#optionAddNDelete' + num).remove();
 			
 			var length = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(length);
-			console.log(num);
 			
 			if(num == length) {
 				var lastBtn = $table.children(':last').children(':last').children(':first').children(':first');
@@ -231,7 +225,6 @@
 				$('#optionX').prop('checked', true);
 			}
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		};
 	<%-- 옵션 삭제 끝 --%>
 	
