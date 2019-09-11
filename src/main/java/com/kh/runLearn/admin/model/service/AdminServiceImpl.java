@@ -41,31 +41,152 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int allUserCount() {//전체 회원수 조회
-		// TODO Auto-generated method stub
 		return aDAO.allUserCount();
 	}
 	@Override
 	public int tutorUserCount() {//튜터 회원수 조회
-		// TODO Auto-generated method stub
 		return aDAO.tutorUserCount();
 	}@Override
 	public int tuteeUserCount() {//튜티 회원수 조회
-		// TODO Auto-generated method stub
 		return aDAO.tuteeUserCount();
 	}@Override
 	public int blackUserCount() {//블랙회원수 조회
-		// TODO Auto-generated method stub
 		return aDAO.blackUserCount();
 	}
 	@Override
-	public ArrayList<Member> allUserList(PageInfo pi) {
-		
-		return aDAO.allUserList(pi);
-	}
-	@Override
-	public int targetUserUpdate(Member m) {
-		// TODO Auto-generated method stub
+	public int targetUserUpdate(Member m) {//타겟 회원 정보수정
 		System.out.println("pl"+ m);
 		return aDAO.targetUserUpdate(m);
 	}
+
+	////////////////정렬 시작
+	//정렬 내림차순
+	@Override
+	public ArrayList<Member> allUserList(PageInfo pi) {	//기본 정렬 아이디
+		return aDAO.allUserList(pi);
+	}
+	@Override
+	public ArrayList<Member> allUserListId(PageInfo pi) {//아이디 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListNick(PageInfo pi) {//닉네임 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListEm(PageInfo pi) {//이메일 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListPh(PageInfo pi) {//폰정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListMD(PageInfo pi) {//수정일 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListG(PageInfo pi) {//등급 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListS(PageInfo pi) {//상태 정렬
+		return null;
+	}
+	// /정렬내림차순
+	//정렬 오름차순
+	@Override
+	public ArrayList<Member> allUserListR(PageInfo pi) {	//기본 정렬 아이디
+		return aDAO.allUserList(pi);
+	}
+	@Override
+	public ArrayList<Member> allUserListIdR(PageInfo pi) {//아이디 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListNickR(PageInfo pi) {//닉네임 정렬
+	return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListEmR(PageInfo pi) {//이메일 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListPhR(PageInfo pi) {//폰정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListMDR(PageInfo pi) {//수정일 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListGR(PageInfo pi) {//등급 정렬
+		return null;
+	}
+	@Override
+	public ArrayList<Member> allUserListSR(PageInfo pi) {//상태 정렬
+		return null;
+	}
+	// /정렬오름차순
+	//////////////////////////정렬끝
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

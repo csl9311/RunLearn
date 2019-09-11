@@ -40,11 +40,11 @@
     <div class="w3-container">
 
   <div class="w3-bar w3-white w3-card">
-    <button class="w3-bar-item sidetab2menu w3-round hoverpink hotpink fontwhite" onclick="st2menu(event,'st2menu1');" style="min-width:150px; margin-left:5px;margin-right:5px;">모든회원</button>
-    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu2');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜티회원</button>
-    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu3');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원조회</button>
-    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu4');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터신청</button>
-    <button class="w3-bar-item sidetab2menu w3-round hoverpink" onclick="st2menu(event,'st2menu5');" style="min-width:150px; margin-left:5px;margin-right:5px;">블랙회원관리</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu1 w3-round hoverpink hotpink fontwhite" onclick="st2menu(event,'st2menu1');" style="min-width:150px; margin-left:5px;margin-right:5px;">모든회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu2 w3-round hoverpink" onclick="st2menu(event,'st2menu2');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜티회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="st2menu(event,'st2menu3');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원조회</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu4 w3-round hoverpink" onclick="st2menu(event,'st2menu4');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터신청</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu5 w3-round hoverpink" onclick="st2menu(event,'st2menu5');" style="min-width:150px; margin-left:5px;margin-right:5px;">블랙회원관리</button>
   </div>
   
   <div id="st2menu1" class="w3-container borderhotpink sidetab2menus animate-fading" style="border-top:white">
@@ -125,6 +125,7 @@
 				}
 			
 		}
+		
 		</script>
 			</form>
 		</c:forEach>
@@ -226,7 +227,7 @@
 			</td>
 			<td style="text-align:center;">
 			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
-			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
+			<button type="submit" onclick="st2menu(event,'st2menu2');" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
 			</td>
 		
 		</tr>
@@ -253,6 +254,8 @@
 				}
 			
 		}
+
+		
 		</script>
 			</form>
 			</c:if>
@@ -381,7 +384,7 @@
 				  z[i].style.display="";
 				}
 			
-		}
+		} 	
 		</script>
 			</form>
 		</c:if>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,12 +77,15 @@ public class AdminController {
 		
 		return mv;
 	}
-	@RequestMapping("targetUserUpdate.do")
-	public String targetTrInsert(@ModelAttribute Member m,@ModelAttribute Member_Image mi,@RequestParam("page") Integer page,HttpSession session,HttpServletRequest request) {//해당회원 정보수정
+	
+	
+	@RequestMapping(value="targetUserUpdate.do", method = RequestMethod.POST)
+	public String targetTrInsert(@ModelAttribute Member m,@ModelAttribute Member_Image mi,@RequestParam("page") Integer page,HttpServletRequest request) {//해당회원 정보수정
 		int result = aService.targetUserUpdate(m);
-		System.out.println("con"+ m);
+		
+
 		if(result>0) {
-	return "redirect:adminUser.do";
+				return "redirect:adminUser.do";
 		} else {
 			throw new Exception("회원수정에 실패하였습니다");
 		}
