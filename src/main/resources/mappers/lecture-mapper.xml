@@ -68,14 +68,14 @@
 	</select>
 	
 	
-	<select id="selectLectureList" resultType="hashmap">
+ 	<select id="selectLectureList" resultType="hashmap">
 		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, l_image_num, l_origin_name, l_changed_name, m_name, m_nickname, m_changed_name
 		from lecture l
 			left join lecture_image li using(l_num)
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0
-	</select>
+	</select> 
 	<select id="getCategoryListCount" parameterType="string" resultType="_int">
 		select count(*)
 		from lecture
@@ -119,40 +119,12 @@
 	</select>
 	
 
-  
-	
-	<!-- 석민 -->
-	<select id="selectLectureView" parameterType="string" resultType="hashmap">  <!--  마이페이지 수강목록 -->
-		select *
-		from LEC_VIEW
-		where M_ID = #{m_id}
-	</select>
-	
-	<select id="selectLetureCount" parameterType="string" resultType="_int"> <!--  마이페이지 수강목록 전체 수 -->
-		select count(*)
-		from LEC_VIEW
-		where M_ID = #{m_id}
-	</select>
-	
- 	<select id="selectNoPayLectureView" parameterType="string" resultType="hashmap">  <!-- 마이페이지 강의찜목록 -->
-		select *
-		from LEC_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select>
-	
-	<select id="selectNopayLectureCount" parameterType="string" resultType="_int">  <!-- 마이페이지 강의 찜목록 전체 수  -->
-		select count(*)
-		from LEC_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select> 
-	<!-- 석민 -->
-  
-	<select id="selectNewLectureList" resultType="hashmap">
+ 	<select id="selectNewLectureList" resultType="hashmap">
 		<![CDATA[
 		select rownum, lv.*
 		from ( select l.* from lsearch_view l order by l.l_num desc) lv
         where rownum <= 5]]>
-	</select>
+	</select> 
 
   
 	<insert id="permissionLecture" parameterType="Lecture">
@@ -172,4 +144,11 @@
 		insert into lecture_file
 		values(lecture_file_seq.nextval, #{ l_origin_name }, #{l_changed_name}, #{l_file_video}, lecture_each_seq.currval)
 	</insert>
+	
+		<select id="selectTuterLecturePageView" parameterType="string" resultType="hashmap">
+		select *
+		from TUTER_LECTUREVIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y'
+	</select>
+	
 </mapper>

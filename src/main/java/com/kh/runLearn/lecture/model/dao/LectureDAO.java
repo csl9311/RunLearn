@@ -75,11 +75,6 @@ public class LectureDAO {
 		return sqlSession.insert("lectureMapper.insertLecture_Image", li);
 	}
 
-	public int selectLetureCount(String userId) { // 마이페이지 전체 수강 수
-
-		return sqlSession.selectOne("lectureMapper.selectLetureCount", userId);
-	}
-
 	public int insertLecture_cImage(Lecture_Image li) {
 		return sqlSession.insert("lectureMapper.insertLecture_cImage", li);
 	}
@@ -92,31 +87,12 @@ public class LectureDAO {
 		return sqlSession.insert("lectureMapper.insertLecture", le);
 	}
 
-	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지강의찜목록
-
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("lectureMapper.selectNoPayLectureView", userId, rowBounds);
-	}
-
-	public int selectNopayLectureCount(String userId) { // 마이페이지 강의 찜목록 전체 수
-
-		return sqlSession.selectOne("lectureMapper.selectNopayLectureCount", userId);
-	}
-
-	public ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi) {
-
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-
-		return (ArrayList) sqlSession.selectList("lectureMapper.selectLectureView", userId, rowBounds);
-	}
 
 	// home.jsp에 최신강의 조회
 	public ArrayList<Map<String, String>> selectNewLectureList() {
 		return (ArrayList) sqlSession.selectList("lectureMapper.selectNewLectureList");
 	}
+
+
 
 }

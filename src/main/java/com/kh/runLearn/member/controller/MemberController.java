@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +29,7 @@ import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.kh.runLearn.mypage.model.service.MypageService;
 import com.kh.runLearn.product.model.service.ProductService;
 
 
@@ -48,7 +48,7 @@ public class MemberController {
 
 	@Autowired
 	private ProductService pService;
-
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -96,6 +96,7 @@ public class MemberController {
 		String checkPw = mService.checkPw(id);
 		boolean idCheck = mService.checkId(id) == 1 ? true : false;
 		
+		
 		System.out.println(checkPw);
 		System.out.println(id);
 		System.out.println("비번" + pw);
@@ -104,6 +105,7 @@ public class MemberController {
 			check = true;
 		}
 		System.out.println(check);
+	
 		map.put("check", check);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
@@ -115,10 +117,14 @@ public class MemberController {
 	public String memberLogin(Member m, Model model) {
 
 		Member loginUser = mService.login(m);
+		String userId = loginUser.getM_id();
+		
 		System.out.println(m);
 		System.out.println(m.getM_pw());
 		System.out.println(loginUser.getM_pw());
-			
+		
+		
+
 		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
 			model.addAttribute("loginUser",loginUser);
 		} else {
@@ -321,190 +327,4 @@ public class MemberController {
 
 		return mv;
 	}
-
-	
-	
-	@RequestMapping(value = "mypage.do")
-	public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getM_id();
-		int currentPage = 1;
-		int boardLimit = 5;
-		int lCount = lService.selectLectureCount(userId);
-		int nPayLcount = lService.selectNopayLectureCount(userId);
-		int nPayPcount = pService.selectPlistCount(userId);
-		
-		
-		if(page != null) {  
-			currentPage = page;
-		}
-		
-		
-		if(cate.equals("수강목록")) {
-			int listCount = lService.selectLectureCount(userId);
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> lList = lService.selectLectureView(userId, pi); // 수강목록	
-			mv.addObject("lList", lList);
-			mv.addObject("listCount", listCount);
-			mv.addObject("pi",pi);
-			
-			
-		
-		}
-
-		
-		if(cate.equals("강의찜목록")) {
-			int listCount = lService.selectNopayLectureCount(userId);
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> noPaylList = lService.selectNoPayLectureView(userId, pi); //강의 찜목록
-			mv.addObject("noPaylList", noPaylList);
-			mv.addObject("listCount", listCount);
-			mv.addObject("pi",pi);
-			
-			
-		}
-		
-		if(cate.equals("상품찜목록")) {
-			int listCount =  pService.selectPlistCount(userId); //상품 찜 목록수
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> pList = pService.selectProductView(userId, pi); // 상품 찜목록
-			mv.addObject("pList", pList);
-			mv.addObject("listCount", listCount);
-			mv.addObject("pi", pi);
-		}
-		
-		if(cate.equals("튜터")) {
-			int listCount = pService.selectPlistCount(userId);
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> pList = pService.selectProductView(userId, pi); // 상품 찜목록
-			mv.addObject("pList", pList);
-			mv.addObject("listCount", listCount);
-			mv.addObject("pi", pi);
-		}
-		
-		mv.addObject("lCount", lCount);
-		mv.addObject("nPayLcount", nPayLcount);
-		mv.addObject("nPayPcount", nPayPcount);
-		mv.addObject("cate", cate);
-		mv.setViewName("/mypage/mypage");
-		return mv;
-	}
-
-	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔
-	public String mUpdateView() {
-		return "mypage/memberUpdate";
-
-	}
-
-	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
-	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
-		@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session, HttpServletRequest request, Model model) {
-
-		
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		
-		if(m.getM_pw().equals("")) {
-			m.setM_pw(loginUser.getM_pw());
-			
-		}else {
-			String encpwd = bcryptPasswordEncoder.encode(m.getM_pw());
-			m.setM_pw(encpwd);
-		}
-		
-		
-
-		int result = mService.updateMember(m);
-		
-		
-		
-		if(uploadFile != null && !uploadFile.isEmpty()) {
-
-			String renameFileName = saveFile(uploadFile, request);
-
-			if(renameFileName != null) {
-				mi.setM_origin_name(uploadFile.getOriginalFilename());
-				mi.setM_changed_name(renameFileName);
-			}
-			mService.updateMember_Image(mi);
-
-		}
-
-		if (result > 0) {
-			loginUser.setM_pw(m.getM_pw());
-			loginUser.setM_email(m.getM_email());
-			loginUser.setM_phone(m.getM_phone());
-			loginUser.setPostnum(m.getPostnum());
-			loginUser.setG_address(m.getG_address());
-			loginUser.setR_address(m.getR_address());
-			loginUser.setD_address(m.getD_address());
-
-			session.setAttribute("loginUser", loginUser);
-		}
-		
-		model.addAttribute("cate", "수강목록");
-		return "redirect:mypage.do?";
-	}
-
-
-
-
-
-
-//	@RequestMapping("mUpdate.do")
-//	public String boardInsert(@ModelAttribute Member_Image mi, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, HttpServletRequest request) {
-//
-//		System.out.println(uploadFile);
-//		System.out.println(uploadFile.getOriginalFilename());
-//		// 파일을 넣지 않은 경우 파일 이름은 ""로 들어감
-//
-//		if(!uploadFile.getOriginalFilename().equals("")) {
-//		if(uploadFile != null && !uploadFile.isEmpty()) {
-//			// 저장할 경로를 지정하는 savaFile()메소드 생성
-//			String renameFileName = saveFile(uploadFile, request);
-//
-//			if(renameFileName != null) {
-//				mi.setM_origin_name(uploadFile.getOriginalFilename());
-//				mi.setM_changed_name(renameFileName);
-//			}
-//
-//		}
-//		System.out.println(mi);
-//		int result = mService.updateMemberImage(mi);
-//
-//		}
-//		return "redirect:mypage.do";
-//
-//
-//	}
-
-//	public String saveFile2(MultipartFile file, HttpServletRequest request) {
-//
-//		String root = request.getSession().getServletContext().getRealPath("resources");
-//
-//		String savePath = root + "\\mypageUpload";
-//
-//		File folder = new File(savePath);
-//		if (!folder.exists()) {
-//			folder.mkdirs(); // 폴더가 없으면 만들어줘
-//		}
-//
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//		String originalFileName = file.getOriginalFilename();
-//		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "."
-//				+ originalFileName.substring(originalFileName.lastIndexOf(".") + 1); // 확장자 까지 붙여서 넣어줌
-//		String renamePath = folder + "\\" + renameFileName;
-//
-//		try {
-//			file.transferTo(new File(renamePath));
-//		} catch (IllegalStateException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return renameFileName;
-//	}
-
-
-
-
 }
