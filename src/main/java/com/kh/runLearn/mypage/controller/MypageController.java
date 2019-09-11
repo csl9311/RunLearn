@@ -25,26 +25,15 @@ import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
-import com.kh.runLearn.lecture.model.service.LectureService;
-import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.mypage.model.service.MypageService;
-import com.kh.runLearn.product.model.service.ProductService;
 
 @SessionAttributes("loginUser")
 @Controller
 public class MypageController {
 	
-	@Autowired
-	private MemberService mService;
 
-
-	@Autowired
-	private LectureService lService;
-
-	@Autowired
-	private ProductService pService;
 	
 	@Autowired
 	private MypageService myService;
@@ -217,6 +206,7 @@ public class MypageController {
 			int listCount =  myService.selectPlistCount(userId); //상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, String>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
+			
 			mv.addObject("pList", pList);
 			mv.addObject("listCount", listCount);
 			mv.addObject("pi", pi);
@@ -265,6 +255,9 @@ public class MypageController {
 	      return mv;
 	   }
 	
+	
+	
+
 	
 	
 	
