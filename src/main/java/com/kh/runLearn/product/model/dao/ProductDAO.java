@@ -1,9 +1,8 @@
 package com.kh.runLearn.product.model.dao;
 
 import java.util.ArrayList;
-import java.util.Map;
-
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
-import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -56,7 +54,6 @@ public class ProductDAO {
 	}
 
 	public int selectPlistCount(String userId) { //마이페이지 상품 찜목록수
-		
 		return sqlSession.selectOne("productMapper.selectPlistCount", userId);
 	}
 
@@ -77,9 +74,6 @@ public class ProductDAO {
 		return sqlSession.insert("productMapper.insertProductThumbnail", pi);
 	}
 
-	public int insertProductDetail(ArrayList<Product_Image> list) {
-		return sqlSession.insert("productMapper.insertProductDetail", list);
-	}
 
 
 //	public int insertProductOption(ArrayList<Product_Option> poList) {
