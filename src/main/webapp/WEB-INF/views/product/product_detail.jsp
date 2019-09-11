@@ -49,7 +49,7 @@
 					
 					<tr>
 						<td>기본가격(￦)</td>
-						<td class="right">${ list.get(0).P_PRICE }</td>
+						<td class="right">${ list.get(0).P_PRICE }원</td>
 					</tr>
 					<tr>
 						<td>판매자명</td>
@@ -59,11 +59,16 @@
 						<td>옵션</td>
 						<td class="right">
 							<input id="item" type="text" name="productOption" list="datalist" onchange="choice();" placeholder="옵션을 선택해주세요.">
-		                    <datalist id="datalist" style="text-align: center;">
-			                    <c:forEach items="${ poList }" var="po">
-									<option value="${ po.p_option }" id="${ po.p_option }">${ po.p_optionPrice }원</option>
-								</c:forEach>
-		                    </datalist>
+							<datalist id="datalist" style="text-align: center;">
+								<c:if test="${ poList != null }">
+									<c:forEach items="${ poList }" var="po">
+										<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
+									</c:forEach>
+								</c:if>
+								<c:if test="${ poList == null }">
+									<option id="basicalOption" value="기본옵션">${ list.get(0).P_PRICE }원</option>
+								</c:if>
+							</datalist>
 						</td>
 					</tr>
 				</table>
@@ -91,19 +96,21 @@
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
 				// 테이블에 내용 추가
+				
 		 		$p_info.append(
 		 			'<tr>'+
-			 			'<td>'+ $item.val() + '</td>'+
+			 			'<td>'+ $item.val() + '<br>' + price + '원</td>'+
 			 			'<td class="right">'+
 				 			'<input class="btn" type="button" value="-" id="del'+i+'">'+
 				 			'<input name="amount" class="form-control" type="text" value="1" onchange="change();" id="amount'+i+'" style="display: inline-block; text-align: center; width: 80px;">' +
 				 			'<input class="btn" type="button" value="+" id="add'+i+'">'+
+				 			'<br><input name="priceArr" type="hidden" value='+price+'>' +
 			 			'</td>'+
 		 			'</tr>' + 
 		 			'<tr id="totalTr">' + 
 		 				'<td>총 금액</td>'+
 		 				'<td class="right">' +
-		 					'<input id="total" type="text" value="' + price +'" readonly>원' + 
+		 					'<input id="total" class="center" type="text" placeholder="수량을 선택해주세요." readonly>' + 
 		 				'</td>' + 
 		 			'</tr>'
 		 		);
@@ -113,13 +120,13 @@
 			 			'$("#del' + i + '").click(function(){'+
 					 		'if($("#amount' + i +'").val()>1){'+
 						 		'$("#amount' + i +'").val($("#amount' + i +'").val() - 1);'+
-						 		'del(' + i + ');' +
+						 		'getTotal();' +
 					 		'}'+
 					 	'});'+
 					 	
 						'$("#add' + i + '").click(function(){'+
 					 		'$("#amount' + i +'").val($("#amount' + i +'").val()-(-1));'+
-					 		'add(' + i + ');'+
+					 		'getTotal();'+
 					 	'});'+
 		 			'<\/script>'
 		 		);
@@ -127,19 +134,24 @@
 				$item.val('');
 		 		i++;
 			};
-		 	function add(i){
+		 	function getTotal(){
+		 		// 입력 될 영역
 		 		var $total = $('#total');
-		 		var amount = Number($('#amount'+ i).val());
-		 		var price = Number($total.val()) / (amount-1);
-		 		var total = price * amount;
-		 		
-		 		console.log(price);
-		 		$total.val('0');
-		 		console.log(amount);
+		 		// 연산에 필요한 배열
+		 		var amountArr = $('input:text[name=amount]');
+		 		var priceArr = $('input:hidden[name=priceArr]');
+		 		var total = 0;
+		 		// 연산
+		 		for(var index = 0 ; index < amountArr.length ; index++){
+			 		total += amountArr[index].value * priceArr[index].value;
+		 		}
+		 		total += '원';
+		 		// 값 대입
 		 		$total.val(total);
 		 	};
+		 	
 		 	function addCart(){
-		 		
+		 		location.href="";
 		 	}
 		</script>
 <br>
