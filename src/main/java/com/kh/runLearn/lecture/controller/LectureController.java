@@ -6,13 +6,16 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -105,13 +108,14 @@ public class LectureController {
 		System.out.println("m : "+im_list);
 		System.out.println("c : "+ic_list);
 		System.out.println("r : "+ir_list);
-		String adr = (String)list.get("address");
+		String adr = (String)list.get("L_ADDRESS");
 		System.out.println(adr);
-//		if(adr.contains("/")) {
-//			String[] sadr = adr.split("/");
-//			String radr = sadr[0];
-//			list.put("address", radr);
-//		}
+		if(adr != null && adr.contains("/")) {
+			String[] sadr = adr.split("/");
+			String radr = sadr[0];
+			list.put("L_ADDRESS", radr);
+		}
+		System.out.println(list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
 		mv.addObject("ic_list", ic_list);
@@ -162,23 +166,29 @@ public class LectureController {
 		}
 	}
 	
-	//튜터의 강의 신청
+//	튜터의 강의 신청
 	@RequestMapping("lectureApply.le")
 	public ModelAndView permissionLecture(Lecture l,
 										  @RequestParam(value="mainImage", required=false) MultipartFile mainImage,
 										  @RequestParam(value="contImgs", required=false) MultipartFile[] contImgs,
 										  @RequestParam(value="currImgs", required=false) MultipartFile[] currImgs,
-										  @RequestParam("adr1") String adr1,
-										  @RequestParam("adr2") String adr2,
+										  @RequestParam(value="ContResult", required=false) Integer ContResult,
+										  @RequestParam(value="CurrResult", required=false) Integer CurrResult,
+										  @RequestParam(value="adr1", required=false) String adr1,
+										  @RequestParam(value="adr2", required=false) String adr2,
 										  ModelAndView mv, MultipartHttpServletRequest request) {
 		
 		l.setM_id("yee");//Session에서 이름받아오기 전까지 사용될 m_id
+		System.out.println(l);
+		System.out.println("adr1:"+adr1);
+		System.out.println("adr2:"+adr2);
 		String address = adr1;
 		if(!adr2.equals("")) {
 			address = adr1 + "/" + adr2;
 		}
 		l.setL_address(address);
 		System.out.println(l);
+		int l_num = lService.findValue();
 		int result = lService.permissionLecture(l);
 		Lecture_Image li = new Lecture_Image();
 		if(mainImage != null && !mainImage.isEmpty()) {
@@ -186,8 +196,9 @@ public class LectureController {
 			if(renameFileName != null) {
 				li.setL_origin_name(mainImage.getOriginalFilename());
 				li.setL_changed_name(renameFileName);
-			}
+		}
 			li.setL_file_level(0);
+			li.setL_num(l_num+1);
 			result = lService.insertLecture_Image(li);
 		} else {
 			li.setL_origin_name("no_image.png");
@@ -195,17 +206,17 @@ public class LectureController {
 			li.setL_file_level(0);
 			result = lService.insertLecture_Image(li);
 		}
-		for(int i = 0; i<contImgs.length; i++) {
-			System.out.println(contImgs[i].getOriginalFilename());
-		}
-		boolean contCheck = contImgs[0].isEmpty();
-		if(!contCheck) {
-			result = uploadLectureImgs(contImgs, request, 1);
-		}
-		boolean currCheck = currImgs[0].isEmpty();
-		if(!currCheck) {
-			result = uploadLectureImgs(currImgs, request, 2);
-		}
+//		for(int i = 0; i<contImgs.length; i++) {
+//			System.out.println(contImgs[i].getOriginalFilename());
+//		}
+//		boolean contCheck = contImgs[0].isEmpty();
+//		if(!contCheck) {
+//			result = uploadLectureImgs(contImgs, request, 1);
+//		}
+//		boolean currCheck = currImgs[0].isEmpty();
+//		if(!currCheck) {
+//			result = uploadLectureImgs(currImgs, request, 2);
+//		}
 		if(result>0) {
 			mv.setViewName("home");
 			return mv;
@@ -213,12 +224,59 @@ public class LectureController {
 			throw new Exception("강의를 신청하는데 실패했습니다. 다시 시도해 주세요.");
 		}
 		
+//		System.out.println("??");
+//		
+//		org.springframework.util.MultiValueMap<String, MultipartFile> getit = request.getMultiFileMap();
+//		System.out.println(request.getParameter("Data"));
+//		System.out.println(getit);
+//		System.out.println(getit.get("mainImage"));
+//		System.out.println(request.getParameter("contLen"));
+//		for(int i = 0; i<getit.get("contImgs").size(); i++) {
+//			System.out.println(getit.get("contImgs").get(i).getOriginalFilename());
+//		}
+//		for(int i = 0; i<Integer.parseInt(request.getParameter("contLen")); i++) {
+//			System.out.println("???");
+//		}
+//		System.out.println(request.getFile("cImage_0").getOriginalFilename());
+//		
+//		System.out.println(getit.get("currImgs"));
+//		
 	}
 	
+	
+	
 	@RequestMapping("apply.le")
-	public String example() {
-		return "lecture/lectureEachInput";
+	public String example(/* @RequestParam("l_num") int l_num, ModelAndView mv */) {
+//		HashMap<String, String> list = lService.selectLecture(l_num);
+//		HashMap<String, Integer> map = new HashMap<>();
+//		map.put("l_num", l_num);
+//		map.put("MCR", 0);
+//		ArrayList im_list = lService.selectLectureImage(map);
+//		map.put("MCR", 1);
+//		ArrayList ic_list = lService.selectLectureImage(map);
+//		map.put("MCR", 2);
+//		ArrayList ir_list = lService.selectLectureImage(map);
+//		System.out.println("L : "+list);
+//		System.out.println("m : "+im_list);
+//		System.out.println("c : "+ic_list);
+//		System.out.println("r : "+ir_list);
+//		String adr = (String)list.get("L_ADDRESS");
+//		System.out.println(adr);
+//		if(adr != null && adr.contains("/")) {
+//			String[] sadr = adr.split("/");
+//			String radr = sadr[0];
+//			list.put("L_ADDRESS", radr);
+//		}
+//		System.out.println(list);
+//		mv.addObject("list", list);
+//		mv.addObject("im_list", im_list);
+//		mv.addObject("ic_list", ic_list);
+//		mv.addObject("ir_list", ir_list);
+//		mv.setViewName("lecture/lectureUpdate");
+//		return mv;
+		return "lecture/lectureApply";
 	}
+	
 	
 	@RequestMapping("lectureEachInput.le")
 	public ModelAndView lectureEachInput(Lecture_Each le, @RequestParam(value="l_file", required=false) MultipartFile l_file, @RequestParam("l_file_video") String lfv, ModelAndView mv, MultipartHttpServletRequest request) {
@@ -241,6 +299,47 @@ public class LectureController {
 		}
 		
 	}
+	
+	@ResponseBody
+    @RequestMapping(value="contImageInsert.le", method=RequestMethod.POST)
+    public int multiContImageUpload(@RequestParam("cfiles")List<MultipartFile> cimages, MultipartHttpServletRequest request) {
+//		long sizeSum = 0;
+		int result = 0;
+		System.out.println("C"+cimages);
+		int l_num = lService.findValue();
+        for(MultipartFile image : cimages) {
+//			sizeSum += image.getSize();
+//				if(sizeSum >= 10 * 1024 * 1024) {
+//				return -2;
+//			}
+            Lecture_Image li = new Lecture_Image();
+    		if(image != null && !image.isEmpty()) {
+    			result = uploadLectureImgs(image, request, 1, l_num+1);
+    		}
+        }
+        return result;
+    }
+	
+	@ResponseBody
+    @RequestMapping(value="currImageInsert.le", method=RequestMethod.POST)
+    public int multiCurrImageUpload(@RequestParam("rfiles")List<MultipartFile> rimages, MultipartHttpServletRequest request) {
+//		long sizeSum = 0;
+		int result = 0;
+		System.out.println("r"+rimages);
+		int l_num = lService.findValue();
+		System.out.println(lService.findValue());
+        for(MultipartFile image : rimages) {
+//			sizeSum += image.getSize();
+//				if(sizeSum >= 10 * 1024 * 1024) {
+//				return -2;
+//			}
+            Lecture_Image li = new Lecture_Image();
+    		if(image != null && !image.isEmpty()) {
+    			result = uploadLectureImgs(image, request, 2, l_num+1);
+    		}
+        }
+        return result;
+    }
 	
 	public String mainSaveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -268,22 +367,22 @@ public class LectureController {
 	}
 	
 	
-	private int uploadLectureImgs(MultipartFile[] Imgs, MultipartHttpServletRequest request, int level) {
+	
+	private int uploadLectureImgs(MultipartFile Imgs, MultipartHttpServletRequest request, int level, int l_num) {
 		int result = 0;
-		for(int i = 0; i< Imgs.length; i++) {
 			Lecture_Image li = new Lecture_Image();
-			String li_changed_name = saveFile(Imgs[i], request, i);
+			String li_changed_name = saveFile(Imgs, request);
 			if(li_changed_name != null) {
-				li.setL_origin_name(Imgs[i].getOriginalFilename());
+				li.setL_origin_name(Imgs.getOriginalFilename());
 				li.setL_changed_name(li_changed_name);
 				li.setL_file_level(level);
+				li.setL_num(l_num);
+				result += lService.insertLecture_Image(li);
 			}
-			result += lService.insertLecture_Image(li);
-		}
 		return result;
 	}
 	
-	private String saveFile(MultipartFile file, HttpServletRequest request, int fileNum) {
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\images\\lecture";
 		File folder = new File(savePath);
@@ -293,7 +392,7 @@ public class LectureController {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-		String originalFileName = fileNum + file.getOriginalFilename();
+		String originalFileName = file.getOriginalFilename();
 		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + ((int)(Math.random()*10000)+1)+ "."
 				+ originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
 		String renamePath = folder + "\\" + renameFileName;
@@ -328,4 +427,15 @@ public class LectureController {
 
 		return renameFileName;
 	}
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\images\\lecture";
+		File file = new File(savePath + "\\" + fileName);
+
+		if (file.exists()) {
+			file.delete();
+		}
+	}
+	
+	
 }

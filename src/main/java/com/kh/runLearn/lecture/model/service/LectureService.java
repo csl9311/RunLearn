@@ -21,7 +21,6 @@ public interface LectureService {
 	int acceptLecture(int l_num); // 관리자가 강의 신청을 허가 할때
 	int notAcceptLecture(int l_num); // 관리자가 강의 신청을 불허 할때
 	int permissionLecture(Lecture l); // 튜터가 강의 신청을 할때+
-	int updatePermissionLecture(Lecture l); // 튜터가 신청한 강의를 수정할때
 	
 	HashMap<String, String> selectLecture(int l_num); // 강의 정보 조회+
 	ArrayList selectLectureImage(HashMap<String, Integer> map);// 강의 정보의 이미지 조회+
@@ -33,12 +32,14 @@ public interface LectureService {
 	ArrayList classList(int l_num);//제 n화 강의에서 나올 나머지 강의 리스트 가져오기+
 	HashMap<String, Object> mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때+
 	
-	int insertLecture(Lecture_Each le); // 튜터가 강의를 1화 추가할때
-	int insertLectureFile(Lecture_File lf);//튜터가 강의 1화를 추가시 첨부파일을 추가할때
+	int insertLecture(Lecture_Each le); // 튜터가 강의를 1화 추가할때+
+	int insertLectureFile(Lecture_File lf);//튜터가 강의 1화를 추가시 첨부파일을 추가할때+
 	int deleteLecture(Lecture_Each le); // 튜터가 강의를 1화 삭제할때
 	
 	int insertLecture_Image(Lecture_Image li); // 강의 메인이미지 업로드+
 	int insertLecture_cImage(Lecture_Image li); //강의 상세,커리큘럼 이미지 추가+
+	int updateLecture_mainImage(Lecture_Image li); // 강의 메인 이미지 수정
+	int dropLectureImage(Lecture_Image li); //이미지 수정시 강의 이미지 제거.
 	int updateLecture_Image(Lecture_Image li); // 강의 이미지 수정
 	
 	int insertWishlist(Lecture l, String m_id); // 강의찜목록 등록+
@@ -55,6 +56,8 @@ public interface LectureService {
 	int selectNopayLectureCount(String userId); // 마이페이지 강의 찜목록 전체 수
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
+	int openSeq();
+	int findValue();
 
 	
 	

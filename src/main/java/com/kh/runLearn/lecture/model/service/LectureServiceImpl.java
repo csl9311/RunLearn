@@ -59,11 +59,6 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.permissionLecture(l);
 	}
 
-	@Override
-	public int updatePermissionLecture(Lecture l) {
-		return 0;
-	}
-
 //	@Override
 //	public ArrayList selectLecture(int l_num) {
 //		return lDAO.selectLecture(l_num);
@@ -125,7 +120,7 @@ public class LectureServiceImpl implements LectureService {
 
 	@Override
 	public int updateLecture_Image(Lecture_Image li) {
-		return 0;
+		return lDAO.updateLecture_Image(li);
 	}
 
 	@Override
@@ -176,6 +171,28 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public int insertLectureFile(Lecture_File lf) {
 		return lDAO.insertLectureFile(lf);
+	}
+
+	@Override
+	public int updateLecture_mainImage(Lecture_Image li) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int dropLectureImage(Lecture_Image li) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int openSeq() {
+		return lDAO.openSeq();
+	}
+
+	@Override
+	public int findValue() {
+		return lDAO.findValue();
 	}
 
 }

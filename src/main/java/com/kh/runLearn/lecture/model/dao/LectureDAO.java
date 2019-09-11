@@ -119,4 +119,16 @@ public class LectureDAO {
 		return (ArrayList) sqlSession.selectList("lectureMapper.selectNewLectureList");
 	}
 
+	public int updateLecture_Image(Lecture_Image li) {
+		return sqlSession.update("lectureMapper.updateLecture_Image", li);
+	}
+
+	public int openSeq() {
+		return sqlSession.selectOne("lectureMapper.openSeq");
+	}
+
+	public int findValue() {
+		return sqlSession.selectOne("lectureMapper.findValue");
+	}
+
 }

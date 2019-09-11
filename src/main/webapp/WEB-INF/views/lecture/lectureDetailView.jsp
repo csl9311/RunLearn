@@ -82,12 +82,12 @@
 			<div id="Cintro" style="height: 60px;"></div>
 			<div class="col-sm-12">
 			<div class="row" style="margin-bottom: 10px;">
-			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#Cintro'">강의소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#Cintro'"><h4 style="font-family: 'Jua'">강의소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'"><h4 style="font-family: 'Jua'">강사소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -104,12 +104,12 @@
 			<div class="col-sm-12">
 			<div id="Tintro" style="height: 60px;"></div>
 			<div class="row" style="margin-bottom: 10px;">
-			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
-			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#Tintro'">강사소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'"><h4 style="font-family: 'Jua'">강의소개</h4></div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#Tintro'"><h4 style="font-family: 'Jua'">강사소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -125,12 +125,12 @@
 			<div class="col-sm-12">
 			<div id="curr" style="height: 60px;"></div>
 			<div class="row" style="margin-bottom: 10px;">
-			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
-			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#curr'">커리큘럼</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'"><h4 style="font-family: 'Jua'">강의소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'"><h4 style="font-family: 'Jua'">강사소개</h4></div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -144,12 +144,12 @@
 			<div class="col-sm-12">
 			<div id="target" style="height: 60px;"></div>
 			<div class="row" style="margin-bottom: 10px;">
-			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
-			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#target'">강의목표</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'"><h4 style="font-family: 'Jua'">강의소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'"><h4 style="font-family: 'Jua'">강사소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
+			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -159,12 +159,12 @@
 			<div class="col-sm-12">
 			<div id="address" style="height: 60px;"></div>
 			<div class="row" style="margin-bottom: 10px;">
-			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
-			<div class="col-sm-2" style="border-right: 1px solid black; border-bottom: 0px;" align="center" onclick="location.href='#address'">강의실 주소</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'">강의평</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'"><h4 style="font-family: 'Jua'">강의소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'"><h4 style="font-family: 'Jua'">강사소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
+			<div class="col-sm-2" style="border-right: 1px solid black; border-bottom: 0px;" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -221,12 +221,12 @@
 			<div class="col-sm-12">
 			<div id="reply" style="height: 40px;"></div>
 			<div class="row" style="margin-bottom: 10px;">
-			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'">강의소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'">강사소개</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#curr'">커리큘럼</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#target'">강의목표</div>
-			<div class="col-sm-2" align="center" onclick="location.href='#address'">강의실 주소</div>
-			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'">강의평</div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Cintro'"><h4 style="font-family: 'Jua'">강의소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#Tintro'"><h4 style="font-family: 'Jua'">강사소개</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
+			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
 		</div>
