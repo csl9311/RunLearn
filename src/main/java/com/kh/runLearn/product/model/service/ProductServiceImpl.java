@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.dao.ProductDAO;
 import com.kh.runLearn.product.model.vo.Product;
+import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
 
 @Service("pService")
@@ -52,25 +53,40 @@ public class ProductServiceImpl implements ProductService {
 		return pDAO.insertProduct(pList);
 	}
 
-	
 	// home.jsp에 최신상품 조회
 	@Override
 	public ArrayList<Map<String, String>> selectNewProductList() {
 		return pDAO.selectNewProductList();
 	}
 
-
 	@Override
 	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이페이지 상품 찜목록
-		
 		return pDAO.selectProductView(userId, pi);
 	}
 
 	@Override
 	public int selectPlistCount(String userId) { // 마이페이지 상품 찜목록 수
-		
 		return pDAO.selectPlistCount(userId);
 	}
 
+	@Override
+	public int updateProduct(Product p) {
+		return pDAO.updateProduct(p);
+	}
+
+	@Override
+	public int updateProductOption(ArrayList<Object> poList, int p_num) {
+		return pDAO.updateProductOption(poList, p_num);
+	}
+
+	@Override
+	public int updateThumbnail(Product_Image pi) {
+		return pDAO.updateThumbnail(pi);
+	}
+
+	@Override
+	public int updateDetailImg(ArrayList<Product_Image> piList, int p_num) {
+		return pDAO.updateDetailImg(piList, p_num);
+	}
 
 }

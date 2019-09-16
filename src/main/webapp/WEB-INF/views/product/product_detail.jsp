@@ -211,7 +211,7 @@
 			}
 			
 			function updateProduct(){
-				location.href = "update.product";
+				location.href = "update.product?p_num=${ list.get(0).P_NUM }";
 			}
 		</script>
 		<br> <br> <br> <br> <br> <br>

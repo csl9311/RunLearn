@@ -61,9 +61,6 @@ public class ProductController {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}
-		for(int i = 0 ; i < list.size(); i ++) {
-			System.out.println(list.get(i));
-		}
 		return "product/product_main";
 	}
 	
@@ -193,4 +190,95 @@ public class ProductController {
 		}
 	}
 
+// 상품 정보 수정
+	@RequestMapping("update.product")
+	public String updateProduct(@RequestParam("p_num") String p_numStr, HttpServletRequest request) {
+		int p_num = Integer.parseInt(p_numStr);
+		
+		ArrayList<HashMap<String, Object>> list = pService.selectProduct(p_num);
+		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("poList", poList);
+		return "product/product_update";
+	}
+	
+	@RequestMapping("update.productInfo")
+	public String updateProductInfo(
+			@ModelAttribute Product p,
+			@RequestParam(value = "p_option", required = false) String[] p_option,
+			@RequestParam(value = "p_optionPrice", required = false) int[] p_optionPrice,
+			@RequestParam(value = "p_stock", required = false) int[] p_stock,
+			@RequestParam(value = "pi_thumbnail", required = false) MultipartFile pi_thumbnail,
+			@RequestParam(value = "pi_detail", required = false) MultipartFile[] pi_detail,
+			@RequestParam(value = "thumbnailFileName", required = false) String thumbnailFileName,
+			@RequestParam(value = "detailImgFileName", required = false) String[] detailImgFileName,
+			HttpServletRequest request
+	) throws Exception {
+		int result = pService.updateProduct(p);
+		if (result > 0) {
+		} else {
+			throw new Exception("상품정보 수정에 실패했습니다.");
+		}
+		if (p_option != null) {
+			ArrayList<Object> poList = new ArrayList<>();
+			for (int i = 0; i < p_option.length; i++) {
+				Product_Option po = new Product_Option();
+				po.setP_option(p_option[i]);
+				po.setP_optionPrice(p_optionPrice[i]);
+				po.setP_stock(p_stock[i]);
+				po.setP_num(p.getP_num());
+				poList.add(po);
+				System.out.println(po.getP_num());
+			}
+			result = pService.updateProductOption(poList, p.getP_num());
+			if (result > 0) {
+			} else {
+				throw new Exception("옵션 수정에 실패했습니다.");
+			}
+		}
+		// 썸네일 파일 저장 및 map put
+		if (pi_thumbnail != null && !pi_thumbnail.isEmpty()) {
+			deleteFile(thumbnailFileName, request);
+			String p_changed_name = saveFile(pi_thumbnail, request, 0);
+			if (p_changed_name != null) {
+				Product_Image pi = new Product_Image();
+				pi.setP_changed_name("0" + p_changed_name);
+				pi.setP_origin_name(pi_thumbnail.getOriginalFilename());
+				pi.setP_file_level(0);
+				pi.setP_num(p.getP_num());
+				result = pService.updateThumbnail(pi);
+				if (result > 0) {
+				} else {
+					throw new Exception("썸네일 수정에 실패했습니다.");
+				}
+			}
+		}
+		// 상세 이미지 저장 및 map put
+		boolean check = pi_detail[0] != null && pi_detail[0].isEmpty();
+		if (!check) {
+			ArrayList<Product_Image> piList = new ArrayList<>();
+			for(int i = 0 ; i < detailImgFileName.length; i ++){
+				deleteFile(detailImgFileName[i], request);
+			}
+			for (int i = 0; i < pi_detail.length; i++) {
+				Product_Image pi = null;
+				String p_changed_name = saveFile(pi_detail[i], request, i + 1);
+				if (p_changed_name != null) {
+					pi = new Product_Image();
+					pi.setP_changed_name((i + 1) + p_changed_name);
+					pi.setP_origin_name(pi_detail[i].getOriginalFilename());
+					pi.setP_file_level(1);
+					pi.setP_num(p.getP_num());
+				}
+				piList.add(pi);
+			}
+			result = pService.updateDetailImg(piList, p.getP_num());
+			if (result > 0) {
+			} else {
+				throw new Exception("상품 상세 이미지 수정에 실패했습니다.");
+			}
+		}
+		return "redirect:getList.product";
+	}
 }

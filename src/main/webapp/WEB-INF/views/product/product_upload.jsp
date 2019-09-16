@@ -21,21 +21,19 @@
 	<div class="contents center">
 		<div class="row">
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
-			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
+			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return imgCheck();">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
 				<input type="hidden" name="p_num" value="0">
 				<input type="hidden" name="m_id" value="${ sessionScope.loginUser.m_id }">
 				
 				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 업로드</button>
-				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;" required="required">
-				
-				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 업로드</button>
-				<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
-				
+				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
         		<div class="row">
 					<div id="thumbnailArea"></div>
         		</div>
 				
+				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 업로드</button>
+				<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
 				<div>
 					<div id="detailImgArea" class="row"></div>
 				</div>
@@ -56,6 +54,7 @@
 					<tr>
 						<td>옵션추가</td>
 						<td>
+							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
 							<input id="optionO" type="radio" name="option" value="O" required="required">
 							<label>추가</label>
 							<input id="optionX" type="radio" name="option" value="X" required="required">
@@ -63,15 +62,10 @@
 						</td>
 					</tr>
 				</table>
-				<table class="col-md-6 table center">
-					<tr>
-						<td></td>
-						<td>
-							<input type="button" class="btn" value="이전 페이지로" onclick="history.go(-1);">
-							<input type="submit" class="btn" value="등록">
-						</td>
-					</tr>
-				</table>
+				<div class="row center">
+					<input type="button" class="btn" value="이전 페이지로" onclick="history.go(-1);">
+					<input type="submit" class="btn" value="등록">
+				</div>
 			</form>
 		</div>
 	</div>
@@ -158,13 +152,14 @@
 <%-- 옵션 --%>
 	<%-- 옵션 유무 선택 --%>
 		var $table = $('#productDetail');
-		
+		var $p_optionCheck = $('#p_optionCheck');
 		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
 		$('#optionX').prop('checked', true).prop('disabled', true);
-		
+		$p_optionCheck.val('X');
 		$('#optionO').click(function(){
 			$('#optionO').prop('disabled', 'disabled');
 			$('#optionX').removeAttr('disabled');
+			$p_optionCheck.val('O');
 			optionAdd(j);
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
 		});
@@ -180,6 +175,7 @@
 
 	<%-- 옵션 추가 --%>
 		function optionAdd(num){
+			$p_optionCheck.val('O');
 			$('#optionO').prop('checked', true);
 			$('#optionX').prop('checked', false);
 			$('#add'+ num).hide();
@@ -219,6 +215,7 @@
 				lastBtn.css('display', 'inline-block');
 			}
 			if(length <= 1) {
+				$p_optionCheck.val('X');
 				$('#optionO').removeAttr('disabled');
 				$('#optionX').prop('disabled', 'disabled');
 				$('#optionO').prop('checked', false);
@@ -229,6 +226,14 @@
 	<%-- 옵션 삭제 끝 --%>
 	
 <%-- 옵션 끝 --%>
+
+	<%-- 썸네일 등록 여부 확인 --%>
+		function imgCheck(){
+			if($('#imgInp').val() == '') {
+				alert("이미지를 등록해주세요.");
+				return false;
+			}
+		}
 	</script>
 </body>
 <c:import url="../common/footer.jsp" />

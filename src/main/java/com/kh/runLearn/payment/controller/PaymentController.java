@@ -60,8 +60,9 @@ public class PaymentController {
 		pay.setM_id(m_id);
 		Product_Pay pp = new Product_Pay();
 		pp.setP_num(Integer.parseInt(p_num));
-		pp.setTotal(Integer.parseInt(total));
+		pp.setPay_total(Integer.parseInt(total));
 		pp.setP_pay_amount(Integer.parseInt(amount));
+		
 		Member m = new Member();
 		m.setM_name(m_name);
 		m.setM_phone(m_phone);
