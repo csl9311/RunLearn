@@ -23,7 +23,9 @@
 		var m_phone = '${map.m.m_phone}';
 		var m_email = '${map.m.m_email}';
 		var postnum = '${map.m.postnum}';
+		var amount = ${map.amount};
 		var total = ${map.total};
+		var pay_method = 'card';
 		
 		
 		$.ajax({
@@ -32,6 +34,8 @@
 				p_num:p_num,
 				p_name:p_name,
 				total:total,
+				amount:amount,
+				pay_method:pay_method,
 				m_name:m_name,
 				m_phone:m_phone,
 				m_email:m_email,
@@ -46,7 +50,11 @@
 				}
 			},
 			error : function(){
-				alert("결제실패");
+				alert(
+					"error code : " + request.status + "\n" +
+					"message : " + request.responseText + "\n" + 
+					"error : " + errorData
+				);
 			}
 		});
 		
@@ -60,7 +68,7 @@
 			pay_method : 'card',
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : p_name,
-			amount : 100,
+			amount : 100, // total
 			buyer_email : m_email,
 			buyer_name : m_name,
 			buyer_tel : m_phone,

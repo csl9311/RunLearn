@@ -1,6 +1,7 @@
 package com.kh.runLearn.payment.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.lecture.model.vo.Wishlist;
@@ -17,5 +18,6 @@ public interface PaymentService {
 	
 	int insertPayment(Payment pay); // 결제정보등록
 	int updatePayment(Payment pay); // 환불 및 결제정보수정
+	int insertProductPayment(HashMap<String, Object> map); // 상품결제
 	
 }

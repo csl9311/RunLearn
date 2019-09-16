@@ -68,7 +68,7 @@
 						<td></td>
 						<td>
 							<input type="button" class="btn" value="이전 페이지로" onclick="history.go(-1);">
-							<input type="submit" class="btn" value="등록">
+							<input type="submit" class="btn" value="등록" onsubmit="return check();">
 						</td>
 					</tr>
 				</table>
