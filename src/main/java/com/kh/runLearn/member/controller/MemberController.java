@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
@@ -43,7 +44,6 @@ public class MemberController {
 
 	@Autowired
 	private MemberService mService;
-
 
 	@Autowired
 	private LectureService lService;
@@ -104,7 +104,7 @@ public class MemberController {
 		if(bcryptPasswordEncoder.matches(pw, checkPw) && idCheck == true) {
 			check = true;
 		}
-		System.out.println(check);
+		
 		map.put("check", check);
 		mv.addAllObjects(map);
 		mv.setViewName("jsonView");
@@ -113,18 +113,21 @@ public class MemberController {
 	
 	/* 암호화 로그인 */
 	@RequestMapping(value="login.do", method=RequestMethod.POST)
-	public String memberLogin(Member m, String url, HttpSession session) {
-
+	public ModelAndView memberLogin(Member m, String url, HttpSession session, ModelAndView mv) {
+		
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("home.do");
+		redirectView.setExposeModelAttributes(false);
+		mv.setView(redirectView);
+		
 		Member loginUser = mService.login(m);
 			
 		if(bcryptPasswordEncoder.matches(m.getM_pw(), loginUser.getM_pw())) {
 			session.setAttribute("loginUser", loginUser);
+			return mv;
 		} else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}
-			
-		return "redirect:"+url;
-			
 	}
 	// 로그인 끝
 	
@@ -166,7 +169,6 @@ public class MemberController {
 							 @RequestParam(value="profileImg", required=false) MultipartFile profileImg,
 							 HttpServletRequest request) {
 		
-		System.out.println(profileImg.getOriginalFilename());
 		
 		if(profileImg != null && !profileImg.isEmpty()) {
 			String renameFileName = saveFile(profileImg, request);
@@ -185,7 +187,6 @@ public class MemberController {
 
 		String encPwd = bcryptPasswordEncoder.encode(m.getM_pw());
 		m.setM_pw(encPwd);
-		System.out.println(encPwd);
 
 		int result = mService.insertMember(m);
 		
@@ -248,8 +249,6 @@ public class MemberController {
 			phoneNum2 = (phoneNum1.replace("-", "")).substring(1);
 		}
 		String email = m.getM_email();
-		System.out.println(email);
-		System.out.println("타입" + typecheck);
 		boolean isUsable;
 		
 		/**********************
@@ -277,7 +276,6 @@ public class MemberController {
 			if(isUsable == true) {
 				int random = (int)(Math.random() * 10000);
 				phoneCheck = random;
-				System.out.println(phoneCheck);
 				
 				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 				
@@ -289,7 +287,6 @@ public class MemberController {
 			if(isUsable == false) {
 				int random = (int)(Math.random() * 10000);
 				phoneCheck = random;
-				System.out.println(phoneCheck);
 			
 				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 				
@@ -302,7 +299,6 @@ public class MemberController {
 			if(isUsable == false) {
 				int random = (int)(Math.random() * 10000);
 				phoneCheck = random;
-				System.out.println(phoneCheck);
 				
 				String setfrom = "soomin3333@gmail.com";
 				String tomail = email;
@@ -313,13 +309,14 @@ public class MemberController {
 					MimeMessage message = mailSender.createMimeMessage();
 					MimeMessageHelper messageHelper = new MimeMessageHelper(message,
 							true, "UTF-8");
-
+					
 					messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
 					messageHelper.setTo(tomail); // 받는사람 이메일
 					messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
 					messageHelper.setText(content); // 메일 내용
-
+					
 					mailSender.send(message);
+					
 				} catch (Exception e) {
 					System.out.println(e);
 				}
@@ -338,7 +335,6 @@ public class MemberController {
 	@RequestMapping("checkNum.do")
 	public ModelAndView checkNum(ModelAndView mv, String num) throws IOException {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		System.out.println("저장된 값" + phoneCheck + "입력한 값" + num);
 		boolean isUsable;
 		int num1 = Integer.parseInt(num);
 		if(phoneCheck == num1) {
@@ -361,11 +357,9 @@ public class MemberController {
 	/****** 아이디, 비밀번호 찾기 ******/
 	
 	
-
+	/* 아이디 찾기 */
 	@RequestMapping("findmemberid.do") 
 	public ModelAndView findMember(Member m,ModelAndView mv) {
-		System.out.println(m.getM_name());
-		System.out.println(m.getM_phone());
 	
 		Member member = mService.findMember(m); 
 	
@@ -380,35 +374,40 @@ public class MemberController {
 	
 	}
 	
+	/* 암호 찾기 */
 	@RequestMapping("pwFind.do")
 	public ModelAndView pwFind(ModelAndView mv, String m_id) {
-		
-		System.out.println(m_id);
 		
 		Member member = new Member();
 		member.setM_id(m_id);
 		mv.addObject("member", member) 
 		.setViewName("member/pwChange"); 
 		
-		System.out.println(member);
-		
 		return mv;	
 	}
 	
+	/* 암호 변경 */
 	@RequestMapping("pwChange.do")
-	public String pwChange(Member m) {
-		System.out.println(m.getM_id() + "dd" + m.getM_pw());
-		String encPwd = bcryptPasswordEncoder.encode(m.getM_id());
+	public ModelAndView pwChange(Member m, ModelAndView mv) {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		String encPwd = bcryptPasswordEncoder.encode(m.getM_pw());
 		m.setM_pw(encPwd);
 		
-		int result = mService.pwChange(m);
+		boolean result = mService.pwChange(m) == 1 ? true : false;
 		
-		if(result > 0) {
-			System.out.println("dd");
-			return "home";
+		if(result != false) {
+			map.put("result", result);
+			mv.addAllObjects(map);
+			mv.setViewName("jsonView");
+			return mv;
 		} else {
 			throw new MemberException("암호 변경에 실패하였습니다 ;ㅅ;");
 		}
+		
+		
+		
+
+		
 	}
 	
 	/****** 아이디, 비밀번호 찾기 끝 ******/
@@ -629,8 +628,6 @@ public class MemberController {
 //		}
 //		return renameFileName;
 //	}
-
-
 
 
 }

@@ -408,6 +408,7 @@ header .search .lcont input[type=text] {
 	outline: none;
 	border: 0;
 }
+.modal-dialog {margin: 280px auto;}
 </style>
 </head>
 <body>
@@ -735,10 +736,6 @@ header .search .lcont input[type=text] {
 	</script>
 	<script>
 	function signUp(){
-		var url = $(location).attr('pathname').split('/');
-		console.log(url[2]);
-		$('#urlInput').val(url[2]);
-		
 		
 		m_id = $("#m_id");
 		m_pw = $("#m_pw");

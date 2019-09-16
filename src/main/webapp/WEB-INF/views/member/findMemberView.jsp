@@ -73,6 +73,8 @@
   border-color: #428bca;
 }
 
+.imageArea{margin-bottom: 50px;}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
@@ -173,7 +175,7 @@
 <div class="wrap">
 	<!-- 아이디 찾기 -->
 	<div class="row justify-content-md-center">
-	<h3>아이디 / 비밀번호 찾기</h3>
+	<div class="imageArea justify-context-md-cneter"><img src="${contextPath}/resources/images/common/logo_2.png"></div>
 		<div class="btn-group btn-group-toggle" data-toggle="buttons">
 			<label class="btn-r btn btn-danger btn-lg active" id="idfb"onclick="ich();">
 				<input type="radio" name="jb-radio" id="jb-radio-1"> 아이디 찾기
@@ -219,7 +221,7 @@
 		<div class="mcontent">
 			<div class="find">
 				<label class="radiob"><input type="radio" name="search2" id="pp2" checked>휴대폰 인증으로 찾기</label>
-				<form name="form3" id="form3" method="post" action="findmemberpw.do">
+				<form name="form3" id="form3" method="post" action="pwFind.do">
 					<div class="index" id="ppf">
 						<p class="sub-text">회원 가입에 사용한 휴대폰 번호와 일치해야 합니다.</p>
 						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"><input type="hidden" name="typecheck" value="1"></div>
@@ -235,7 +237,7 @@
 			<hr>
 			<div class="find">
 				<label class="radiob"><input type="radio" name="search2" id="ep2">이메일 인증으로 찾기</label>
-				<form name="form4" id="form4" method="post" action="findmemberpw.do">
+				<form name="form4" id="form4" method="post" action="pwFind.do">
 					<div class="index" id="pef">
 						<p class="sub-text">회원 가입에 사용한 이메일 주소와 일치해야 합니다.</p>
 						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"><input type="hidden" name="typecheck" value="02"></div>
@@ -389,6 +391,10 @@
 		form2 = document.form2;
 		
 		if($("#pp").is(":checked") == true && ido == true) {
+			if(num1 == ""){
+				alert("인증번호를 입력해주세요.");
+				return;
+			}
 			$.ajax({
 				url: "checkNum.do",
 				data: {num: num1},
@@ -406,6 +412,10 @@
 				}
 			});
 		} else {
+			if(num2 == ""){
+				alert("인증번호를 입력해주세요.");
+				return;
+			}
 			$.ajax({
 				url: "checkNum.do",
 				data: {num: num2},

@@ -126,6 +126,26 @@
 	font-size: 13px;
 	color: #b3b3b3;
 }
+
+#profileImg {
+width:100px; height:100px;
+border-radius:75px;
+text-align:center;
+margin:0 auto;
+font-size:12px; color:#fff;
+vertical-align:middle;
+overflow:hidden;
+background-image: url(${contextPath}/resources/images/member/20190905142135.jpg);
+background-size: contain;
+}
+.nickarea{
+	text-align:center;
+	line-height: 100px;
+	color: #000;
+}
+
+
+
 </style>
 </head>
 
@@ -139,13 +159,13 @@
 			<div class="find">
 				<p>입력한 정보와 일치하는 아이디입니다.</p>
 				<hr>
-				<h3>${ member.m_id }</h3>
+				<div id="profileImg"><div class="nickarea"> ${ member.m_nickname }</div></div><h3>${ member.m_id }</h3>
 				<input type="hidden" name="m_id" value="${ member.m_id }">
 			</div>
 		</div>
 	
 		<button type="button" onclick="main();" class="btn btn-primary btn-lg">메인으로</button>
-		<button onclick="pwFind();" class="btn btn-primary btn-lg">비밀번호찾기</button>
+		<button class="btn btn-primary btn-lg">비밀번호찾기</button>
 	</form>
 	</div>
 </div>

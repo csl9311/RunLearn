@@ -156,7 +156,7 @@ span.suc1{color: green;}
 	<!-- 아이디 찾기 -->
 	<div class="row justify-content-md-center">
 	<h3>비밀번호 찾기</h3>
-	<form name="form" action="pwChange.do" method="post">
+	<form name="form">
 		<div class="mcontent">
 			<div class="find">
 				<p>비밀번호 변경.</p>
@@ -164,7 +164,7 @@ span.suc1{color: green;}
 				<p class="sub-text">변경할 비밀번호를 입력해주세요</p>
 				<div class="form-group">
 					<input type="password" class="form-control" id="m_pw1" name="m_pw" placeholder="비밀번호">
-					<input type="hidden" name="m_id" value="${ member.m_id }">
+					<input type="hidden" id="m_id1" name="m_id" value="${ member.m_id }">
 					<span id="pwp" class="fontA"></span>
 					<span class="pc">6자리 영문자와 숫자, 특수문자가 1회이상 사용하여야합니다.</span>
 					<span class="pc error1">6자리 이상의 비밀번호를 입력해주세요.</span>
@@ -180,7 +180,7 @@ span.suc1{color: green;}
 				</div>
 			</div>
 		</div>
-		<button onclick="change();" class="btn btn-primary btn-lg">변경하기</button>
+		<button type="button" onclick="change();" class="btn btn-primary btn-lg">변경하기</button>
 	</form>
 	</div>
 </div>
@@ -245,13 +245,33 @@ span.suc1{color: green;}
 		}
 	});
 	function change(){
-		Form = document.form;
+		var m_pw = $('#m_pw1').val();
+		var m_id = $('#m_id1').val();
 		if($("#check2").val() == 0) {
 			alert("비밀번호를 확인해주세요.");
 			$("#m_pw1").focus();
 			return false;
 		} else {
-			$(Form).submit();
+			$.ajax({
+				url: "pwChange.do",
+				data: {m_id:m_id,
+					   m_pw:m_pw},
+				method: "post",
+				success: function(data){
+					if(data.result == true){
+						alert("변경되었습니다. 변경한 아이디로 로그인해주세요!");
+						location.href='${contextPath}';
+					} else {
+						alert("변경실패! 다시 시도해주세요 ;ㅅ;");
+						location.href='${contextPath}';
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
 		}
 	}
 </script>
