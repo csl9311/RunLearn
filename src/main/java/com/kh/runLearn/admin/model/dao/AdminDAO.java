@@ -27,6 +27,12 @@ public class AdminDAO {
 	public int blackUserCount() {//블랙 유저수 가지고 오기
 		return sqlSession.selectOne("adminMapper.blackUserCount");
 	}
+	public int leaveUserCount() {//블랙 유저수 가지고 오기
+		return sqlSession.selectOne("adminMapper.leaveUserCount");
+	}
+	public int adminUserCount() {//블랙 유저수 가지고 오기
+		return sqlSession.selectOne("adminMapper.adminUserCount");
+	}
 	//회원수 조회 하는 부분 끝
 	
 	

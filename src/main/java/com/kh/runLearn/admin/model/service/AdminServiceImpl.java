@@ -54,6 +54,15 @@ public class AdminServiceImpl implements AdminService {
 		return aDAO.blackUserCount();
 	}
 	@Override
+	public int leaveUserCount() {//탈퇴회원
+		return aDAO.leaveUserCount();
+	}
+	@Override
+	public int adminUserCount() {//관리자
+		// TODO Auto-generated method stub
+		return aDAO.adminUserCount();
+	}
+	@Override
 	public int targetUserUpdate(Member m) {//타겟 회원 정보수정
 		System.out.println("pl"+ m);
 		return aDAO.targetUserUpdate(m);

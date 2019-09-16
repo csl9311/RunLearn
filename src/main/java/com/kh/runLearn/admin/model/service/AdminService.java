@@ -15,6 +15,8 @@ public interface AdminService {
 	int tutorUserCount();
 	int tuteeUserCount();
 	int blackUserCount();
+	int leaveUserCount();
+	int adminUserCount();
 	int targetUserUpdate(Member m);
 	
 	ArrayList<Member> allUserList(PageInfo pi); // 관리자 회원정보 조회

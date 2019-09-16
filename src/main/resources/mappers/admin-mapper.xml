@@ -20,6 +20,16 @@
 	from member
 	where m_grade = '튜티/블랙' or m_grade = '튜터/블랙'
 	</select>
+	<select id="leaveUserCount" resultType="_int"><!--  탈퇴회원 수 조회 -->
+	select count(*)
+	from member
+	where m_status = 'N'
+	</select>
+	<select id="adminUserCount" resultType="_int"><!--  어드민회원 수 조회 -->
+	select count(*)
+	from member
+	where m_grade = 'M'
+	</select>
 	<!-- 유저 정렬 -->
 	<select id="allUserList" resultType="Member"><!--기본 정렬 (가입일)  -->
 	select *
