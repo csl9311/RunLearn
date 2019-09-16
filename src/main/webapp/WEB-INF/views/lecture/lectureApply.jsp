@@ -44,6 +44,9 @@
 .row .col-sm-2 a:hover {
 	cursor: pointer;
 }
+.hover:hover{
+	cursor : pointer;
+}
 </style>
 
 </head>
@@ -231,7 +234,7 @@
 			<div class="row">
 			<div class="col-md-12" align="center">
 				<div id="Cattach">
-	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat" for="cuploadInputBox">[상세 설명 이미지 첨부]</label>
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="cuploadInputBox">[상세 설명 이미지 첨부]</label>
 	                <input id="cuploadInputBox" style="display: none" type="file" name="cfiledata"/>
             	</div>
 				<div id="cpreview" class="content" style="width:100%;"></div>
@@ -300,7 +303,8 @@
 	        }
 	 
 	        $(document).ready(function() {
-	            $('#submitBtn').on('click',function() {                        
+	            $('#submitBtn').on('click',function() { 
+	            	
 	                var cform = $('#cuploadForm')[0];
 	                var cformData = null;
 	                cformData = new FormData(cform);
@@ -321,24 +325,56 @@
 	                    url : 'contImageInsert.le',
 	                    data : cformData,
 	                    success : function(result) {
-	                        //이 부분을 수정해서 다양한 행동을 할 수 있으며,
-	                        //여기서는 데이터를 전송받았다면 순수하게 OK 만을 보내기로 하였다.
-	                        //-1 = 잘못된 확장자 업로드, -2 = 용량초과, 그외 = 성공(1)
-	                        if (result === -1) {
-	                            alert('jpg, gif, png, bmp 확장자만 업로드 가능합니다.');
-	                            // 이후 동작 ...
-	                        } else if (result === -2) {
-	                            alert('파일이 10MB를 초과하였습니다.');
-	                            // 이후 동작 ...
-	                        } else {
-	                            alert('상세이미지 업로드 성공');
-	                            // 이후 동작 ...
-	                        }
+	        	                var tform = $('#tuploadForm')[0];
+	        	                var tformData = null;
+	        	                tformData = new FormData(tform);
+	        	    			for (var index = 0; index < tpreviewIndex; index++) {
+	        	                    tformData.append('tfiles', tfiles[index]);
+	        	                }
+	        	                $.ajax({
+	        	                    type : 'POST',
+	        	                    enctype : 'multipart/form-data',
+	        	                    processData : false,
+	        	                    contentType : false,
+	        	                    cache : false,
+	        	                    timeout : 600000,
+	        	                    url : 'tutorImageInsert.le',
+	        	                    data : tformData,
+	        	                    success : function(result) {
+	        	                        $("#hiddenTutoValue").val(result);
+	        	        	                var rform = $('#ruploadForm')[0];
+	        	        	                var rformData = null;
+	        	        	                rformData = new FormData(rform);
+	        	        	    			console.log(Object.keys(rfiles));
+	        	        	    			console.log(rpreviewIndex);
+	        	        	                for (var index = 0; index < rpreviewIndex; index++) {
+	        	        	                    console.log(index);
+	        	        	                   	console.log(rfiles[index]);
+	        	        	                    rformData.append('rfiles',rfiles[index]);
+	        	        	                }
+	        	        	                $.ajax({
+	        	        	                    type : 'POST',
+	        	        	                    enctype : 'multipart/form-data',
+	        	        	                    processData : false,
+	        	        	                    contentType : false,
+	        	        	                    cache : false,
+	        	        	                    timeout : 600000,
+	        	        	                    url : 'currImageInsert.le',
+	        	        	                    dataType : 'JSON',
+	        	        	                    data : rformData,
+	        	        	                    success : function(result) {
+	        	        	                        $("#hiddenCurrValue").val(result);
+	        	        	                        $("#ApplyForm").submit();
+	        	        	                    }
+	        	        	                    //전송실패에대한 핸들링은 고려하지 않음
+	        	        	                });
+	        	        	            }
+	        	                    });
+	        	                }
+	        	            });
 	                        $("#hiddenContValue").val(result);
-	                    }
 	                    //전송실패에대한 핸들링은 고려하지 않음
 	                });
-	            });
 	            // <input type=file> 태그 기능 구현
 	            $('#Cattach input[type=file]').change(function() {
 	                caddPreview($(this)); //preview form 추가하기
@@ -365,7 +401,86 @@
 				</div>
 			</div>
 			<div class="col-sm-12" align="center">
-				<h3>강사 사진, 이미지와 이름 닉네임등의 소개가 들어갈 공간입니다.</h3>
+			<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="Tattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="tuploadInputBox">[강사 소개 이미지 첨부]</label>
+	                <input id="tuploadInputBox" style="display: none" type="file" name="tfiledata"/>
+            	</div>
+				<div id="tpreview" class="content" style="width:100%;"></div>
+				
+			</div>
+			</div>
+			<script type="text/javascript">
+			var tfiles = {};
+	        var tpreviewIndex = 0;
+	 
+	        // image preview 기능 구현
+	        // input = file object[]
+	        function taddPreview(input) {
+	            if (input[0].files) {
+	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+	                    var file = input[0].files[fileIndex];
+	 
+	                    if (tvalidation(file.name))
+	                        continue;
+	 
+	                    var reader = new FileReader();
+	                    reader.onload = function(img) {
+	                       
+	                        var imgNum = tpreviewIndex++;
+	                        $("#tpreview")
+	                                .append(
+	                                        "<div class=\"preview-box\" value=\"" + imgNum +"\">"
+	                                                + "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\ style='width:100%;'/>"
+	                                                + "<p>"
+	                                                + file.name
+	                                                + "</p>"
+	                                                + "<div class=\"btn btn-primary\" value=\""
+	                                                + imgNum
+	                                                + "\" onclick=\"tdeletePreview(this)\">"
+	                                                + "삭제" + "</div>" + "</div>");
+	                        tfiles[imgNum] = file;
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            } else
+	                alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+	        }
+	 
+	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+	        function tdeletePreview(obj) {
+	            var imgNum = obj.attributes['value'].value;
+	            console.log(imgNum);
+	            delete tfiles[imgNum];
+	            $("#tpreview .preview-box[value=" + imgNum + "]").remove();
+	        }
+	 
+	        //client-side validation
+	        //always server-side validation required
+	        function tvalidation(fileName) {
+	            fileName = fileName + "";
+	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+	            var fileNameExtension = fileName.toLowerCase().substring(
+	                    fileNameExtensionIndex, fileName.length);
+	            if (!((fileNameExtension === 'jpg')
+	                    || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+	                alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	 
+	        $(document).ready(function() {
+	            
+	            // <input type=file> 태그 기능 구현
+	            $('#Tattach input[type=file]').change(function() {
+	                taddPreview($(this)); //preview form 추가하기
+	            });
+	        });
+			</script>
+			<input type="hidden" id="hiddentutoValue" name="ContResult"/>
 			</div>
 			<div class="col-sm-12">
 				<div id="curr" style="height: 60px;"></div>
@@ -388,7 +503,7 @@
 			<div class="row">
 			<div class="col-md-12" align="center">
 				<div id="Rattach">
-	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat" for="ruploadInputBox">[커리큘럼 이미지 첨부]</label>
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="ruploadInputBox">[커리큘럼 이미지 첨부]</label>
 	                <input id="ruploadInputBox" style="display: none" type="file" name="rfiledata"/>
             	</div>
 				<div id="rpreview" class="content" style="width:100%;"></div>
@@ -457,46 +572,7 @@
 	        }
 	 
 	        $(document).ready(function() {
-	            $('#submitBtn').on('click',function() {
-	                var rform = $('#ruploadForm')[0];
-	                var rformData = null;
-	                rformData = new FormData(rform);
-	    			console.log(Object.keys(rfiles));
-	    			console.log(rpreviewIndex);
-	                for (var index = 0; index < rpreviewIndex; index++) {
-	                    console.log(index);
-	                   	console.log(rfiles[index]);
-	                    rformData.append('rfiles',rfiles[index]);
-	                }
-	                $.ajax({
-	                    type : 'POST',
-	                    enctype : 'multipart/form-data',
-	                    processData : false,
-	                    contentType : false,
-	                    cache : false,
-	                    timeout : 600000,
-	                    url : 'currImageInsert.le',
-	                    dataType : 'JSON',
-	                    data : rformData,
-	                    success : function(result) {
-	                        //이 부분을 수정해서 다양한 행동을 할 수 있으며,
-	                        //여기서는 데이터를 전송받았다면 순수하게 OK 만을 보내기로 하였다.
-	                        //-1 = 잘못된 확장자 업로드, -2 = 용량초과, 그외 = 성공(1)
-	                        if (result === -1) {
-	                            alert('jpg, gif, png, bmp 확장자만 업로드 가능합니다.');
-	                            // 이후 동작 ...
-	                        } else if (result === -2) {
-	                            alert('파일이 10MB를 초과하였습니다.');
-	                            // 이후 동작 ...
-	                        } else {
-	                            alert('커리 이미지 업로드 성공');
-	                            // 이후 동작 ...
-	                        }
-	                        $("#hiddenCurrValue").val(result);
-	                    }
-	                    //전송실패에대한 핸들링은 고려하지 않음
-	                });
-	            });
+	            
 	            // <input type=file> 태그 기능 구현
 	            $('#Rattach input[type=file]').change(function() {
 	                raddPreview($(this)); //preview form 추가하기
@@ -654,7 +730,7 @@
 					
 					        // 인포윈도우로 장소에 대한 설명을 표시합니다
 					        var infowindow = new kakao.maps.InfoWindow({
-					            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">강의 장소</div>'
 					        });
 					        infowindow.open(map, marker);
 					
@@ -691,19 +767,13 @@
 			</div>
 			<h6>　</h6>
 			<div align="right">
-				<button type="submit" class="btn btn-secondary" id="submitBtn" style="margin-right: 5%;">신청하기</button>
+				<button type="button" class="btn btn-secondary" id="submitBtn" style="margin-right: 5%;">신청하기</button>
 			</div>
 		</form>
 		<form id="ruploadForm" style="display: none;"></form>
 		<form id="cuploadForm" style="display: none;"></form>
+		<form id="tuploadForm" style="display: none;"></form>
 		<script>
-		$(document).ready(function() {
-			$('#submitBtn').on('click',function() {
-				$("#ApplyForm").submit();
-			});
-		});
-			
-
 		</script>
 	</div>
 </body>

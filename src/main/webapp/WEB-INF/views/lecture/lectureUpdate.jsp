@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의신청</title>
+<title>강의수정</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -44,6 +44,9 @@
 .row .col-sm-2 a:hover {
 	cursor: pointer;
 }
+.hover:hover{
+	cursor : pointer;
+}
 </style>
 
 </head>
@@ -53,6 +56,7 @@
 		<h1>강의 신청</h1>
 		<h6></h6>
 		<form method="post" enctype="Multipart/form-data" action="lectureUpdate.le" id="UpdateForm">
+			<input type="hidden" name="l_num" value="${ list.L_NUM }">
 			<div class="col-md-12 mb-4">
 				<div class="row">
 					<h3>강의 제목</h3>
@@ -238,16 +242,11 @@
 			
 			<div class="row">
 			<div class="col-md-6" align="center">
-				<h4>상세설명 이미지추가</h4>
-				<div class="input_wrap">
-					<a href="javascript:" onclick="ContentFileUploadAction();" class="my_button">[파일 업로드]</a>
-					<input type="file" id="input_cont_imgs" name="contImgs" multiple style="display: none;" accept="image/gif, image/jpeg, image/png"/>
-				</div>
-				<div>
-					<div class="cont_imgs_wrap" style="width: 100%">
-						<img id="img"/>
-					</div>
-				</div>
+				<div id="Cattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="cuploadInputBox">[상세 설명 이미지 첨부]</label>
+	                <input id="cuploadInputBox" style="display: none" type="file" name="cfiledata" accept="image/gif, image/jpeg, image/png"/>
+            	</div>
+				<div id="cpreview" class="content" style="width:100%;"></div>
 			</div>
 			<div class="col-md-6" align="center">
 				<h4>이전 상세설명 이미지</h4>
@@ -263,47 +262,142 @@
 			</div>
 			</div>
 			<script type="text/javascript">
-				var cont_sel_files = [];
-				$(document).ready(function(){
-					$("#input_cont_imgs").on("change", contHandleImageFileSelect);
-				});
-				function ContentFileUploadAction(){
-					console.log("ContentFileUploadAction");
-					$("#input_cont_imgs").trigger('click');
-				}
-				function contHandleImageFileSelect(e){
-					cont_sel_files = [];
-					$(".cont_imgs_wrap").empty();
-					
-					var contFiles = e.target.files;
-					var contFilesArr = Array.prototype.slice.call(contFiles);
-					console.log(contFilesArr);
-					var cont_index = 0;
-					contFilesArr.forEach(function(f){
-						if(!f.type.match("image.*")){
-							alert("확장자는 이미지 확장자만 가능합니다.");
-							return;
-						}
-						
-						cont_sel_files.push(f);
-						
-						var reader = new FileReader();
-						reader.onload = function(e){
-							var cont_html = "<a href\"javascript:void(0);\" onclick=\"contDeleteImageAction("+cont_index+")\" id = \"cont_img_id_"+cont_index+"\"><img src=\""+e.target.result+"\" data-file='"+f.name+"' class='contentImgFile' title='click to remove' style='width:100%;'></a>";
-							$(".cont_imgs_wrap").append(cont_html);
-							cont_index++;
-						}
-						reader.readAsDataURL(f);
-					});
-				}
-				function contDeleteImageAction(cont_index){
-					console.log("index : "+ cont_index);
-					cont_sel_files.splice(cont_index,1);
-					var cont_img_id = "#cont_img_id_"+cont_index;
-					$(cont_img_id).remove();
-					console.log(cont_sel_files);
-				}
+			var cfiles = {};
+	        var cpreviewIndex = 0;
+	        function caddPreview(input) {
+	            if (input[0].files) {
+	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+	                    var file = input[0].files[fileIndex];
+	 
+	                    if (cvalidation(file.name))
+	                        continue;
+	 
+	                    var reader = new FileReader();
+	                    reader.onload = function(img) {
+	                       
+	                        var imgNum = cpreviewIndex++;
+	                        $("#cpreview")
+	                                .append(
+	                                        "<div class=\"preview-box\" value=\"" + imgNum +"\">"
+	                                                + "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\ style='width:100%;'/>"
+	                                                + "<p>"
+	                                                + file.name
+	                                                + "</p>"
+	                                                + "<div class=\"btn btn-primary\" value=\""
+	                                                + imgNum
+	                                                + "\" onclick=\"cdeletePreview(this)\">"
+	                                                + "삭제" + "</div>" + "</div>");
+	                        cfiles[imgNum] = file;
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            } else
+	                alert('invalid file input');
+	        }
+	        function cdeletePreview(obj) {
+	            var imgNum = obj.attributes['value'].value;
+	            console.log(imgNum);
+	            delete cfiles[imgNum];
+	            $("#cpreview .preview-box[value=" + imgNum + "]").remove();
+	        }
+	        function cvalidation(fileName) {
+	            fileName = fileName + "";
+	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+	            var fileNameExtension = fileName.toLowerCase().substring(
+	                    fileNameExtensionIndex, fileName.length);
+	            if (!((fileNameExtension === 'jpg')
+	                    || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+	                alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	 
+	        $(document).ready(function() {
+				var l_num = ${ list.L_NUM };
+				$('#submitBtn').on('click',function() {                        
+	                var cform = $('#cuploadForm')[0];
+	                var cformData = null;
+	                cformData = new FormData(cform);
+	    			console.log("key"+Object.keys(cfiles));
+	    			console.log("cpreview인덱스"+cpreviewIndex);
+	                for (var index = 0; index < cpreviewIndex; index++) {
+	                    console.log("인덱스"+index);
+	                   	console.log("c인덱스"+cfiles[index]);
+	                    cformData.append('cfiles', cfiles[index]);
+	                }
+	                cformData.append('l_num', l_num);
+	                $.ajax({
+	                    type : 'POST',
+	                    enctype : 'multipart/form-data',
+	                    processData : false,
+	                    contentType : false,
+	                    cache : false,
+	                    timeout : 600000,
+	                    url : 'contImageUpdate.le',
+	                    data : cformData,
+	                    success : function(result) {
+	                    	var l_num = ${ list.L_NUM };
+	        	                var tform = $('#tuploadForm')[0];
+	        	                var tformData = null;
+	        	                tformData = new FormData(tform);
+	        	    			for (var index = 0; index < tpreviewIndex; index++) {
+	        	                    tformData.append('tfiles', tfiles[index]);
+	        	                }
+	        	    			tformData.append('l_num', l_num);
+	        	                $.ajax({
+	        	                    type : 'POST',
+	        	                    enctype : 'multipart/form-data',
+	        	                    processData : false,
+	        	                    contentType : false,
+	        	                    cache : false,
+	        	                    timeout : 600000,
+	        	                    url : 'tutorImageUpdate.le',
+	        	                    data : tformData,
+	        	                    success : function(result) {
+	        	                        $("#hiddenTutoValue").val(result);
+	        	                        var l_num = ${ list.L_NUM };
+	        	        	                var rform = $('#ruploadForm')[0];
+	        	        	                var rformData = null;
+	        	        	                rformData = new FormData(rform);
+	        	        	    			console.log(Object.keys(rfiles));
+	        	        	    			console.log(rpreviewIndex);
+	        	        	                for (var index = 0; index < rpreviewIndex; index++) {
+	        	        	                    console.log(index);
+	        	        	                   	console.log(rfiles[index]);
+	        	        	                    rformData.append('rfiles',rfiles[index]);
+	        	        	                }
+	        	        	                rformData.append('l_num', l_num);
+	        	        	                $.ajax({
+	        	        	                    type : 'POST',
+	        	        	                    enctype : 'multipart/form-data',
+	        	        	                    processData : false,
+	        	        	                    contentType : false,
+	        	        	                    cache : false,
+	        	        	                    timeout : 600000,
+	        	        	                    url : 'currImageUpdate.le',
+	        	        	                    dataType : 'JSON',
+	        	        	                    data : rformData,
+	        	        	                    success : function(result) {
+	        	        	                        $("#hiddenCurrValue").val(result);
+	        	        	                        $("#UpdateForm").submit();
+	        	        	                    }
+	        	        	                    //전송실패에대한 핸들링은 고려하지 않음
+	        	        	                });
+	        	        	            }
+	        	                    });
+	        	                }
+	        	            });
+	                        $("#hiddenContValue").val(result);
+	                    //전송실패에대한 핸들링은 고려하지 않음
+	                });
+	            $('#Cattach input[type=file]').change(function() {
+	                caddPreview($(this)); 
+	            });
+	        });
 			</script>
+			<input type="hidden" id="hiddenContValue" name="ContResult"/>
 			</div>
 			<div class="col-sm-12">
 				<div id="Tintro" style="height: 60px;"></div>
@@ -323,8 +417,98 @@
 				</div>
 			</div>
 			<div class="col-sm-12" align="center">
-				<h3>강사 사진, 이미지와 이름 닉네임 등의 소개가 들어갈 공간입니다.</h3>
+			<div class="row">
+			<div class="col-md-6" align="center">
+				<div id="Tattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="tuploadInputBox">[강사 소개 이미지 첨부]</label>
+	                <input id="tuploadInputBox" style="display: none" type="file" name="tfiledata" accept="image/gif, image/jpeg, image/png"/>
+            	</div>
+				<div id="tpreview" class="content" style="width:100%;"></div>
 			</div>
+			<div class="col-md-6" align="center">
+				<h4>이전 강사소개 이미지</h4>
+				<h6>(※사진을 추가하지 않는경우 이전 자료로 사진이 들어갑니다.)</h6>
+				<c:if test="${ !it_list.isEmpty() }">
+				<c:forEach var="i" begin="0" end="${ it_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ it_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+				</c:if>
+				<c:if test="${ it_list.isEmpty() }">
+					<h5>이전 등록/수정 당시 추가한 이미지가 없습니다.</h5>
+				</c:if>
+			</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+			var tfiles = {};
+	        var tpreviewIndex = 0;
+	 
+	        // image preview 기능 구현
+	        // input = file object[]
+	        function taddPreview(input) {
+	            if (input[0].files) {
+	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+	                    var file = input[0].files[fileIndex];
+	 
+	                    if (tvalidation(file.name))
+	                        continue;
+	 
+	                    var reader = new FileReader();
+	                    reader.onload = function(img) {
+	                       
+	                        var imgNum = tpreviewIndex++;
+	                        $("#tpreview")
+	                                .append(
+	                                        "<div class=\"preview-box\" value=\"" + imgNum +"\">"
+	                                                + "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\ style='width:100%;'/>"
+	                                                + "<p>"
+	                                                + file.name
+	                                                + "</p>"
+	                                                + "<div class=\"btn btn-primary\" value=\""
+	                                                + imgNum
+	                                                + "\" onclick=\"tdeletePreview(this)\">"
+	                                                + "삭제" + "</div>" + "</div>");
+	                        tfiles[imgNum] = file;
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            } else
+	                alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+	        }
+	 
+	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+	        function tdeletePreview(obj) {
+	            var imgNum = obj.attributes['value'].value;
+	            console.log(imgNum);
+	            delete tfiles[imgNum];
+	            $("#tpreview .preview-box[value=" + imgNum + "]").remove();
+	        }
+	 
+	        //client-side validation
+	        //always server-side validation required
+	        function tvalidation(fileName) {
+	            fileName = fileName + "";
+	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+	            var fileNameExtension = fileName.toLowerCase().substring(
+	                    fileNameExtensionIndex, fileName.length);
+	            if (!((fileNameExtension === 'jpg')
+	                    || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+	                alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	 
+	        $(document).ready(function() {
+	           
+	            // <input type=file> 태그 기능 구현
+	            $('#Tattach input[type=file]').change(function() {
+	                taddPreview($(this)); //preview form 추가하기
+	            });
+	        });
+			</script>
+			<input type="hidden" id="hiddentutoValue" name="ContResult"/>
 			<div class="col-sm-12">
 				<div id="curr" style="height: 60px;"></div>
 				<div class="row" style="margin-bottom: 10px;">
@@ -345,37 +529,23 @@
 			<div class="col-sm-12">
 			<div class="row">
 			<div class="col-md-6" align="center">
-				<div id="attach">
-	                <label class="waves-effect waves-teal btn-flat" for="ruploadInputBox">사진첨부</label>
-	                <input id="ruploadInputBox" style="display: none" type="file" name="rfiledata" multiple />
+				<div id="Rattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="ruploadInputBox">[커리큘럼 이미지 첨부]</label>
+	                <input id="ruploadInputBox" style="display: none" type="file" name="rfiledata" accept="image/gif, image/jpeg, image/png"/>
             	</div>
 				<div id="rpreview" class="content" style="width:100%;"></div>
-				<form id="uploadForm" style="display: none;"></form>
-				<!-- <h4>커리큘럼 이미지 추가</h4>
-				<div class="input_wrap">
-					<a href="javascript:" onclick="fileUploadAction();" class="my_button">[파일 업로드]</a>
-					<input type="file" id="input_imgs" name="currImgs" multiple style="display: none;" accept="image/gif, image/jpeg, image/png"/>
-				</div>
-				<div>
-					<div class="imgs_wrap" style="width: 100%">
-						<img id="img"/>
-					</div>
-				</div> -->
-			</div>
-			<div class=col-md-1>
-            <button type="button" class="submit" id="btn123">등록</button>
         	</div>
-			<div class="col-md-5" align="center">
+			<div class="col-md-6" align="center">
 				<h4>이전 커리큘럼 이미지</h4>
 				<h6>(※사진을 추가하지 않는경우 이전 자료로 사진이 들어갑니다.)</h6>
-				
-				
-					<img src="/runLearn/resources/images/lecture/201909051642097024.jpg" style="width:100%;">
-				
-					<img src="/runLearn/resources/images/lecture/201909051642093862.jpg" style="width:100%;">
-				
-				
-				
+				<c:if test="${ !ir_list.isEmpty() }">
+				<c:forEach var="i" begin="0" end="${ ir_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ ir_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+				</c:if>
+				<c:if test="${ ir_list.isEmpty() }">
+					<h5>이전 등록/수정 당시 추가한 이미지가 없습니다.</h5>
+				</c:if>
 			</div>
 			</div>
 			<script type="text/javascript">
@@ -440,51 +610,14 @@
 	        }
 	 
 	        $(document).ready(function() {
-	            $('#btn123').on('click',function() {                        
-	                var rform = $('#ruploadForm')[0];
-	                var rformData = null;
-	                rformData = new FormData(rform);
-	    			console.log(Object.keys(rfiles));
-	    			console.log(rpreviewIndex);
-	                for (var index = 0; index < rpreviewIndex; index++) {
-	                    console.log(index);
-	                   	console.log(rfiles[index]);
-	                    rformData.append('rfiles',rfiles[index]);
-	                }
-	                $.ajax({
-	                    type : 'POST',
-	                    enctype : 'multipart/form-data',
-	                    processData : false,
-	                    contentType : false,
-	                    cache : false,
-	                    timeout : 600000,
-	                    url : 'uploadimage.le',
-	                    dataType : 'JSON',
-	                    data : rformData,
-	                    success : function(result) {
-	                        //이 부분을 수정해서 다양한 행동을 할 수 있으며,
-	                        //여기서는 데이터를 전송받았다면 순수하게 OK 만을 보내기로 하였다.
-	                        //-1 = 잘못된 확장자 업로드, -2 = 용량초과, 그외 = 성공(1)
-	                        if (result === -1) {
-	                            alert('jpg, gif, png, bmp 확장자만 업로드 가능합니다.');
-	                            // 이후 동작 ...
-	                        } else if (result === -2) {
-	                            alert('파일이 10MB를 초과하였습니다.');
-	                            // 이후 동작 ...
-	                        } else {
-	                            alert('이미지 업로드 성공');
-	                            // 이후 동작 ...
-	                        }
-	                    }
-	                    //전송실패에대한 핸들링은 고려하지 않음
-	                });
-	            });
+				
 	            // <input type=file> 태그 기능 구현
-	            $('#attach input[type=file]').change(function() {
+	            $('#Rattach input[type=file]').change(function() {
 	                raddPreview($(this)); //preview form 추가하기
 	            });
 	        });
 			</script>
+			<input type="hidden" id="hiddenCurrValue" name="CurrResult">
 			</div>
 			<div class="col-sm-12">
 				<div id="target" style="height: 60px;"></div>
@@ -686,10 +819,14 @@
 			</div>
 			<h6>　</h6>
 			<div align="right">
-				<button class="btn btn-secondary" style="margin-right: 5%;">수정하기</button>
+				<button type="button" class="btn btn-secondary" id="submitBtn" style="margin-right: 5%;">신청하기</button>
 			</div>
-			
 		</form>
+		<form id="ruploadForm" style="display: none;"></form>
+		<form id="cuploadForm" style="display: none;"></form>
+		<form id="tuploadForm" style="display: none;"></form>
+		<script>
+		</script>
 	</div>
 </body>
 

@@ -75,6 +75,7 @@
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0
+		order by l_num desc
 	</select>
 	<select id="getCategoryListCount" parameterType="string" resultType="_int">
 		select count(*)
@@ -89,6 +90,7 @@
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0 and l_category=#{l_category}
+		order by l_num desc
 	</select>
 	<select id="selectLecture" parameterType="_int" resultType="map">
 		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name
@@ -177,12 +179,36 @@
 		set l_origin_name = #{ l_origin_name }, l_changed_name = #{l_changed_name}
 		where l_num = #{ l_num } and l_file_level=0
 	</update>
-	<select id="openSeq" resultType="_int">
-		select lecture_seq.nextval
-		from dual
-	</select>
 	<select id="findValue" resultType="_int">
 		select count(*)
 		from lecture
 	</select>
+	<delete id="dropLectureImage" parameterType="hashmap">
+		delete from lecture_image
+		where l_num = #{l_num} and l_file_level = #{MCR}
+	</delete>
+	<update id="updateLecture" parameterType="Lecture">
+		update lecture
+		set l_title = #{l_title}, l_category = #{l_category}, l_content=#{l_content}, l_price=#{l_price}, l_system=#{l_system}, l_address=#{l_address}, l_object=#{l_object}
+		where l_num = #{l_num}
+	</update>
+	<update id="confirmLecture" parameterType="_int">
+		update lecture
+		set l_confirm = 'Y'
+		where l_num = #{l_num}
+	</update>
+	<update id="denyLecture" parameterType="_int">
+		update lecture
+		set l_status = 'N'
+		where l_num = #{l_num}
+	</update>
+	<select id="deleteLecture" parameterType="_int" resultType="hashmap">
+		select *
+		from lecture_image
+		where l_num = #{l_num}
+	</select>
+	<delete id="deleteLectureImage">
+		delete from lecture_image
+		where l_num = #{l_num}
+	</delete>
 </mapper>

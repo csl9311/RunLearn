@@ -18,16 +18,16 @@ public interface LectureService {
 	
 	ArrayList<Lecture> selectMyLectureList(PageInfo pi, String id); // 수강중인 강의 정보 조회(마이페이지)+
 	
-	int acceptLecture(int l_num); // 관리자가 강의 신청을 허가 할때
-	int notAcceptLecture(int l_num); // 관리자가 강의 신청을 불허 할때
+	int confirmLecture(int l_num); // 관리자가 강의 신청을 허가 할때+
+	int denyLecture(int l_num); // 관리자가 강의 신청을 불허 할때+
 	int permissionLecture(Lecture l); // 튜터가 강의 신청을 할때+
 	
 	HashMap<String, String> selectLecture(int l_num); // 강의 정보 조회+
 	ArrayList selectLectureImage(HashMap<String, Integer> map);// 강의 정보의 이미지 조회+
-	int insertLecture(Lecture l); // 강의 등록?
-	int updateLecture(Lecture l); // 강의 수정?
-	int deleteLecture(int l_num); // 강의 삭제 (이미지파일 삭제해줘야함)
-
+	int updateLecture(Lecture l); // 강의 수정+
+	ArrayList deleteLecture(int l_num); // 강의 삭제 (이미지파일 삭제용 이름찾기)+
+	int deleteLectureImage(int l_num); // 강의 이미지 DB에서 삭제+
+	
 	Lecture_Each classEnter(HashMap<String, Integer> map); // 강의의 제 n화를 선택했을때+
 	ArrayList classList(int l_num);//제 n화 강의에서 나올 나머지 강의 리스트 가져오기+
 	HashMap<String, Object> mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때+
@@ -38,26 +38,20 @@ public interface LectureService {
 	
 	int insertLecture_Image(Lecture_Image li); // 강의 메인이미지 업로드+
 	int insertLecture_cImage(Lecture_Image li); //강의 상세,커리큘럼 이미지 추가+
-	int updateLecture_mainImage(Lecture_Image li); // 강의 메인 이미지 수정
-	int dropLectureImage(Lecture_Image li); //이미지 수정시 강의 이미지 제거.
-	int updateLecture_Image(Lecture_Image li); // 강의 이미지 수정
+	int dropLectureImage(HashMap<String, Integer> map); //이미지 수정시 강의 이미지 제거.+
 	
 	int insertWishlist(Lecture l, String m_id); // 강의찜목록 등록+
 	int deleteWishlist(int l_num, String m_id); // 강의찜목록에서 삭제+
 	
-	
-	
 	ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi); // 마이페이지 수강목록
 	int selectLectureCount(String userId); // 마이페이지 수강목록 전체 수
-	
-	
 	
 	ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi); // 마이페이지 강의 찜목록
 	int selectNopayLectureCount(String userId); // 마이페이지 강의 찜목록 전체 수
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
-	int openSeq();
 	int findValue();
+	
 
 	
 	

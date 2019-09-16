@@ -239,10 +239,7 @@
             </table>
          </div>
       </div>
-      <c:url value="apply.le" var="update">
-      	<%-- <c:param value="1" name="l_num"/> --%>
-      </c:url>
-      <div class="mentDiv" onclick="location.href='${ update }'">
+      <div class="mentDiv">
           <div class="ment">
              <h2>배우고 싶은 기술이 있다면, 무엇이든 어디에서든</h2>
              <img src="${contextPath}/resources/images/common/logo_footer.png" style="width: 120px; height: 50px;">
