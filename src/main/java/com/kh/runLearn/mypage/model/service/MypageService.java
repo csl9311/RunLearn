@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 
@@ -18,7 +19,7 @@ public interface MypageService {
 
 	int selectNopayLectureCount(String userId); // 강의 찜목록 수
 
-	ArrayList<Map<String, String>> selectTuterLecturePageView(String userId, PageInfo pi); // 튜터목록
+	ArrayList<Map<String, Object>> selectTuterLecturePageView(String userId, PageInfo pi); // 튜터목록
 
 	ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi); // 상품 찜목록
 
@@ -31,6 +32,10 @@ public interface MypageService {
 	Member_Image selectProfile(String userId); // 회원 프로필 사진 
 
 	int tuterLectureCount(String userId); //튜터페이지 강의 수
+
+	Lecture selectLecture(String userId);
+
+
 
 	
 

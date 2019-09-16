@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.mypage.model.dao.MypageDAO;
@@ -42,7 +43,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public ArrayList<Map<String, String>> selectTuterLecturePageView(String userId, PageInfo pi) { // 튜터 목록
+	public ArrayList<Map<String, Object>> selectTuterLecturePageView(String userId, PageInfo pi) { // 튜터 목록
 		
 		return myDAO.selectTuterLecturePageView(userId, pi);
 	}
@@ -83,6 +84,13 @@ public class MypageServiceImpl implements MypageService {
 	
 		return myDAO.tuterLectureCount(userId);
 	}
+
+	@Override
+	public Lecture selectLecture(String userId) {
+		
+		return myDAO.selectLecture(userId);
+	}
+
 
 	
 
