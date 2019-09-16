@@ -31,7 +31,7 @@
 
 	<insert id="insertBoard" parameterType="Board">
 		insert into board
-		values(board_seq.nextval, #{b_title}, #{b_content}, sysdate, #{b_category}, 'Y', 0, #{m_id})
+		values(board_seq.nextval, #{b_title}, #{b_content}, sysdate, #{b_category}, 'Y', 0, #{m_id}, #{b_subcategory})
 	</insert>
 	
 	<update id="deleteBoard" parameterType="_int">

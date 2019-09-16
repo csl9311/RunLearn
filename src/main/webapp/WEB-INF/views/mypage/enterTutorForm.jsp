@@ -92,7 +92,7 @@
 						</tr>
 						<tr>
 							<td colspan="6" style="width: 100%; padding: 50px;">
-								<textarea id="bContent" name="b_content"></textarea>
+								<textarea id="bContent" name="b_content">1. 강의 주 카테고리: &#13;&#10;2. 신청사유: </textarea>
 							</td>
 						</tr>
 					</table>

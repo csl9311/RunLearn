@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.kh.runLearn.lecture.model.service.LectureService;
+import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 import com.kh.runLearn.product.model.service.ProductService;
 
 @Controller
@@ -28,6 +29,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		ArrayList<Lecture_Image> hotList = lService.selectHotLecture();
+		model.addAttribute("list", hotList);
 		return "home";
 	}
 	

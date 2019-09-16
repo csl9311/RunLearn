@@ -15,6 +15,7 @@
 		margin: 50px auto;
 		width: 95%;
 		text-align: left;
+		font-size: 18px;
 		border-collapse: collapse;
 		border-top: 2px solid #3d4045;
 	}
@@ -22,10 +23,6 @@
 	.centerDetailBack tr {
 		border-bottom: 1px solid #3d4045;
 		font-weight: 700;
-	}
-	
-	#bTitleTr {
-		font-size: 18px;
 	}
 	
 	#nSubTr {
@@ -39,14 +36,14 @@
 	
 	.centerDetailBack th {
 		background-color: #f2f2f2;
-	    width: 15%;
+	    width: 20%;
 	}
 	
 	#bContent{
 		width: 100%;
 		height: 300px;
 		resize: none;
-		font-size: 16px;
+		font-weight: 400;
 		border: 1px solid lightgray;
 		outline: none;
 	}
@@ -58,6 +55,11 @@
 	    font-size: 15px;
 	    color: white;
 	    border-radius: 4px;
+	}
+	
+	.centerDetailBack select {
+		width: 17%;
+		height: 30px;
 	}
 	
 	.centerDetailBack button:hover {
@@ -93,11 +95,25 @@
 					<table>
 						<tr id="bTitleTr">
 							<th>제목</th>
-							<td colspan="2"><input type="text" name="b_title"></td>
+							<td><input type="text" name="b_title"></td>
 						</tr>
 						<tr>
-							<td colspan="6" style="width: 100%; padding: 50px;">
+							<th>세부 카테고리</th>
+							<td>
+								<select>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th rowspan="2">내용</th>
+							<td style="width: 100%; padding: 50px;">
 								<textarea id="bContent" name="b_content"></textarea>
+								<c:if test="b_category eq '신고글'">
+								<p>dd</p>
+								</c:if>
 							</td>
 						</tr>
 					</table>

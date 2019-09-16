@@ -157,7 +157,9 @@
 						<th style="width: 500px;">제목</th>
 						<th style="width: 100px;">작성자</th>
 						<th style="width: 100px;">작성일</th>
+						<c:if test="b_category eq '공지사항'">
 						<th style="width: 100px;">조회수</th>
+						</c:if>
 					</tr>
 					<c:forEach var="l" items="${ list }">
 					<c:url var="bdetail" value="cCenterDetailView.do">
@@ -175,7 +177,9 @@
 						<td>${ l.m_id }</td>
 						</c:if>
 						<td>${ l.b_reg_date }</td>
+						<c:if test="b_category eq '공지사항'">
 						<td>${ l.b_count }</td>
+						</c:if>
 					</tr>
 					</c:forEach>
 				</table>

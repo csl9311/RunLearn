@@ -92,6 +92,7 @@ public class LectureDAO {
 		return sqlSession.insert("lectureMapper.insertLecture", le);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지강의찜목록
 
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
@@ -117,6 +118,10 @@ public class LectureDAO {
 	// home.jsp에 최신강의 조회
 	public ArrayList<Map<String, String>> selectNewLectureList() {
 		return (ArrayList) sqlSession.selectList("lectureMapper.selectNewLectureList");
+	}
+
+	public ArrayList<Lecture_Image> selectHotLectureList() {
+		return (ArrayList) sqlSession.selectList("lectureMapper.selectHotLectureList");
 	}
 
 }
