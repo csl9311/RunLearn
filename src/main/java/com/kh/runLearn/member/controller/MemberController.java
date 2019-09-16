@@ -161,6 +161,19 @@ public class MemberController {
 		return mv;
 	}
 	
+	/* 이메일 중복확인 */
+	@RequestMapping("checkEmailo.do")
+	public ModelAndView checkEmail(ModelAndView mv, String m_email) throws IOException {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+
+		boolean isUsable = mService.checkEmailo(m_email) == 0 ? true : false;
+
+		map.put("isUsable", isUsable);
+		mv.addAllObjects(map);
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
 	/* 회원가입 */
 
 	@RequestMapping(value = "minsert.do", method = RequestMethod.POST )
@@ -276,6 +289,7 @@ public class MemberController {
 			if(isUsable == true) {
 				int random = (int)(Math.random() * 10000);
 				phoneCheck = random;
+				System.out.println("인증번호 확인용" + random);
 				
 				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 				
@@ -359,13 +373,17 @@ public class MemberController {
 	
 	/* 아이디 찾기 */
 	@RequestMapping("findmemberid.do") 
-	public ModelAndView findMember(Member m,ModelAndView mv) {
+	public ModelAndView findMember(Member m, ModelAndView mv) {
 	
 		Member member = mService.findMember(m); 
-	
+		System.out.println(m);
+		Member_Image mi = mService.findMemberImg(m);
+		System.out.println(mi);
+		
 		if(member != null) {
-			mv.addObject("member", member) 
-			.setViewName("member/findResultView"); 
+			mv.addObject("member", member);
+			mv.addObject("member_img", mi);
+			mv.setViewName("member/findResultView");
 		} else {
 			throw new MemberException("회원정보가 없어요 8ㅅ8"); 
 		}

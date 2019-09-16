@@ -135,7 +135,6 @@ margin:0 auto;
 font-size:12px; color:#fff;
 vertical-align:middle;
 overflow:hidden;
-background-image: url(${contextPath}/resources/images/member/20190905142135.jpg);
 background-size: contain;
 }
 .nickarea{
@@ -159,8 +158,8 @@ background-size: contain;
 			<div class="find">
 				<p>입력한 정보와 일치하는 아이디입니다.</p>
 				<hr>
-				<div id="profileImg"><div class="nickarea"> ${ member.m_nickname }</div></div><h3>${ member.m_id }</h3>
-				<input type="hidden" name="m_id" value="${ member.m_id }">
+				<div id="profileImg" style="background-image: url(${contextPath}/resources/images/member/${member_img.m_changed_name});"><div class="nickarea"> ${ member.m_nickname}</div></div><h3>${ member.m_id}</h3>
+				<input type="hidden" name="m_id" value="${ member.m_id}">
 			</div>
 		</div>
 	

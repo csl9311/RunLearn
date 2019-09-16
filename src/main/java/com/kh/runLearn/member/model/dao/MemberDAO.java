@@ -56,6 +56,10 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkEmail2",m);
 	}
 	
+	public int checkEmailo(String m_email) {
+		return sqlSession.selectOne("memberMapper.checkEmailo",m_email);
+	}
+	
 	public String checkPw(String id) {
 		return sqlSession.selectOne("memberMapper.selectPw", id);
 	}
@@ -67,7 +71,11 @@ public class MemberDAO {
 	public int pwChange(Member m) {
 		return sqlSession.update("memberMapper.pwChange", m);
 	}
-
+	
+	public Member_Image findMemberImg(Member m) {
+		return sqlSession.selectOne("memberMapper.findImage", m);
+	}
+	
 	 public int getAllUserCount() {//회원수 가지고오기
 	      return sqlSession.selectOne("memberMapper.getAllUserCount");
 	   }

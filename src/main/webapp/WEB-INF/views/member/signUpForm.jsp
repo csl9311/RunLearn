@@ -81,6 +81,18 @@
 	font-size: 14px;
 }
 
+.mt{
+	padding-left: 10px;
+	color: #6c757d;
+	font-size: 14px;
+}
+
+.mc{
+	padding-left: 10px;
+	color: #6c757d;
+	font-size: 14px;
+}
+
 .pnc{
 	padding-left: 10px;
 	color: #6c757d;
@@ -324,9 +336,62 @@ span.suc1{color: green;}
 					</script>
 				<div class="form-group">
 					<p class="title-f"><em class="color-red">* </em>이메일</p>
-					<input type="text" class="form-control" id="email" name="m_email" placeholder="email333@naver.com"> 
-					<span id="np" class="fontA"></span>
+					<input type="text" class="form-control" id="m_email" name="m_email" placeholder="email333@naver.com">
+					<input type="hidden" id="check4" value="0">
+					<span id="mp" class="fontA"></span>
+					<span class="mt">아이디, 비밀번호 찾기에 사용됩니다. </span>
+					<span class="mc ok">사용 가능한 이메일입니다.</span>
+					<span class="mc error1">올바른 이메일 주소를 입력해주세요.</span>
+					<span class="mc error2">사용중인 이메일입니다.</span>
+					<span class="mc error3">필수 정보입니다.</span>
 				</div>
+				
+				<script>
+				var m_email = $('#m_email');
+				
+				$(".mc").hide();
+				$("#m_email").blur(function(){
+					var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-z]([-_.]?[0-9a-z])*.[a-z]{2,3}$/;
+					if(m_email.val().length == 0){
+						$(".mt").hide();
+						$(".mc").hide();
+						$(".mc.error3").show();
+						return;
+					} if(!regExp.test(m_email.val())){
+						$(".mc").hide();
+						$(".mc.error1").show();
+						$(".mt").hide();
+						$("#check4").val(0);							
+						return;										
+					} else {
+						$(".mc").hide();
+						$("#check4").val(1);
+					}
+					$.ajax({
+						url: "checkEmailo.do",
+						data: {m_email: m_email.val()},
+						success: function(data){
+							if(data.isUsable == true){
+								$(".mt").hide();
+								$(".mc").hide();
+								$(".mc.ok").show();
+								$("#check4").val(1);
+							} else {
+								$(".mc.ok").hide();
+								$(".mt").hide();
+								$(".mc.error2").show();											
+								$("#check4").val(0)
+							}
+						}, error: function(jqxhr, textStatus, errorThrown){
+							console.log("ajax 처리 실패");
+							console.log(jqxhr);
+							console.log(textStatus);
+							console.log(errorThrown);
+						}
+					});
+				});
+				</script>
+				
 				<p class="title-f"><em class="color-red">* </em>전화번호</p>
 				<div class="input-group mb-2">
 					<input type="text" class="form-control" name="m_phone" id="phoneNum" onKeyup="inputPhoneNumber(this);" maxlength="13" placeholder="010-1234-5678" aria-describedby="button-addon2">
@@ -1409,10 +1474,14 @@ span.suc1{color: green;}
 					$("#phone").focus();
 					return false;
 				} else if($("#checkr").val() == 0) {
-					alert("휴대전화 인증을 완료해주세요.")
+					alert("휴대전화 인증을 완료해주세요.");
+					return false;
 				} else if(postNum == "" || daddress == "") {
 					alert("주소를 입력해주세요.");
 					$("#sample4_detailAddress").focus();
+					return false;
+				} else if($("#check3").val() == 0) {
+					alert("이메일을 확인해주세요");
 					return false;
 				} else if($("input[name='chk']:checked").length < 2) {
 					alert("모든 약관에 동의해주세요.");

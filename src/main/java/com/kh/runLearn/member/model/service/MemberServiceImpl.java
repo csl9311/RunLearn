@@ -127,6 +127,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int checkEmailo(String m_email) {
+		return mDAO.checkEmailo(m_email);
+	}
+	
+	@Override
 	public String checkPw(String id) {
 		return mDAO.checkPw(id);
 	}
@@ -141,7 +146,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.pwChange(m);
 	}
 	
-
+	@Override
+	public Member_Image findMemberImg(Member m) {
+		return mDAO.findMemberImg(m);
+	}
 	@Override
 	public ArrayList<Lecture> selectLectureMember(String userId) {
 		// TODO Auto-generated method stub
@@ -178,5 +186,4 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 	
-
 }
