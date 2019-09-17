@@ -91,4 +91,8 @@ public class ProductDAO {
 		sqlSession.update("productMapper.deleteDetailImg", p_num);
 		return sqlSession.update("productMapper.updateDetailImg", piList);
 	}
+
+	public void deleteProduct(int p_num) {
+		sqlSession.update("productMapper.deleteProduct", p_num);
+	}
 }

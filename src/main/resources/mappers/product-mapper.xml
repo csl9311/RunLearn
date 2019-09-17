@@ -114,7 +114,7 @@
 		INSERT ALL
 		<foreach collection="list" item="item" index="index" separator=" ">
 			INTO PRODUCT_OPTION VALUES(
-				#{item.p_option}, #{item.p_optionPrice}, #{item.p_stock}, #{item.p_num}
+				#{item.p_option}, #{item.p_num}, #{item.p_optionPrice}, #{item.p_stock}
 			)
 		</foreach>
 		SELECT * FROM DUAL
@@ -123,7 +123,7 @@
 	<update id="updateThumbnail" parameterType="Product_Image">
 		UPDATE PRODUCT_IMAGE SET
 			P_CHANGED_NAME = #{p_changed_name},
-			P_ORIGIN_NAME = #{p_origin_name},
+			P_ORIGIN_NAME = #{p_origin_name}
 		WHERE P_NUM = #{p_num}
 	</update>
 <!-- 상세이미지 수정 -->
@@ -139,8 +139,16 @@
 		</foreach>
 		SELECT * FROM DUAL
 	</insert>
-
 <!-- 상품정보 수정 -->
+
+<!-- 상품 삭제 -->
+	<update id="deleteProduct" parameterType="_int">
+		UPDATE PRODUCT SET
+			P_STATUS = 'N',
+			P_MODIFY_DATE = SYSDATE
+		WHERE P_NUM = ${p_num}
+	</update>
+
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map" resultType="hashmap">

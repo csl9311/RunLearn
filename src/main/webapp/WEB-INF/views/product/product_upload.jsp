@@ -45,7 +45,17 @@
 					</tr>
 					<tr>
 						<td>카테고리</td>
-						<td><input id="p_category" type="text" name="p_category" required="required"></td>
+						<td>
+							<select id="p_category" name="p_category" required="required">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="material">재료</option>
+							</select>
+							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
+						</td>
 					</tr>
 					<tr id="price">
 						<td>기본가격(￦)</td>

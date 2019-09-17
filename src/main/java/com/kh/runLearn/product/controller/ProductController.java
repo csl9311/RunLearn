@@ -281,4 +281,10 @@ public class ProductController {
 		}
 		return "redirect:getList.product";
 	}
+	
+	@RequestMapping("delete.product")
+	public String deleteProduct(@ModelAttribute Product p) {
+		pService.deleteProduct(p.getP_num());
+		return "redirect:getList.product";
+	}
 }

@@ -89,4 +89,9 @@ public class ProductServiceImpl implements ProductService {
 		return pDAO.updateDetailImg(piList, p_num);
 	}
 
+	@Override
+	public void deleteProduct(int p_num) {
+		pDAO.deleteProduct(p_num);
+	}
+
 }

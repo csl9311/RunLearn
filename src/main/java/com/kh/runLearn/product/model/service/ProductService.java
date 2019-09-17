@@ -29,5 +29,6 @@ public interface ProductService {
 	int updateProductOption(ArrayList<Object> poList, int p_num);
 	int updateThumbnail(Product_Image pi);
 	int updateDetailImg(ArrayList<Product_Image> piList, int p_num);
+	void deleteProduct(int p_num);
 	
 }

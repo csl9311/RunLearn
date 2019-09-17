@@ -23,7 +23,7 @@
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
 			<form action="update.productInfo" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
-				<input type="hidden" name="p_num" value="${ list.get(0).P_NUM}">
+				<input type="hidden" name="p_num" value="${ list.get(0).P_NUM }">
 				<input type="hidden" name="m_id" value="${ sessionScope.loginUser.m_id }">
 				
 				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 수정</button>
@@ -70,7 +70,7 @@
 					</tr>
 					<tr>
 						<td>옵션추가</td>
-						<td>${ list.get(0).P_OPTIONCHECK }
+						<td>
 							<input id="p_optionCheck" name="p_optionCheck" type="hidden" value="${ list.get(0).P_OPTIONCHECK }">
 							<c:if test="${ list.get(0).P_OPTIONCHECK eq 'O' }">
 								<input id="optionO" type="radio" name="option" value="O" required="required" checked>
@@ -87,27 +87,30 @@
 						</td>
 					</tr>
 					
-					<c:forEach items="${ poList }" var="po">
-						<tr id="option' + j + '">
+					<c:forEach items="${ poList }" var="po" varStatus="i"> 
+						<tr id="option${ i.index }">
 							<td>옵션</td>
 							<td><input type="text" name="p_option" required="required" value="${ po.p_option }"></td>
 						</tr>
-						<tr id="price' + j + '">
+						<tr id="price${ i.index }">
 							<td>가격(￦)</td>
 							<td><input type="number" min="0" step="100" name="p_optionPrice" required="required" value="${ po.p_optionPrice }"></td>
 						</tr>
-						<tr id="stock' + j + '">
+						<tr id="stock${ i.index }">
 							<td>재고</td>
 							<td><input type="number" min="0" name="p_stock" required="required" value="${ po.p_stock }"></td>
 						</tr>
-						<tr id="optionAddNDelete' + j + '">
-							<td><input id="add' + j + '" class="btn" type="button" value="옵션 추가" onclick="optionAdd('+ j +');"></td>
-							<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete('+ j +');"></td>
+						<tr id="optionAddNDelete${ i.index }">
+							<c:if test="${ i.last == false}">
+								<td><input id="add${ i.index }" class="btn" type="button" value="옵션 추가" style="display:none;" onclick="optionAdd(${ i.index });"></td>
+							</c:if>
+							<c:if test="${ i.last == true }">
+								<td><input id="add${ i.index }" class="btn" type="button" value="옵션 추가" onclick="optionAdd(${ i.index });"></td>
+							</c:if>
+							
+							<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete(${ i.index });"></td>
 						</tr>
 					</c:forEach>
-					
-					
-					
 				</table>
 				<div class="row center">
 					<c:if test="${ list.get(0).M_ID eq loginUser.m_id  }">
@@ -120,6 +123,15 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		function deleteProduct(){
+			var check = confirm("삭제하시겠습니까?");
+			if(check){
+				location.href="delete.product?p_num=${ list.get(0).P_NUM }";
+			} else {
+				alert("취소하셨습니다.");
+			}
+		}
+		
 <%-- 이미지 미리보기 --%>
 	<%-- 썸네일 미리보기 --%>
 		function uploadThumbnail(){
@@ -204,7 +216,6 @@
 		var $table = $('#productDetail');
 		
 		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		$('#optionX').prop('checked', true).prop('disabled', true);
 		
 		$('#optionO').click(function(){
 			$('#optionO').prop('disabled', 'disabled');
@@ -274,7 +285,7 @@
 	
 <%-- 옵션 끝 --%>
 
-
+		
 	</script>
 </body>
 <c:import url="../common/footer.jsp" />
