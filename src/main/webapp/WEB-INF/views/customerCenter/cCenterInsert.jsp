@@ -9,29 +9,26 @@
 	.centerDetailBack {
 		height: auto;
 		margin-top: 60px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.centerDetailBack table {
 		position: relative;
 		margin: 50px auto;
 		width: 95%;
 		text-align: left;
-		font-size: 18px;
+		font-size: 16px;
 		border-collapse: collapse;
-		border-top: 2px solid #3d4045;
+		border-top: 1px solid #3d4045;
 	}
 	
 	.centerDetailBack tr {
-		border-bottom: 1px solid #3d4045;
-		font-weight: 700;
-	}
-	
-	#nSubTr {
-		font-size: 14px;
+		border-bottom: 1px solid gray;
 	}
 	
 	.centerDetailBack th, .centerDetailBack td {
 		padding: 10px 30px;
 		margin: 0px;
+		font-weight: 700;
 	}
 	
 	.centerDetailBack th {
@@ -60,6 +57,7 @@
 	.centerDetailBack select {
 		width: 17%;
 		height: 30px;
+		font-size: 15px;
 	}
 	
 	.centerDetailBack button:hover {
@@ -77,14 +75,17 @@
 		border-bottom: 1px solid #ff005a;
 	}
 	
-	#bContent:hover, #bContent:focus {
+	.centerDetailBack select {
+		outline: none;
+	}
+	
+	#bContent:hover, #bContent:focus, .centerDetailBack select:hover, .centerDetailBack select:focus {
 		border: 1px solid #ff005a;
 	}
 </style>
 </head>
 <body>
 	<c:import url="../common/header.jsp"/>
-	
 	<div class="container centerDetailBack">
 		<form action="cCenterInsert.do" method="POST">
 			<input type="hidden" name="m_id" value="${ loginUser.m_id }">
@@ -100,10 +101,10 @@
 						<tr>
 							<th>세부 카테고리</th>
 							<td>
-								<select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
+								<select name="b_subcategory">
+									<option>상품</option>
+									<option>강의</option>
+									<option>기타</option>
 								</select>
 							</td>
 						</tr>
@@ -111,8 +112,8 @@
 							<th rowspan="2">내용</th>
 							<td style="width: 100%; padding: 50px;">
 								<textarea id="bContent" name="b_content"></textarea>
-								<c:if test="b_category eq '신고글'">
-								<p>dd</p>
+								<c:if test="${ b_category eq '신고글' }">
+								<div>사진첨부div</div>
 								</c:if>
 							</td>
 						</tr>

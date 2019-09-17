@@ -9,14 +9,16 @@
 	.centerDetailBack {
 		height: auto;
 		margin-top: 60px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
+	
 	.centerDetailBack table {
 		position: relative;
 		margin: 50px auto;
 		width: 95%;
 		text-align: left;
 		border-collapse: collapse;
-		border-top: 2px solid #3d4045;
+		border-top: 1px solid #3d4045;
 	}
 	
 	.centerDetailBack tr {

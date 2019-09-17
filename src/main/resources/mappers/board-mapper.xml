@@ -9,11 +9,12 @@
 	</select>
 	
 	<select id="selectBoardList" parameterType="Board" resultType="Board">
-		select *
-		from board
-		where b_status = 'Y'
-			and b_category = #{b_category}
-		order by B_REG_DATE desc
+		select rownum, l.*
+    		from (select *
+            		from board
+            		where b_status = 'Y'
+						and b_category = '공지사항'
+            		order by B_REG_DATE desc) l
 	</select>
 	
 	<update id="updateCount" parameterType="_int">

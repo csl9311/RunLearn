@@ -154,10 +154,13 @@
 				<table>
 					<tr class="thCol">
 						<th style="width: 100px;">글 번호</th>
+						<c:if test="${ b_category ne '공지사항' }">
+						<th style="width: 100px;">카테고리</th>
+						</c:if>
 						<th style="width: 500px;">제목</th>
 						<th style="width: 100px;">작성자</th>
 						<th style="width: 100px;">작성일</th>
-						<c:if test="b_category eq '공지사항'">
+						<c:if test="${ b_category eq '공지사항' }">
 						<th style="width: 100px;">조회수</th>
 						</c:if>
 					</tr>
@@ -169,6 +172,9 @@
 					</c:url>
 					<tr class="tdCol" onclick="location.href='${bdetail}'">
 						<td>${ l.b_num }</td>
+						<c:if test="${ b_category ne '공지사항' }">
+						<td>${ l.b_subcategory }</td>
+						</c:if>
 						<td>${ l.b_title }</td>
 						<c:if test="${ l.m_id eq 'admin' }">
 						<td>관리자</td>
@@ -177,7 +183,7 @@
 						<td>${ l.m_id }</td>
 						</c:if>
 						<td>${ l.b_reg_date }</td>
-						<c:if test="b_category eq '공지사항'">
+						<c:if test="${ b_category eq '공지사항' }">
 						<td>${ l.b_count }</td>
 						</c:if>
 					</tr>
