@@ -59,15 +59,6 @@ public class ProductServiceImpl implements ProductService {
 		return pDAO.selectNewProductList();
 	}
 
-	@Override
-	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이페이지 상품 찜목록
-		return pDAO.selectProductView(userId, pi);
-	}
-
-	@Override
-	public int selectPlistCount(String userId) { // 마이페이지 상품 찜목록 수
-		return pDAO.selectPlistCount(userId);
-	}
 
 	@Override
 	public int updateProduct(Product p) {

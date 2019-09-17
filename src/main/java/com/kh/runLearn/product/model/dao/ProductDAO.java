@@ -43,18 +43,9 @@ public class ProductDAO {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProduct", p_num);
 	}
 
-	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이 페이지 상품 찜목록
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("productMapper.selectProductView", userId, rowBounds);
-	}
 
 	public ArrayList<Product_Image> selectProductImg(int p_num) {
 		return (ArrayList) sqlSession.selectList("productMapper.selectProductImg", p_num);
-	}
-
-	public int selectPlistCount(String userId) { // 마이페이지 상품 찜목록수
-		return sqlSession.selectOne("productMapper.selectPlistCount", userId);
 	}
 
 	public ArrayList<Product_Option> selectProductOption(int p_num) {
