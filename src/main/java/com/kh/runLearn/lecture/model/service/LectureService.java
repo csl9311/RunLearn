@@ -44,11 +44,6 @@ public interface LectureService {
 	int insertWishlist(Lecture l, String m_id); // 강의찜목록 등록+
 	int deleteWishlist(int l_num, String m_id); // 강의찜목록에서 삭제+
 	
-	ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi); // 마이페이지 수강목록
-	int selectLectureCount(String userId); // 마이페이지 수강목록 전체 수
-	
-	ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi); // 마이페이지 강의 찜목록
-	int selectNopayLectureCount(String userId); // 마이페이지 강의 찜목록 전체 수
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
 	ArrayList<Lecture_Image> selectHotLecture(); // home.jsp에 인기강의 조회
