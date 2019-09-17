@@ -75,13 +75,16 @@
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0
-	</select> 
+		order by l_num desc
+	</select>
+  
 	<select id="getCategoryListCount" parameterType="string" resultType="_int">
 		select count(*)
 		from lecture
 		where l_status='Y' and l_confirm='Y' and l_category = #{l_category}
 		order by l_num desc
 	</select>
+  
 	<select id="selectLectureCategoryList" parameterType="string" resultType="hashmap">
 		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, l_image_num, l_origin_name, l_changed_name, m_name, m_nickname, m_changed_name
 		from lecture l
@@ -89,7 +92,9 @@
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_confirm = 'Y' and l_status ='Y' and l_file_level=0 and l_category=#{l_category}
+		order by l_num desc
 	</select>
+  
 	<select id="selectLecture" parameterType="_int" resultType="map">
 		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name
 		from lecture l
@@ -97,21 +102,31 @@
 			left join member_image mi using(m_id)
 		where l_num=#{l_num}
 	</select>
+  
 	<select id="selectLectureImage" parameterType="hashmap" resultType="map">
 		select l_image_num, l_origin_name, l_changed_name, l_file_level, l_num
 		from lecture_image
 		where l_num=#{l_num} and l_file_level = #{MCR}
 	</select>
+  
 	<select id="classEnter" parameterType="hashmap" resultType="Lecture_Each">
 		select *
 		from lecture_each
 		where l_num = #{l_num} and l_each_num=#{l_each_num}
 	</select>
+  
 	<select id="classList" parameterType="_int" resultType="map">
 		select *
 		from lecture_each
 		where l_num = #{l_num}
 	</select>
+  
+	<select id="selectLectureFile" parameterType="_int" resultType="Lecture_File">
+		select *
+		from lecture_file
+		where l_each_num = #{l_each_num}
+	</select>
+  
 	<select id="mediaEnter" parameterType="_int" resultType="map">
 		select *
 		from lectureFileView
@@ -134,7 +149,7 @@
 	
 	<insert id="insertLecture_Image" parameterType="Lecture_Image">
 		insert into lecture_image
-		values(lecture_image_seq.nextval, #{ l_origin_name }, #{ l_changed_name }, #{l_file_level}, sysdate, lecture_seq.currval)
+		values(lecture_image_seq.nextval, #{ l_origin_name }, #{ l_changed_name }, #{l_file_level}, sysdate, #{ l_num })
 	</insert>
 	<insert id="insertLecture" parameterType="Lecture_Each">
 		insert into lecture_each
@@ -144,11 +159,41 @@
 		insert into lecture_file
 		values(lecture_file_seq.nextval, #{ l_origin_name }, #{l_changed_name}, #{l_file_video}, lecture_each_seq.currval)
 	</insert>
-	
-		<select id="selectTuterLecturePageView" parameterType="string" resultType="hashmap">
-		select *
-		from TUTER_LECTUREVIEW
-		where M_ID = #{m_id} and L_STATUS = 'Y'
+	<update id="updateLecture_Image" parameterType="Lecture_Image">
+		update lecture_image
+		set l_origin_name = #{ l_origin_name }, l_changed_name = #{l_changed_name}
+		where l_num = #{ l_num } and l_file_level=0
+	</update>
+	<select id="findValue" resultType="_int">
+		select count(*)
+		from lecture
 	</select>
-	
+	<delete id="dropLectureImage" parameterType="hashmap">
+		delete from lecture_image
+		where l_num = #{l_num} and l_file_level = #{MCR}
+	</delete>
+	<update id="updateLecture" parameterType="Lecture">
+		update lecture
+		set l_title = #{l_title}, l_category = #{l_category}, l_content=#{l_content}, l_price=#{l_price}, l_system=#{l_system}, l_address=#{l_address}, l_object=#{l_object}
+		where l_num = #{l_num}
+	</update>
+	<update id="confirmLecture" parameterType="_int">
+		update lecture
+		set l_confirm = 'Y'
+		where l_num = #{l_num}
+	</update>
+	<update id="denyLecture" parameterType="_int">
+		update lecture
+		set l_status = 'N'
+		where l_num = #{l_num}
+	</update>
+	<select id="deleteLecture" parameterType="_int" resultType="hashmap">
+		select *
+		from lecture_image
+		where l_num = #{l_num}
+	</select>
+	<delete id="deleteLectureImage">
+		delete from lecture_image
+		where l_num = #{l_num}
+	</delete>
 </mapper>

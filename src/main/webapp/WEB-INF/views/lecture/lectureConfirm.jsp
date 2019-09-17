@@ -113,14 +113,9 @@
 			</div>
 			</div>
 			<div class="col-sm-12">
-			<br>
-				<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;"><br>
-				<label style="font-size: 15pt; font-weight: bold;">강사명 : ${ list.M_NAME }</label><br>
-				
-				<label style="font-size: 12pt; font-weight: bold;">연혁</label><br>
-				1999년 첫 탈출 시도<br>
-				2000년 두 번째 탈출 시도<br>
-				2002년 집에 도착<br>
+				<c:forEach var="i" begin="0" end="${ it_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ it_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
 			</div>
 			<div class="col-sm-12">
 			<div id="curr" style="height: 60px;"></div>
@@ -134,7 +129,6 @@
 			</div>
 			</div>
 			<div class="col-sm-12">
-			
 			<c:if test="${ !ir_list.isEmpty() }">
 				<c:forEach var="j" begin="0" end="${ ir_list.size()-1 }" step="1">
 					<img src="${contextPath}/resources/images/lecture/${ ir_list.get(j).L_CHANGED_NAME }" style="width:100%;">
@@ -276,19 +270,39 @@
 				
 			</li>
 		</ul>
+		<ul class="list-group mb-3">
+			<li class="list-group-item" onclick="location.href='#target'">
+				
+				<div>
+					<h5 class="my-0">강의 가격</h5>
+					<br>
+					<h6 class="my-0">${ list.L_PRICE }</h6>
+				</div>
+				
+			</li>
+		</ul>
 		
 		
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
-			<div class="btn btn-primary">결제하기
-			</div>
-			<div class="btn btn-secondary">찜에추가
-			</div>
-			<c:url var="LEMainView" value="lectureEachMainView.le">
+			<c:url var="confirm" value="lectureConfirm.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
-				<c:param name="l_each_num" value="1"/>
 			</c:url>
-			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'">강의보기
-			</div>
+			<div class="btn btn-primary" onclick="location.href='${ confirm }'">요청승인</div>
+			<c:url var="deny" value="lectureDeny.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-secondary" onclick="location.href='${ deny }'">요청거부</div>
+		</div>
+		
+		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+			<c:url var="update" value="lectureUpdateform.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-primary" onclick="location.href='${ update }'">내용수정</div>
+			<c:url var="delete" value="lectureDelete.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-secondary" onclick="location.href='${ delete }'">신청취소</div>
 		</div>
 	</div>
 	<script>

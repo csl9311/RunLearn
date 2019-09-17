@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의신청</title>
+<title>강의수정</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -55,18 +55,19 @@
 	<div class="container" style="min-height: 300px; margin-top: 20px;">
 		<h1>강의 신청</h1>
 		<h6></h6>
-		<form method="post" enctype="Multipart/form-data" action="lectureApply.le" id="ApplyForm">
+		<form method="post" enctype="Multipart/form-data" action="lectureUpdate.le" id="UpdateForm">
+			<input type="hidden" name="l_num" value="${ list.L_NUM }">
 			<div class="col-md-12 mb-4">
 				<div class="row">
 					<h3>강의 제목</h3>
 					<input type="text" class="form-control" name="l_title"
-						placeholder="강의명을 입력해 주세요" value="" required>
+						placeholder="강의명을 입력해 주세요" value="${ list.L_TITLE }" required>
 				</div>
 			</div>
 			<div class="col-md-12 mb-4">
 				<div class="row">
 					<h3>강의 가격</h3>
-					<input type="number" class="form-control" name="l_price" placeholder="강의 가격을 입력해 주세요" value="" step="100" required>
+					<input type="number" class="form-control" name="l_price" placeholder="강의 가격을 입력해 주세요" value="${ list.L_PRICE }" step="100" min="0" required>
 				</div>
 			</div>
 			<h3>카테고리</h3>
@@ -74,62 +75,63 @@
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="design" name="l_category" type="radio"
-							class="custom-control-input" value="디자인" checked required> <label
+							class="custom-control-input" value="디자인" <c:if test='${ list.L_CATEGORY.equals("디자인") }'>checked</c:if> required> <label
 							class="custom-control-label" for="design">디자인</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="working" name="l_category" type="radio"
-							class="custom-control-input" value="실무역량" required> <label
+							class="custom-control-input" value="실무역량" <c:if test='${ list.L_CATEGORY.equals("실무역량") }'>checked</c:if> required> <label
 							class="custom-control-label" for="working">실무역량</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="beautiy" name="l_category" type="radio"
-							class="custom-control-input" value="뷰티" required> <label
+							class="custom-control-input" value="뷰티" <c:if test='${ list.L_CATEGORY.equals("뷰티") }'>checked</c:if> required> <label
 							class="custom-control-label" for="beautiy">뷰티</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="media" name="l_category" type="radio"
-							class="custom-control-input" value="영상" required> <label
+							class="custom-control-input" value="영상" <c:if test='${ list.L_CATEGORY.equals("영상") }'>checked</c:if> required> <label
 							class="custom-control-label" for="media">영상</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="language" name="l_category" type="radio"
-							class="custom-control-input" value="외국어" required> <label
+							class="custom-control-input" value="외국어" <c:if test='${ list.L_CATEGORY.equals("외국어") }'>checked</c:if> required> <label
 							class="custom-control-label" for="language">외국어</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="music" name="l_category" type="radio"
-							class="custom-control-input" value="음악" required> <label
+							class="custom-control-input" value="음악" <c:if test='${ list.L_CATEGORY.equals("음악") }'>checked</c:if> required> <label
 							class="custom-control-label" for="music">음악</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="lifeStyle" name="l_category" type="radio"
-							class="custom-control-input" value="라이프스타일" required> <label
+							class="custom-control-input" value="라이프스타일" <c:if test='${ list.L_CATEGORY.equals("라이프스타일") }'>checked</c:if> required> <label
 							class="custom-control-label" for="lifeStyle">라이프스타일</label>
 					</div>
 				</div>
 				<div class="col-md-3 mb-3">
 					<div class="custom-control custom-radio">
 						<input id="jetech" name="l_category" type="radio"
-							class="custom-control-input" value="제테크" required> <label
+							class="custom-control-input" value="제테크" <c:if test='${ list.L_CATEGORY.equals("제테크") }'>checked</c:if> required> <label
 							class="custom-control-label" for="jetech">제테크</label>
 					</div>
 				</div>
 			</div>
 			<h6>　</h6>
-			<div align="center">
+			<div class="row">
+			<div class="col-md-6" align="center">
 				<h4>메인 이미지추가</h4>
 				<div class="input_wrap">
 					<a href="javascript:" onclick="MainFileUploadAction();" class="my_button">[파일 업로드]</a>
@@ -140,6 +142,12 @@
 						<img id="img"/>
 					</div>
 				</div>
+			</div>
+			<div class="col-md-6" align="center">
+				<h4>이전 메인 이미지</h4>
+				<h6>(※사진을 추가하지 않는경우 이전 자료로 사진이 들어갑니다.)</h6>
+				<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
+			</div>
 			</div>
 			<!-- <div id="MainImg" align="center">
 				<h4>강의 메인 이미지 선택</h4>
@@ -185,8 +193,9 @@
 				});
 			}
 			function mainDeleteImageAction(main_index){
+				$("#input_main_imgs").val("");
 				console.log("index : "+ main_index);
-				sel_files.splice(main_index,1);
+				main_sel_files.splice(main_index,1);
 				var main_img_id = "#main_img_id_"+main_index;
 				$(main_img_id).remove();
 				console.log(main_sel_files);
@@ -228,25 +237,33 @@
 				<label>강의 상세설명</label>
 				<textarea rows="10" cols="" class="form-control"
 					style="resize: none;" name="l_content"
-					placeholder="강의에 대한 상세설명을 적어주세요.&#13;&#10;(※개인정보보호차원에서 연락처기능을 따로 제공하지 않기 때문에, 본인 판단하에 연락처를 이곳에 넣어주십시오.)"></textarea>
+					placeholder="강의에 대한 상세설명을 적어주세요.&#13;&#10;(※개인정보보호차원에서 연락처기능을 따로 제공하지 않기 때문에, 본인 판단하에 연락처를 이곳에 넣어주십시오.)">${ list.L_CONTENT }</textarea>
 			</div>
 			
 			<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-6" align="center">
 				<div id="Cattach">
 	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="cuploadInputBox">[상세 설명 이미지 첨부]</label>
-	                <input id="cuploadInputBox" style="display: none" type="file" name="cfiledata"/>
+	                <input id="cuploadInputBox" style="display: none" type="file" name="cfiledata" accept="image/gif, image/jpeg, image/png"/>
             	</div>
 				<div id="cpreview" class="content" style="width:100%;"></div>
-				
+			</div>
+			<div class="col-md-6" align="center">
+				<h4>이전 상세설명 이미지</h4>
+				<h6>(※사진을 추가하지 않는경우 이전 자료로 사진이 들어갑니다.)</h6>
+				<c:if test="${ !ic_list.isEmpty() }">
+				<c:forEach var="i" begin="0" end="${ ic_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ ic_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+				</c:if>
+				<c:if test="${ ic_list.isEmpty() }">
+					<h5>이전 등록/수정 당시 추가한 이미지가 없습니다.</h5>
+				</c:if>
 			</div>
 			</div>
 			<script type="text/javascript">
 			var cfiles = {};
 	        var cpreviewIndex = 0;
-	 
-	        // image preview 기능 구현
-	        // input = file object[]
 	        function caddPreview(input) {
 	            if (input[0].files) {
 	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
@@ -275,19 +292,14 @@
 	                    reader.readAsDataURL(file);
 	                }
 	            } else
-	                alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+	                alert('invalid file input');
 	        }
-	 
-	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
 	        function cdeletePreview(obj) {
 	            var imgNum = obj.attributes['value'].value;
 	            console.log(imgNum);
 	            delete cfiles[imgNum];
 	            $("#cpreview .preview-box[value=" + imgNum + "]").remove();
 	        }
-	 
-	        //client-side validation
-	        //always server-side validation required
 	        function cvalidation(fileName) {
 	            fileName = fileName + "";
 	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
@@ -303,8 +315,8 @@
 	        }
 	 
 	        $(document).ready(function() {
-	            $('#submitBtn').on('click',function() { 
-	            	
+				var l_num = ${ list.L_NUM };
+				$('#submitBtn').on('click',function() {                        
 	                var cform = $('#cuploadForm')[0];
 	                var cformData = null;
 	                cformData = new FormData(cform);
@@ -315,6 +327,7 @@
 	                   	console.log("c인덱스"+cfiles[index]);
 	                    cformData.append('cfiles', cfiles[index]);
 	                }
+	                cformData.append('l_num', l_num);
 	                $.ajax({
 	                    type : 'POST',
 	                    enctype : 'multipart/form-data',
@@ -322,15 +335,17 @@
 	                    contentType : false,
 	                    cache : false,
 	                    timeout : 600000,
-	                    url : 'contImageInsert.le',
+	                    url : 'contImageUpdate.le',
 	                    data : cformData,
 	                    success : function(result) {
+	                    	var l_num = ${ list.L_NUM };
 	        	                var tform = $('#tuploadForm')[0];
 	        	                var tformData = null;
 	        	                tformData = new FormData(tform);
 	        	    			for (var index = 0; index < tpreviewIndex; index++) {
 	        	                    tformData.append('tfiles', tfiles[index]);
 	        	                }
+	        	    			tformData.append('l_num', l_num);
 	        	                $.ajax({
 	        	                    type : 'POST',
 	        	                    enctype : 'multipart/form-data',
@@ -338,10 +353,11 @@
 	        	                    contentType : false,
 	        	                    cache : false,
 	        	                    timeout : 600000,
-	        	                    url : 'tutorImageInsert.le',
+	        	                    url : 'tutorImageUpdate.le',
 	        	                    data : tformData,
 	        	                    success : function(result) {
 	        	                        $("#hiddenTutoValue").val(result);
+	        	                        var l_num = ${ list.L_NUM };
 	        	        	                var rform = $('#ruploadForm')[0];
 	        	        	                var rformData = null;
 	        	        	                rformData = new FormData(rform);
@@ -352,6 +368,7 @@
 	        	        	                   	console.log(rfiles[index]);
 	        	        	                    rformData.append('rfiles',rfiles[index]);
 	        	        	                }
+	        	        	                rformData.append('l_num', l_num);
 	        	        	                $.ajax({
 	        	        	                    type : 'POST',
 	        	        	                    enctype : 'multipart/form-data',
@@ -359,12 +376,12 @@
 	        	        	                    contentType : false,
 	        	        	                    cache : false,
 	        	        	                    timeout : 600000,
-	        	        	                    url : 'currImageInsert.le',
+	        	        	                    url : 'currImageUpdate.le',
 	        	        	                    dataType : 'JSON',
 	        	        	                    data : rformData,
 	        	        	                    success : function(result) {
 	        	        	                        $("#hiddenCurrValue").val(result);
-	        	        	                        $("#ApplyForm").submit();
+	        	        	                        $("#UpdateForm").submit();
 	        	        	                    }
 	        	        	                    //전송실패에대한 핸들링은 고려하지 않음
 	        	        	                });
@@ -375,9 +392,8 @@
 	                        $("#hiddenContValue").val(result);
 	                    //전송실패에대한 핸들링은 고려하지 않음
 	                });
-	            // <input type=file> 태그 기능 구현
 	            $('#Cattach input[type=file]').change(function() {
-	                caddPreview($(this)); //preview form 추가하기
+	                caddPreview($(this)); 
 	            });
 	        });
 			</script>
@@ -402,13 +418,25 @@
 			</div>
 			<div class="col-sm-12" align="center">
 			<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-6" align="center">
 				<div id="Tattach">
 	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="tuploadInputBox">[강사 소개 이미지 첨부]</label>
-	                <input id="tuploadInputBox" style="display: none" type="file" name="tfiledata"/>
+	                <input id="tuploadInputBox" style="display: none" type="file" name="tfiledata" accept="image/gif, image/jpeg, image/png"/>
             	</div>
 				<div id="tpreview" class="content" style="width:100%;"></div>
-				
+			</div>
+			<div class="col-md-6" align="center">
+				<h4>이전 강사소개 이미지</h4>
+				<h6>(※사진을 추가하지 않는경우 이전 자료로 사진이 들어갑니다.)</h6>
+				<c:if test="${ !it_list.isEmpty() }">
+				<c:forEach var="i" begin="0" end="${ it_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ it_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+				</c:if>
+				<c:if test="${ it_list.isEmpty() }">
+					<h5>이전 등록/수정 당시 추가한 이미지가 없습니다.</h5>
+				</c:if>
+			</div>
 			</div>
 			</div>
 			<script type="text/javascript">
@@ -473,7 +501,7 @@
 	        }
 	 
 	        $(document).ready(function() {
-	            
+	           
 	            // <input type=file> 태그 기능 구현
 	            $('#Tattach input[type=file]').change(function() {
 	                taddPreview($(this)); //preview form 추가하기
@@ -481,7 +509,6 @@
 	        });
 			</script>
 			<input type="hidden" id="hiddentutoValue" name="ContResult"/>
-			</div>
 			<div class="col-sm-12">
 				<div id="curr" style="height: 60px;"></div>
 				<div class="row" style="margin-bottom: 10px;">
@@ -501,13 +528,24 @@
 			</div>
 			<div class="col-sm-12">
 			<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-6" align="center">
 				<div id="Rattach">
 	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="ruploadInputBox">[커리큘럼 이미지 첨부]</label>
-	                <input id="ruploadInputBox" style="display: none" type="file" name="rfiledata"/>
+	                <input id="ruploadInputBox" style="display: none" type="file" name="rfiledata" accept="image/gif, image/jpeg, image/png"/>
             	</div>
 				<div id="rpreview" class="content" style="width:100%;"></div>
-				
+        	</div>
+			<div class="col-md-6" align="center">
+				<h4>이전 커리큘럼 이미지</h4>
+				<h6>(※사진을 추가하지 않는경우 이전 자료로 사진이 들어갑니다.)</h6>
+				<c:if test="${ !ir_list.isEmpty() }">
+				<c:forEach var="i" begin="0" end="${ ir_list.size()-1 }" step="1">
+					<img src="${contextPath}/resources/images/lecture/${ ir_list.get(i).L_CHANGED_NAME }" style="width:100%;">
+				</c:forEach>
+				</c:if>
+				<c:if test="${ ir_list.isEmpty() }">
+					<h5>이전 등록/수정 당시 추가한 이미지가 없습니다.</h5>
+				</c:if>
 			</div>
 			</div>
 			<script type="text/javascript">
@@ -572,7 +610,7 @@
 	        }
 	 
 	        $(document).ready(function() {
-	            
+				
 	            // <input type=file> 태그 기능 구현
 	            $('#Rattach input[type=file]').change(function() {
 	                raddPreview($(this)); //preview form 추가하기
@@ -602,7 +640,7 @@
 				<div class="row">
 					<div class="col-md-12 mb-4">
 						<label>강의 목표</label> <input type="text" class="form-control"
-							name="l_object" placeholder="강의목표를 입력해 주세요" value=""
+							name="l_object" placeholder="강의목표를 입력해 주세요" value="${ list.L_OBJECT }"
 							required>
 					</div>
 				</div>
@@ -664,11 +702,11 @@
 						<label>강의 주소</label> <input type="hidden" id="sample4_postcode"
 							placeholder="우편번호"> <input type="text"
 							class="form-control" id="sample4_roadAddress"
-							placeholder="도로명주소*" name="adr1">
+							placeholder="도로명주소*" value="${ list.L_ADDRESS }" name="adr1" >
 					</div>
 					<div class="col-md-3 mb-3">
 						<label>　</label> <input type="text" class="form-control"
-							id="sample4_detailAddress" name="adr2" placeholder="상세주소*">
+							id="sample4_detailAddress" name="adr2" placeholder="상세주소*(개인정보보호를 위해 수정시 상세주소는 출력되지 않습니다.)">
 					</div>
 					<div class="col-md-2 mb-3" align="center">
 						<div style="height: 40%;"></div>
@@ -695,12 +733,26 @@
 				<div id="mapC" style="width: 100%; height: 355px;">
 					<div id="map" style="width: 100%; height: 350px;"></div>
 				</div>
-
 				<script type="text/javascript"
 					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5&libraries=services"></script>
 				<script>
 				function mapOpen(){
 					$('#mapC').slideDown();
+					
+					$.ajax({
+						url : "imageupload.le",
+						encType : "multipart/form-data",
+						type : "POST",
+						processData : false,
+						contentType : false,
+						cache : false,
+						data : Data,
+						dataType : 'JSON',
+						success : function(data){
+							console.log(data);
+						}
+					});
+					
 					var location = $('#sample4_roadAddress').val();
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					    mapOption = {
@@ -730,7 +782,7 @@
 					
 					        // 인포윈도우로 장소에 대한 설명을 표시합니다
 					        var infowindow = new kakao.maps.InfoWindow({
-					            content: '<div style="width:150px;text-align:center;padding:6px 0;">강의 장소</div>'
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
 					        });
 					        infowindow.open(map, marker);
 					
@@ -777,10 +829,6 @@
 		</script>
 	</div>
 </body>
-
-	<div>
-		<h4></h4>
-	</div>
 
 	<c:import url="../common/footer.jsp" />
 </body>

@@ -92,7 +92,43 @@ public class LectureDAO {
 	public ArrayList<Map<String, String>> selectNewLectureList() {
 		return (ArrayList) sqlSession.selectList("lectureMapper.selectNewLectureList");
 	}
+	public int updateLecture_Image(Lecture_Image li) {
+		return sqlSession.update("lectureMapper.updateLecture_Image", li);
+	}
 
+	public int openSeq() {
+		return sqlSession.selectOne("lectureMapper.openSeq");
+	}
 
+	public int findValue() {
+		return sqlSession.selectOne("lectureMapper.findValue");
+	}
 
+	public int dropLectureImage(HashMap<String, Integer> map) {
+		return sqlSession.delete("lectureMapper.dropLectureImage", map);
+	}
+
+	public int updateLecture(Lecture l) {
+		return sqlSession.update("lectureMapper.updateLecture", l);
+	}
+
+	public int confirmLecture(int l_num) {
+		return sqlSession.update("lectureMapper.confirmLecture", l_num);
+	}
+
+	public int denyLecture(int l_num) {
+		return sqlSession.update("lectureMapper.denyLecture", l_num);
+	}
+
+	public ArrayList deleteLecture(int l_num) {
+		return (ArrayList)sqlSession.selectList("lectureMapper.deleteLecture", l_num);
+	}
+
+	public int deleteLectureImage(int l_num) {
+		return sqlSession.delete("lectureMapper.deleteLectureImage", l_num);
+	}
+
+	public Lecture_File selectLectureFile(int l_each_num) {
+		return sqlSession.selectOne("lectureMapper.selectLectureFile", l_each_num);
+	}
 }
