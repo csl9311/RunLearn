@@ -12,11 +12,27 @@
 </head>
 <c:import url="../common/header.jsp" />
 <body>
+	
+	<form id="auto" action="payment.save" method="post">
+		<input type="hidden" name="p_num" value="${ map.p.p_num }">
+		<input type="hidden" name="m_id" value="${ map.m.m_id }">
+		<input type="hidden" name="p_name" value="${ map.p.p_name }">
+		<input type="hidden" name="m_name" value="${ map.m.m_name }">
+		<input type="hidden" name="m_phone" value="${ map.m.m_phone }">
+		<input type="hidden" name="m_email" value="${ map.m.m_email }">
+		<input type="hidden" name="postnum" value="${ map.m.postnum }">
+		<input type="hidden" name="amount" value="${ map.amount }">
+		<input type="hidden" name="total" value="${ map.total }">
+	</form>
 	<!-- 아임포트 자바스크립트는 jQuery 기반으로 개발되었습니다 -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+	
+	
+	
+	
 	<script type="text/javascript">
+		
 		var p_num = ${map.p.p_num};
 		var p_name = '${map.p.p_name}';
 		var m_name = '${map.m.m_name}';
@@ -27,39 +43,7 @@
 		var total = ${map.total};
 		var pay_method = 'card';
 		
-		
-		$.ajax({
-			url: "payment.save",
-			data: {
-				p_num:p_num,
-				p_name:p_name,
-				total:total,
-				amount:amount,
-				pay_method:pay_method,
-				m_name:m_name,
-				m_phone:m_phone,
-				m_email:m_email,
-				postnum:postnum
-			},
-			type:"post",
-			success: function(data){
-				if(data > 0){
-					alert("결제성공");
-				} else {
-					alert("success : 결제실패?");
-				}
-			},
-			error : function(){
-				alert(
-					"error code : " + request.status + "\n" +
-					"message : " + request.responseText + "\n" + 
-					"error : " + errorData
-				);
-			}
-		});
-		
-		/* 
-		var IMP = window.IMP; // 생략가능
+		/* var IMP = window.IMP; // 생략가능
 		IMP.init('imp79905221'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
 		//onclick, onload 등 원하는 이벤트에 호출합니다
@@ -81,15 +65,14 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				
-				
-				
+				$('#auto').submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
 			}
 			alert(msg);
 		}); */
+		$('#auto').submit();
 	//TODO URLScheme정의하는 부분 추가
 	</script>
 	<br>

@@ -144,7 +144,7 @@
 		<div id="abcd"></div>
 		<%-- 상품 정보 끝 --%>
 		<script type="text/javascript">
-			// 구매 버튼 클릭 시 로그인 안되어있다면 로그인
+			
 			
 		
 		
@@ -228,11 +228,12 @@
 			function check(){
 				var user = '${sessionScope.loginUser.m_id}';
 				var $total = $('#total');
-				
+				// 구매 버튼 클릭 시 로그인 안되어있다면 로그인 유도
 				if(user == '') {
 					alert("로그인 후 이용해주세요.");
 					$('#loginM').parent().children('a').trigger('click');
 					return false;
+				// 옵션 미선택시 선택 유도
 				} else if ($total.val() == 0 || $total.val() == '') {
 					alert("옵션을 선택해주세요.");
 					return false;
