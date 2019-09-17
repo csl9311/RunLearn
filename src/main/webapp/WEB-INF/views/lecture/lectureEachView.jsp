@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의실 :</title>
+<title>강의실 : ${ etc.L_TITLE }</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -30,11 +30,21 @@
 		<h2>${ l_each.l_each_name }</h2>
 		<h4>　</h4>
 		<h2>강의 설명</h2>
-		<h6></h6>
-		<div style="width: 100%;">
+		<h6>　</h6>
+		<div style="width: 100%; min-height: 200px;">
 			${ l_each.l_each_content }
 		</div>
-		
+		<div align="right">
+		<c:if test="${ lf.l_file_changed_name ne null }">
+			첨부파일 : 
+			<a href="${contextPath}/resources/images/lecture/${ lf.l_file_changed_name }" download="${ lf.l_file_origin_name }">
+			<img src="${contextPath}/resources/images/lecture/download.png" style="width: 20px; height: 20px;">
+			</a>
+		</c:if>
+		<c:if test="${ lf.l_file_changed_name eq null }">
+			첨부파일 : x
+		</c:if>
+		</div>
 		<c:if test="${ !list.isEmpty() }">
 		<h2>강의 목록</h2>
 		<table class="table table-hover">

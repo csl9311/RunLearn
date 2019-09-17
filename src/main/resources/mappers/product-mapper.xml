@@ -21,8 +21,7 @@
 	</select>
 
 <!-- 카테고리별 목록 수 조회 -->
-	<select id="getListCountCate" resultType="_int"
-		parameterType="string">
+	<select id="getListCountCate" resultType="_int" parameterType="string">
 		SELECT COUNT(*)
 		FROM PRODUCT
 		WHERE P_STATUS = 'Y' AND P_CATEGORY = #{p_category}
@@ -41,32 +40,43 @@
 	</select>
 <!-- 상품 디테일 조회 -->
 	<select id="selectProduct" parameterType="_int" resultType="map">
-		SELECT * FROM PRODUCT_DETAIL
+		SELECT *
+		FROM PRODUCT_DETAIL
 		WHERE P_NUM = #{p_num}
 	</select>
-	<select id="selectProductOption" resultType="Product_Option" parameterType="_int">
-		SELECT * FROM PRODUCT_OPTION
+	<select id="selectProductOption" resultType="Product_Option" parameterType="list">
+		SELECT *
+		FROM PRODUCT_OPTION
 		WHERE P_NUM = #{p_num}
 	</select>
+<!-- 상품 디테일 조회 -->
 <!-- 상품 등록 -->
-	
 	<insert id="insertProduct" parameterType="map">
 		INSERT ALL
 			INTO PRODUCT VALUES (
-				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, 'Y', SYSDATE, NULL, #{p.m_id}
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, '${p.p_optionCheck}', 'Y', SYSDATE, NULL, #{p.m_id}
 			)
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
 			)
-			<foreach collection="poList" item="item" index="index" separator=" ">
-				INTO PRODUCT_OPTION VALUES(
-					#{item.p_option}, #{item.p_optionPrice}, #{item.p_stock}, PRODUCT_SEQ.CURRVAL
-				)
-			</foreach>
+			<if test='poList!=null'>
+				<foreach collection="poList" item="item" index="index" separator=" ">
+					INTO PRODUCT_OPTION VALUES(
+						#{item.p_option}, PRODUCT_SEQ.CURRVAL, #{item.p_optionPrice}, #{item.p_stock}
+					)
+				</foreach>
+			</if>
+			<if test='piList!=null'>
+				<foreach collection="piList" item="item" index="index" separator=" ">
+					into PRODUCT_IMAGE VALUES(
+						#{item.p_changed_name}, #{item.p_origin_name}, SYSDATE, #{item.p_file_level}, PRODUCT_SEQ.CURRVAL
+					)
+				</foreach>
+			</if>
 		SELECT * FROM DUAL
 	</insert>
-
-	<insert id="insertProductDetail" parameterType="Product_Image">
+<!-- 상품 등록 -->
+	<!-- <insert id="insertProductDetail" parameterType="Product_Image">
 		<foreach collection="list" item="item" index="index" open="INSERT ALL " separator=" " close="SELECT * FROM DUAL">
 			into PRODUCT_IMAGE(
 				p_changed_name,
@@ -82,12 +92,63 @@
 				PRODUCT_SEQ.CURRVAL
 			)
 		</foreach>
-	</insert>
-	
-	
-	<!-- <insert id="insertProductOption">
-	
 	</insert> -->
+	
+<!-- 상품정보 수정 -->
+	<update id="updateProduct" parameterType="Product">
+		UPDATE PRODUCT SET 
+			P_NAME = #{p_name},
+			P_CATEGORY = #{p_category},
+			P_PRICE = #{p_price},
+			P_OPTIONCHECK = #{p_optionCheck},
+			P_MODIFY_DATE = SYSDATE
+		WHERE P_NUM = ${p_num}
+	</update>
+
+<!-- 상품 옵션 수정 -->
+
+	<delete id="deleteProductOption" parameterType="_int">
+		DELETE FROM PRODUCT_OPTION WHERE P_NUM = #{p_num}
+	</delete>
+	<insert id="updateProductOption" parameterType="list">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index" separator=" ">
+			INTO PRODUCT_OPTION VALUES(
+				#{item.p_option}, #{item.p_num}, #{item.p_optionPrice}, #{item.p_stock}
+			)
+		</foreach>
+		SELECT * FROM DUAL
+	</insert>
+<!-- 썸네일 수정 -->
+	<update id="updateThumbnail" parameterType="Product_Image">
+		UPDATE PRODUCT_IMAGE SET
+			P_CHANGED_NAME = #{p_changed_name},
+			P_ORIGIN_NAME = #{p_origin_name}
+		WHERE P_NUM = #{p_num}
+	</update>
+<!-- 상세이미지 수정 -->
+	<delete id="deleteDetailImg" parameterType="_int">
+		DELETE FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num};
+	</delete>
+	<insert id="updateDetailImg" parameterType="list">
+		INSERT ALL
+		<foreach collection="list" item="item" index="index" separator=" ">
+			into PRODUCT_IMAGE VALUES(
+				#{item.p_changed_name}, #{item.p_origin_name}, SYSDATE, #{item.p_file_level}, #{item.p_num}
+			)
+		</foreach>
+		SELECT * FROM DUAL
+	</insert>
+<!-- 상품정보 수정 -->
+
+<!-- 상품 삭제 -->
+	<update id="deleteProduct" parameterType="_int">
+		UPDATE PRODUCT SET
+			P_STATUS = 'N',
+			P_MODIFY_DATE = SYSDATE
+		WHERE P_NUM = ${p_num}
+	</update>
+
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map" resultType="hashmap">
@@ -145,27 +206,7 @@
         	</choose>
         </if>
 	</select>
-	
-  <!-- 석민 -->
-	<select id="selectProductView" parameterType="string" resultType="hashmap">   <!-- 마이페이지 상품 찜목록  -->
-		select *
-		from PRODUCT_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select>
-	
-	
-	
-	<select id="selectPlistCount" parameterType="string" resultType="_int">
-		select count(*)
-		from PRODUCT_NOPAYVIEW
-		where M_ID = #{m_id}
-	</select>
-	<!-- 석민 -->
-	
-	
-	
-	
-	
+  
 	<!-- home.jsp에 최신상품 조회 -->
 	<select id="selectNewProductList" resultType="hashmap">
 		<![CDATA[

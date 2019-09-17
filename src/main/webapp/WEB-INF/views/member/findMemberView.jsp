@@ -73,6 +73,8 @@
   border-color: #428bca;
 }
 
+.imageArea{margin-bottom: 50px;}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
@@ -173,7 +175,7 @@
 <div class="wrap">
 	<!-- 아이디 찾기 -->
 	<div class="row justify-content-md-center">
-	<h3>아이디 / 비밀번호 찾기</h3>
+	<div class="imageArea justify-context-md-cneter"><img src="${contextPath}/resources/images/common/logo_2.png"></div>
 		<div class="btn-group btn-group-toggle" data-toggle="buttons">
 			<label class="btn-r btn btn-danger btn-lg active" id="idfb"onclick="ich();">
 				<input type="radio" name="jb-radio" id="jb-radio-1"> 아이디 찾기
@@ -186,91 +188,100 @@
 		<div class="mcontent">
 			<div class="find">
 				<label class="radiob"><input type="radio" name="search" id="pp" checked>휴대폰 인증으로 찾기</label>
-				<form name="form1" method="post" action="findmemberid.do">
+				<form name="form1" id="form1" method="post" action="findmemberid.do">
 					<div class="index" id="ipf">
 						<p class="sub-text">회원 가입에 사용한 휴대폰 번호와 일치해야 합니다.</p>
-						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"></div>
+						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"><input type="hidden" name="typecheck" value="00"></div>
 						<div class="space"></div>
-						<div class="col1">휴대폰 번호</div><div class="col2"><input type="text" name="m_phone" onkeyup="inputPhoneNumber(this);" maxlength="13" class="text-field"><span><input type="button" value="인증번호전송" onclick="checkphone();" class="sub-btn btn btn-danger"></span></div>
+						<div class="col1">휴대폰 번호</div><div class="col2"><input type="text" name="m_phone" onkeyup="inputPhoneNumber(this);" maxlength="13" class="text-field"><span><button type="button" onclick="checkphone(this);" class="sub-btn btn btn-danger">인증번호전송</button></span></div>
 						<div class="space"></div>
-						<div class="col1"></div><div class="col2"><input type="text" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
+						<div class="col1"></div><div class="col2"><input type="text" name="pcheckNum" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
 					</div>
 				</form>
 			</div>
 			<hr>
 			<div class="find">
 				<label class="radiob"><input type="radio" name="search" id="ep">이메일 인증으로 찾기</label>
-				<form name="form2" method="post" action="findmemberid.do">
+				<form name="form2" id="form2" method="post" action="findmemberid.do">
 					<div class="index" id="ief">
 						<p class="sub-text">회원 가입에 사용한 이메일 주소와 일치해야 합니다.</p>
-						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"></div>
+						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"><input type="hidden" name="typecheck" value="01"></div>
 						<div class="space"></div>
-						<div class="col1">이메일</div><div class="col2"><input type="text" name="m_email" class="text-field"><span><input type="button" value="인증번호전송" class="sub-btn btn btn-danger"></span></div>
+						<div class="col1">이메일</div><div class="col2"><input type="text" name="m_email" class="text-field"><span><button type="button" onclick="checkphone(this);" class="sub-btn btn btn-danger">인증번호전송</button></span></div>
 						<div class="space"></div>
-						<div class="col1"></div><div class="col2"><input type="text" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
+						<div class="col1"></div><div class="col2"><input type="text" name="pcheckNum" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
 					</div>
 				</form>
 			</div>
 		</div>
-		<input type="submit" value="다음" class="btn btn-primary btn-lg">
+		<button onclick="submit1();" class="btn btn-primary btn-lg">다음</button>
 		</div>
 		<!-- 비밀번호 찾기 -->
 		<div id="pwf">
 		<div class="mcontent">
 			<div class="find">
 				<label class="radiob"><input type="radio" name="search2" id="pp2" checked>휴대폰 인증으로 찾기</label>
-				<form name="form3" method="post" action="findmemberpw.do">
+				<form name="form3" id="form3" method="post" action="pwFind.do">
 					<div class="index" id="ppf">
 						<p class="sub-text">회원 가입에 사용한 휴대폰 번호와 일치해야 합니다.</p>
-						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"></div>
+						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"><input type="hidden" name="typecheck" value="1"></div>
 						<div class="space"></div>
 						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"></div>
 						<div class="space"></div>
-						<div class="col1">휴대폰 번호</div><div class="col2"><input type="text" name="m_phone" onkeyup="inputPhoneNumber(this);" maxlength="13" class="text-field"><span><input type="button" onclick="checkphone();" value="인증번호전송" class="sub-btn btn btn-danger"></span></div>
+						<div class="col1">휴대폰 번호</div><div class="col2"><input type="text" name="m_phone" onkeyup="inputPhoneNumber(this);" maxlength="13" class="text-field"><span><button type="button" onclick="checkphone(this);" class="sub-btn btn btn-danger">인증번호전송</button></span></div>
 						<div class="space"></div>
-						<div class="col1"></div><div class="col2"><input type="text" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
+						<div class="col1"></div><div class="col2"><input type="text" name="pcheckNum" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
 					</div>
 				</form>
 			</div>
 			<hr>
 			<div class="find">
 				<label class="radiob"><input type="radio" name="search2" id="ep2">이메일 인증으로 찾기</label>
-				<form name="form4" method="post" action="findmemberpw.do">
+				<form name="form4" id="form4" method="post" action="pwFind.do">
 					<div class="index" id="pef">
 						<p class="sub-text">회원 가입에 사용한 이메일 주소와 일치해야 합니다.</p>
-						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"></div>
+						<div class="col1">아이디</div><div class="col2"><input type="text" name="m_id" class="text-field"><input type="hidden" name="typecheck" value="02"></div>
 						<div class="space"></div>
 						<div class="col1">이름</div><div class="col2"><input type="text" name="m_name" class="text-field"></div>
 						<div class="space"></div>
-						<div class="col1">이메일</div><div class="col2"><input type="text" name="m_email" class="text-field"><span><input type="button" value="인증번호전송" class="sub-btn btn btn-danger"></span></div>
+						<div class="col1">이메일</div><div class="col2"><input type="text" name="m_email" class="text-field"><span><button type="button" onclick="checkphone(this);" class="sub-btn btn btn-danger">인증번호전송</button></span></div>
 						<div class="space"></div>
-						<div class="col1"></div><div class="col2"><input type="text" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
+						<div class="col1"></div><div class="col2"><input type="text" name="pcheckNum" class="text-field" placeholder=" 인증번호 4자리 숫자 입력"></div>
 					</div>
 				</form>
 			</div>
 		</div>
-		<input type="submit" value="다음" class="btn btn-primary btn-lg">
+		<button onclick="submit2();" class="btn btn-primary btn-lg">다음</button>
 		</div>
 	</div>
 </div>
 <script>
 	var op = true;
-	$("#pwf").hide();
 	
+	var ido = true;
+	var pwo = false;
+	
+	$("#pwf").hide();
 	$("#ief").hide();
 	$("#pef").hide();
 	
+	/* 화면 표시 */
 	function ich(){
 		$("#pwf").hide();
 		$("#idf").show();
+		ido = true;
+		pwo = false;
 		op = true;
 	}
 	function pch(){
 		$("#pwf").show();
 		$("#idf").hide();
+		ido = false;
+		pwo = true;
 		op = false;
 	}
 	/* 인증 방법 선택 스크립트 */
+	/* 아이디 찾기  */
 	$("input:radio[name=search]").click(function(){
 		if($("#pp").is(":checked") == false){
 			$("#ipf").hide();
@@ -280,7 +291,8 @@
 			$("#ief").hide();
 		}
 	});
-
+	
+	/* 패스워드 찾기 */
 	$("input:radio[name=search2]").click(function(){
 		if($("#pp2").is(":checked") == false){
 			$("#ppf").hide();
@@ -317,14 +329,156 @@
 	    }
 	    obj.value = phone;
 	}
-	/* 인증 스크립트 */
-	var m_id;
-	var m_name;
-	var m_eamil;
 	
-	if()
+	/* 인증 스크립트 */
+	function checkphone(e){
+		var m_name = $(e).closest(".index").children('.col2').children('input:text[name=m_name]').val();
+		var m_id = $(e).closest(".index").children('.col2').children('input:text[name=m_id]').val();
+		var m_email = $(e).closest(".index").children('.col2').children('input:text[name=m_email]').val();
+		var m_phone = $(e).closest(".index").children('.col2').children('input:text[name=m_phone]').val();
+		var typecheck = $(e).closest(".index").children('.col2').children('input:hidden[name=typecheck]').val();
+		console.log($(e).closest(".index").children('.col2').children('input:text[name=m_email]').val());
+		if(ido == false){
+			$.ajax({
+				url: "checkPhone.do",
+				data: {m_phone: m_phone,
+					   m_name: m_name,
+					   m_id: m_id,
+					   m_email: m_email,
+					   typecheck: typecheck},
+				success: function(data){
+					if(data.isUsable == false){
+						alert("인증번호가 전송되었습니다.");
+					} else {
+						alert("없는 회원입니다.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		} else {
+			$.ajax({
+				url: "checkPhone.do",
+				data: {m_phone: m_phone,
+					   m_name: m_name,
+					   m_email: m_email,
+					   typecheck: typecheck},
+				success: function(data){
+					if(data.isUsable == false){
+						alert("인증번호가 전송되었습니다.");
+					} else {
+						alert("없는 회원입니다.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		}
+	}
+	
+	
+	/* submit 처리(아이디 찾기) */ 
+	function submit1(){
+		var num1 = $("#ipf").children('.col2').children('input:text[name=pcheckNum]').val();
+		var num2 = $("#ief").children('.col2').children('input:text[name=pcheckNum]').val();
+		form1 = document.form1;
+		form2 = document.form2;
+		
+		if($("#pp").is(":checked") == true && ido == true) {
+			if(num1 == ""){
+				alert("인증번호를 입력해주세요.");
+				return;
+			}
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num1},
+				success: function(data){
+					if(data.isUsable == true){
+						form1.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		} else {
+			if(num2 == ""){
+				alert("인증번호를 입력해주세요.");
+				return;
+			}
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num2},
+				success: function(data){
+					if(data.isUsable == true){
+						form2.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		}
+	}
+	
+	/* submit 처리(비밀번호 찾기) */
+	function submit2(){
+		var num1 = $("#ppf").children('.col2').children('input:text[name=pcheckNum]').val();
+		var num2 = $("#pef").children('.col2').children('input:text[name=pcheckNum]').val();
+		form3 = document.form3;
+		form4 = document.form4;
+		
+		if($("#pp2").is(":checked") == true && pwo == true) {
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num1},
+				success: function(data){
+					if(data.isUsable == true){
+						form3.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		} else {
+			$.ajax({
+				url: "checkNum.do",
+				data: {num: num2},
+				success: function(data){
+					if(data.isUsable == true){
+						form4.submit();
+					} else {
+						alert("인증번호를 확인해주세요.");
+					}
+				}, error: function(jqxhr, textStatus, errorThrown){
+					console.log("ajax 처리 실패");
+					console.log(jqxhr);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			});
+		}
+	}
 </script>
-
 </body>
 </html>
 <c:import url="../common/footer.jsp" />

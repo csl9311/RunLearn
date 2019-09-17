@@ -21,32 +21,21 @@
 	<div class="contents center">
 		<div class="row">
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
-			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
+			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return imgCheck();">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
 				<input type="hidden" name="p_num" value="0">
-				<input type="hidden" name="m_id" value="판매자">
+				<input type="hidden" name="m_id" value="${ sessionScope.loginUser.m_id }">
 				
-				<a href="javascript:" onclick="uploadThumbnail();" class="myButton">썸네일 업로드</a>
-				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;" required="required">
+				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 업로드</button>
+				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
         		<div class="row">
 					<div id="thumbnailArea"></div>
         		</div>
-				<!-- <div class="row">
-					<label>상세 이미지</label>
-					<input type="file" id="imgInp" style="margin: auto;"/>
-					<table id="imgArea" class="table center" ></table>
-					<br>
-					<div id="imgArea"></div>
-				</div> -->
 				
+				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 업로드</button>
+				<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
 				<div>
-					<div class="input_wrap">
-						<a href="javascript:" onclick="uploadImage();" class="myButton">상세 이미지 업로드</a>
-						<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
-					</div>
-					<div>
-						<div id="imgs_wrap" class="row"></div>
-					</div>
+					<div id="detailImgArea" class="row"></div>
 				</div>
 								
 				<table id="productDetail"class="col-md-6 table center">
@@ -56,7 +45,17 @@
 					</tr>
 					<tr>
 						<td>카테고리</td>
-						<td><input id="p_category" type="text" name="p_category" required="required"></td>
+						<td>
+							<select id="p_category" name="p_category" required="required">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="material">재료</option>
+							</select>
+							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
+						</td>
 					</tr>
 					<tr id="price">
 						<td>기본가격(￦)</td>
@@ -65,6 +64,7 @@
 					<tr>
 						<td>옵션추가</td>
 						<td>
+							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
 							<input id="optionO" type="radio" name="option" value="O" required="required">
 							<label>추가</label>
 							<input id="optionX" type="radio" name="option" value="X" required="required">
@@ -72,15 +72,10 @@
 						</td>
 					</tr>
 				</table>
-				<table class="col-md-6 table center">
-					<tr>
-						<td></td>
-						<td>
-							<input type="button" class="btn" value="취소">
-							<input type="submit" class="btn" value="등록" onsubmit="return check();">
-						</td>
-					</tr>
-				</table>
+				<div class="row center">
+					<input type="button" class="btn" value="이전 페이지로" onclick="history.go(-1);">
+					<input type="submit" class="btn" value="등록">
+				</div>
 			</form>
 		</div>
 	</div>
@@ -99,8 +94,8 @@
 	            reader.onload = function(e) {
 	            	$("#thumbnailArea").html(
 	            		'<div id="thumbnailImg">' + 
-							'<input class="btn" type="button" value="삭제" onclick="deleteImg();">' + 
 							'<img class="img-responsive" src="'+e.target.result+'">' +
+							'<input class="btn" type="button" value="썸네일 삭제" onclick="deleteImg();">' + 
 						'</div>'
 					);
 	            }
@@ -124,7 +119,7 @@
 		
 		function handleImageFileSelect(e){
 			sel_files = [];
-			$("#imgs_wrap").empty();
+			$("#detailImgArea").empty();
 		
 			var files = e.target.files;
 			var filesArr = Array.prototype.slice.call(files);
@@ -140,10 +135,10 @@
 				var reader = new FileReader();
 				
 				reader.onload = function(e){
-					$("#imgs_wrap").append(
+					$("#detailImgArea").append(
 						'<div class="col-md-4" onclick="expend('+index+')" id = "img_id_'+index+'">' +
 							'<img class="img-responsive" src="'+e.target.result+'" data-file="'+f.name+'">' +
-							'<input id="deleteBtn' + index + '" class="btn" type="button" value="삭제" onclick="deleteImage(' + index + ');">' +
+							'<input id="deleteBtn' + index + '" class="btn" type="button" value="이미지 삭제" onclick="deleteImage(' + index + ');">' +
 						'</div>'
 					);
 					index++;
@@ -167,17 +162,16 @@
 <%-- 옵션 --%>
 	<%-- 옵션 유무 선택 --%>
 		var $table = $('#productDetail');
-		
+		var $p_optionCheck = $('#p_optionCheck');
 		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		console.log(j);
 		$('#optionX').prop('checked', true).prop('disabled', true);
-		
+		$p_optionCheck.val('X');
 		$('#optionO').click(function(){
 			$('#optionO').prop('disabled', 'disabled');
 			$('#optionX').removeAttr('disabled');
+			$p_optionCheck.val('O');
 			optionAdd(j);
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		});
 		
 		$('#optionX').click(function(){
@@ -185,13 +179,13 @@
 				optionDelete(q);
 			}
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		});
 		
 	<%-- 옵션 유무 선택 끝 --%>
 
 	<%-- 옵션 추가 --%>
 		function optionAdd(num){
+			$p_optionCheck.val('O');
 			$('#optionO').prop('checked', true);
 			$('#optionX').prop('checked', false);
 			$('#add'+ num).hide();
@@ -215,7 +209,6 @@
 				'</tr>'
 			);
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		};
 	<%-- 옵션 추가 끝 --%>
 	<%-- 옵션 삭제 --%>
@@ -226,25 +219,31 @@
 			$('#optionAddNDelete' + num).remove();
 			
 			var length = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(length);
-			console.log(num);
 			
 			if(num == length) {
 				var lastBtn = $table.children(':last').children(':last').children(':first').children(':first');
 				lastBtn.css('display', 'inline-block');
 			}
 			if(length <= 1) {
+				$p_optionCheck.val('X');
 				$('#optionO').removeAttr('disabled');
 				$('#optionX').prop('disabled', 'disabled');
 				$('#optionO').prop('checked', false);
 				$('#optionX').prop('checked', true);
 			}
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-			console.log(j);
 		};
 	<%-- 옵션 삭제 끝 --%>
 	
 <%-- 옵션 끝 --%>
+
+	<%-- 썸네일 등록 여부 확인 --%>
+		function imgCheck(){
+			if($('#imgInp').val() == '') {
+				alert("이미지를 등록해주세요.");
+				return false;
+			}
+		}
 	</script>
 </body>
 <c:import url="../common/footer.jsp" />

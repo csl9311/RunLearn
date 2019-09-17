@@ -44,6 +44,9 @@
 .row .col-sm-2 a:hover {
 	cursor: pointer;
 }
+.hover:hover{
+	cursor : pointer;
+}
 </style>
 
 </head>
@@ -181,10 +184,10 @@
 					reader.readAsDataURL(f);
 				});
 			}
-			function contDeleteImageAction(main_index){
+			function mainDeleteImageAction(main_index){
 				console.log("index : "+ main_index);
 				sel_files.splice(main_index,1);
-				var main_img_id = "#cont_img_id_"+main_index;
+				var main_img_id = "#main_img_id_"+main_index;
 				$(main_img_id).remove();
 				console.log(main_sel_files);
 			}
@@ -228,60 +231,157 @@
 					placeholder="강의에 대한 상세설명을 적어주세요.&#13;&#10;(※개인정보보호차원에서 연락처기능을 따로 제공하지 않기 때문에, 본인 판단하에 연락처를 이곳에 넣어주십시오.)"></textarea>
 			</div>
 			
-			<div align="center">
-				<h4>상세설명 이미지추가</h4>
-				<div class="input_wrap">
-					<a href="javascript:" onclick="ContentFileUploadAction();" class="my_button">[파일 업로드]</a>
-					<input type="file" id="input_cont_imgs" name="contImgs" multiple style="display: none;" accept="image/gif, image/jpeg, image/png"/>
-				</div>
-				<div>
-					<div class="cont_imgs_wrap" style="width: 100%">
-						<img id="img"/>
-					</div>
-				</div>
+			<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="Cattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="cuploadInputBox">[상세 설명 이미지 첨부]</label>
+	                <input id="cuploadInputBox" style="display: none" type="file" name="cfiledata"/>
+            	</div>
+				<div id="cpreview" class="content" style="width:100%;"></div>
+				
+			</div>
 			</div>
 			<script type="text/javascript">
-				var cont_sel_files = [];
-				$(document).ready(function(){
-					$("#input_cont_imgs").on("change", contHandleImageFileSelect);
-				});
-				function ContentFileUploadAction(){
-					console.log("ContentFileUploadAction");
-					$("#input_cont_imgs").trigger('click');
-				}
-				function contHandleImageFileSelect(e){
-					cont_sel_files = [];
-					$(".cont_imgs_wrap").empty();
-					
-					var contFiles = e.target.files;
-					var contFilesArr = Array.prototype.slice.call(contFiles);
-					console.log(contFilesArr);
-					var cont_index = 0;
-					contFilesArr.forEach(function(f){
-						if(!f.type.match("image.*")){
-							alert("확장자는 이미지 확장자만 가능합니다.");
-							return;
-						}
-						
-						cont_sel_files.push(f);
-						
-						var reader = new FileReader();
-						reader.onload = function(e){
-							var cont_html = "<a href\"javascript:void(0);\" onclick=\"contDeleteImageAction("+cont_index+")\" id = \"cont_img_id_"+cont_index+"\"><img src=\""+e.target.result+"\" data-file='"+f.name+"' class='contentImgFile' title='click to remove' style='width:100%;'></a>";
-							$(".cont_imgs_wrap").append(cont_html);
-							cont_index++;
-						}
-						reader.readAsDataURL(f);
-					});
-				}
-				function contDeleteImageAction(cont_index){
-					console.log("index : "+ cont_index);
-					sel_files.splice(cont_index,1);
-					var cont_img_id = "#cont_img_id_"+cont_index;
-					$(cont_img_id).remove();
-					console.log(cont_sel_files);
-				}
+			var cfiles = {};
+	        var cpreviewIndex = 0;
+	 
+	        // image preview 기능 구현
+	        // input = file object[]
+	        function caddPreview(input) {
+	            if (input[0].files) {
+	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+	                    var file = input[0].files[fileIndex];
+	 
+	                    if (cvalidation(file.name))
+	                        continue;
+	 
+	                    var reader = new FileReader();
+	                    reader.onload = function(img) {
+	                       
+	                        var imgNum = cpreviewIndex++;
+	                        $("#cpreview")
+	                                .append(
+	                                        "<div class=\"preview-box\" value=\"" + imgNum +"\">"
+	                                                + "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\ style='width:100%;'/>"
+	                                                + "<p>"
+	                                                + file.name
+	                                                + "</p>"
+	                                                + "<div class=\"btn btn-primary\" value=\""
+	                                                + imgNum
+	                                                + "\" onclick=\"cdeletePreview(this)\">"
+	                                                + "삭제" + "</div>" + "</div>");
+	                        cfiles[imgNum] = file;
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            } else
+	                alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+	        }
+	 
+	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+	        function cdeletePreview(obj) {
+	            var imgNum = obj.attributes['value'].value;
+	            console.log(imgNum);
+	            delete cfiles[imgNum];
+	            $("#cpreview .preview-box[value=" + imgNum + "]").remove();
+	        }
+	 
+	        //client-side validation
+	        //always server-side validation required
+	        function cvalidation(fileName) {
+	            fileName = fileName + "";
+	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+	            var fileNameExtension = fileName.toLowerCase().substring(
+	                    fileNameExtensionIndex, fileName.length);
+	            if (!((fileNameExtension === 'jpg')
+	                    || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+	                alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	 
+	        $(document).ready(function() {
+	            $('#submitBtn').on('click',function() { 
+	            	
+	                var cform = $('#cuploadForm')[0];
+	                var cformData = null;
+	                cformData = new FormData(cform);
+	    			console.log("key"+Object.keys(cfiles));
+	    			console.log("cpreview인덱스"+cpreviewIndex);
+	                for (var index = 0; index < cpreviewIndex; index++) {
+	                    console.log("인덱스"+index);
+	                   	console.log("c인덱스"+cfiles[index]);
+	                    cformData.append('cfiles', cfiles[index]);
+	                }
+	                $.ajax({
+	                    type : 'POST',
+	                    enctype : 'multipart/form-data',
+	                    processData : false,
+	                    contentType : false,
+	                    cache : false,
+	                    timeout : 600000,
+	                    url : 'contImageInsert.le',
+	                    data : cformData,
+	                    success : function(result) {
+	        	                var tform = $('#tuploadForm')[0];
+	        	                var tformData = null;
+	        	                tformData = new FormData(tform);
+	        	    			for (var index = 0; index < tpreviewIndex; index++) {
+	        	                    tformData.append('tfiles', tfiles[index]);
+	        	                }
+	        	                $.ajax({
+	        	                    type : 'POST',
+	        	                    enctype : 'multipart/form-data',
+	        	                    processData : false,
+	        	                    contentType : false,
+	        	                    cache : false,
+	        	                    timeout : 600000,
+	        	                    url : 'tutorImageInsert.le',
+	        	                    data : tformData,
+	        	                    success : function(result) {
+	        	                        $("#hiddenTutoValue").val(result);
+	        	        	                var rform = $('#ruploadForm')[0];
+	        	        	                var rformData = null;
+	        	        	                rformData = new FormData(rform);
+	        	        	    			console.log(Object.keys(rfiles));
+	        	        	    			console.log(rpreviewIndex);
+	        	        	                for (var index = 0; index < rpreviewIndex; index++) {
+	        	        	                    console.log(index);
+	        	        	                   	console.log(rfiles[index]);
+	        	        	                    rformData.append('rfiles',rfiles[index]);
+	        	        	                }
+	        	        	                $.ajax({
+	        	        	                    type : 'POST',
+	        	        	                    enctype : 'multipart/form-data',
+	        	        	                    processData : false,
+	        	        	                    contentType : false,
+	        	        	                    cache : false,
+	        	        	                    timeout : 600000,
+	        	        	                    url : 'currImageInsert.le',
+	        	        	                    dataType : 'JSON',
+	        	        	                    data : rformData,
+	        	        	                    success : function(result) {
+	        	        	                        $("#hiddenCurrValue").val(result);
+	        	        	                        $("#ApplyForm").submit();
+	        	        	                    }
+	        	        	                    //전송실패에대한 핸들링은 고려하지 않음
+	        	        	                });
+	        	        	            }
+	        	                    });
+	        	                }
+	        	            });
+	                        $("#hiddenContValue").val(result);
+	                    //전송실패에대한 핸들링은 고려하지 않음
+	                });
+	            // <input type=file> 태그 기능 구현
+	            $('#Cattach input[type=file]').change(function() {
+	                caddPreview($(this)); //preview form 추가하기
+	            });
+	        });
 			</script>
+			<input type="hidden" id="hiddenContValue" name="ContResult"/>
 			</div>
 			<div class="col-sm-12">
 				<div id="Tintro" style="height: 60px;"></div>
@@ -301,7 +401,86 @@
 				</div>
 			</div>
 			<div class="col-sm-12" align="center">
-				<h3>강사 사진, 이미지와 이름 닉네임등의 소개가 들어갈 공간입니다.</h3>
+			<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="Tattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="tuploadInputBox">[강사 소개 이미지 첨부]</label>
+	                <input id="tuploadInputBox" style="display: none" type="file" name="tfiledata"/>
+            	</div>
+				<div id="tpreview" class="content" style="width:100%;"></div>
+				
+			</div>
+			</div>
+			<script type="text/javascript">
+			var tfiles = {};
+	        var tpreviewIndex = 0;
+	 
+	        // image preview 기능 구현
+	        // input = file object[]
+	        function taddPreview(input) {
+	            if (input[0].files) {
+	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+	                    var file = input[0].files[fileIndex];
+	 
+	                    if (tvalidation(file.name))
+	                        continue;
+	 
+	                    var reader = new FileReader();
+	                    reader.onload = function(img) {
+	                       
+	                        var imgNum = tpreviewIndex++;
+	                        $("#tpreview")
+	                                .append(
+	                                        "<div class=\"preview-box\" value=\"" + imgNum +"\">"
+	                                                + "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\ style='width:100%;'/>"
+	                                                + "<p>"
+	                                                + file.name
+	                                                + "</p>"
+	                                                + "<div class=\"btn btn-primary\" value=\""
+	                                                + imgNum
+	                                                + "\" onclick=\"tdeletePreview(this)\">"
+	                                                + "삭제" + "</div>" + "</div>");
+	                        tfiles[imgNum] = file;
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            } else
+	                alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+	        }
+	 
+	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+	        function tdeletePreview(obj) {
+	            var imgNum = obj.attributes['value'].value;
+	            console.log(imgNum);
+	            delete tfiles[imgNum];
+	            $("#tpreview .preview-box[value=" + imgNum + "]").remove();
+	        }
+	 
+	        //client-side validation
+	        //always server-side validation required
+	        function tvalidation(fileName) {
+	            fileName = fileName + "";
+	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+	            var fileNameExtension = fileName.toLowerCase().substring(
+	                    fileNameExtensionIndex, fileName.length);
+	            if (!((fileNameExtension === 'jpg')
+	                    || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+	                alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	 
+	        $(document).ready(function() {
+	            
+	            // <input type=file> 태그 기능 구현
+	            $('#Tattach input[type=file]').change(function() {
+	                taddPreview($(this)); //preview form 추가하기
+	            });
+	        });
+			</script>
+			<input type="hidden" id="hiddentutoValue" name="ContResult"/>
 			</div>
 			<div class="col-sm-12">
 				<div id="curr" style="height: 60px;"></div>
@@ -321,60 +500,86 @@
 				</div>
 			</div>
 			<div class="col-sm-12">
-			<div align="center">
-				<h4>커리큘럼 이미지 추가</h4>
-				<div class="input_wrap">
-					<a href="javascript:" onclick="fileUploadAction();" class="my_button">[파일 업로드]</a>
-					<input type="file" id="input_imgs" name="currImgs" multiple style="display: none;" accept="image/gif, image/jpeg, image/png"/>
-				</div>
-				<div>
-					<div class="imgs_wrap" style="width: 100%">
-						<img id="img"/>
-					</div>
-				</div>
+			<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="Rattach">
+	                <label style="font-weight: bold; font-size: 15pt;" class="waves-effect waves-teal btn-flat hover" for="ruploadInputBox">[커리큘럼 이미지 첨부]</label>
+	                <input id="ruploadInputBox" style="display: none" type="file" name="rfiledata"/>
+            	</div>
+				<div id="rpreview" class="content" style="width:100%;"></div>
+				
+			</div>
 			</div>
 			<script type="text/javascript">
-				var sel_files = [];
-				$(document).ready(function(){
-					$("#input_imgs").on("change", handleImageFileSelect);
-				});
-				function fileUploadAction(){
-					console.log("fileUploadAction");
-					$("#input_imgs").trigger('click');
-				}
-				function handleImageFileSelect(e){
-					sel_files = [];
-					$(".imgs_wrap").empty();
-					
-					var files = e.target.files;
-					var filesArr = Array.prototype.slice.call(files);
-					console.log(filesArr.length);
-					var index = 0;
-					filesArr.forEach(function(f){
-						if(!f.type.match("image.*")){
-							alert("확장자는 이미지 확장자만 가능합니다.");
-							return;
-						}
-						
-						sel_files.push(f);
-						
-						var reader = new FileReader();
-						reader.onload = function(e){
-							var html = "<a href\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id = \"img_id_"+index+"\"><img src=\""+e.target.result+"\" data-file='"+f.name+"' class='currImgFile' title='click to remove' style='width:100%;'></a>";
-							$(".imgs_wrap").append(html);
-							index++;
-						}
-						reader.readAsDataURL(f);
-					});
-				}
-				function deleteImageAction(index){
-					console.log("index : "+ index);
-					sel_files.splice(index,1);
-					var img_id = "#img_id_"+index;
-					$(img_id).remove();
-					console.log(sel_files);
-				}
+			var rfiles = {};
+	        var rpreviewIndex = 0;
+	 
+	        // image preview 기능 구현
+	        // input = file object[]
+	        function raddPreview(input) {
+	            if (input[0].files) {
+	                for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+	                    var file = input[0].files[fileIndex];
+	 
+	                    if (rvalidation(file.name))
+	                        continue;
+	 
+	                    var reader = new FileReader();
+	                    reader.onload = function(img) {
+	                       
+	                        var imgNum = rpreviewIndex++;
+	                        $("#rpreview")
+	                                .append(
+	                                        "<div class=\"preview-box\" value=\"" + imgNum +"\">"
+	                                                + "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\ style='width:100%;'/>"
+	                                                + "<p>"
+	                                                + file.name
+	                                                + "</p>"
+	                                                + "<div class=\"btn btn-primary\" value=\""
+	                                                + imgNum
+	                                                + "\" onclick=\"rdeletePreview(this)\">"
+	                                                + "삭제" + "</div>" + "</div>");
+	                        rfiles[imgNum] = file;
+	                    };
+	                    reader.readAsDataURL(file);
+	                }
+	            } else
+	                alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+	        }
+	 
+	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+	        function rdeletePreview(obj) {
+	            var imgNum = obj.attributes['value'].value;
+	            console.log(imgNum);
+	            delete rfiles[imgNum];
+	            $("#rpreview .preview-box[value=" + imgNum + "]").remove();
+	        }
+	 
+	        //client-side validation
+	        //always server-side validation required
+	        function rvalidation(fileName) {
+	            fileName = fileName + "";
+	            var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+	            var fileNameExtension = fileName.toLowerCase().substring(
+	                    fileNameExtensionIndex, fileName.length);
+	            if (!((fileNameExtension === 'jpg')
+	                    || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+	                alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	 
+	        $(document).ready(function() {
+	            
+	            // <input type=file> 태그 기능 구현
+	            $('#Rattach input[type=file]').change(function() {
+	                raddPreview($(this)); //preview form 추가하기
+	            });
+	        });
 			</script>
+			<input type="hidden" id="hiddenCurrValue" name="CurrResult">
 			</div>
 			<div class="col-sm-12">
 				<div id="target" style="height: 60px;"></div>
@@ -525,7 +730,7 @@
 					
 					        // 인포윈도우로 장소에 대한 설명을 표시합니다
 					        var infowindow = new kakao.maps.InfoWindow({
-					            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">강의 장소</div>'
 					        });
 					        infowindow.open(map, marker);
 					
@@ -562,135 +767,16 @@
 			</div>
 			<h6>　</h6>
 			<div align="right">
-				<button class="btn btn-secondary" style="margin-right: 5%;">신청하기</button>
+				<button type="button" class="btn btn-secondary" id="submitBtn" style="margin-right: 5%;">신청하기</button>
 			</div>
 		</form>
+		<form id="ruploadForm" style="display: none;"></form>
+		<form id="cuploadForm" style="display: none;"></form>
+		<form id="tuploadForm" style="display: none;"></form>
+		<script>
+		</script>
 	</div>
 </body>
-				
-			<!-- <div class="row">
-          <div class="col-md-12 mb-4">
-            <label>강의 제목</label>
-            <input type="text" class="form-control" name="lectureName" placeholder="강의명을 입력해 주세요" value="" required>
-          </div>
-        </div>
-        <h6>　</h6>
-        <div class="row">
-          <div class="col-md-12 mb-4">
-            <label>강의 목표</label>
-            <input type="text" class="form-control" name="lectureObject" placeholder="강의목표를 입력해 주세요" value="" required>
-          </div>
-        </div>
-        <h6>　</h6>
-        <div class="row">
-        <div class="col-md-12 mb-3">
-       
-          <label>카테고리</label>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="design" name="category" type="radio" class="custom-control-input" checked required>
-            <label class="custom-control-label" for="design">디자인</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="working" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="working">실무역량</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="beautiy" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="beautiy">뷰티</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="media" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="media">영상</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="language" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="language">외국어</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="music" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="music">음악</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="lifeStyle" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="lifeStyle">라이프스타일</label>
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <div class="custom-control custom-radio">
-            <input id="jetech" name="category" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="jetech">제테크</label>
-          </div>
-        </div>
-		<h6>　</h6>
-        </div>
-		
-        <div class="mb-3 row" id="addressInput">
-			<div class="col-md-6 mb-3">
-			<label>강의 방법</label>
-				<input type="hidden" id="sample4_postcode" placeholder="우편번호">
-				<input type="text"	class="form-control" id="sample4_roadAddress" placeholder="도로명주소*" name="adr1" required>
-			</div>
-			<div class="col-md-4 mb-3">
-			<label>　</label>
-				<input type="text"	class="form-control" id="sample4_detailAddress" name="adr3" placeholder="상세주소*">
-			</div>
-			<div class="col-md-2 mb-3" align="center">
-				<div style="height:40%;"></div>
-				<button class="btn btn-primary mb-3" type="button" onclick="sample4_execDaumPostcode();">검색</button>
-			</div>
-			<h6>　</h6>
-		</div>
-		<script>
-						function sample4_execDaumPostcode() {
-					        new daum.Postcode({
-					            oncomplete: function(data) {
-					                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-					                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					                var roadAddr = data.roadAddress; // 도로명 주소 변수
-
-					                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-					                document.getElementById("sample4_roadAddress").value = roadAddr;
-					                
-					                
-					            }
-					        }).open();
-					    }
-						
-		</script>
-		 
-		<div class="mb-3">
-	
-		</div>
-		<script type="text/javascript">
-		</script>
-		 <h6>　</h6>
-        <div class="mb-3">
-			<label>강의 상세설명</label>
-			<textarea rows="10" cols="" class="form-control" style="resize: none;" name="content" placeholder="강의에 대한 상세설명을 적어주세요"></textarea>
-		</div>
-		 <h6>　</h6>
-        <hr class="mb-4">   
-			<div align="right" style="margin-bottom:10px;">
-			<button type="button" class="btn btn-primary">글 등록 하기</button>
-			</div> -->
-			
-		
 
 	<div>
 		<h4></h4>
