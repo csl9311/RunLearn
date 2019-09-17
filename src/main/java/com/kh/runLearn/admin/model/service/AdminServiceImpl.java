@@ -138,6 +138,16 @@ public class AdminServiceImpl implements AdminService {
 	}
 	// /정렬오름차순
 	//////////////////////////정렬끝
+	@Override
+	public ArrayList<Member> allUserListName(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return aDAO.allUserListName(pi);
+	}
+	@Override
+	public ArrayList<Member> allUserListNameR(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return aDAO.allUserListNameR(pi);
+	}
 		
 	
 	

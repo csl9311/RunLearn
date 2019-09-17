@@ -36,6 +36,8 @@ public interface AdminService {
 	ArrayList<Member> allUserListMDR(PageInfo pi); // 수정일 관리자 회원정보 조회
 	ArrayList<Member> allUserListGR(PageInfo pi); // 등급 관리자 회원정보 조회
 	ArrayList<Member> allUserListSR(PageInfo pi); // 상태 관리자 회원정보 조회
+	ArrayList<Member> allUserListName(PageInfo pia); //이름 내림
+	ArrayList<Member> allUserListNameR(PageInfo pia);//이름 오름
 
 	
 

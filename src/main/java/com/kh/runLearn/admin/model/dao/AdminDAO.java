@@ -120,7 +120,16 @@ public class AdminDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.allUserList", null, rowBounds); // arraylist로 형변환해주기
 	}
-	
+	public ArrayList<Member> allUserListName(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListName", null, rowBounds); // arraylist로 형변환해주기
+	}
+	public ArrayList<Member> allUserListNameR(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListNameR", null, rowBounds); // arraylist로 형변환해주기
+	}
 	
 	
 	
@@ -131,6 +140,7 @@ public class AdminDAO {
 		System.out.println("dao"+m);
 		return sqlSession.update("adminMapper.targetUserUpdate",m);
 	}
+	
 	
 
 }

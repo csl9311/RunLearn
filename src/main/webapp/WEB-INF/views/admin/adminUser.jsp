@@ -81,8 +81,8 @@
   		<th style="width:auto;text-align:center;" class="thead" id="">닉네임</th>
   		<th style="width:auto;text-align:center;" class="thead" id="">이메일</th>
   		<th style="width:auto;text-align:center;" class="thead" id="">전화번호</th>
-  		<th style="width:auto;text-align:center;" class="thead" id="">가입일</th>
-  		<th style="width:auto;text-align:center;" class="thead" id="">정보수정일▼</th>  		
+  		<th style="width:auto;text-align:center;" class="thead" id="">가입일▼</th>
+  		<th style="width:auto;text-align:center;" class="thead" id="">정보수정일</th>  		
   		<th style="width:auto;text-align:center;" class="thead" id="">등급</th>
   		<th style="width:auto;text-align:center;" class="thead" id="">상태</th>
   		<th style="width:auto;text-align:center;">주소</th> 
@@ -109,7 +109,7 @@
   					||
   					a[i].textContent.substring(a[i].textContent.length-1)=="▲"){
   				console.log(a[i].textContent);
-  				a[i].textContent=a[i].textContent.substring(a[i].textContent.length-1,a[i].textContent.length);
+  				a[i].textContent=a[i].textContent.substring(0,a[i].textContent.length-1);
   			}
   		}
   		 if(category.substring(category.length-1)=="▼"){

@@ -99,7 +99,10 @@ public class AdminController {
 		break;
 		case 15: userList=aService.allUserListSR(pia);//모든회원 조회
 		break;
-		
+		case 16:  userList=aService.allUserListName(pia);//이름 내림
+		break;
+		case 17: userList=aService.allUserListNameR(pia);
+		break;
 		}
 		
 		

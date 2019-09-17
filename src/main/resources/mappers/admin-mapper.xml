@@ -115,6 +115,16 @@
 	from member
 	order by m_status asc
 	</select>
+	<select id="allUserListName" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_name desc
+	</select>
+	<select id="allUserListNameR" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_name asc
+	</select>
 	<!--/유저정렬 역순 -->
 	<update id="targetUserUpdate" parameterType="Member"><!-- 특정 회원 수정 -->
 		update member
