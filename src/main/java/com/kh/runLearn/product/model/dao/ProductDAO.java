@@ -54,7 +54,7 @@ public class ProductDAO {
 
 	// home.jsp에 최신상품 조회
 	public ArrayList<Map<String, String>> selectNewProductList() {
-		return (ArrayList)sqlSession.selectList("productMapper.selectNewProductList");
+		return (ArrayList) sqlSession.selectList("productMapper.selectNewProductList");
 	}
 
 	public int insertProduct(HashMap<String, Object> pList) {
@@ -65,11 +65,25 @@ public class ProductDAO {
 		return sqlSession.insert("productMapper.insertProductThumbnail", pi);
 	}
 
+	public int updateProduct(Product p) {
+		return sqlSession.update("productMapper.updateProduct", p);
+	}
 
+	public int updateProductOption(ArrayList<Object> poList, int p_num) {
+		sqlSession.delete("productMapper.deleteProductOption", p_num);
+		return sqlSession.insert("productMapper.updateProductOption", poList);
+	}
 
-//	public int insertProductOption(ArrayList<Product_Option> poList) {
-//		return sqlSession.insert("productMapper.insertProductOption", poList);
-//	}
+	public int updateThumbnail(Product_Image pi) {
+		return sqlSession.update("productMapper.updateThumbnail", pi);
+	}
 
+	public int updateDetailImg(ArrayList<Product_Image> piList, int p_num) {
+		sqlSession.update("productMapper.deleteDetailImg", p_num);
+		return sqlSession.update("productMapper.updateDetailImg", piList);
+	}
 
+	public void deleteProduct(int p_num) {
+		sqlSession.update("productMapper.deleteProduct", p_num);
+	}
 }

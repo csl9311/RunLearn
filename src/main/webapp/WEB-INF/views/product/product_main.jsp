@@ -38,14 +38,14 @@ img:hover {
 						<input type="hidden" value="${ p.P_NUM }" name="p_num">
 						<div class="col-md-4">
 							<div class="row" style="margin: 30px;" id="mainImage">
-								<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/test1.png" onclick='submit();'>
+								<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/${p.P_CHANGED_NAME}" onclick='submit();'>
 							</div>
 							<div class="col-md-6" id="productInfo">
 								<p>${ p.P_NAME }</p>
 								<p>${ p.P_PRICE }</p>
 							</div>
 							<div class="col-md-6" id="sellerInfo">
-								<img class="img-responsive" alt="판매자이미지" src="">
+								<img class="img-responsive" alt="판매자이미지" src="${contextPath}/resources/images/member/${p.M_CHANGED_NAME}">
 								<p>${ p.M_NAME } </p>
 								<p>${ p.M_NICKNAME }</p>
 							</div>
@@ -95,8 +95,15 @@ img:hover {
 		</div>
 		<script>
 			function upload(){
-				location.href="upload.product";
+				var user = '${sessionScope.loginUser.m_id}';
+				if(user ==''){
+					alert("로그인 후 이용해주세요.");
+					$('#loginM').parent().children('a').trigger('click');
+				} else {
+					location.href="upload.product";
+				}
 			}
+			
 		</script>
 	<c:import url="../common/footer.jsp"/>
 </body>

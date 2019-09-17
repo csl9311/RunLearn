@@ -53,7 +53,6 @@ public class ProductServiceImpl implements ProductService {
 		return pDAO.insertProduct(pList);
 	}
 
-	
 	// home.jsp에 최신상품 조회
 	@Override
 	public ArrayList<Map<String, String>> selectNewProductList() {
@@ -61,7 +60,29 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
+	@Override
+	public int updateProduct(Product p) {
+		return pDAO.updateProduct(p);
+	}
 
+	@Override
+	public int updateProductOption(ArrayList<Object> poList, int p_num) {
+		return pDAO.updateProductOption(poList, p_num);
+	}
 
+	@Override
+	public int updateThumbnail(Product_Image pi) {
+		return pDAO.updateThumbnail(pi);
+	}
+
+	@Override
+	public int updateDetailImg(ArrayList<Product_Image> piList, int p_num) {
+		return pDAO.updateDetailImg(piList, p_num);
+	}
+
+	@Override
+	public void deleteProduct(int p_num) {
+		pDAO.deleteProduct(p_num);
+	}
 
 }
