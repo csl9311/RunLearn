@@ -30,7 +30,7 @@
 			<%-- 상품 이미지 끝--%>
 			<br> <br> <br> <br>
 			<%-- 상품 정보 --%>
-			<form action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;">
+			<form action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
 				<input type="hidden" value="${ loginUser }">
 				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
@@ -77,6 +77,12 @@
 										<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
 									</c:forEach>
 								</datalist>
+							</td>
+						</tr>
+						<tr id="totalTr">
+							<td>총 금액</td>
+							<td class="right">
+								<input id="total" name="total" class="center" type="text" placeholder="옵션을 선택해주세요." readonly>
 							</td>
 						</tr>
 					</c:if>
@@ -138,6 +144,10 @@
 		<div id="abcd"></div>
 		<%-- 상품 정보 끝 --%>
 		<script type="text/javascript">
+			// 구매 버튼 클릭 시 로그인 안되어있다면 로그인
+			
+		
+		
 			/* p_info = table명 */
 			var $p_info = $('#p_info');
 			/* amount의 id 지정 */
@@ -172,6 +182,7 @@
 						'</td>' +
 					'</tr>'
 				);
+				getTotal();
 				/* div에 script 추가 */
 				$script.append(
 					'<script>' +
@@ -213,6 +224,21 @@
 			function updateProduct(){
 				location.href = "update.product?p_num=${ list.get(0).P_NUM }";
 			}
+			
+			function check(){
+				var user = '${sessionScope.loginUser.m_id}';
+				var $total = $('#total');
+				
+				if(user == '') {
+					alert("로그인 후 이용해주세요.");
+					$('#loginM').parent().children('a').trigger('click');
+					return false;
+				} else if ($total.val() == 0 || $total.val() == '') {
+					alert("옵션을 선택해주세요.");
+					return false;
+				}
+			}
+			
 		</script>
 		<br> <br> <br> <br> <br> <br>
 		<%-- 라이브리 시티 설치 코드 --%>

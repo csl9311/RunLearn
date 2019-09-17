@@ -15,6 +15,4 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentDAO payDAO;
 
-	
-	
 }
