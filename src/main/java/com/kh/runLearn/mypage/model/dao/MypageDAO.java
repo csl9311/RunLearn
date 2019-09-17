@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 
@@ -53,7 +54,7 @@ public class MypageDAO {
 
 	
 	
-	public ArrayList<Map<String, String>> selectTuterLecturePageView(String userId, PageInfo pi) { // 튜터 목록
+	public ArrayList<Map<String, Object>> selectTuterLecturePageView(String userId, PageInfo pi) { // 튜터 목록
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
@@ -101,8 +102,18 @@ public class MypageDAO {
 
 	public int tuterLectureCount(String userId) { // 튜터 페이지 강의 수
 		
-		return sqlSession.selectOne("myPageMapper.tuterLectureCount", userId);
+		return sqlSession.selectOne("mypageMapper.tuterLectureCount", userId);
 	}
+
+
+
+	public Lecture selectLecture(String userId) {
+		
+		return sqlSession.selectOne("mypageMapper.selectLecture", userId);
+	}
+
+
+
 
 
 

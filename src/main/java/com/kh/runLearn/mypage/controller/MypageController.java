@@ -25,26 +25,16 @@ import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
-import com.kh.runLearn.lecture.model.service.LectureService;
-import com.kh.runLearn.member.model.service.MemberService;
+import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.mypage.model.service.MypageService;
-import com.kh.runLearn.product.model.service.ProductService;
 
 @SessionAttributes("loginUser")
 @Controller
 public class MypageController {
 	
-	@Autowired
-	private MemberService mService;
 
-
-	@Autowired
-	private LectureService lService;
-
-	@Autowired
-	private ProductService pService;
 	
 	@Autowired
 	private MypageService myService;
@@ -58,8 +48,17 @@ public class MypageController {
 	
 	
 	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔
-	public String mUpdateView() {
-		return "mypage/memberUpdate";
+	public ModelAndView mUpdateView(ModelAndView mv, HttpSession session) {
+	
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String userId = loginUser.getM_id();
+		Member_Image profile = myService.selectProfile(userId);
+		
+		mv.addObject("profile", profile);
+		mv.setViewName("mypage/memberUpdate");
+		return mv;
+//		return "mypage/memberUpdate";
 
 	}
 	
@@ -74,9 +73,7 @@ public class MypageController {
 	
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
-		
-	
-		
+		Member_Image profile = myService.selectProfile(userId);
 		
 		if(m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
@@ -95,7 +92,7 @@ public class MypageController {
 		if(uploadFile != null && !uploadFile.isEmpty()) {
 
 			String renameFileName = saveFile(uploadFile, request);
-
+			
 			if(renameFileName != null) {
 				mi.setM_origin_name(uploadFile.getOriginalFilename());
 				mi.setM_changed_name(renameFileName);
@@ -116,7 +113,7 @@ public class MypageController {
 
 			session.setAttribute("loginUser", loginUser);
 		}
-		
+		model.addAttribute("profile",profile);
 		model.addAttribute("cate", "수강목록");
 		return "redirect:mypage.do?";
 	}
@@ -159,9 +156,8 @@ public class MypageController {
 	
 	
 	
-	@RequestMapping(value = "mypage.do")
-	public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate
-			) {
+	@RequestMapping("mypage.do")
+	public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
 		int currentPage = 1;
@@ -172,8 +168,6 @@ public class MypageController {
 		int count = 1;
 		Member_Image profile = myService.selectProfile(userId);
 		
-		
-	
 		
 		
 		if(page != null) {  
@@ -216,19 +210,43 @@ public class MypageController {
 		if(cate.equals("상품찜목록")) {
 			int listCount =  myService.selectPlistCount(userId); //상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
+			ArrayList<Map<String, String>> pList = myService.selectProductView(userId, pi); // 상품 찜목록	
 			mv.addObject("pList", pList);
 			mv.addObject("listCount", listCount);
 			mv.addObject("pi", pi);
+			
 			
 		}
 		
 		if(cate.equals("튜터")) {
 			int listCount = myService.tuterLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> tLectureList = myService.selectTuterLecturePageView(userId, pi);
+			ArrayList<Map<String, Object>> tLectureList = myService.selectTuterLecturePageView(userId, pi);	
+		
+			
+			for(int i = 0 ; i < tLectureList.size(); i++) {
+				if(tLectureList.get(i).get("L_CONFIRM").equals("N")) {
+					tLectureList.get(i).put("L_CONFIRM","미승낙");	
+				}else {
+					tLectureList.get(i).put("L_CONFIRM","승낙");
+				}
+				
+			}
+			
+			System.out.println(tLectureList);
+			for(int i = 0 ; i < tLectureList.size(); i++) {
+				int system = Integer.parseInt(String.valueOf(tLectureList.get(i).get("L_SYSTEM")));
+				if(system == 0) {
+					tLectureList.get(i).put("L_SYSTEM", "현장");
+				}else if(system == 1){
+					tLectureList.get(i).put("L_SYSTEM", "영상");
+				}
+					
+			}
+				
 			mv.addObject("pi",pi);
 			mv.addObject("tLectureList", tLectureList);
+			
 		}
 		
 		mv.addObject("profile", profile);
@@ -237,7 +255,7 @@ public class MypageController {
 		mv.addObject("nPayLcount", nPayLcount);
 		mv.addObject("nPayPcount", nPayPcount);
 		mv.addObject("cate", cate);
-		mv.setViewName("/mypage/mypage");
+		mv.setViewName("mypage/mypage");
 		return mv;
 	}
 	
@@ -265,6 +283,9 @@ public class MypageController {
 	      return mv;
 	   }
 	
+	
+
+
 	
 	
 	
