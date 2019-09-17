@@ -7,30 +7,11 @@ public class Product {
 	private String p_name;
 	private String p_category;
 	private int p_price;
+	private String p_optionCheck;
 	private String p_status;
 	private Date p_reg_date;
 	private Date p_modify_date;
 	private String m_id;
-
-	@Override
-	public String toString() {
-		return "Product [p_num=" + p_num + ", p_name=" + p_name + ", p_category=" + p_category + ", p_price=" + p_price
-				+ ", p_status=" + p_status + ", p_reg_date=" + p_reg_date + ", p_modify_date=" + p_modify_date
-				+ ", m_id=" + m_id + "]";
-	}
-
-	public Product(int p_num, String p_name, String p_category, int p_price, String p_status, Date p_reg_date,
-			Date p_modify_date, String m_id) {
-		super();
-		this.p_num = p_num;
-		this.p_name = p_name;
-		this.p_category = p_category;
-		this.p_price = p_price;
-		this.p_status = p_status;
-		this.p_reg_date = p_reg_date;
-		this.p_modify_date = p_modify_date;
-		this.m_id = m_id;
-	}
 
 	public int getP_num() {
 		return p_num;
@@ -64,6 +45,14 @@ public class Product {
 		this.p_price = p_price;
 	}
 
+	public String getP_optionCheck() {
+		return p_optionCheck;
+	}
+
+	public void setP_optionCheck(String p_optionCheck) {
+		this.p_optionCheck = p_optionCheck;
+	}
+
 	public String getP_status() {
 		return p_status;
 	}
@@ -94,6 +83,29 @@ public class Product {
 
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
+	}
+
+	public Product(int p_num, String p_name, String p_category, int p_price, String p_optionCheck, String p_status,
+			Date p_reg_date, Date p_modify_date, String m_id) {
+		this.p_num = p_num;
+		this.p_name = p_name;
+		this.p_category = p_category;
+		this.p_price = p_price;
+		this.p_optionCheck = p_optionCheck;
+		this.p_status = p_status;
+		this.p_reg_date = p_reg_date;
+		this.p_modify_date = p_modify_date;
+		this.m_id = m_id;
+	}
+
+	public Product() {
+	}
+
+	@Override
+	public String toString() {
+		return "Product [p_num=" + p_num + ", p_name=" + p_name + ", p_category=" + p_category + ", p_price=" + p_price
+				+ ", p_optionCheck=" + p_optionCheck + ", p_status=" + p_status + ", p_reg_date=" + p_reg_date
+				+ ", p_modify_date=" + p_modify_date + ", m_id=" + m_id + "]";
 	}
 
 }

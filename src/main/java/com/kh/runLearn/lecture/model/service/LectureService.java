@@ -52,12 +52,6 @@ public interface LectureService {
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
 	int findValue();
-	
-	
 
-	
-	
-	
-	
 
 }

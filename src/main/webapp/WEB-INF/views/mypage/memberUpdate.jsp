@@ -236,7 +236,7 @@ input {
             <div id="updateFont" style="width: 100%;" class="alert alert-warning">프로필 사진을 선택해주세요.</div>   
                
                 <div id="imagebox" style="width:300px; height:300px; background:white;">
-               <img id="image123" style="width:300px; height:300px; background:white;"/>
+               <img src="${contextPath}/resources/images/member/${ profile.m_changed_name }" id="image123" style="width:300px; height:300px; background:white;"/>
                </div>
                <div id="button2">
                <input type='file' name="uploadFile" id="imgInput" class="btn btn-outline-warning" accept="image/gif, image/jpeg, image/png" />

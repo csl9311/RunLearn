@@ -1,14 +1,13 @@
 package com.kh.runLearn.product.model.service;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.common.PageInfo;
-import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.product.model.dao.ProductDAO;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
@@ -54,45 +53,6 @@ public class ProductServiceImpl implements ProductService {
 		return pDAO.insertProduct(pList);
 	}
 
-	@Override
-	public int insertProductThumbnail(Product_Image pi) {
-		return pDAO.insertProductThumbnail(pi);
-	}
-
-	@Override
-	public int updateProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteProduct(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insertCart(Product p) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteCart(int p_num) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateProduct_Image(Product_Image pi) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insertProductDetail(ArrayList<Product_Image> list) {
-		return pDAO.insertProductDetail(list);
-	}
 	// home.jsp에 최신상품 조회
 	@Override
 	public ArrayList<Map<String, String>> selectNewProductList() {
@@ -101,16 +61,28 @@ public class ProductServiceImpl implements ProductService {
 
 
 	@Override
-	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 마이페이지 상품 찜목록
-		
-		return pDAO.selectProductView(userId, pi);
+	public int updateProduct(Product p) {
+		return pDAO.updateProduct(p);
 	}
 
 	@Override
-	public int selectPlistCount(String userId) { // 마이페이지 상품 찜목록 수
-		
-		return pDAO.selectPlistCount(userId);
+	public int updateProductOption(ArrayList<Object> poList, int p_num) {
+		return pDAO.updateProductOption(poList, p_num);
 	}
 
+	@Override
+	public int updateThumbnail(Product_Image pi) {
+		return pDAO.updateThumbnail(pi);
+	}
+
+	@Override
+	public int updateDetailImg(ArrayList<Product_Image> piList, int p_num) {
+		return pDAO.updateDetailImg(piList, p_num);
+	}
+
+	@Override
+	public void deleteProduct(int p_num) {
+		pDAO.deleteProduct(p_num);
+	}
 
 }
