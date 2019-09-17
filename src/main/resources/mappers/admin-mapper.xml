@@ -20,13 +20,129 @@
 	from member
 	where m_grade = '튜티/블랙' or m_grade = '튜터/블랙'
 	</select>
-	
-	<select id="allUserList" resultType="Member">
+	<select id="leaveUserCount" resultType="_int"><!--  탈퇴회원 수 조회 -->
+	select count(*)
+	from member
+	where m_status = 'N'
+	</select>
+	<select id="adminUserCount" resultType="_int"><!--  어드민회원 수 조회 -->
+	select count(*)
+	from member
+	where m_grade = 'M'
+	</select>
+	<!-- 유저 정렬 -->
+	<select id="allUserList" resultType="Member"><!--기본 정렬 (가입일)  -->
 	select *
 	from member
 	order by m_create_date desc
 	</select>
+	<select id="allUserListId" resultType="Member"><!-- 아이디정렬 -->
+	select *
+	from member
+	order by m_id desc
+	</select>
+	<select id="allUserListNick" resultType="Member"><!-- 닉네임정렬 -->
+	select *
+	from member
+	order by m_nickname desc
+	</select>
+	<select id="allUserListEm" resultType="Member"><!-- 이메일 정렬 -->
+	select *
+	from member
+	order by m_email desc
+	</select>
 
+	<select id="allUserListPh" resultType="Member"><!-- 폰 정렬 -->
+	select *
+	from member
+	order by m_phone desc
+	</select>
+	<select id="allUserListMD" resultType="Member"><!-- 수정일 정렬 -->
+	select *
+	from member
+	order by m_modify_date desc
+	</select>
+	<select id="allUserListG" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_grade desc
+	</select>
+	<select id="allUserListS" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_status desc
+	</select>
+	<!--/유저정렬  -->
+	<!-- 유저 정렬 역순 -->
+	<select id="allUserListR" resultType="Member"><!--기본 정렬 (가입일)  -->
+	select *
+	from member
+	order by m_create_date asc
+	</select>
+	<select id="allUserListIdR" resultType="Member"><!-- 아이디정렬 -->
+	select *
+	from member
+	order by m_id asc
+	</select>
+	<select id="allUserListNickR" resultType="Member"><!-- 닉네임정렬 -->
+	select *
+	from member
+	order by m_nickname asc
+	</select>
+	<select id="allUserListEmR" resultType="Member"><!-- 이메일 정렬 -->
+	select *
+	from member
+	order by m_email asc
+	</select>
+
+	<select id="allUserListPhR" resultType="Member"><!-- 폰 정렬 -->
+	select *
+	from member
+	order by m_phone asc
+	</select>
+	<select id="allUserListMDR" resultType="Member"><!-- 수정일 정렬 -->
+	select *
+	from member
+	order by m_modify_date desc
+	</select>
+	<select id="allUserListGR" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_grade asc
+	</select>
+	<select id="allUserListSR" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_status asc
+	</select>
+	<select id="allUserListName" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_name desc
+	</select>
+	<select id="allUserListNameR" resultType="Member"><!-- 등급 정렬 -->
+	select *
+	from member
+	order by m_name asc
+	</select>
+	<!--/유저정렬 역순 -->
+	<update id="targetUserUpdate" parameterType="Member"><!-- 특정 회원 수정 -->
+		update member
+      set 
+      M_NAME=#{m_name},
+      M_NICKNAME=#{m_nickname},
+      M_EMAIL=#{m_email},
+      M_PHONE=#{m_phone},
+      M_MODIFY_DATE = sysdate,
+      M_GRADE=#{m_grade},
+      M_STATUS=#{m_status},
+      POSTNUM=#{postnum},
+      G_ADDRESS=#{g_address},
+      R_ADDRESS=#{r_address},
+      D_ADDRESS=#{d_address}
+                
+      where M_ID = #{m_id}
+	</update>
 
 
 </mapper>

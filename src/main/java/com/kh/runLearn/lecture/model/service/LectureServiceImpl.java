@@ -45,23 +45,8 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public int acceptLecture(int l_num) {
-		return 0;
-	}
-
-	@Override
-	public int notAcceptLecture(int l_num) {
-		return 0;
-	}
-
-	@Override
 	public int permissionLecture(Lecture l) {
 		return lDAO.permissionLecture(l);
-	}
-
-	@Override
-	public int updatePermissionLecture(Lecture l) {
-		return 0;
 	}
 
 //	@Override
@@ -74,18 +59,8 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public int insertLecture(Lecture l) {
-		return 0;
-	}
-
-	@Override
 	public int updateLecture(Lecture l) {
-		return 0;
-	}
-
-	@Override
-	public int deleteLecture(int l_num) {
-		return 0;
+		return lDAO.updateLecture(l);
 	}
 
 	@Override
@@ -122,12 +97,7 @@ public class LectureServiceImpl implements LectureService {
 	public int insertLecture_cImage(Lecture_Image li) {
 		return lDAO.insertLecture_cImage(li);
 	}
-
-	@Override
-	public int updateLecture_Image(Lecture_Image li) {
-		return 0;
-	}
-
+	
 	@Override
 	public int insertWishlist(Lecture l, String m_id) {
 		return 0;
@@ -143,34 +113,48 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.selectLectureImage(map);
 	}
 
-	@Override
-	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 마이페이지 강의찜 목록
 
-		return lDAO.selectNoPayLectureView(userId, pi);
-	}
-
-	@Override
-	public int selectNopayLectureCount(String userId) { // 마이페이지 강의 찜목록 전체 수
-
-		return lDAO.selectNopayLectureCount(userId);
-	}
-
-	@Override
-	public ArrayList<Map<String, String>> selectLectureView(String userId, PageInfo pi) { // 마이페이지 강의 수강목록
-
-		return lDAO.selectLectureView(userId, pi);
-	}
-
-	@Override
-	public int selectLectureCount(String userId) { // 마이페이지 수강목록 전체 수
-
-		return lDAO.selectLetureCount(userId);
-	}
 
 	// home.jsp에 최신강의 조회
 	@Override
 	public ArrayList<Map<String, String>> selectNewLectureList() {
 		return lDAO.selectNewLectureList();
+	}
+
+	@Override
+	public int insertLectureFile(Lecture_File lf) {
+		return lDAO.insertLectureFile(lf);
+	}
+	
+	@Override
+	public int dropLectureImage(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return lDAO.dropLectureImage(map);
+	}
+
+	@Override
+	public int findValue() {
+		return lDAO.findValue();
+	}
+
+	@Override
+	public int confirmLecture(int l_num) {
+		return lDAO.confirmLecture(l_num);
+	}
+
+	@Override
+	public int denyLecture(int l_num) {
+		return lDAO.denyLecture(l_num);
+	}
+
+	@Override
+	public ArrayList deleteLecture(int l_num) {
+		return lDAO.deleteLecture(l_num);
+	}
+
+	@Override
+	public int deleteLectureImage(int l_num) {
+		return lDAO.deleteLectureImage(l_num);
 	}
 
 	// home.jsp에 인기강의 조회
@@ -180,8 +164,8 @@ public class LectureServiceImpl implements LectureService {
 	}
 	
 	@Override
-	public int insertLectureFile(Lecture_File lf) {
-		return lDAO.insertLectureFile(lf);
+	public Lecture_File selectLectureFile(int l_each_num) {
+		return lDAO.selectLectureFile(l_each_num);
 	}
 
 

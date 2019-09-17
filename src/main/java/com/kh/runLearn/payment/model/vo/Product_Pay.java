@@ -4,14 +4,19 @@ public class Product_Pay {
 	private int pay_num;
 	private int p_num;
 	private int p_pay_amount;
+	private int pay_total;
+	private int delivery;
+	private int p_option;
 	
 	public Product_Pay() {}
 
-	public Product_Pay(int pay_num, int p_num, int p_pay_amount) {
-		super();
+	public Product_Pay(int pay_num, int p_num, int p_pay_amount, int pay_total, int delivery, int p_option) {
 		this.pay_num = pay_num;
 		this.p_num = p_num;
 		this.p_pay_amount = p_pay_amount;
+		this.pay_total = pay_total;
+		this.delivery = delivery;
+		this.p_option = p_option;
 	}
 
 	public int getPay_num() {
@@ -38,9 +43,36 @@ public class Product_Pay {
 		this.p_pay_amount = p_pay_amount;
 	}
 
+	public int getPay_total() {
+		return pay_total;
+	}
+
+	public void setPay_total(int pay_total) {
+		this.pay_total = pay_total;
+	}
+
+	public int getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(int delivery) {
+		this.delivery = delivery;
+	}
+
+	public int getP_option() {
+		return p_option;
+	}
+
+	public void setP_option(int p_option) {
+		this.p_option = p_option;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductPay [pay_num=" + pay_num + ", p_num=" + p_num + ", p_pay_amount=" + p_pay_amount + "]";
+		return "Product_Pay [pay_num=" + pay_num + ", p_num=" + p_num + ", p_pay_amount=" + p_pay_amount
+				+ ", pay_total=" + pay_total + ", delivery=" + delivery + ", p_option=" + p_option + "]";
 	}
+
+	
 	
 }
