@@ -42,9 +42,9 @@
       /* -----------------------메인 아래부분----------------------- */
       .body .main-bottom {
          position: relative;
-         max-width: 1000px;
-         width: 1000px;
-         height: 400px;
+         max-width: 1100px;
+         width: 1100px;
+         height: 450px;
          margin: 10% auto 20%;
          padding: 0;
       }
@@ -70,7 +70,7 @@
       
       .detailDiv .imgRow img {
          width: 100%;
-         height: 250px;
+         height: 300px;
       }
       
       .detailDiv .subRow {
@@ -79,17 +79,17 @@
       }
       
       .detailDiv .title {
-         font-size: 16px;
+         font-size: 18px;
          font-weight: 700;
       }
       
       .detailDiv .sub {
-         font-size: 13px;
+         font-size: 15px;
          font-weight: 400;
       }
       
       .detailDiv .price {
-         font-size: 11px;
+         font-size: 13px;
          font-weight: 400;
       }
       
@@ -128,20 +128,20 @@
       }
       
       .sideDiv td {
-         padding: 5px 0;
+         padding: 8px 0;
          border-top: 1px solid lightgray;
          border-bottom: 1px solid lightgray;
          cursor: pointer;
       }
       
       .imgRow-side{
-      	width: 35%;
+      	width: 30%;
       	paddig-left: 30px;
       }
       
       .imgRow-side img {
-         width: 80px;
-         height: 80px;
+         width: 85px;
+         height: 85px;
          margin: 0 40px;
       }
       
@@ -205,10 +205,14 @@
    <div class="body">
       <div class="slide-area">
          <div class="slide">
-               <div class="slideItem" id="slide1"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
-               <div class="slideItem" id="slide1"><img src="${contextPath}/resources/images/main/mainBanner2.jpg"></div>
-               <div class="slideItem" id="slide1"><img src="${contextPath}/resources/images/main/mainBanner3.jpg"></div>
+         	<c:forEach var="list" items="${ list }">
+         		<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
+         		<!-- 강의 의미지 경로만 바꿔주면 됨! DB에서 인기 강의는 불러왔음! -->
+         	</c:forEach>
          </div>
+         <script>
+         	console.log('${list}');
+         </script>
       </div>
       <div class="container main-bottom">
           <h3>최신 강의</h3><br>
@@ -216,7 +220,7 @@
             <table class="topItem">
                <tr class="imgRow">
                   <td>
-                     <img id="img-detail" src="${contextPath}/resources/images/main/lectureImg_sample.PNG">
+                     <img id="img-detail">
                   </td>
                </tr>
                <tr class="subRow title">
@@ -252,6 +256,28 @@
     <c:import url="common/footer.jsp"/>
    
    <script>
+   	   var selectedCate = '강의';
+   	   
+   	   getNewList(selectedCate);
+   	   
+	   setInterval(function() {
+		   getNewList(selectedCate);
+	   }, 2000)
+   
+	   $('#productBtn').click(function() {
+		   	   selectedCate = '상품';
+			   getNewList(selectedCate);
+			   $(this).toggleClass('list-select');
+			   $('#lectureBtn').toggleClass('list-select');
+	   });
+	
+	   $('#lectureBtn').click(function() {
+			   selectedCate = '강의';
+			   getNewList(selectedCate);
+			   $(this).toggleClass('list-select');
+			   $('#productBtn').toggleClass('list-select');
+	   });
+	   
    	   $(function() {
    		   $(document).on('mouseover','.rows', function(){
    			   var src = $(this).children().children('img').attr('src');
@@ -264,21 +290,9 @@
 		       $('.detailDiv .sub td').html(sub);
 		       $('.detailDiv .price td').html('<br>'+price);
    		   });
-	   });
-   	   
-	   $(function() {
-		   getNewList('강의');
-		   
-		   $('#productBtn').click(function() {
-			   getNewList('상품');
-			   $(this).toggleClass('list-select');
-			   $('#lectureBtn').toggleClass('list-select');
-		   });
-		   
-		   $('#lectureBtn').click(function() {
-			   getNewList('강의');
-			   $(this).toggleClass('list-select');
-			   $('#productBtn').toggleClass('list-select');
+   		   
+   		   $(document).on('click','.rows', function name() {
+   			   
 		   });
 	   });
 	   
@@ -306,13 +320,14 @@
 		            var $price;
 		            
 		            if (cate == '강의') {
+		            	$('#img-detail').attr('src', '${contextPath}/resources/buploadFiles/'+data[0].L_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].L_TITLE.replace(/\+/g,' ')));
 						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_CONTENT.replace(/\+/g,' ')));
 						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
 						
 		            	for (var i = 0; i < 4; i++) {
 							$tr = $('<tr class="rows">');
-							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/buploadFiles/'+data[i].L_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
 							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')));
@@ -329,13 +344,14 @@
 							$table.append($tr);
 						}
 		            } else if (cate == '상품') {
+		            	$('#img-detail').attr('src', '${contextPath}/resources/buploadFiles/'+data[0].P_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].P_NAME.replace(/\+/g,' ')));
 		            	$('.imgRow').siblings('.sub').children('td').html('');
 						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_PRICE+"￦");
 						
 						for (var i = 0; i < 4; i++) {
 							$tr = $('<tr class="rows">');
-							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/main/lectureImg_sample.PNG">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/buploadFiles/'+data[i].P_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].P_NAME.replace(/\+/g,' ')));
 							$price = $('<div class="price">').text(data[i].P_PRICE+"￦");

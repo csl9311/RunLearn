@@ -157,11 +157,16 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.deleteLectureImage(l_num);
 	}
 
+	// home.jsp에 인기강의 조회
+	@Override
+	public ArrayList<Lecture_Image> selectHotLecture() {
+		return lDAO.selectHotLectureList();
+	}
+	
 	@Override
 	public Lecture_File selectLectureFile(int l_each_num) {
 		return lDAO.selectLectureFile(l_each_num);
 	}
-
 
 
 }

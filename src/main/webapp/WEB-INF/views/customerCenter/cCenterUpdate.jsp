@@ -118,7 +118,7 @@
 					<c:param name="page" value="${ page }"/>
 				</c:url>
 				<div class="col-md" style="text-align: center; margin-bottom: 50px;">
-					<button class="backBtn" onclick="location.href='${blist}'" style="margin-right: 20px;">목록으로</button>
+					<button class="backBtn" onclick="location.href='${blist}'" style="margin-right: 20px;">돌아가기</button>
 					<button type="submit">수정하기</button>
 				</div>
 			</div>

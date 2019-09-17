@@ -491,17 +491,15 @@ header .search .lcont input[type=text] {
 			</ul>
 		</div>
 		<div class="search">
-			<form action="search.do">
-				<div class="lcont">
-					<select name="" class="search-cate">
-						<option value="">튜터</option>
-						<option value="">카테고리</option>
-					</select>
-					<input type="text" name="search" id="fixed-searchcss" placeholder="검색어를 입력해주세요" autocomplete="off" value="">
-					<input type="hidden" name="price" value="전체">
-					<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
-				</div>
-			</form>
+			<div class="lcont">
+				<select class="search-cate">
+					<option value="전체">--전체--</option>
+					<option value="상품">상품</option>
+					<option value="강의">강의</option>
+				</select>
+				<input type="text" name="search" id="fixed-searchcss" placeholder="검색어를 입력해주세요" autocomplete="off" value="">
+				<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
+			</div>
 		</div>
 	</div>
 	<header>
@@ -552,11 +550,7 @@ header .search .lcont input[type=text] {
 						<c:url var="lListView" value="mypage.do">
  						<c:param name="cate" value="수강목록"/>
  					 	</c:url>
-							<li id="myPage"><a href="${ lListView }">마이페이지</a>
-								<ul id="myPage-detail">
-									<li><a href="#">내 정보</a></li>
-									<li><a href="#">내 강의/거래</a></li>
-								</ul></li>
+							<li id="myPage"><a href="${ lListView }">마이페이지</a></li>
 						</c:if>
 						<c:if test="${ sessionScope.loginUser.m_id eq 'admin1' }">
 							<li><a href="adminMain.do">관리자페이지</a></li>
@@ -574,17 +568,16 @@ header .search .lcont input[type=text] {
 				<img src="${contextPath}/resources/images/common/logo_2.png" onclick="location.href='${contextPath}'">
 			</div>
 			<div class="search">
-				<form action="search.do">
 					<div class="lcont">
 						<select name="" class="search-cate">
-							<option value="">튜터</option>
-							<option value="">카테고리</option>
+							<option value="전체">--전체--</option>
+							<option value="상품">상품</option>
+							<option value="강의">강의</option>
 						</select>
 						<input type="text" name="search" id="searchcss" autocomplete="off" placeholder="배우고 싶은 튜터 또는 카테고리를 검색해보세요!" value="">
 						<input type="hidden" name="price" value="전체">
 						<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
 					</div>
-				</form>
 			</div>
 		</div>
 	</header>
@@ -720,7 +713,22 @@ header .search .lcont input[type=text] {
 		});
     
     $('.searchBtn').click(function() {
-	          $(this).parent().parent().submit();
+	          var cate = $(this).siblings('.search-cate').val();
+	          var search = $(this).siblings('input[type=text]').val();
+			  
+	          switch (cate) {
+				case '전체':
+					location.href='search.do?search='+search+'&price=전체';
+					break;
+				case '상품':
+					location.href='searchAll.do?search='+search+'&cate='+cate+'&price=전체';
+					break;
+				case '강의':
+					location.href='searchAll.do?search='+search+'&cate='+cate+'&price=전체';
+					break;
+				default:
+					break;
+			  }
 	  });
 		
 		/* 페이지이동 */
