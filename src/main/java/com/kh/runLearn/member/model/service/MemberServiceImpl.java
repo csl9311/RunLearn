@@ -84,11 +84,6 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.insertMember_Image(mi);
 	}
 
-	@Override
-	public int updateMember_Image(Member_Image mi) {
-		
-		return mDAO.updateMember_Image(mi);
-	}
 
 	@Override
 	public int deleteMember_Image(Member_Image mi) {
@@ -150,6 +145,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member_Image findMemberImg(String m_id) {
 		return mDAO.findMemberImg(m_id);
 	}
+
 	@Override
 	public ArrayList<Lecture> selectLectureMember(String userId) {
 		// TODO Auto-generated method stub
@@ -185,5 +181,4 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }

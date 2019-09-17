@@ -21,65 +21,117 @@
 	<div class="contents center">
 		<div class="row">
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
-			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return imgCheck();">
+			<form action="update.productInfo" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
-				<input type="hidden" name="p_num" value="0">
+				<input type="hidden" name="p_num" value="${ list.get(0).P_NUM }">
 				<input type="hidden" name="m_id" value="${ sessionScope.loginUser.m_id }">
 				
-				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 업로드</button>
+				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 수정</button>
 				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
         		<div class="row">
-					<div id="thumbnailArea"></div>
+					<div id="thumbnailArea">
+						<div id="thumbnailImg">
+							<c:forEach var="p" items="${ list }">
+								<c:if test="${ p.P_FILE_LEVEL+0 == 0 }">
+								* 상품 이미지를 다시 등록해주세요. *
+									<img class="img-responsive center" alt="썸네일" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
+									<input type="hidden" name="thumbnailFileName" value="${p.P_CHANGED_NAME}">
+								</c:if>
+							</c:forEach>
+						</div>
+					</div>
         		</div>
 				
-				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 업로드</button>
+				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 수정</button>
 				<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
 				<div>
-					<div id="detailImgArea" class="row"></div>
+					<div id="detailImgArea" class="row">
+						<c:forEach var="p" items="${ list }">
+							<c:if test="${ p.P_FILE_LEVEL+0 == 1 }">
+								<img class="img-responsive center" alt="상세 이미지" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
+								<input type="hidden" name="detailImgFileName" value="${p.P_CHANGED_NAME}">
+							</c:if>
+						</c:forEach>
+					</div>
 				</div>
 								
 				<table id="productDetail"class="col-md-6 table center">
 					<tr>
 						<td>상품명</td>
-						<td><input id="p_name" type="text" name="p_name" required="required"></td>
+						<td><input id="p_name" type="text" name="p_name" value="${ list.get(0).P_NAME }" required="required"></td>
 					</tr>
 					<tr>
 						<td>카테고리</td>
-						<td>
-							<select id="p_category" name="p_category" required="required">
-								<option value="bag">가방</option>
-								<option value="watch">시계</option>
-								<option value="wallet">지갑</option>
-								<option value="perfume">향수</option>
-								<option value="accessory">악세서리</option>
-								<option value="material">재료</option>
-							</select>
-							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
-						</td>
+						<td><input id="p_category" type="text" name="p_category" value="${ list.get(0).P_CATEGORY }" required="required"></td>
 					</tr>
 					<tr id="price">
 						<td>기본가격(￦)</td>
-						<td><input type="number" step="100" min="0" name="p_price" required="required"></td>
+						<td><input type="number" step="100" min="0" name="p_price" value="${ list.get(0).P_PRICE }" required="required"></td>
 					</tr>
 					<tr>
 						<td>옵션추가</td>
 						<td>
-							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
-							<input id="optionO" type="radio" name="option" value="O" required="required">
-							<label>추가</label>
-							<input id="optionX" type="radio" name="option" value="X" required="required">
-							<label>삭제</label>
+							<input id="p_optionCheck" name="p_optionCheck" type="hidden" value="${ list.get(0).P_OPTIONCHECK }">
+							<c:if test="${ list.get(0).P_OPTIONCHECK eq 'O' }">
+								<input id="optionO" type="radio" name="option" value="O" required="required" checked>
+								<label>추가</label>
+								<input id="optionX" type="radio" name="option" value="X" required="required">
+								<label>삭제</label>
+							</c:if>
+							<c:if test="${ list.get(0).P_OPTIONCHECK eq 'X' }">
+								<input id="optionO" type="radio" name="option" value="O" required="required">
+								<label>추가</label>
+								<input id="optionX" type="radio" name="option" value="X" required="required" checked>
+								<label>삭제</label>
+							</c:if>
 						</td>
 					</tr>
+					
+					<c:forEach items="${ poList }" var="po" varStatus="i"> 
+						<tr id="option${ i.index }">
+							<td>옵션</td>
+							<td><input type="text" name="p_option" required="required" value="${ po.p_option }"></td>
+						</tr>
+						<tr id="price${ i.index }">
+							<td>가격(￦)</td>
+							<td><input type="number" min="0" step="100" name="p_optionPrice" required="required" value="${ po.p_optionPrice }"></td>
+						</tr>
+						<tr id="stock${ i.index }">
+							<td>재고</td>
+							<td><input type="number" min="0" name="p_stock" required="required" value="${ po.p_stock }"></td>
+						</tr>
+						<tr id="optionAddNDelete${ i.index }">
+							<c:if test="${ i.last == false}">
+								<td><input id="add${ i.index }" class="btn" type="button" value="옵션 추가" style="display:none;" onclick="optionAdd(${ i.index });"></td>
+							</c:if>
+							<c:if test="${ i.last == true }">
+								<td><input id="add${ i.index }" class="btn" type="button" value="옵션 추가" onclick="optionAdd(${ i.index });"></td>
+							</c:if>
+							
+							<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete(${ i.index });"></td>
+						</tr>
+					</c:forEach>
 				</table>
 				<div class="row center">
+					<c:if test="${ list.get(0).M_ID eq loginUser.m_id  }">
+						<button type="button" class="btn" onclick="deleteProduct();">상품 삭제</button>
+					</c:if>
 					<input type="button" class="btn" value="이전 페이지로" onclick="history.go(-1);">
-					<input type="submit" class="btn" value="등록">
+					<input type="submit" class="btn" value="상품정보수정">
 				</div>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
+		function deleteProduct(){
+			var check = confirm("삭제하시겠습니까?");
+			if(check){
+				location.href="delete.product?p_num=${ list.get(0).P_NUM }";
+			} else {
+				alert("취소하셨습니다.");
+			}
+		}
+		
 <%-- 이미지 미리보기 --%>
 	<%-- 썸네일 미리보기 --%>
 		function uploadThumbnail(){
@@ -162,14 +214,12 @@
 <%-- 옵션 --%>
 	<%-- 옵션 유무 선택 --%>
 		var $table = $('#productDetail');
-		var $p_optionCheck = $('#p_optionCheck');
+		
 		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		$('#optionX').prop('checked', true).prop('disabled', true);
-		$p_optionCheck.val('X');
+		
 		$('#optionO').click(function(){
 			$('#optionO').prop('disabled', 'disabled');
 			$('#optionX').removeAttr('disabled');
-			$p_optionCheck.val('O');
 			optionAdd(j);
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
 		});
@@ -185,7 +235,6 @@
 
 	<%-- 옵션 추가 --%>
 		function optionAdd(num){
-			$p_optionCheck.val('O');
 			$('#optionO').prop('checked', true);
 			$('#optionX').prop('checked', false);
 			$('#add'+ num).hide();
@@ -225,7 +274,6 @@
 				lastBtn.css('display', 'inline-block');
 			}
 			if(length <= 1) {
-				$p_optionCheck.val('X');
 				$('#optionO').removeAttr('disabled');
 				$('#optionX').prop('disabled', 'disabled');
 				$('#optionO').prop('checked', false);
@@ -237,13 +285,7 @@
 	
 <%-- 옵션 끝 --%>
 
-	<%-- 썸네일 등록 여부 확인 --%>
-		function imgCheck(){
-			if($('#imgInp').val() == '') {
-				alert("이미지를 등록해주세요.");
-				return false;
-			}
-		}
+		
 	</script>
 </body>
 <c:import url="../common/footer.jsp" />

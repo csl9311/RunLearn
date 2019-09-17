@@ -85,7 +85,6 @@ public class MemberDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
-
 	
 	public int updateMember(Member m) { //정보 수정
 		

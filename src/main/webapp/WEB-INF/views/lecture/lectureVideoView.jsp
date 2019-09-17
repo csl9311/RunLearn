@@ -28,6 +28,9 @@
 	height:720px;
 	margin-top:20px;
 }
+li:hover{
+	cursor : pointer;
+}
 </style>
 </head>
 <body>
