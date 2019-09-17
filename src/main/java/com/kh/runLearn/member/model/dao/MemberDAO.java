@@ -44,6 +44,38 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkPhone",m);
 	}
 	
+	public int checkPhone2(Member m) {
+		return sqlSession.selectOne("memberMapper.checkPhone2",m);
+	}
+	
+	public int checkEmail(Member m) {
+		return sqlSession.selectOne("memberMapper.checkEmail",m);
+	}
+
+	public int checkEmail2(Member m) {
+		return sqlSession.selectOne("memberMapper.checkEmail2",m);
+	}
+	
+	public int checkEmailo(String m_email) {
+		return sqlSession.selectOne("memberMapper.checkEmailo",m_email);
+	}
+	
+	public String checkPw(String id) {
+		return sqlSession.selectOne("memberMapper.selectPw", id);
+	}
+	
+	public Member findMember(Member m) {
+		return sqlSession.selectOne("memberMapper.findMember", m);
+	}
+	
+	public int pwChange(Member m) {
+		return sqlSession.update("memberMapper.pwChange", m);
+	}
+	
+	public Member_Image findMemberImg(String m_id) {
+		return sqlSession.selectOne("memberMapper.findImage", m_id);
+	}
+	
 	 public int getAllUserCount() {//회원수 가지고오기
 	      return sqlSession.selectOne("memberMapper.getAllUserCount");
 	   }
@@ -53,14 +85,15 @@ public class MemberDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.selectAllMember", null, rowBounds); // arraylist로 형변환해주기
 	}
-
-
-
-	public String checkPw(String id) {
-		return sqlSession.selectOne("memberMapper.selectPw", id);
+	
+	public int updateMember(Member m) { //정보 수정
+		
+		return sqlSession.update("memberMapper.updateMember", m);
 	}
 
-
-
+	public int updateMember_Image(Member_Image mi) { //프로필 수정
+		
+		return sqlSession.update("memberMapper.updateMember_Image", mi);
+	}
 
 }

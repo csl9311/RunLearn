@@ -20,6 +20,7 @@ public interface ProductService {
 	int insertProduct(HashMap<String, Object> pList); // 상품 등록
 	
 	ArrayList<Map<String, String>> selectNewProductList(); // home.jsp에 최신상품 조회
+
 	int updateProduct(Product p);
 	int updateProductOption(ArrayList<Object> poList, int p_num);
 	int updateThumbnail(Product_Image pi);

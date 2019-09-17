@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.runLearn.product.model.vo.Product_Image" alias="Product_Image"/>
 		<typeAlias type="com.kh.runLearn.product.model.vo.Product_Option" alias="Product_Option"/>
 		<typeAlias type="com.kh.runLearn.product.model.vo.Cart" alias="Cart"/>
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>

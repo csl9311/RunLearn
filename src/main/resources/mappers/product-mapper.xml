@@ -206,7 +206,7 @@
         	</choose>
         </if>
 	</select>
-	
+  
 	<!-- home.jsp에 최신상품 조회 -->
 	<select id="selectNewProductList" resultType="hashmap">
 		<![CDATA[

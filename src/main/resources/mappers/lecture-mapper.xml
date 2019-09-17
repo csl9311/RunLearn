@@ -127,12 +127,14 @@
 		where l_each_num = #{l_each_num}
 	</select>
   
+
 	<select id="mediaEnter" parameterType="_int" resultType="map">
 		select *
 		from lectureFileView
 		where l_each_num = #{l_each_num}
 	</select>
 	
+
 
  	<select id="selectNewLectureList" resultType="hashmap">
 		<![CDATA[

@@ -87,7 +87,6 @@ public class LectureDAO {
 		return sqlSession.insert("lectureMapper.insertLecture", le);
 	}
 
-
 	// home.jsp에 최신강의 조회
 	public ArrayList<Map<String, String>> selectNewLectureList() {
 		return (ArrayList) sqlSession.selectList("lectureMapper.selectNewLectureList");
