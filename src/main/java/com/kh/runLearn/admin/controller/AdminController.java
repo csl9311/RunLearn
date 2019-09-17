@@ -65,27 +65,26 @@ public class AdminController {
 		PageInfo piad= Pagination.getPageInfo(currentPage, adminUserCount, 20);
 			ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
 		switch(i) {
-		case 0:	
+		case 0:	userList=aService.allUserList(pia);//모든회원 조회
 			break;
-		case 1:	  userList=aService.allUserListId(pia);//모든회원 조회
+		case 1:	  userList=aService.allUserListId(pia);//아이디 조회
 		break;
-		case 2:	 userList=aService.allUserListNick(pia);//모든회원 조회
+		case 2:	 userList=aService.allUserListNick(pia);//닉네임 조회
 		break;
-		case 3:	 userList=aService.allUserListEm(pia);//모든회원 조회
+		case 3:	 userList=aService.allUserListEm(pia);//이메일 조회
 		break;
-		case 4:	 userList=aService.allUserListPh(pia);//모든회원 조회
+		case 4:	 userList=aService.allUserListPh(pia);//폰 조회
 		break;
-		case 5:	 userList=aService.allUserListMD(pia);//모든회원 조회
+		case 5:	 userList=aService.allUserListMD(pia);//수정일 조회
 		break;
-		case 6:	userList=aService.allUserListG(pia);//모든회원 조회
+		case 6:	userList=aService.allUserListG(pia);//등급 조회
 		break;
-		case 7:	  userList=aService.allUserListS(pia);//모든회원 조회
+		case 7:	  userList=aService.allUserListS(pia);//상태 조회
 		break;
 		
-		
+		//오름
 		case 8:	 userList=aService.allUserListR(pia);//모든회원 조회
 		break;
-		
 		case 9:	 userList=aService.allUserListIdR(pia);//모든회원 조회
 		break;
 		case 10: userList=aService.allUserListNickR(pia);//모든회원 조회
@@ -98,7 +97,7 @@ public class AdminController {
 		break;
 		case 14:  userList=aService.allUserListGR(pia);//모든회원 조회
 		break;
-		case 15:userList=aService.allUserListSR(pia);//모든회원 조회
+		case 15: userList=aService.allUserListSR(pia);//모든회원 조회
 		break;
 		
 		}

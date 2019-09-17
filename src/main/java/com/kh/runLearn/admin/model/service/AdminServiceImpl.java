@@ -76,31 +76,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 	@Override
 	public ArrayList<Member> allUserListId(PageInfo pi) {//아이디 정렬
-		return null;
+		return aDAO.allUserListId(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListNick(PageInfo pi) {//닉네임 정렬
-		return null;
+		return aDAO.allUserListNick(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListEm(PageInfo pi) {//이메일 정렬
-		return null;
+		return aDAO.allUserListEm(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListPh(PageInfo pi) {//폰정렬
-		return null;
+		return aDAO.allUserListPh(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListMD(PageInfo pi) {//수정일 정렬
-		return null;
+		return aDAO.allUserListMD(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListG(PageInfo pi) {//등급 정렬
-		return null;
+		return aDAO.allUserListG(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListS(PageInfo pi) {//상태 정렬
-		return null;
+		return aDAO.allUserListS(pi);
 	}
 	// /정렬내림차순
 	//정렬 오름차순
@@ -110,31 +110,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 	@Override
 	public ArrayList<Member> allUserListIdR(PageInfo pi) {//아이디 정렬
-		return null;
+		return aDAO.allUserListIdR(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListNickR(PageInfo pi) {//닉네임 정렬
-	return null;
+	return aDAO.allUserListNickR(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListEmR(PageInfo pi) {//이메일 정렬
-		return null;
+		return aDAO.allUserListEmR(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListPhR(PageInfo pi) {//폰정렬
-		return null;
+		return aDAO.allUserListPhR(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListMDR(PageInfo pi) {//수정일 정렬
-		return null;
+		return aDAO.allUserListMDR(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListGR(PageInfo pi) {//등급 정렬
-		return null;
+		return aDAO.allUserListGR(pi);
 	}
 	@Override
 	public ArrayList<Member> allUserListSR(PageInfo pi) {//상태 정렬
-		return null;
+		return aDAO.allUserListSR(pi);
 	}
 	// /정렬오름차순
 	//////////////////////////정렬끝

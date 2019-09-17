@@ -94,14 +94,24 @@
   	  <script>
   	 $('.Ltitle').children('th').click(function(){
 	  		  var category= $(this).text();
-	  		  
+	  		 var a = document.getElementsByClassName("thead");
+	  		 console.log(a);
   		 console.log(typeof($(this).text())); 
   		console.log($(this).text()); 
   		console.log(category);
   		console.log(typeof(category));
   		console.log(category.length);
   		console.log(typeof(category.length));
-  		
+  		console.log(a.length);
+  		console.log(a[0].textContent);
+  		for(i = 0; i < a.length; i++){
+  			if(a[i].textContent.substring(a[i].textContent.length-1)=="▼"
+  					||
+  					a[i].textContent.substring(a[i].textContent.length-1)=="▲"){
+  				console.log(a[i].textContent);
+  				a[i].textContent=a[i].textContent.substring(a[i].textContent.length-1,a[i].textContent.length);
+  			}
+  		}
   		 if(category.substring(category.length-1)=="▼"){
   			console.log($(this).text().substring(0,$(this).text().length-1));
   			$(this).text($(this).text().substring(0,$(this).text().length-1)+'▲');
@@ -113,8 +123,8 @@
   		}else if(category.substring(category.length-1)!="▲" || category.substring(category.length-1)!="▼"){
   			$(this).text($(this).text().substring(0,$(this).text().length)+'▼')
   		};
-  			 /* $(this).text()+''; */
-  		  
+  			
+  		
   	  });
   	  
   $('.centerMenu').children().children('li').click(function() {
