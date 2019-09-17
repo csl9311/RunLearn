@@ -114,6 +114,11 @@
 		from lecture_each
 		where l_num = #{l_num}
 	</select>
+	<select id="selectLectureFile" parameterType="_int" resultType="Lecture_File">
+		select *
+		from lecture_file
+		where l_each_num = #{l_each_num}
+	</select>
 	<select id="mediaEnter" parameterType="_int" resultType="map">
 		select *
 		from lectureFileView

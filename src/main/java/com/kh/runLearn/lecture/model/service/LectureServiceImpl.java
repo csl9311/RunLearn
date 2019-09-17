@@ -179,4 +179,9 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.deleteLectureImage(l_num);
 	}
 
+	@Override
+	public Lecture_File selectLectureFile(int l_each_num) {
+		return lDAO.selectLectureFile(l_each_num);
+	}
+
 }

@@ -155,4 +155,8 @@ public class LectureDAO {
 		return sqlSession.delete("lectureMapper.deleteLectureImage", l_num);
 	}
 
+	public Lecture_File selectLectureFile(int l_each_num) {
+		return sqlSession.selectOne("lectureMapper.selectLectureFile", l_each_num);
+	}
+
 }

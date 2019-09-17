@@ -132,12 +132,14 @@ public class LectureController {
 	//강의 n화 화면페이지
 	@RequestMapping("lectureEachMainView.le")
 	public ModelAndView lectureEachMainView(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num", required=false) int l_each_num, ModelAndView mv) {
+		
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("l_num", l_num);
 		map.put("l_each_num", l_each_num);
 		HashMap<String, String> etc = lService.selectLecture(l_num);
 		Lecture_Each l_each = lService.classEnter(map);
 		ArrayList list = lService.classList(l_num);
+		Lecture_File lf = lService.selectLectureFile(l_each_num);
 		System.out.println(l_each);
 		if(l_each==null) {
 			l_each = new Lecture_Each();
@@ -147,10 +149,12 @@ public class LectureController {
 			l_each.setL_each_num(0);
 		}
 		System.out.println(etc);
+		System.out.println(lf);
 		
 		mv.addObject("etc", etc);
 		mv.addObject("list", list);
 		mv.addObject("l_each", l_each);
+		mv.addObject("lf", lf);
 		mv.setViewName("lecture/lectureEachView");
 		return mv;
 	}
@@ -261,8 +265,8 @@ public class LectureController {
 		if(l_file != null && !l_file.isEmpty()) {
 			String renameFileName = insertFile(l_file, request);
 			if(renameFileName != null) {
-				lf.setL_origin_name(l_file.getOriginalFilename());
-				lf.setL_changed_name(renameFileName);
+				lf.setL_file_origin_name(l_file.getOriginalFilename());
+				lf.setL_file_changed_name(renameFileName);
 			}
 			lf.setL_file_video(lfv);
 			lService.insertLectureFile(lf);

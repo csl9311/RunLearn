@@ -29,6 +29,7 @@ public interface LectureService {
 	int deleteLectureImage(int l_num); // 강의 이미지 DB에서 삭제+
 	
 	Lecture_Each classEnter(HashMap<String, Integer> map); // 강의의 제 n화를 선택했을때+
+	Lecture_File selectLectureFile(int l_each_num); //강의 n화를 가져올때 n화의 첨부파일+
 	ArrayList classList(int l_num);//제 n화 강의에서 나올 나머지 강의 리스트 가져오기+
 	HashMap<String, Object> mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때+
 	
@@ -51,6 +52,7 @@ public interface LectureService {
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
 	int findValue();
+	
 	
 
 	
