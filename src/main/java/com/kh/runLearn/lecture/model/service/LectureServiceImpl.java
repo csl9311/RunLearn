@@ -167,6 +167,4 @@ public class LectureServiceImpl implements LectureService {
 	public Lecture_File selectLectureFile(int l_each_num) {
 		return lDAO.selectLectureFile(l_each_num);
 	}
-
-
 }
