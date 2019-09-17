@@ -136,6 +136,9 @@ font-size:12px; color:#fff;
 vertical-align:middle;
 overflow:hidden;
 background-size: contain;
+background-repeat: no-repeat;
+background-size:100%;
+padding: auto;
 }
 .nickarea{
 	text-align:center;

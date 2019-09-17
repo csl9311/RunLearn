@@ -72,8 +72,8 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.pwChange", m);
 	}
 	
-	public Member_Image findMemberImg(Member m) {
-		return sqlSession.selectOne("memberMapper.findImage", m);
+	public Member_Image findMemberImg(String m_id) {
+		return sqlSession.selectOne("memberMapper.findImage", m_id);
 	}
 	
 	 public int getAllUserCount() {//회원수 가지고오기

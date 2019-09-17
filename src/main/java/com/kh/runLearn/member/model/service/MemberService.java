@@ -32,7 +32,7 @@ public interface MemberService {
 	int checkEmail(Member m); // 이메일 확인
 	int checkEmail2(Member m); // 이메일 확인(비밀번호 찾기)
 	Member findMember(Member m); // 아이디 조회
-	Member_Image findMemberImg(Member m); // 이미지 조회
+	Member_Image findMemberImg(String m_id); // 이미지 조회
 	int pwChange(Member m); // 암호 변경
 	String checkPw(String id); // 암호 확인
 	

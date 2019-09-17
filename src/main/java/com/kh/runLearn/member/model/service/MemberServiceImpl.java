@@ -147,8 +147,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Member_Image findMemberImg(Member m) {
-		return mDAO.findMemberImg(m);
+	public Member_Image findMemberImg(String m_id) {
+		return mDAO.findMemberImg(m_id);
 	}
 	@Override
 	public ArrayList<Lecture> selectLectureMember(String userId) {

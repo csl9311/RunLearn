@@ -200,6 +200,7 @@ public class MemberController {
 
 		String encPwd = bcryptPasswordEncoder.encode(m.getM_pw());
 		m.setM_pw(encPwd);
+		System.out.println("비번 확인용 - " + encPwd);
 
 		int result = mService.insertMember(m);
 		
@@ -301,6 +302,7 @@ public class MemberController {
 			if(isUsable == false) {
 				int random = (int)(Math.random() * 10000);
 				phoneCheck = random;
+				System.out.println("인증번호 확인용" + random);
 			
 				/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 				
@@ -313,6 +315,7 @@ public class MemberController {
 			if(isUsable == false) {
 				int random = (int)(Math.random() * 10000);
 				phoneCheck = random;
+				System.out.println("인증번호 확인용" + random);
 				
 				String setfrom = "soomin3333@gmail.com";
 				String tomail = email;
@@ -375,12 +378,11 @@ public class MemberController {
 	@RequestMapping("findmemberid.do") 
 	public ModelAndView findMember(Member m, ModelAndView mv) {
 	
-		Member member = mService.findMember(m); 
-		System.out.println(m);
-		Member_Image mi = mService.findMemberImg(m);
-		System.out.println(mi);
+		Member member = mService.findMember(m);
+		String m_id = member.getM_id();
+		Member_Image mi = mService.findMemberImg(m_id);
 		
-		if(member != null) {
+		if(m_id != null) {
 			mv.addObject("member", member);
 			mv.addObject("member_img", mi);
 			mv.setViewName("member/findResultView");

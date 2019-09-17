@@ -70,15 +70,10 @@
 		set m_pw = #{m_pw}
 		where m_id = #{m_id} and m_status = 'Y'
 	</update>
-	<select id="findImage" parameterType="Member" resultType="Member_Image">
+	<select id="findImage" parameterType="string" resultType="Member_Image">
 		select *
 		from member_image
-		<if test="m_phone != null and m_name != null">
-			where m_phone = #{m_phone} and m_name = #{m_name}
-		</if>
-		<if test="m_email != null">
-			where m_email = #{m_email}
-		</if>
+		where m_id = #{m_id}
 	</select>
 
 
