@@ -16,6 +16,7 @@ import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.payment.model.vo.Payment;
 import com.kh.runLearn.payment.model.vo.Product_Pay;
 import com.kh.runLearn.product.model.vo.Product;
+import com.kh.runLearn.product.model.vo.Product_Option;
 
 @Controller
 public class PaymentController {
@@ -25,18 +26,25 @@ public class PaymentController {
 
 // 상품 결제
 	@RequestMapping("product.pay")
-	public String productPay(@ModelAttribute Product p, @ModelAttribute Member m,
-			@RequestParam(value = "amount", required = false) String amount, @RequestParam("total") String total,
-			HttpServletRequest request) {
+	public String productPay(
+			@ModelAttribute Product p,
+			@ModelAttribute Member m,
+			@RequestParam("amount") String amount,
+			@RequestParam("item") String item,
+			@RequestParam("pricearr") String pricearr,
+			@RequestParam("total") String total,
+			HttpServletRequest request
+			) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("p", p);
 		map.put("m", m);
-		map.put("amount", amount);
 		map.put("total", total);
-		System.out.println(p);
-		System.out.println(m);
-		System.out.println(amount);
-		System.out.println(total);
+		String[] amountArr = amount.split(",");
+		String[] itemArr = item.split(",");
+		String[] priceArr = pricearr.split(",");
+		map.put("amount", amountArr);
+		map.put("item", itemArr);
+		map.put("price", priceArr);
 		request.setAttribute("map", map);
 		return "product/product_payment";
 	}
@@ -44,39 +52,41 @@ public class PaymentController {
 // 결제 정보 저장
 	@RequestMapping("payment.save")
 	public String paymentSave(
-			@RequestParam("p_num") String p_num,
-			@RequestParam("m_id") String m_id,
-			@RequestParam("m_name") String m_name,
-			@RequestParam("m_email") String m_email,
-			@RequestParam("m_phone") String m_phone,
-			@RequestParam("postnum") String postnum,
+			@ModelAttribute Product p,
+			@ModelAttribute Member m,
+			@ModelAttribute Payment pay,
+			@RequestParam("item") String item,
 			@RequestParam("amount") String amount,
-			@RequestParam("pay_method") String pay_method,
+			@RequestParam("price") String price,
 			@RequestParam("total") String total
 			) throws Exception {
-		Payment pay = new Payment();
-		pay.setPay_method(pay_method);
-		pay.setPay_target("p");
-		pay.setM_id(m_id);
-		System.out.println(pay);
-
-		Product_Pay pp = new Product_Pay();
-		pp.setP_num(Integer.parseInt(p_num));
-		pp.setPay_total(Integer.parseInt(total));
-		pp.setP_pay_amount(Integer.parseInt(amount));
-		System.out.println(pp);
-
-		Member m = new Member();
-		m.setM_name(m_name);
-		m.setM_phone(m_phone);
-		m.setM_email(m_email);
-		m.setPostnum(postnum);
-		System.out.println(m);
-
 		HashMap<String, Object> map = new HashMap<>();
+		pay.setPay_target("p");
 		map.put("pay", pay);
+		System.out.println(item);
+		
+		
+		
+//		String[] itemArr = item.split(",");
+		String[] amountArr = amount.split(",");
+		int amounts = 0;
+		for(int i = 0 ; i < amountArr.length; i++) {
+			amounts += Integer.parseInt(amountArr[i]);
+		}
+//		String[] priceArr = price.split(",");
+		
+		String delivery = m.getPostnum() + " / " +  m.getR_address() + " / " + m.getD_address();
+		String p_option = p.getP_name() + " / " + item;
+		Product_Pay pp = new Product_Pay();
+		pp.setP_num(p.getP_num());
+		pp.setP_pay_amount(amounts);
+		pp.setPay_total(Integer.parseInt(total));
+		pp.setDelivery(delivery);
+		pp.setP_option(p_option);
 		map.put("pp", pp);
-		map.put("m", m);
+		
+		
+		
 		int result = payService.insertProductPayment(map);
 		if (result > 0) {
 			return "redirect:"; // 마이페이지 결제정보

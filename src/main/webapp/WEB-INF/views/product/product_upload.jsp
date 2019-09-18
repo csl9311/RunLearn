@@ -61,7 +61,7 @@
 						<td>기본가격(￦)</td>
 						<td><input type="number" step="100" min="0" name="p_price" required="required"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>옵션추가</td>
 						<td>
 							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
@@ -70,6 +70,23 @@
 							<input id="optionX" type="radio" name="option" value="X" required="required">
 							<label>삭제</label>
 						</td>
+					</tr> -->
+					<tr><td></td><td></td></tr>
+					<tr id="option0">
+						<td>옵션</td>
+						<td><input type="text" name="p_option" required="required"></td>
+					</tr>
+					<tr id="price0">
+						<td>가격(￦)</td>
+						<td><input type="number" min="0" step="100" name="p_optionPrice" required="required"></td>
+					</tr>
+					<tr id="stock0">
+						<td>재고</td>
+						<td><input type="number" min="0" name="p_stock" required="required"></td>
+					</tr>
+					<tr id="optionAddNDelete0">
+						<td><input id="add0" class="btn" type="button" value="옵션 추가" onclick="optionAdd(0);"></td>
+						<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete(0);"></td>
 					</tr>
 				</table>
 				<div class="row center">

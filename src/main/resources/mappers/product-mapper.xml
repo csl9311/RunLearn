@@ -54,7 +54,7 @@
 	<insert id="insertProduct" parameterType="map">
 		INSERT ALL
 			INTO PRODUCT VALUES (
-				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, '${p.p_optionCheck}', 'Y', SYSDATE, NULL, #{p.m_id}
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, #{p.p_optionCheck}, 'Y', SYSDATE, NULL, #{p.m_id}
 			)
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
@@ -102,7 +102,7 @@
 			P_PRICE = #{p_price},
 			P_OPTIONCHECK = #{p_optionCheck},
 			P_MODIFY_DATE = SYSDATE
-		WHERE P_NUM = ${p_num}
+		WHERE P_NUM = #{p_num}
 	</update>
 
 <!-- 상품 옵션 수정 -->
@@ -123,8 +123,9 @@
 	<update id="updateThumbnail" parameterType="Product_Image">
 		UPDATE PRODUCT_IMAGE SET
 			P_CHANGED_NAME = #{p_changed_name},
-			P_ORIGIN_NAME = #{p_origin_name}
-		WHERE P_NUM = #{p_num}
+			P_ORIGIN_NAME = #{p_origin_name},
+			P_UPLOAD_DATE = SYSDATE
+		WHERE P_NUM = #{p_num} AND P_FILE_LEVEL = 0
 	</update>
 <!-- 상세이미지 수정 -->
 	<delete id="deleteDetailImg" parameterType="_int">
@@ -146,7 +147,7 @@
 		UPDATE PRODUCT SET
 			P_STATUS = 'N',
 			P_MODIFY_DATE = SYSDATE
-		WHERE P_NUM = ${p_num}
+		WHERE P_NUM = #{p_num}
 	</update>
 
 

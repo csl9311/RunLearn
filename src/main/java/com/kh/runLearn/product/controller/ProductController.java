@@ -72,7 +72,6 @@ public class ProductController {
 		) {
 		ArrayList<HashMap<String, Object>> list = pService.selectProduct(p_num);
 		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
-		
 		request.setAttribute("list", list);
 		request.setAttribute("poList", poList);
 
@@ -229,7 +228,6 @@ public class ProductController {
 				po.setP_stock(p_stock[i]);
 				po.setP_num(p.getP_num());
 				poList.add(po);
-				System.out.println(po.getP_num());
 			}
 			result = pService.updateProductOption(poList, p.getP_num());
 			if (result > 0) {

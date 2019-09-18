@@ -34,7 +34,6 @@
 				<input type="hidden" value="${ loginUser }">
 				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
-				<input type="hidden" name="m_nickname" value="${ loginUser.m_nickname }">
 				<input type="hidden" name="m_email" value="${ loginUser.m_email }">
 				<input type="hidden" name="m_phone" value="${ loginUser.m_phone }">
 				<input type="hidden" name="postnum" value="${ loginUser.postnum }">
@@ -64,7 +63,7 @@
 						<td>판매자명</td>
 						<td class="right">
 							${ list.get(0).M_ID }
-							<input type="hidden" name="m_id" value="${ list.get(0).M_ID }">
+							<input type="hidden" name="seller" value="${ list.get(0).M_ID }">
 						</td>
 					</tr>
 					<c:if test="${ poList.size() ne 0}">
@@ -93,7 +92,7 @@
 								<input id="del" class="btn" type="button" value="-">
 								<input id="amount" name="amount" class="form-control" type="text" value="1" onchange="getTotal();" style="display: inline-block; text-align: center; width: 80px;">
 								<input id="add" class="btn" type="button" value="+"> <br>
-								<input name="priceArr" type="hidden" value="${ list.get(0).P_PRICE }">
+								<input name="pricearr" type="hidden" value="${ list.get(0).P_PRICE }">
 							</td>
 						</tr>
 						<tr id="totalTr">
@@ -167,12 +166,12 @@
 
 				$p_info.append(
 					'<tr>' +
-					'<td>' + $item.val() + '<input type="hidden" name="item" value="' + $item.val() + '"><br> 1 / ' + price + '원</td>' +
+					'<td>' + $item.val() + '<input type="hidden" name="item" value="' + $item.val() + '"><<br> 1 / ' + price + '원</td>' +
 					'<td class="right">' +
 						'<input class="btn" type="button" value="-" id="del'+i+'">' +
 						'<input name="amount" class="form-control" type="text" value="1" onchange="getTotal();" id="amount' + i + '" style="display: inline-block; text-align: center; width: 80px;">' +
 						'<input class="btn" type="button" value="+" id="add'+i+'"><br>' +
-						'<input name="priceArr" type="hidden" value='+price+'>' +
+						'<input name="pricearr" type="hidden" value='+price+'>' +
 					'</td>' +
 					'</tr>' +
 					'<tr id="totalTr">' +
@@ -207,11 +206,11 @@
 				var $total = $('#total');
 				// 연산에 필요한 배열
 				var amountArr = $('input:text[name=amount]');
-				var priceArr = $('input:hidden[name=priceArr]');
+				var pricearr = $('input:hidden[name=pricearr]');
 				var total = 0;
 				// 연산
 				for (var index = 0; index < amountArr.length; index++) {
-					total += amountArr[index].value * priceArr[index].value;
+					total += amountArr[index].value * pricearr[index].value;
 				}
 				// 값 대입
 				$total.val(total);
