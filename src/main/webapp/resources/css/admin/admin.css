@@ -14,7 +14,7 @@ table{margin-bottom:10px;}
 .sidebar{height:900px;width:200px;background-color:#fff;position:absolute!important;z-index:1;overflow:auto;display:block!important}
 .mainMoreBtn{font-size:17px;float:right; margin:3px;margin-right:10px; height:25px;width:60px;vertical-align:center; font-weight:bold; !impotant}
 .mainBorderRa{border-radius:10px;}
-.hoverTablePink tr:hover{background-color:#ff005a; color:white; opacity:0.7; !important}
+/* .hoverTablePink tr:hover{background-color:#ff005a; color:white; opacity:0.7; !important} */
 .hoverTablePink tr>button:{background-color:black; color:white;}
 .listbtn{border-radius:4px;background-color:gray;font-color:white;font-weight:bold;border:0px; width:80px; height:25px;}
 .listbtn:hover{background-color:#3B0B17;}
