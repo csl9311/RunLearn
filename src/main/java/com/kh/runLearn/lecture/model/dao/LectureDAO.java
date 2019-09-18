@@ -134,4 +134,20 @@ public class LectureDAO {
 	public Lecture_File selectLectureFile(int l_each_num) {
 		return sqlSession.selectOne("lectureMapper.selectLectureFile", l_each_num);
 	}
+
+	public String findEachNum(int l_num) {
+		return sqlSession.selectOne("lectureMapper.findEachNum", l_num);
+	}
+
+	public int updateLectureEach(Lecture_Each le) {
+		return sqlSession.update("lectureMapper.updateLectureEach", le);
+	}
+
+	public int updateLectureFile(Lecture_File lf) {
+		return sqlSession.update("lectureMapper.updateLectureFile", lf);
+	}
+
+	public int enableLectureEach(int l_each_num) {
+		return sqlSession.update("lectureMapper.enableLectureEach", l_each_num);
+	}
 }

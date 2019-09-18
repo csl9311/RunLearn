@@ -705,8 +705,8 @@
 							placeholder="도로명주소*" value="${ list.L_ADDRESS }" name="adr1" >
 					</div>
 					<div class="col-md-3 mb-3">
-						<label>　</label> <input type="text" class="form-control"
-							id="sample4_detailAddress" name="adr2" placeholder="상세주소*(개인정보보호를 위해 수정시 상세주소는 출력되지 않습니다.)">
+						<label>(개인정보보호를 위해 수정시 상세주소는 출력되지 않습니다.)</label> <input type="text" class="form-control"
+							id="sample4_detailAddress" name="adr2" placeholder="상세주소*">
 					</div>
 					<div class="col-md-2 mb-3" align="center">
 						<div style="height: 40%;"></div>

@@ -131,8 +131,16 @@ public class LectureController {
 	
 	//강의 n화 화면페이지
 	@RequestMapping("lectureEachMainView.le")
-	public ModelAndView lectureEachMainView(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num", required=false) int l_each_num, ModelAndView mv) {
-		
+	public ModelAndView lectureEachMainView(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num", required=false) String t_num, ModelAndView mv) {
+		int l_each_num = 0;
+		if(t_num == null) {
+			String a =  lService.findEachNum(l_num);
+			if(a != null) {
+				l_each_num = Integer.parseInt(a);
+			}
+		} else {
+			l_each_num = Integer.parseInt(t_num);
+		}
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("l_num", l_num);
 		map.put("l_each_num", l_each_num);
@@ -140,7 +148,9 @@ public class LectureController {
 		Lecture_Each l_each = lService.classEnter(map);
 		ArrayList list = lService.classList(l_num);
 		Lecture_File lf = lService.selectLectureFile(l_each_num);
-		System.out.println(l_each);
+		System.out.println();
+		System.out.println("l_each: "+l_each);
+		System.out.println("list: "+list);
 		if(l_each==null) {
 			l_each = new Lecture_Each();
 			l_each.setL_num(l_num);
@@ -148,8 +158,8 @@ public class LectureController {
 			l_each.setL_each_content("강의가 준비중입니다.");
 			l_each.setL_each_num(0);
 		}
-		System.out.println(etc);
-		System.out.println(lf);
+		System.out.println("etc: "+etc);
+		System.out.println("lf: "+lf);
 		
 		mv.addObject("etc", etc);
 		mv.addObject("list", list);
@@ -163,8 +173,10 @@ public class LectureController {
 	@RequestMapping("lectureMediaView.le")
 	public ModelAndView lectureMediaView(@RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
 		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
-		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
 		System.out.println(map);
+		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
+		System.out.println("list: "+list);
+		System.out.println("map: "+map);
 		if(!map.isEmpty() && !list.isEmpty()) {
 			mv.addObject("list", list);
 			mv.addObject("media", map);
@@ -174,6 +186,117 @@ public class LectureController {
 			throw new Exception("강의 영상화면으로 들어가는데 실패했습니다. 다시 시도해주십시오. 이 오류가 계속 될 경우, 관리자에게 문의해주시기 바랍니다.");
 		}
 	}
+	
+	@RequestMapping("lectureEachUpdateView.le")
+	public ModelAndView eachUpdate(@RequestParam("l_num") int l_num, @RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("l_each_num", l_each_num);
+		HashMap<String, String> etc = lService.selectLecture(l_num);
+		Lecture_Each l_each = lService.classEnter(map);
+		Lecture_File lf = lService.selectLectureFile(l_each_num);
+		System.out.println();
+		System.out.println("l_each: "+l_each);
+		System.out.println("etc: "+etc);
+		System.out.println("lf: "+lf);
+		
+		mv.addObject("etc", etc);
+		mv.addObject("l_each", l_each);
+		mv.addObject("lf", lf);
+		mv.setViewName("lecture/lectureEachUpdate");
+		return mv;
+	}
+
+	@RequestMapping("lectureEachInput.le")
+	public ModelAndView lectureEachInput(Lecture_Each le, @RequestParam(value="l_file", required=false) MultipartFile l_file, @RequestParam("l_file_video") String lfv, ModelAndView mv, MultipartHttpServletRequest request) {
+		int result = lService.insertLecture(le);
+		Lecture_File lf = new Lecture_File();
+		System.out.println("lfv : "+lfv);
+		if(l_file != null && !l_file.isEmpty()) {
+			String renameFileName = insertFile(l_file, request);
+			if(renameFileName != null) {
+				lf.setL_file_origin_name(l_file.getOriginalFilename());
+				lf.setL_file_changed_name(renameFileName);
+			}
+		}
+		lf.setL_file_video(lfv);
+		System.out.println("lf: "+lf);
+		lService.insertLectureFile(lf);
+		if(result > 0) {
+			int l_each_num = 0;
+			String a =  lService.findEachNum(le.getL_num());
+			if(a != null) {
+				l_each_num = Integer.parseInt(a);
+			}
+			System.out.println(l_each_num);
+			System.out.println(le);
+			mv.addObject("l_each_num", l_each_num);
+			mv.addObject("l_num", le.getL_num());
+			mv.setViewName("redirect:lectureEachMainView.le");
+			return mv;
+		} else {
+			throw new Exception("강의를 추가하는데 실패했습니다. 다시 시도해 주세요.");
+		}
+		
+	}
+	@RequestMapping("lectureEachUpdate.le")
+	public ModelAndView lectureEachUpdate(Lecture_Each le,
+										  @RequestParam(value="l_file", required=false) MultipartFile l_file,
+										  @RequestParam(value="l_file_video", required=false) String lfv,
+										  @RequestParam(value="l_file_origin_name", required=false) String lfon,
+										  @RequestParam(value="l_file_changed_name", required=false) String lfcn,
+										  @RequestParam("l_each_num") int l_each_num,
+										  ModelAndView mv, MultipartHttpServletRequest request) {
+		
+		System.out.println();
+		System.out.println("LE: "+le);
+		System.out.println("LF: "+l_file.getOriginalFilename());
+		System.out.println("LFCN: "+lfcn);
+		System.out.println("LEN: "+l_each_num);
+		
+		int result = lService.updateLectureEach(le);
+		Lecture_File lf = new Lecture_File();
+		
+		if(l_file != null && !l_file.isEmpty()) {
+			deleteFile3(lfcn, request);
+			String renameFileName = insertFile(l_file, request);
+			if(renameFileName != null) {
+				lf.setL_file_origin_name(l_file.getOriginalFilename());
+				lf.setL_file_changed_name(renameFileName);
+			}
+		}else {
+			lf.setL_file_origin_name(lfon);
+			lf.setL_file_changed_name(lfcn);
+		}
+		lf.setL_file_video(lfv);
+		lf.setL_each_num(l_each_num);
+		System.out.println(lf);
+		lService.updateLectureFile(lf);
+		if(result > 0) {
+			System.out.println(l_each_num);
+			System.out.println(le);
+			mv.addObject("l_each_num", l_each_num);
+			mv.addObject("l_num", le.getL_num());
+			mv.setViewName("redirect:lectureEachMainView.le");
+			return mv;
+		} else {
+			throw new Exception("강의를 추가하는데 실패했습니다. 다시 시도해 주세요.");
+		}
+	}
+	@RequestMapping("enableLectureEach.le")
+	public ModelAndView enableLectureEach(Lecture_Each le,
+										  @RequestParam("l_each_num") int l_each_num,
+										  ModelAndView mv, HttpServletRequest request) {
+		
+		System.out.println(l_each_num);
+		System.out.println(le);
+		lService.enableLectureEach(l_each_num);
+		mv.addObject("l_each_num", l_each_num);
+		mv.addObject("l_num", le.getL_num());
+		mv.setViewName("redirect:lectureEachMainView.le");
+		return mv;
+	}
+	
 	
 //	튜터의 강의 신청
 	@RequestMapping("lectureApply.le")
@@ -221,6 +344,9 @@ public class LectureController {
 	
 	
 	
+	
+	
+	
 	@RequestMapping("apply.le")
 	public ModelAndView example(@RequestParam("l_num") int l_num, ModelAndView mv ) {
 		HashMap<String, String> list = lService.selectLecture(l_num);
@@ -255,29 +381,6 @@ public class LectureController {
 		mv.setViewName("lecture/lectureConfirm");
 		return mv;
 //		return "lecture/lectureApply";
-	}
-	
-	
-	@RequestMapping("lectureEachInput.le")
-	public ModelAndView lectureEachInput(Lecture_Each le, @RequestParam(value="l_file", required=false) MultipartFile l_file, @RequestParam("l_file_video") String lfv, ModelAndView mv, MultipartHttpServletRequest request) {
-		int result = lService.insertLecture(le);
-		Lecture_File lf = new Lecture_File();
-		if(l_file != null && !l_file.isEmpty()) {
-			String renameFileName = insertFile(l_file, request);
-			if(renameFileName != null) {
-				lf.setL_file_origin_name(l_file.getOriginalFilename());
-				lf.setL_file_changed_name(renameFileName);
-			}
-			lf.setL_file_video(lfv);
-			lService.insertLectureFile(lf);
-		}
-		if(result > 0) {
-			mv.setViewName("home");
-			return mv;
-		} else {
-			throw new Exception("강의를 추가하는데 실패했습니다. 다시 시도해 주세요.");
-		}
-		
 	}
 	
 	@RequestMapping("lectureUpdate.le")
@@ -567,7 +670,7 @@ public class LectureController {
 	
 	private String insertFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\images\\lecture\\lectureEachData";
+		String savePath = root + "\\data\\lecture";
 		File folder = new File(savePath);
 		if (!folder.exists()) {
 			folder.mkdirs();
@@ -588,22 +691,7 @@ public class LectureController {
 		return renameFileName;
 	}
 	
-	public void deleteFile(String fileName, MultipartHttpServletRequest request) {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\images\\lecture";
-		File file = new File(savePath + "\\" + fileName);
-		if (file.exists()) {
-			file.delete();
-		}
-	}
-	public void deleteFile2(String fileName, HttpServletRequest request) {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\images\\lecture";
-		File file = new File(savePath + "\\" + fileName);
-		if (file.exists()) {
-			file.delete();
-		}
-	}
+	
 	
 	@RequestMapping("lectureConfirm.le")
 	public String lectureConfirm(@RequestParam("l_num") int l_num) {
@@ -665,4 +753,36 @@ public class LectureController {
 		return "home";
 	}
 	
+	@RequestMapping("lectureEachInsert.le")
+	public ModelAndView lectureEachInsert(@RequestParam("l_num") int l_num, ModelAndView mv) {
+		mv.addObject("l_num", l_num);
+		mv.setViewName("lecture/lectureEachInput");
+		return mv;
+	}
+	
+	//파일 삭제 관련 메소드
+	public void deleteFile(String fileName, MultipartHttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\images\\lecture";
+		File file = new File(savePath + "\\" + fileName);
+		if (file.exists()) {
+			file.delete();
+		}
+	}
+	public void deleteFile2(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\images\\lecture";
+		File file = new File(savePath + "\\" + fileName);
+		if (file.exists()) {
+			file.delete();
+		}
+	}
+	public void deleteFile3(String fileName, MultipartHttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\data\\lecture";
+		File file = new File(savePath + "\\" + fileName);
+		if (file.exists()) {
+			file.delete();
+		}
+	}
 }

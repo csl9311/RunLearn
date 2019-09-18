@@ -116,11 +116,6 @@
 			<br>
 				<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;"><br>
 				<label style="font-size: 15pt; font-weight: bold;">강사명 : ${ list.M_NAME }</label><br>
-				
-				<label style="font-size: 12pt; font-weight: bold;">연혁</label><br>
-				1999년 첫 탈출 시도<br>
-				2000년 두 번째 탈출 시도<br>
-				2002년 집에 도착<br>
 			</div>
 			<div class="col-sm-12">
 			<div id="curr" style="height: 60px;"></div>
@@ -285,7 +280,6 @@
 			</div>
 			<c:url var="LEMainView" value="lectureEachMainView.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
-				<c:param name="l_each_num" value="1"/>
 			</c:url>
 			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'">강의보기
 			</div>

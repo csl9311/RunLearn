@@ -83,10 +83,6 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.insertLecture(le);
 	}
 
-	@Override
-	public int deleteLecture(Lecture_Each le) {
-		return 0;
-	}
 
 	@Override
 	public int insertLecture_Image(Lecture_Image li) {
@@ -128,7 +124,6 @@ public class LectureServiceImpl implements LectureService {
 	
 	@Override
 	public int dropLectureImage(HashMap<String, Integer> map) {
-		// TODO Auto-generated method stub
 		return lDAO.dropLectureImage(map);
 	}
 
@@ -166,5 +161,25 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public Lecture_File selectLectureFile(int l_each_num) {
 		return lDAO.selectLectureFile(l_each_num);
+	}
+
+	@Override
+	public String findEachNum(int l_num) {
+		return lDAO.findEachNum(l_num);
+	}
+
+	@Override
+	public int updateLectureEach(Lecture_Each le) {
+		return lDAO.updateLectureEach(le);
+	}
+
+	@Override
+	public int updateLectureFile(Lecture_File lf) {
+		return lDAO.updateLectureFile(lf);
+	}
+
+	@Override
+	public int enableLectureEach(int l_each_num) {
+		return lDAO.enableLectureEach(l_each_num);
 	}
 }
