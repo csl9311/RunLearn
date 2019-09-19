@@ -88,18 +88,22 @@
 					<table>
 						<tr>
 							<th class="titleTh">제목</th>
-							<td colspan="2"><input type="text" name="b_title"></td>
+							<td colspan="2"><input type="text" name="b_title" required></td>
 						</tr>
 						<tr>
 							<td colspan="6" style="width: 100%; padding: 50px;">
-								<textarea id="bContent" name="b_content">1. 강의 주 카테고리: &#13;&#10;2. 신청사유: </textarea>
+								<textarea id="bContent" name="b_content" required>1. 강의 주 카테고리: &#13;&#10;2. 신청사유: </textarea>
 							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="x-100"></div>
 					<div class="col-md" style="text-align: center; margin-bottom: 50px;">
-						<button type="button" onclick="location.href='mypage.do?cate=수강목록'" style="margin-right: 20px;">돌아가기</button>
+						<c:url var="mypage" value="mypage.do">
+							<c:param name="cate" value="수강목록"/>
+							<c:param name="kind" value="강의"/>
+						</c:url>
+						<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">돌아가기</button>
 						<button type="submit">신청하기</button>
 					</div>
 			</div>
