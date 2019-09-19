@@ -34,7 +34,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.kh.runLearn.member.NaverLoginBO;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
@@ -76,6 +75,12 @@ public class MemberController {
 	/* 회원가입폼 */
 	@RequestMapping("form.do")
 	public String memberInsertForm() {
+		return "/member/signUpForm";
+	}
+	
+	/* 구글 회원가입 폼 */
+	@RequestMapping("gSignUp.do")
+	public String gSignUpForm() {
 		return "/member/signUpForm";
 	}
 
@@ -424,58 +429,69 @@ public class MemberController {
 	
 
 
-		
+	
 	@RequestMapping("gLogin.do")
-	public void gLogin(String idtoken, HttpSession session, UriComponentsBuilder uriBuilder, Member loginUser) {
+	public ModelAndView gLogin(ModelAndView mv, String idtoken, HttpSession session, UriComponentsBuilder uriBuilder, Member m) {
 
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-			    // Specify the CLIENT_ID of the app that accesses the backend:
-			    .setAudience(Collections.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
-			    // Or, if multiple clients access the backend:
-			    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-			    .build();
-		
-		// (Receive idTokenString by HTTPS POST)
-		
+// Specify the CLIENT_ID of the app that accesses the backend:
+				.setAudience(Collections
+						.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
+// Or, if multiple clients access the backend:
+//.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+				.build();
+
+// (Receive idTokenString by HTTPS POST)
+
 		GoogleIdToken idToken;
 		try {
 			idToken = verifier.verify(idtoken);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		
+
 		if (idToken != null) {
-		  Payload payload = idToken.getPayload();
-		
-		  // Print user identifier
-		  String userId = payload.getSubject();
-		  System.out.println("User ID: " + userId);
-		
-		  String email = payload.getEmail();
-		  String name = (String) payload.get("name");
-		  String pictureUrl = (String) payload.get("picture");
-		  String locale = (String) payload.get("locale");
-		  System.out.println("email: " + email);
-		  System.out.println("name: " + name);
-		  System.out.println("pictureUrl: " + pictureUrl);
-		  System.out.println("locale: " + locale);
-		  
-		  loginUser.setM_id(userId);
-		  loginUser.setM_email(email);
-		  loginUser.setM_name(name);
-		  
-		  session.setAttribute("loginUser", loginUser);
-		  
-		  System.out.println(loginUser);
-		  
+			Payload payload = idToken.getPayload();
+
+			// Print user identifier
+			String userId = payload.getSubject();
+			System.out.println("User ID: " + userId);
+
+			String email = payload.getEmail();
+			String name = (String) payload.get("name");
+			String pictureUrl = (String) payload.get("picture");
+			String locale = (String) payload.get("locale");
+			System.out.println("email: " + email);
+			System.out.println("name: " + name);
+			System.out.println("pictureUrl: " + pictureUrl);
+			System.out.println("locale: " + locale);
+			
+			
+			RedirectView redirectView = new RedirectView();
+			
+			m.setM_id(userId);
+			
+			Member loginUser = mService.findMember(m);
+			if(loginUser != null) {
+				session.setAttribute("loginUser", loginUser);
+				redirectView.setUrl("home.do");
+				redirectView.setExposeModelAttributes(false);
+				mv.setView(redirectView);
+				return mv;
+			} else {
+				m.setM_name(name);
+				m.setM_email(email);
+				mv.addObject("pImg", pictureUrl);
+				redirectView.setUrl("gSignUp.do");
+				redirectView.setExposeModelAttributes(false);
+				mv.addObject("member", m);
+				mv.setView(redirectView);
+				return mv;
+			} 
+
 		} else {
-		  System.out.println("Invalid ID token.");
-		  throw new MemberException("구글 로그인 실패 ㅠㅠ");
+			System.out.println("Invalid ID token.");
+			throw new MemberException("구글 로그인 실패 ㅠㅠ");
 		}
 	}
-	
-
-
-
 }

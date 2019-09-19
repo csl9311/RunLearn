@@ -64,6 +64,9 @@
 		<if test="m_email != null">
 			and m_email = #{m_email}
 		</if>
+		<if test="m_id != null">
+			and m_id = #{m_id}
+		</if>
 	</select>
 	<update id="pwChange" parameterType="Member">
 		update member
