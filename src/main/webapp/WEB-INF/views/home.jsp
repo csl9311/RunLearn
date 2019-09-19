@@ -345,22 +345,22 @@
 							$table.append($tr);
 						}
 		            } else if (cate == '상품') {
-		            	$('#img-detail').attr('src', '${contextPath}/resources/buploadFiles/'+data[0].P_CHANGED_NAME);
+		            	$('#img-detail').attr('src', '${contextPath}/resources/images/product/'+data[0].P_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].P_NAME.replace(/\+/g,' ')));
 		            	$('.imgRow').siblings('.sub').children('td').html('');
-						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_PRICE+"￦");
+						/* $('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_PRICE+"￦"); */
 						
 						for (var i = 0; i < 4; i++) {
 							$tr = $('<tr class="rows">');
-							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/buploadFiles/'+data[i].P_CHANGED_NAME+'">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/product/'+data[i].P_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].P_NAME.replace(/\+/g,' ')));
-							$price = $('<div class="price">').text(data[i].P_PRICE+"￦");
+							/* $price = $('<div class="price">').text(data[i].P_PRICE+"￦"); */
 							
 							$tr.append($img);
 							
 							$td.append($title);
-							$td.append($price);
+							/* $td.append($price); */
 							
 							$tr.append($td);
 							
