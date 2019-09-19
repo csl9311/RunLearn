@@ -59,7 +59,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 	@Override
 	public int adminUserCount() {//관리자
-		// TODO Auto-generated method stub
 		return aDAO.adminUserCount();
 	}
 	@Override
@@ -67,102 +66,48 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println("pl"+ m);
 		return aDAO.targetUserUpdate(m);
 	}
+	
+@Override
+public ArrayList<Member> allUserList(PageInfo pi) {
+	return aDAO.allUserList(pi);
+}
 
-	////////////////정렬 시작
-	//정렬 내림차순
+@Override
+public ArrayList<Board> boardList(PageInfo pi) {
+	return aDAO.boardList(pi);
+}
+@Override
+public int boardListCount() {//전체 보드 수 가져오기
+	return aDAO.boardListCount();
+}
+@Override
+public int boardListCountNot() {//전체 보드 수 가져오기
+	return aDAO.boardListCountNot();
+}
+@Override
+public int boardListCountQe() {//전체 보드 수 가져오기
+	return aDAO.boardListCountQe();
+}
+@Override
+public int boardListCountSug() {//전체 보드 수 가져오기
+	return aDAO.boardListCountSug();
+}
+@Override
+public int boardListCountDecl() {//전체 보드 수 가져오기
+	return aDAO.boardListCountDecl();
+}
+	
 	@Override
-	public ArrayList<Member> allUserList(PageInfo pi) {	//기본 정렬 아이디
-		return aDAO.allUserList(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListId(PageInfo pi) {//아이디 정렬
-		return aDAO.allUserListId(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListNick(PageInfo pi) {//닉네임 정렬
-		return aDAO.allUserListNick(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListEm(PageInfo pi) {//이메일 정렬
-		return aDAO.allUserListEm(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListPh(PageInfo pi) {//폰정렬
-		return aDAO.allUserListPh(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListMD(PageInfo pi) {//수정일 정렬
-		return aDAO.allUserListMD(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListS(PageInfo pi) {//상태 정렬
-		return aDAO.allUserListS(pi);
-	}
-	// /정렬내림차순
-	//정렬 오름차순
-	@Override
-	public ArrayList<Member> allUserListR(PageInfo pi) {	//기본 정렬 아이디
-		return aDAO.allUserList(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListIdR(PageInfo pi) {//아이디 정렬
-		return aDAO.allUserListIdR(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListNickR(PageInfo pi) {//닉네임 정렬
-	return aDAO.allUserListNickR(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListEmR(PageInfo pi) {//이메일 정렬
-		return aDAO.allUserListEmR(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListPhR(PageInfo pi) {//폰정렬
-		return aDAO.allUserListPhR(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListMDR(PageInfo pi) {//수정일 정렬
-		return aDAO.allUserListMDR(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListSR(PageInfo pi) {//상태 정렬
-		return aDAO.allUserListSR(pi);
-	}
-	// /정렬오름차순
-	//////////////////////////정렬끝
-	@Override
-	public ArrayList<Member> allUserListName(PageInfo pi) {
+	public int boardListCountA() {// 보드 튜터 신청 수
 		// TODO Auto-generated method stub
-		return aDAO.allUserListName(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListNameR(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return aDAO.allUserListNameR(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListM(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return aDAO.allUserListM(pi);
-	}
-	@Override
-	public ArrayList<Member> allUserListTor(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return  aDAO.allUserListTor(pi);
-	}@Override
-	public ArrayList<Member> allUserListU(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return  aDAO.allUserListU(pi);
-	}
-	@Override
-	public ArrayList<Member> searchId(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return  aDAO.searchId(pi);
+		return aDAO.boardListCountA();
 	}
 	
-	
-	
-	
+	@Override
+	public ArrayList<Board> boardListA(PageInfo blc) {
+		// TODO Auto-generated method stub
+		return aDAO.boardListA(blc);
+	}
 	
 	
 	
