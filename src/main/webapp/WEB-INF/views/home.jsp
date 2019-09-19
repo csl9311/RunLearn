@@ -328,7 +328,7 @@
 						
 		            	for (var i = 0; i < 4; i++) {
 							$tr = $('<tr class="rows">');
-							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/buploadFiles/'+data[i].L_CHANGED_NAME+'">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/lecture/'+data[i].L_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
 							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')));
