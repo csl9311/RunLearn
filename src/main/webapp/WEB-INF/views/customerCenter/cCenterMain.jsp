@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,7 +165,7 @@
 						<th style="width: 100px;">조회수</th>
 						</c:if>
 					</tr>
-					<c:forEach var="l" items="${ list }">
+					<c:forEach var="l" items="${ list }" varStatus="status">
 					<c:url var="bdetail" value="cCenterDetailView.do">
 						<c:param name="b_num" value="${ l.b_num }"/>
 						<c:param name="b_category" value="${ l.b_category }"/>

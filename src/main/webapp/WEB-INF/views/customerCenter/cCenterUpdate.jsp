@@ -80,6 +80,15 @@
 	#bContent:hover, #bContent:focus {
 		border: 1px solid #ff005a;
 	}
+	
+	#nSubTr select {
+		width: 100px;
+	}
+	
+	#nSubTr select:hover, #nSubTr select:focus {
+		border: 1px solid #ff005a;
+		outline: none;
+	}
 </style>
 </head>
 <body>
@@ -102,10 +111,22 @@
 						<tr id="nSubTr">
 							<th>작성자</th>
 							<td>${ b.m_id }</td>
-							<th>작성일</th>
-							<td>${ b.b_reg_date }</td>
+							<c:if test="${ b.b_category ne '공지사항' }">
+							<th>카테고리</th>
+							<td>
+								<select name="b_subcategory">
+									<option>상품</option>
+									<option>강의</option>
+									<option>기타</option>
+								</select>
+							</td>
+							</c:if>
+							<c:if test="${ b.b_category eq '공지사항' }">
 							<th>조회수</th>
 							<td>${ b.b_count }</td>
+							</c:if>
+							<th>작성일</th>
+							<td>${ b.b_reg_date }</td>
 						</tr>
 						<tr>
 							<td colspan="6" style="width: 100%; padding: 50px;">

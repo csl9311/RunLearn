@@ -73,9 +73,14 @@ public class BoardController {
 														@RequestParam("page") Integer page) {
 		bService.addReadCount(b_num);
 		Board b = bService.selectBoard(b_num);
+		String b_changed_name = null;
+		
+		if (b_category.equals("신고글")) {
+			b_changed_name = bService.selectBoardImg(b);
+		}
 
 		if (b != null) {
-			mv.addObject("b", b).addObject("page", page)
+			mv.addObject("b", b).addObject("page", page).addObject("b_changed_name", b_changed_name)
 				.setViewName("customerCenter/cCenterDetail");
 		}
 
@@ -92,22 +97,27 @@ public class BoardController {
 
 	// 고객센터 게시글 등록
 	@RequestMapping(value = "cCenterInsert.do", method = RequestMethod.POST)
-	public String cCenterInsert(@ModelAttribute Board b, Model model, @RequestParam(value="b_origin_name", required = false) MultipartFile uploadFile, HttpServletRequest request) {
+	public String cCenterInsert(@ModelAttribute Board b, Model model, @RequestParam(value="uploadFile", required = false) MultipartFile uploadFile, HttpServletRequest request) {
 		Board_Image bi = new Board_Image();
 		
-		if (uploadFile != null && !uploadFile.isEmpty()) {
-			String renameFileName = saveFile(uploadFile, request);
-			
-			if (renameFileName != null) {
-				bi.setB_origin_name(uploadFile.getOriginalFilename());
-				bi.setB_changed_name(renameFileName);
+		int result1 = bService.insertBoard(b);
+		
+		if (b.getB_category().equals("신고글")) {
+			if (!uploadFile.isEmpty()) {
+				if (uploadFile != null && !uploadFile.isEmpty()) {
+					String renameFileName = saveFile(uploadFile, request);
+					
+					if (renameFileName != null) {
+						bi.setB_origin_name(uploadFile.getOriginalFilename());
+						bi.setB_changed_name(renameFileName);
+					}
+				}
+				
+				result1 += bService.insertBoard_Image(bi);
 			}
 		}
-
-		int result1 = bService.insertBoard(b);
-		int result2 = bService.insertBoard_Image(bi);
 		
-		if (result1 > 0 && result2 > 0) {
+		if (result1 > 0) {
 			model.addAttribute("b_category", b.getB_category());
 			return "redirect:cCenterView.do";
 		} else {
@@ -117,7 +127,7 @@ public class BoardController {
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\images\boardUploadFiles";
+		String savePath = root + "\\images\\board";
 		
 		File folder = new File(savePath);
 		if (!folder.exists()) {

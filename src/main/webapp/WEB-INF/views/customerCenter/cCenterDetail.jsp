@@ -68,6 +68,12 @@
 	.centerDetailBack button:hover {
 	    box-shadow: 0 0 3px 0 #ff005a;
 	}
+	
+	.uploadImg {
+		max-width: 80%;
+		max-height: 70%;
+		margin-bottom: 50px;
+	}
 </style>
 </head>
 <body>
@@ -98,6 +104,11 @@
 					</tr>
 					<tr>
 						<td colspan="6" style="width: 100%; padding: 50px;">
+							<c:if test="${ b.b_category eq '신고글' }">
+							<c:if test="${ !empty b_changed_name }">
+							<img src="${ contextPath }/resources/images/board/${b_changed_name}" class="uploadImg">
+							</c:if>
+							</c:if>
 							<textarea id="bContent" readonly>${ b.b_content }</textarea>
 						</td>
 					</tr>

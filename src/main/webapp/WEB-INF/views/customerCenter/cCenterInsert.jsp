@@ -137,6 +137,10 @@
 	  border: 1px dashed #ff005a;
 	}
 	
+	.image-upload-wrap:hover .drag-text h4 {
+		color: #ff005a;
+    }
+	
 	.image-dropping {
 		border: 1px dashed #3d4045;
 	}
@@ -150,7 +154,7 @@
 	  text-align: center;
 	}
 	
-	.drag-text h3 {
+	.drag-text h4 {
 	  font-weight: 100;
 	  color: #3d4045;
 	  padding: 60px 0;
@@ -192,7 +196,7 @@
 <body>
 	<c:import url="../common/header.jsp"/>
 	<div class="container centerDetailBack">
-		<form action="cCenterInsert.do" method="POST">
+		<form action="cCenterInsert.do" method="POST" enctype="Multipart/form-data">
 			<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 			<input type="hidden" name="b_category" value="${ b_category }">
 			<div class="row">
@@ -201,7 +205,7 @@
 					<table>
 						<tr id="bTitleTr">
 							<th>제목</th>
-							<td><input type="text" name="b_title"></td>
+							<td><input type="text" name="b_title" required></td>
 						</tr>
 						<tr>
 							<th>세부 카테고리</th>
@@ -216,13 +220,14 @@
 						<tr>
 							<th rowspan="2">내용</th>
 							<td style="width: 100%; padding: 50px;">
-								<textarea id="bContent" name="b_content"></textarea>
+								<textarea id="bContent" name="b_content" required></textarea>
 								<c:if test="${ b_category eq '신고글' }">
 									<div class="file-upload">
 									  <div class="image-upload-wrap">
-									    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" name="b_origin_name" />
+									    <input class="file-upload-input" type='file' onchange="readURL(this);" accept=".gif, .jpg, .png" name="uploadFile" />
+									    <input type="hidden" name="test" value="test">
 									    <div class="drag-text">
-									      <h3>Drag and drop OR select add Image</h3>
+									      <h4>드래그&드랍이나 이미지 첨부 버튼을 눌러주세요</h4>
 									    </div>
 									  </div>
 									  <div class="file-upload-content">
@@ -234,6 +239,8 @@
 									  </div>
 									  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">이미지 첨부</button>
 									</div>
+								</c:if>
+								<c:if test="${ b_category ne '신고글' }">
 								</c:if>
 							</td>
 						</tr>
@@ -268,6 +275,7 @@
 			      $('.file-upload-content').show();
 	
 			      $('.image-title').html(input.files[0].name);
+			      $('.file-upload-input').attr('value', input.files[0].name);
 			    };
 	
 			    reader.readAsDataURL(input.files[0]);
@@ -279,6 +287,7 @@
 	
 			function removeUpload() {
 			  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+			  $('.file-upload-input').val("");
 			  $('.file-upload-content').hide();
 			  $('.image-upload-wrap').show();
 			  $('.file-upload-btn').show();
