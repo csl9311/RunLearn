@@ -5,12 +5,12 @@ public class Product_Pay {
 	private int p_num;
 	private int p_pay_amount;
 	private int pay_total;
-	private int delivery;
-	private int p_option;
+	private String delivery;
+	private String p_option;
 	
 	public Product_Pay() {}
 
-	public Product_Pay(int pay_num, int p_num, int p_pay_amount, int pay_total, int delivery, int p_option) {
+	public Product_Pay(int pay_num, int p_num, int p_pay_amount, int pay_total, String delivery, String p_option) {
 		this.pay_num = pay_num;
 		this.p_num = p_num;
 		this.p_pay_amount = p_pay_amount;
@@ -51,19 +51,19 @@ public class Product_Pay {
 		this.pay_total = pay_total;
 	}
 
-	public int getDelivery() {
+	public String getDelivery() {
 		return delivery;
 	}
 
-	public void setDelivery(int delivery) {
+	public void setDelivery(String delivery) {
 		this.delivery = delivery;
 	}
 
-	public int getP_option() {
+	public String getP_option() {
 		return p_option;
 	}
 
-	public void setP_option(int p_option) {
+	public void setP_option(String p_option) {
 		this.p_option = p_option;
 	}
 
@@ -73,6 +73,4 @@ public class Product_Pay {
 				+ ", pay_total=" + pay_total + ", delivery=" + delivery + ", p_option=" + p_option + "]";
 	}
 
-	
-	
 }

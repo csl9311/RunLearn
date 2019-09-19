@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,10 @@ import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
-import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
 import com.kh.runLearn.mypage.model.service.MypageService;
+import com.kh.runLearn.product.model.vo.Product_Option;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -217,16 +218,32 @@ public class MypageController {
          
       }
       
-      if(cate.equals("상품찜목록") && kind.equals("상품")) {
-         int listCount =  myService.selectPlistCount(userId); //상품 찜 목록수
-         PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-         ArrayList<Map<String, String>> pList = myService.selectProductView(userId, pi); // 상품 찜목록   
-         mv.addObject("pList", pList);
-         mv.addObject("listCount", listCount);
-         mv.addObject("pi", pi);
-         
-         
-      }
+
+		if ((cate.equals("상품찜목록") && kind.equals("상품")) || cate.equals("productCate")) {
+			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+			ArrayList<Map<String, Object>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
+			
+			for (int i = 0; i < pList.size(); i++) {
+				String p_option = "";
+				p_option = pList.get(i).get("P_OPTION").toString();
+				if(!p_option.equals("")) {
+					Product_Option po = myService.selectProductOption(p_option);
+					pList.get(i).put("po", po);
+				} else {
+					break;
+				}
+			}
+			
+			for(int i = 0 ; i < pList.size(); i ++) {
+				System.out.println(pList.get(i));
+			}
+			mv.addObject("pList", pList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("pi", pi);
+			
+		}
+
       
       if(cate.equals("결제상품") && kind.equals("상품")) {
           int listCount =  myService.productPayCount(userId); //결제상품수

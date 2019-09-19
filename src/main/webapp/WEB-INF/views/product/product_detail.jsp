@@ -30,11 +30,10 @@
 			<%-- 상품 이미지 끝--%>
 			<br> <br> <br> <br>
 			<%-- 상품 정보 --%>
-			<form action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;">
+			<form id="form" action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
 				<input type="hidden" value="${ loginUser }">
 				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
-				<input type="hidden" name="m_nickname" value="${ loginUser.m_nickname }">
 				<input type="hidden" name="m_email" value="${ loginUser.m_email }">
 				<input type="hidden" name="m_phone" value="${ loginUser.m_phone }">
 				<input type="hidden" name="postnum" value="${ loginUser.postnum }">
@@ -52,19 +51,11 @@
 							<input type="hidden" name="p_name" value="${ list.get(0).P_NAME }">
 						</td>
 					</tr>
-
-					<tr>
-						<td>기본가격(￦)</td>
-						<td class="right">
-							${ list.get(0).P_PRICE }원
-							<input type="hidden" name="p_price" value="${ list.get(0).P_PRICE }">
-						</td>
-					</tr>
 					<tr>
 						<td>판매자명</td>
 						<td class="right">
 							${ list.get(0).M_ID }
-							<input type="hidden" name="m_id" value="${ list.get(0).M_ID }">
+							<input type="hidden" name="seller" value="${ list.get(0).M_ID }">
 						</td>
 					</tr>
 					<c:if test="${ poList.size() ne 0}">
@@ -79,6 +70,12 @@
 								</datalist>
 							</td>
 						</tr>
+						<tr id="totalTr">
+							<td>총 금액</td>
+							<td class="right">
+								<input id="total" name="total" class="center" type="text" placeholder="옵션을 선택해주세요." readonly>
+							</td>
+						</tr>
 					</c:if>
 					<c:if test="${ poList.size() eq 0}">
 						<tr>
@@ -87,7 +84,7 @@
 								<input id="del" class="btn" type="button" value="-">
 								<input id="amount" name="amount" class="form-control" type="text" value="1" onchange="getTotal();" style="display: inline-block; text-align: center; width: 80px;">
 								<input id="add" class="btn" type="button" value="+"> <br>
-								<input name="priceArr" type="hidden" value="${ list.get(0).P_PRICE }">
+								<input name="pricearr" type="hidden" value="${ list.get(0).P_PRICE }">
 							</td>
 						</tr>
 						<tr id="totalTr">
@@ -138,6 +135,10 @@
 		<div id="abcd"></div>
 		<%-- 상품 정보 끝 --%>
 		<script type="text/javascript">
+			
+			
+		
+		
 			/* p_info = table명 */
 			var $p_info = $('#p_info');
 			/* amount의 id 지정 */
@@ -162,7 +163,7 @@
 						'<input class="btn" type="button" value="-" id="del'+i+'">' +
 						'<input name="amount" class="form-control" type="text" value="1" onchange="getTotal();" id="amount' + i + '" style="display: inline-block; text-align: center; width: 80px;">' +
 						'<input class="btn" type="button" value="+" id="add'+i+'"><br>' +
-						'<input name="priceArr" type="hidden" value='+price+'>' +
+						'<input name="pricearr" type="hidden" value='+price+'>' +
 					'</td>' +
 					'</tr>' +
 					'<tr id="totalTr">' +
@@ -172,6 +173,7 @@
 						'</td>' +
 					'</tr>'
 				);
+				getTotal();
 				/* div에 script 추가 */
 				$script.append(
 					'<script>' +
@@ -196,23 +198,41 @@
 				var $total = $('#total');
 				// 연산에 필요한 배열
 				var amountArr = $('input:text[name=amount]');
-				var priceArr = $('input:hidden[name=priceArr]');
+				var pricearr = $('input:hidden[name=pricearr]');
 				var total = 0;
 				// 연산
 				for (var index = 0; index < amountArr.length; index++) {
-					total += amountArr[index].value * priceArr[index].value;
+					total += amountArr[index].value * pricearr[index].value;
 				}
 				// 값 대입
 				$total.val(total);
 			};
 
 			function addCart() {
-				location.href = "";
+				var form = $('#form');
+				form.prop('action', 'insert.cart');
+				form.submit();
 			}
 			
 			function updateProduct(){
 				location.href = "update.product?p_num=${ list.get(0).P_NUM }";
 			}
+			
+			function check(){
+				var user = '${sessionScope.loginUser.m_id}';
+				var $total = $('#total');
+				// 구매 버튼 클릭 시 로그인 안되어있다면 로그인 유도
+				if(user == '') {
+					alert("로그인 후 이용해주세요.");
+					$('#loginM').parent().children('a').trigger('click');
+					return false;
+				// 옵션 미선택시 선택 유도
+				} else if ($total.val() == 0 || $total.val() == '') {
+					alert("옵션을 선택해주세요.");
+					return false;
+				}
+			}
+			
 		</script>
 		<br> <br> <br> <br> <br> <br>
 		<%-- 라이브리 시티 설치 코드 --%>

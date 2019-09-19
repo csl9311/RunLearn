@@ -1,6 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -13,80 +13,79 @@
 <title>Insert title here</title>
 <style>
 .bd-placeholder-img {
-   font-size: 1.125rem;
-   text-anchor: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 @media ( min-width : 768px) {
-   .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-   }
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
 }
 
-
-
-
 #entry1 {
-   height: 200px;
-   padding-top: 10px;
-   padding-bottom: 10px;
-   color: black;
+	height: 200px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: black;
 }
 
 #content1 {
-   margin-right: 20px;
-   width: 10%;
-   height: 100%;
-   margin-top: 10px;
+	margin-right: 20px;
+	width: 10%;
+	height: 100%;
+	margin-top: 10px;
 }
 
 #image11 {
-   width: 100%;
-   height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .label1 {
-   border: 1px solid white;
-   margin-top: 10px;
-   margin-left: 5px;
+	border: 1px solid white;
+	margin-top: 10px;
+	margin-left: 5px;
 }
 
 .label1:hover {
-   background: lightyellow;
-   color: black;
-   cursor: pointer;
+	background: lightyellow;
+	color: black;
+	cursor: pointer;
 }
 
 #paper {
-   background-image:
-      url("${contextPath}/resources/images/mypage/background.jpeg");
+	background-image:
+		url("${contextPath}/resources/images/mypage/background.jpeg");
 }
 
 .content21 {
-   height: 70px;
-   width: 50%;
-   text-align: center;
-   font-weight: bold;
-   padding-top: 25px;
-   font-size: 17px;
+	height: 70px;
+	width: 50%;
+	text-align: center;
+	font-weight: bold;
+	padding-top: 25px;
+	font-size: 17px;
 }
 
 #content21 {
+
    background: #bfbfbb;
    color: white;
-  
+
 }
 
 #content21:hover {
-   color: #F4A460;
-   cursor: pointer;
+	color: #F4A460;
+	cursor: pointer;
 }
 
 #content22 {
+
    
    background: white;
    color: black;
@@ -94,22 +93,23 @@
 }
 
 #content22:hover {
-   background: black;
-   color: white;
-   cursor: pointer;
+	background: black;
+	color: white;
+	cursor: pointer;
 }
 
 #content201 {
-   background: white;
-   color: black;
-   box-shadow: inset -1px 0px 9px 0px #c9c9c9;
+	background: white;
+	color: black;
+	box-shadow: inset -1px 0px 9px 0px #c9c9c9;
 }
 
 #content201:hover {
-   background: black;
-   color: white;
-   cursor: pointer;
+	background: black;
+	color: white;
+	cursor: pointer;
 }
+
 
 #content202{
 	color:white;
@@ -117,13 +117,13 @@
 
 
 #content202:hover {
-   color: #F4A460;
-   cursor: pointer;
+	color: #F4A460;
+	cursor: pointer;
 }
 
 #contentMenu1:hover {
-   border-bottom: 1px dashed #F08080;
-   cursor: pointer;
+	border-bottom: 1px dashed #F08080;
+	cursor: pointer;
 }
 
 #contentMenu2{
@@ -137,13 +137,13 @@
 
 
 #contentMenu3:hover {
-   border-bottom: 1px dashed #F08080;
-   cursor: pointer;
+	border-bottom: 1px dashed #F08080;
+	cursor: pointer;
 }
 
 #contentMenu4:hover {
-   border-bottom: 1px dashed #F08080;
-   cursor: pointer;
+	border-bottom: 1px dashed #F08080;
+	cursor: pointer;
 }
 
 #contentMenu2:hover {
@@ -152,126 +152,127 @@
 }
 
 .content22 {
+
    width: 31%;
    height: 30px;
    margin-left: 100px;
    text-align: center;
-   
+
 }
 
 #sub1 {
-   font-size: 20px;
-   font-weight: border;
-   width: 1100;
-   height: auto;
-   padding: 20px;
-   border-bottom: 2px solid #f8f9fa;
+	font-size: 20px;
+	font-weight: border;
+	width: 1100;
+	height: auto;
+	padding: 20px;
+	border-bottom: 2px solid #f8f9fa;
 }
 
 #content23 {
-   margin: 0 20px;
-   height: auto;
+	margin: 0 20px;
+	height: auto;
 }
 
 #content23 table {
-   margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 #content23 table th {
-   padding: 15px;
+	padding: 15px;
 }
 
 #content23 table td {
-   padding: 20px;
+	padding: 20px;
 }
 
 #content25 {
-   margin: 0 20px;
-   height: auto;
+	margin: 0 20px;
+	height: auto;
 }
 
 #content25 table {
-   margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 #content25 table th {
-   padding: 15px;
+	padding: 15px;
 }
 
 #content25 table td {
-   padding: 20px;
+	padding: 20px;
 }
 
 #content26 {
-   margin: 0 20px;
-   height: auto;
+	margin: 0 20px;
+	height: auto;
 }
 
 #content26 table {
-   margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 #content26 table th {
-   padding: 15px;
+	padding: 15px;
 }
 
 #content26 table td {
-   padding: 20px;
+	padding: 20px;
 }
 
 #footer {
-   width: 100%;
-   height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .content31 {
-   width: 12.5%;
-   height: 100%;
+	width: 12.5%;
+	height: 100%;
 }
 
 #content33 {
-   margin-left: 20px;
+	margin-left: 20px;
 }
 
 .content32 {
-   width: 15%;
-   height: 100%;
+	width: 15%;
+	height: 100%;
 }
 
 #grade {
-   margin-top: 5px;
-   text-align: center;
-   font-size: 17px;
-   font-weight: bolder;
+	margin-top: 5px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: bolder;
 }
 
 #row1 {
-   width: 125%;
-   height: 100%;
-   margin-left: 50px;
-   font-family: 'Nanum Gothic', sans-serif;
-   "
+	width: 125%;
+	height: 100%;
+	margin-left: 50px;
+	font-family: 'Nanum Gothic', sans-serif;
+	"
 }
 
 .leftSide1 {
-   margin-right: 20px;
+	margin-right: 20px;
 }
 
 .rightSide1 {
-   padding-right: 10px;
-   width: 13%;
-   margin-left: 20px;
-   border-right: 1px solid white;
+	padding-right: 10px;
+	width: 13%;
+	margin-left: 20px;
+	border-right: 1px solid white;
 }
 
 .title123 {
-   text-align: center;
-   font-size: 16px;
+	text-align: center;
+	font-size: 16px;
 }
 
 #tableCategory1 {
-   text-align: center;
-   font-size: 15px;
+	text-align: center;
+	font-size: 15px;
 }
 
 #tableCategory2 {
@@ -281,70 +282,70 @@
 }
 
 #image1 {
-   margin: 5px;
-   text-align: center;
+	margin: 5px;
+	text-align: center;
 }
 
 #left {
-   line-height: 30px;
-   text-align: center;
+	line-height: 30px;
+	text-align: center;
 }
 
 #teacherName {
-   font-weight: bolder;
-   font-size: 15px;
+	font-weight: bolder;
+	font-size: 15px;
 }
 
 #lecturePrice {
-   font-weight: bolder;
-   font-size: 15px;
-   font-family: 'Nanum Gothic', sans-serif;
-   color: red;
+	font-weight: bolder;
+	font-size: 15px;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: red;
 }
 
 #right12 {
-   line-height: 30px;
-   text-align: left;
-   margin-left: 5px;
-   width: 40%;
+	line-height: 30px;
+	text-align: left;
+	margin-left: 5px;
+	width: 40%;
 }
 
 #lecturePriceItem {
-   font-weight: bolder;
-   font-size: 15px;
-   color: red;
+	font-weight: bolder;
+	font-size: 15px;
+	color: red;
 }
 
 #right {
-   line-height: 30px;
-   text-align: center;
-   margin-left: 5px;
-   width: 40%;
+	line-height: 30px;
+	text-align: center;
+	margin-left: 5px;
+	width: 40%;
 }
 
 #lectureTitle {
-   text-align: center;
-   font-size: 20px;
-   font-weight: bolder;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bolder;
 }
 
 #lectureContent {
-   margin-left: 5px;
-   font-size: 13px;
-   width: 95%;
+	margin-left: 5px;
+	font-size: 13px;
+	width: 95%;
 }
 
 #lecturebox1 {
-   height: 30px;
-   margin-left: 0px;
-   margin-top: 5px;
-   width: 100%;
+	height: 30px;
+	margin-left: 0px;
+	margin-top: 5px;
+	width: 100%;
 }
 
 #lectureDate {
-   font-size: 15px;
-   text-align: center;
-   font-weight: bolder
+	font-size: 15px;
+	text-align: center;
+	font-weight: bolder
 }
 
 #lectureDate2 {
@@ -370,86 +371,86 @@
 
 
 #tr1 {
-   border-bottom: 1px solid lightgray;
-   margin-top: 50px;
-   font-family: 'Nanum Gothic', sans-serif;
+	border-bottom: 1px solid lightgray;
+	margin-top: 50px;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 .td1 {
-   border-right: 1px solid white;
+	border-right: 1px solid white;
 }
 
 #lDate1 {
-   text-align: center;
-   font-size: 16px;
+	text-align: center;
+	font-size: 16px;
 }
 
 .lDate {
-   padding-left: 10px;
+	padding-left: 10px;
 }
 
 #contentMenu5 {
-   font-size: 20px;
-   width: 100%;
-   height: 100%;
-   text-align: center;
+	font-size: 20px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
 }
 
 #pagging {
-   text-align: center;
-   margin-bottom: 50px;
+	text-align: center;
+	margin-bottom: 50px;
 }
 
 #content27 {
-   margin: 0 20px;
-   height: auto;
+	margin: 0 20px;
+	height: auto;
 }
 
 #content27 table {
-   margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 #content27 table th {
-   padding: 15px;
+	padding: 15px;
 }
 
 #content27 table td {
-   padding: 20px;
+	padding: 20px;
 }
 
 #answer1 {
-   text-align: center;
-   font-size: 30px;
+	text-align: center;
+	font-size: 30px;
 }
 
 #pagging2 {
-   margin-left: 575px;
-   margin-bottom: 20px;
+	margin-left: 575px;
+	margin-bottom: 20px;
 }
 
 #memberImage1 {
-   margin-top: 20px;
+	margin-top: 20px;
 }
 
 #memberInformation {
-   margin-top: 20px;
+	margin-top: 20px;
 }
 
 #countImage {
-   margin-left: 15px;
-   text-align: center;
+	margin-left: 15px;
+	text-align: center;
 }
 
 #classImage {
-   text-align: center;
-   margin-left: 10px;
+	text-align: center;
+	margin-left: 10px;
 }
 
 #classImage2 {
-   border-right: 1px solid white;
-   text-align: center;
-   margin-left: 10px;
-   padding-right: 30px;
+	border-right: 1px solid white;
+	text-align: center;
+	margin-left: 10px;
+	padding-right: 30px;
 }
 
 #classImage3 {
@@ -460,7 +461,7 @@
 }
 
 .count1 {
-   margin-top: 40px;
+	margin-top: 40px;
 }
 
 #membercontent1 {
@@ -470,13 +471,14 @@
 }
 
 #writeContent {
-   width: 400px;
-   font-size: 17px;
-   margin-top: 25px;
-   margin-left: 20px;
+	width: 400px;
+	font-size: 17px;
+	margin-top: 25px;
+	margin-left: 20px;
 }
 
 #classInsert {
+
    background-image:url("/resources/images/mypage/menu02.png");
    font-size: 20px;
    font_weight:bold;
@@ -484,33 +486,33 @@
    box-shadow: 0 0 6px 0px black;
    text-shadow: 0px 0px 20px black;
    color: #232222;
-   background-repeat:no-repeat;
+   background-repeat:no-repeat
 }
 
 .tr3 {
-   text-align: center;
-   background: pink;
-   box-shadow: 0px 0px 4px 1px #bdb7b7;
+	text-align: center;
+	background: pink;
+	box-shadow: 0px 0px 4px 1px #bdb7b7;
 }
 
 #classInsertMenu {
-   width: 100%;
-   text-align: right;
+	width: 100%;
+	text-align: right;
 }
 
 #tr1:hover {
-   background-color: #fff9e8;
-   box-shadow: inset 0 0 3px 1px #cec597;
-   cursor: pointer;
+	background-color: #fff9e8;
+	box-shadow: inset 0 0 3px 1px #cec597;
+	cursor: pointer;
 }
 
 #cashButton {
-   margin-bottom: 10px;
-   width: 100px;
-   height: 50px;
-   background-color: #ffbcbc;
-   text-shadow: 0 0 0px black;
-   box-shadow: 0 0 2px 0px black;
+	margin-bottom: 10px;
+	width: 100px;
+	height: 50px;
+	background-color: #ffbcbc;
+	text-shadow: 0 0 0px black;
+	box-shadow: 0 0 2px 0px black;
 }
 
 #title2{
@@ -536,29 +538,13 @@
 </style>
 
 
-<link rel="stylesheet"
-   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-   crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-   crossorigin="anonymous"></script>
-<script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-   integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-   crossorigin="anonymous"></script>
-<script
-   src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-   crossorigin="anonymous"></script>
-<link
-   href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean"
-   rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 </head>
 <body>
-
-
-
    <c:import url="../common/header.jsp" />
 
    
@@ -1110,12 +1096,13 @@
                </c:url>
                <a href="${ pagination }">${ p }</a> &nbsp;
                </c:if>
-         </c:forEach>
+			</c:forEach>
 
-         <!-- [다음] -->
-         <c:if test="${ pi.currentPage >= pi.maxPage }">
+			<!-- [다음] -->
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
                [다음]
             </c:if>
+
          <c:if test="${ pi.currentPage < pi.maxPage }">
             <c:url var="after" value="mypage.do">
                <c:param name="cate" value="${ cate }" />
@@ -1125,16 +1112,16 @@
             <a href="${ after }">[다음]</a>
          </c:if>
       </div>
-      
+  
 
-   </div>
-   <!--  paper2 끝 -->
+	</div>
+	<!--  paper2 끝 -->
 
-
-   <c:if test="${ cate eq '튜터' }">
-      <script>
+	<c:if test="${ cate eq '튜터' }">
+		<script>
          $("#paper2").hide();
       </script>
+
       <div id="paper3">
          <br> <br>
          <div class="container" id="entry3"
@@ -1262,12 +1249,13 @@
                </c:url>
                <a href="${ pagination }">${ p }</a> &nbsp;
                </c:if>
-         </c:forEach>
+			</c:forEach>
 
-         <!-- [다음] -->
-         <c:if test="${ pi.currentPage >= pi.maxPage }">
+			<!-- [다음] -->
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
                [다음]
             </c:if>
+
          <c:if test="${ pi.currentPage < pi.maxPage }">
             <c:url var="after" value="mypage.do">
                <c:param name="cate" value="${ cate }" />
@@ -1281,12 +1269,14 @@
       
    </c:if>
 
-   <br>
-   <br>
+	</c:if>
+
+	<br>
+	<br>
 
 
 
-   <script>
+	<script>
       function tuterPage() {
          $("#paper2").hide();
          $("#paper3").css("display", "block");
@@ -1302,7 +1292,6 @@
       }
 
       $("#insertTuter").click(function() {
-         
          location.href = "##";
       })
 
@@ -1310,17 +1299,14 @@
          $("#paper2").css("display", "block");
          $("#paper3").hide();
       });
-      
-      
-
    </script>
 
 
 
 
-   <!-- -------footer------------------------------------------------------------------------------------------------------------- -->
+	<!-- -------footer------------------------------------------------------------------------------------------------------------- -->
 
-   <c:import url="../common/footer.jsp" />
+	<c:import url="../common/footer.jsp" />
 
 </body>
 </html>

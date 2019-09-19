@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.product.model.vo.Cart;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -26,5 +27,6 @@ public interface ProductService {
 	int updateThumbnail(Product_Image pi);
 	int updateDetailImg(ArrayList<Product_Image> piList, int p_num);
 	void deleteProduct(int p_num);
+	int insertCart(ArrayList<Cart> list);
 	
 }
