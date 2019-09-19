@@ -21,9 +21,16 @@ public interface AdminService {
 	
 	ArrayList<Member> allUserList(PageInfo pi); // 관리자 회원정보 조회
 	
+	ArrayList<Board> boardList(PageInfo pi); // 보드리스트 조회
 	
 	
-
+	 int boardListCount();
+	 int boardListCountNot();
+	 int boardListCountQe();
+	 int boardListCountSug();
+	 int boardListCountDecl();
+	int boardListCountA();
+	ArrayList<Board> boardListA(PageInfo blc);//튜터신청 보드 만 조회
 
 
 

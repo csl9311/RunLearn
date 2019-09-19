@@ -27,19 +27,17 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 <c:url var="adminBoardInsertView" value="adminBoardInsertView.do"/>
 
 <body class="scroll">
-   <jsp:include page="../common/header.jsp"/>
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
+  <input type="button" value="홈으로" onclick="location.href='adminToHome.do';">
   <hr>
   <input type="hidden" name="i" value="${ i }">
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round  hotpink fontwhite" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
-  <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터(관리자)</button>
-  <button id="tablink5" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeUser.do';" style="width:175px">고객센터(요청)</button>
-  <button id="tablink6" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminBoardDetailView.do';" style="width:175px">(작업용)게시판뷰</button>
-  <button id="tablink8" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminBoardInsertForm.do';" style="width:175px">(작업용)게시판작성</button>
+  <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
+
 </div>
 
 <div class="minh"style="margin-left:190px"><!--관리자 페이지 주화면영역  -->
@@ -145,6 +143,5 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
     <div class="borderhotpinkthick mainBorderRa" style="width:500px;min-height: 1000px;margin-left: 1150px;"> 여유 있으면 통계 같은거 넣자!</div>
   </div>
 </div><!-- /관리자 페이지 주화면 -->
-   <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

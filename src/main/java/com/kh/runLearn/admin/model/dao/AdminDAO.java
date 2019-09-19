@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.runLearn.board.model.vo.Board;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.member.model.vo.Member;
 
@@ -37,7 +38,7 @@ public class AdminDAO {
 	
 	
 	
-	//내림
+
 	public ArrayList<Member> allUserList(PageInfo pi) {//모든 유저 정보 가지고 오기
 		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -60,6 +61,36 @@ public class AdminDAO {
 	public int targetUserUpdate(Member m) {//유저 회원 정보 수정
 		System.out.println("dao"+m);
 		return sqlSession.update("adminMapper.targetUserUpdate",m);
+	}
+	
+	////////////Board
+	public ArrayList<Board> boardList(PageInfo pi) {//모든 보드 정보 가지고 오기
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.boardList", null, rowBounds); // arraylist로 형변환해주기
+	}
+	public int boardListCount() {//보드리스트 카운트  가지고 오기
+		return sqlSession.selectOne("adminMapper.boardListCount");
+	}
+	public int boardListCountNot() {//보드리스트 카운트  가지고 오기
+		return sqlSession.selectOne("adminMapper.boardListCountNot");
+	}
+	public int boardListCountQe() {//보드리스트 카운트  가지고 오기
+		return sqlSession.selectOne("adminMapper.boardListCountQe");
+	}
+	public int boardListCountSug() {//보드리스트 카운트  가지고 오기
+		return sqlSession.selectOne("adminMapper.boardListCountSug");
+	}
+	public int boardListCountDecl() {//보드리스트 카운트  가지고 오기
+		return sqlSession.selectOne("adminMapper.boardListCountDecl");
+	}
+	public int boardListCountA() {
+		return sqlSession.selectOne("adminMapper.boardListCountA");
+	}
+	public ArrayList<Board> boardListA(PageInfo pi) {
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.boardListA", null, rowBounds); // arraylist로 형변환해주기
 	}
 	
 	
