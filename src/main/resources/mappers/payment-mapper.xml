@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="paymentMapper">
+	<insert id="insertPayment" parameterType="Payment">
+		insert into payment
+		values(payment_seq.nextval, #{pay_target}, sysdate, #{pay_method}, default, #{m_id})
+	</insert>
+	<insert id="insertLecturePayment" parameterType="_int">
+		insert into lecture_pay
+		values(payment_seq.currval, #{l_num})
+	</insert>
 </mapper>

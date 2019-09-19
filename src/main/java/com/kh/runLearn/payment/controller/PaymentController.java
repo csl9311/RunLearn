@@ -3,13 +3,18 @@ package com.kh.runLearn.payment.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.runLearn.common.Exception;
+import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.payment.model.vo.Payment;
@@ -21,6 +26,9 @@ public class PaymentController {
 
 	@Autowired
 	private PaymentService payService;
+	
+	@Autowired
+	private LectureService lService;
 	
 // 상품 결제
 	@RequestMapping("product.pay")
@@ -39,6 +47,25 @@ public class PaymentController {
 		map.put("total", total);
 		request.setAttribute("map", map);
 		return "product/product_payment";
+	}
+	
+	@RequestMapping("lecture.pay")
+	public ModelAndView lecturePay(
+			@RequestParam("l_num") int l_num,
+			@ModelAttribute Product p,
+			ModelAndView mv,
+			HttpServletRequest request,
+			HttpSession session
+		) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		HashMap<String, String> list = lService.selectLecture(l_num);
+		HashMap<String, Object> map = new HashMap<>();
+		System.out.println(list);
+		System.out.println(loginUser);
+		mv.addObject("list", list);
+		mv.addObject("m", loginUser);
+		mv.setViewName("lecture/lecturePayment");
+		return mv;
 	}
 	
 // 결제 정보 저장
@@ -76,4 +103,31 @@ public class PaymentController {
 		int result = payService.insertProductPayment(map);
 		return result;
 	}
+	@RequestMapping("lecturePayment.save")
+	@ResponseBody
+	public String paymentSave(
+			@RequestParam("l_num") int l_num,
+			@RequestParam("pay_method") String pay_method,
+			@RequestParam("l_title") String l_title,
+			@RequestParam("l_price") int l_price,
+			@RequestParam("m_id") String m_id,
+			@RequestParam("m_name") String m_name,
+			@RequestParam("m_phone") String m_phone,
+			@RequestParam("m_email") String m_email
+			) {
+		Payment pay = new Payment();
+		pay.setPay_method(pay_method);
+		pay.setPay_target("l");
+		pay.setM_id(m_id);
+		payService.insertPayment(pay);
+		System.out.println(pay);
+		
+		int result = payService.insertLecturePayment(l_num);
+		if(result>0) {
+			return "success";
+		} else {
+			throw new Exception("결제 실패.");
+		}
+	}
+
 }

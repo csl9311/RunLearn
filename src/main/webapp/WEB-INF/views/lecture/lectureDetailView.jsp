@@ -274,7 +274,10 @@
 		
 		
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
-			<div class="btn btn-primary">결제하기
+			<c:url var="lecturePay" value="lecture.pay">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-primary" onclick="location.href='${ lecturePay }'">결제하기
 			</div>
 			<div class="btn btn-secondary">찜에추가
 			</div>

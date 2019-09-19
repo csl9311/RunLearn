@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 import com.kh.runLearn.lecture.model.vo.Lecture_File;
 import com.kh.runLearn.lecture.model.vo.Lecture_Image;
+import com.kh.runLearn.member.model.vo.Member;
 
 @Controller
 public class LectureController {
@@ -757,6 +759,21 @@ public class LectureController {
 	public ModelAndView lectureEachInsert(@RequestParam("l_num") int l_num, ModelAndView mv) {
 		mv.addObject("l_num", l_num);
 		mv.setViewName("lecture/lectureEachInput");
+		return mv;
+	}
+	
+	@RequestMapping("lecturePayView.le")
+	public ModelAndView lecturePayView(@RequestParam("l_num") int l_num, ModelAndView mv) {
+		HashMap<String, String> list = lService.selectLecture(l_num);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("MCR", 0);
+		ArrayList im_list = lService.selectLectureImage(map);
+		System.out.println("L : "+list);
+		System.out.println("m : "+im_list);
+		mv.addObject("list", list);
+		mv.addObject("im_list", im_list);
+		mv.setViewName("common/payment");
 		return mv;
 	}
 	
