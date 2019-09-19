@@ -109,10 +109,34 @@
 		where B_CATEGORY ='튜터신청'
 		order by B_REG_DATE desc
 	</select>
+	<update id="updateCount" parameterType="_int">
+	update board
+	set b_count = b_count+1
+	where b_num=#{bId}
+	</update>
 	
+	<resultMap type="Board" id="BoardResultSet">
+		<id column="B_NUM" property="b_num"/>
+		<result column="B_TITLE" property="b_title"/>
+		<result column="B_CONTENT" property="b_content"/>
+		<result column="B_REG_DATE" property="b_reg_date"/>
+		<result column="B_CATEGORY" property="b_category"/>
+		<result column="B_STATUS" property="b_status"/>
+		<result column="B_COUNT" property="b_count"/>
+		<result column="M_ID" property="m_id"/>
+		<result column="B_SUBCATEGORY" property="b_subcategory"/>
+	</resultMap>
+	
+	<select id="selectBoard" parameterType="_int" resultMap="BoardResultSet">
+	select * 
+	from board
+	where b_num =#{bId}
+	</select>
 
-
-
+	<insert id="insertBoard" parameterType="Board">
+	insert into board values(board_seq.nextval,#{b_title},#{b_content},sysdate,
+								#{b_category},#{b_subcategory},default,default,#{m_id})
+	</insert>
 
 
 

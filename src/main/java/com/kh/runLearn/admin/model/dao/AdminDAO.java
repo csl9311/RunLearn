@@ -92,6 +92,19 @@ public class AdminDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.boardListA", null, rowBounds); // arraylist로 형변환해주기
 	}
+	public int addReadCount(int bId) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("adminMapper.updateCount",bId);
+	}
+	public Board selectBoard(int bId) {
+		// TODO Auto-generated method stub
+		System.out.println(bId);
+		return sqlSession.selectOne("adminMapper.selectBoard",bId);
+	}
+	public int insertBoard(Board b) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("adminMapper.insertBoard",b);
+	}
 	
 	
 

@@ -46,7 +46,7 @@
   
   <div id="st4menu1" class="w3-container borderhotpink sidetab4menus animate-fading" style="border-top:white">
     <h3 class="fonthotpink" style="font-weight:bold">공지사항</h3>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;"onclick="location.href='adminInsertNotice.do';">글 작성</button>
+    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;"onclick="location.href='adminBoardInsertForm.do';">글 작성</button>
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
@@ -68,37 +68,21 @@
   			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly>
   			<input type="hidden" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly>
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ a.b_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
-			<td style="text-align:center;"><input type="text" name="b_title" value="${ a.b_title }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;">
+			<c:url var="bdetail" value="abdetail.do">
+						<c:param name="bId" value="${ a.b_num }"/>
+						<c:param name="page" value="${ blcn.currentPage }"/>
+					</c:url>
+					<a href="${ bdetail }">${ a.b_title }</a>
+			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ a.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.b_count }" class=" borderInform"readonly></td>
-			
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
 			
 			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
-		<script>
-		function insertTr(target, targetB, targetBC){
-			
-			$('.'+target).removeAttr('readonly').attr;
-			
-			x = document.getElementsByClassName(target);
-			console.log(typeof(target));
-			listInform = document.getElementsByClassName(target);
-			  for (i = 0; i < x.length; i++) {
-				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
-				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
-			  };
-			  y = document.getElementsByClassName(targetB);
-			  z = document.getElementsByClassName(targetBC);
-			  for (i = 0; i < y.length; i++) {
-			  y[i].style.display="none";
-			  }
-			  for (i = 0; i < y.length; i++) {
-				  z[i].style.display="";
-				}
-		}
-		</script>
+		
 		
 			</form>
 			</c:if>
@@ -169,40 +153,25 @@
   			<input type="hidden" name="page" value="${ page }">
   			<input type="hidden" name="b_status" value="${ a.b_status }" class=" borderInform"readonly>
   			<input type="hidden" name="b_category" value="${ a.b_category }" class="${ a.m_id } borderInform allUser" readonly>
-  			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly></td>
-			<input type="hidden" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly>
+  			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly>
+  			<input type="hidden" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly>
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ a.b_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
-			<td style="text-align:center;"><input type="text" name="b_title" value="${ a.b_title }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;">
+			<c:url var="bdetail" value="abdetail.do">
+						<c:param name="bId" value="${ a.b_num }"/>
+						<c:param name="page" value="${ blcn.currentPage }"/>
+					</c:url>
+					<a href="${ bdetail }">${ a.b_title }</a>
+			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ a.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.b_count }" class=" borderInform"readonly></td>
 			
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
 			
-			<td><button type="button" class="${ a.m_id }BC  allUserBC listbtn fontwhite">삭제하기</button></td>
+			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
-		<script>
-		function insertTr(target, targetB, targetBC){
-			
-			$('.'+target).removeAttr('readonly').attr;
-			
-			x = document.getElementsByClassName(target);
-			console.log(typeof(target));
-			listInform = document.getElementsByClassName(target);
-			  for (i = 0; i < x.length; i++) {
-				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
-				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
-			  };
-			  y = document.getElementsByClassName(targetB);
-			  z = document.getElementsByClassName(targetBC);
-			  for (i = 0; i < y.length; i++) {
-			  y[i].style.display="none";
-			  }
-			  for (i = 0; i < y.length; i++) {
-				  z[i].style.display="";
-				}
-		}
-		</script>
+		
 		
 			</form>
 			</c:if>
@@ -271,39 +240,25 @@
   			<input type="hidden" name="page" value="${ page }">
   			<input type="hidden" name="b_status" value="${ a.b_status }" class=" borderInform"readonly>
   			<input type="hidden" name="b_category" value="${ a.b_category }" class="${ a.m_id } borderInform allUser" readonly>
-  			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly></td>
+  			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly>
+  			<input type="hidden" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly>
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ a.b_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
-			<td style="text-align:center;"><input type="text" name="b_title" value="${ a.b_title }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;">
+			<c:url var="bdetail" value="abdetail.do">
+						<c:param name="bId" value="${ a.b_num }"/>
+						<c:param name="page" value="${ blcn.currentPage }"/>
+					</c:url>
+					<a href="${ bdetail }">${ a.b_title }</a>
+			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ a.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.b_count }" class=" borderInform"readonly></td>
 			
-			<input type="hidden" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly>
-			<td style="text-align:center;"><input type="text" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly></td>
-			<td><button type="button" class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
+			
+			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
-		<script>
-		function insertTr(target, targetB, targetBC){
-			
-			$('.'+target).removeAttr('readonly').attr;
-			
-			x = document.getElementsByClassName(target);
-			console.log(typeof(target));
-			listInform = document.getElementsByClassName(target);
-			  for (i = 0; i < x.length; i++) {
-				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
-				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
-			  };
-			  y = document.getElementsByClassName(targetB);
-			  z = document.getElementsByClassName(targetBC);
-			  for (i = 0; i < y.length; i++) {
-			  y[i].style.display="none";
-			  }
-			  for (i = 0; i < y.length; i++) {
-				  z[i].style.display="";
-				}
-		}
-		</script>
+		
 		
 			</form>
 			</c:if>
@@ -371,39 +326,25 @@
   			<input type="hidden" name="page" value="${ page }">
   			<input type="hidden" name="b_status" value="${ a.b_status }" class=" borderInform"readonly>
   			<input type="hidden" name="b_category" value="${ a.b_category }" class="${ a.m_id } borderInform allUser" readonly>
-  			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly></td>
+  			<input type="hidden" name="b_content" value="${ a.b_content }" class="${ a.m_id } borderInform allUser"readonly>
+  			<input type="hidden" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly>
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ a.b_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
-			<td style="text-align:center;"><input type="text" name="b_title" value="${ a.b_title }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;">
+			<c:url var="bdetail" value="abdetail.do">
+						<c:param name="bId" value="${ a.b_num }"/>
+						<c:param name="page" value="${ blcn.currentPage }"/>
+					</c:url>
+					<a href="${ bdetail }">${ a.b_title }</a>
+			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ a.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.b_count }" class=" borderInform"readonly></td>
 			
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
-			<input type="hidden" name="b_subcategory" value="${ a.b_subcategory }" class=" borderInform"readonly>
-			<td><button type="button" class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			
+			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
-		<script>
-		function insertTr(target, targetB, targetBC){
-			
-			$('.'+target).removeAttr('readonly').attr;
-			
-			x = document.getElementsByClassName(target);
-			console.log(typeof(target));
-			listInform = document.getElementsByClassName(target);
-			  for (i = 0; i < x.length; i++) {
-				  listInform[i].className = listInform[i].className.replace(" borderInform", " borderReplace");
-				  listInform[i].className = listInform[i].className.replace(" borderInform2", " borderReplace2");
-			  };
-			  y = document.getElementsByClassName(targetB);
-			  z = document.getElementsByClassName(targetBC);
-			  for (i = 0; i < y.length; i++) {
-			  y[i].style.display="none";
-			  }
-			  for (i = 0; i < y.length; i++) {
-				  z[i].style.display="";
-				}
-		}
-		</script>
+		
 		
 			</form>
 			</c:if>

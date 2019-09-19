@@ -31,6 +31,9 @@ public interface AdminService {
 	 int boardListCountDecl();
 	int boardListCountA();
 	ArrayList<Board> boardListA(PageInfo blc);//튜터신청 보드 만 조회
+	int addReadCount(int bId);
+	Board selectBoard(int bId);
+	int insertBoard(Board b);
 
 
 

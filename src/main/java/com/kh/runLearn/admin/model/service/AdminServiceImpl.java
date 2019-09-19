@@ -110,11 +110,23 @@ public int boardListCountDecl() {//전체 보드 수 가져오기
 	}
 	
 	
+	@Override
+	public int addReadCount(int bId) {
+		// TODO Auto-generated method stub
+		return aDAO.addReadCount(bId);
+	}
+	@Override
+	public Board selectBoard(int bId) {
+		// TODO Auto-generated method stub
+		return aDAO.selectBoard(bId);
 	
 	
-	
-	
-	
+	}
+	@Override
+	public int insertBoard(Board b) {
+		// TODO Auto-generated method stub
+		return aDAO.insertBoard(b);
+	}
 	
 	
 	

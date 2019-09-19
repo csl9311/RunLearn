@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-
+<script type="text/javascript" src="${ contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href='${ contextPath }/resources/css/admin/admin.css'>
 </head>
@@ -101,15 +101,24 @@
 			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
 			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
 			</td>
-		</tr>
-		<script>
-		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			<script>
+			function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+				/* if (typeof jQuery == 'undefined') {
+
+					alert("없음");
+
+					}else{
+
+					alert("있음");
+
+					}  */
 			console.log(target);
 			console.log(typeof(target));
-		
-			$('.'+target).removeAttr('readonly').attr;
+			 $('.'+target).removeAttr('readonly').attr; 
+			
 			
 			x = document.getElementsByClassName(target);
+			
 			console.log(typeof(target));
 			listInform = document.getElementsByClassName(target);
 			  for (i = 0; i < x.length; i++) {
@@ -126,6 +135,8 @@
 				}
 		}
 		</script>
+		</tr>
+		
 			</form>
 		</c:forEach>
 				<!-- 페이징 -->
@@ -189,16 +200,21 @@
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
   			<input type="hidden" name="b_status" value="${ b.b_status }" class=" borderInform"readonly>
-  			<input type="hidden" name="b_category" value="${ b.b_category }" class="${b.m_id } borderInform allUser" readonly>
-  			<input type="hidden" name="b_content" value="${ b.b_content }" class="${ b.m_id } borderInform allUser"readonly></td>
+  			<input type="hidden" name="b_category" value="${ b.b_category }" class="${ b.m_id } borderInform allUser" readonly>
+  			<input type="hidden" name="b_content" value="${ b.b_content }" class="${ b.m_id } borderInform allUser"readonly>
+  			<input type="hidden" name="b_subcategory" value="${ b.b_subcategory }" class=" borderInform"readonly>
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ b.b_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
-			<td style="text-align:center;"><input type="text" name="b_title" value="${ b.b_title }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;">
+			<c:url var="bdetail" value="aabdetail.do">
+						<c:param name="bId" value="${ b.b_num }"/>
+						<c:param name="page" value="${ bla.currentPage }"/>
+					</c:url>
+					<a href="${ bdetail }">${ b.b_title }</a>
+			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ b.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ b.b_count }" class=" borderInform"readonly></td>
-			
-			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ b.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
-			<input type="hidden" name="b_subcategory" value="${ b.b_subcategory }" class=" borderInform"readonly>
-			<td><button type="button" class="${ b.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">삭제하기</button></td>
+			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ b.b_reg_date }" class="${ b.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
+			<td><button type="button" value="삭제하기"class="${ b.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		
