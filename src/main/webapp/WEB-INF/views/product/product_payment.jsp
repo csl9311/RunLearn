@@ -13,14 +13,29 @@
 <c:import url="../common/header.jsp" />
 <body>
 	<div style="height:50vh;">
-		<div class="row">
-			<input type="radio" name="method" value="basicAddress"><label>기존 주소 사용</label>
-			<input type="radio" name="method" value="newAddress"><label>새로운 주소 등록</label>
+		<div class="content center">
+			<div class="row">
+				<div>
+					<input type="radio" name="method" value="basicAddress" checked><label>기존 주소 사용</label>
+				</div>
+				<div>
+					<input type="radio" name="method" value="newAddress"><label>새로운 주소 등록</label>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script>
 		$('input[name=method]').click(function(){
-			console.log('라디오버튼클릭');
+			var radio = $('input[name=method]');
+			for(var i = 0 ; i < radio.length; i++){
+				if(radio[i].checked){
+					if(radio[i].value == 'basicAddress'){
+						
+					} else if {
+						
+					}
+				}
+			}
 		});
 		
 	</script>
