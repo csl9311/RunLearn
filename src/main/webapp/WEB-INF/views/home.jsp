@@ -205,10 +205,10 @@
    <div class="body">
       <div class="slide-area">
          <div class="slide">
-         	<c:forEach var="list" items="${ list }">
+         	<%-- <c:forEach var="list" items="${ list }">
          		<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
          		<!-- 강의 의미지 경로만 바꿔주면 됨! DB에서 인기 강의는 불러왔음! -->
-         	</c:forEach>
+         	</c:forEach> --%>
          </div>
          <script>
          	console.log('${list}');
@@ -256,6 +256,7 @@
     <c:import url="common/footer.jsp"/>
    
    <script>
+	   /* --------------최신강의/상품 ajax-------------- */
    	   var selectedCate = '강의';
    	   
    	   getNewList(selectedCate);
@@ -344,22 +345,22 @@
 							$table.append($tr);
 						}
 		            } else if (cate == '상품') {
-		            	$('#img-detail').attr('src', '${contextPath}/resources/buploadFiles/'+data[0].P_CHANGED_NAME);
+		            	$('#img-detail').attr('src', '${contextPath}/resources/images/product/'+data[0].P_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].P_NAME.replace(/\+/g,' ')));
 		            	$('.imgRow').siblings('.sub').children('td').html('');
-						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_PRICE+"￦");
+						/* $('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_PRICE+"￦"); */
 						
 						for (var i = 0; i < 4; i++) {
 							$tr = $('<tr class="rows">');
-							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/buploadFiles/'+data[i].P_CHANGED_NAME+'">');
+							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/product/'+data[i].P_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].P_NAME.replace(/\+/g,' ')));
-							$price = $('<div class="price">').text(data[i].P_PRICE+"￦");
+							/* $price = $('<div class="price">').text(data[i].P_PRICE+"￦"); */
 							
 							$tr.append($img);
 							
 							$td.append($title);
-							$td.append($price);
+							/* $td.append($price); */
 							
 							$tr.append($td);
 							
@@ -370,15 +371,35 @@
 			});
 	   }
 	   
-       $.noConflict();
-       $('.slide').slick({
-            dots: true,
-            infinite: true,
-            slidesToShow: 1,
-            autoplay: true,
-            autoplaySpeed: 2000
-       });
-       
+	   /* --------------인기강의 ajax-------------- */
+	   $.ajax({
+		   url: "getHotLectureList.do",
+		   dataType: "json",
+		   success: function (data) {
+			   $div = $('.slide');
+			   
+			   var $img;
+			   
+			   for (var i = 0; i < data.length; i++) {
+				   $img = $('<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg">');
+				   
+				   $div.append($img);
+			   }
+			   
+			   $.noConflict();
+			   if ($('.slide').hasClass('slick-initialized')) {
+				   $('.slide').slick('destroy');
+			   }
+			   $('.slide').slick({
+				   dots: true,
+		           infinite: true,
+		           slidesToShow: 1,
+		           slidesToScroll: 1,
+		           autoplay: true,
+		           autoplaySpeed: 2000
+			   });
+		   }
+	   });
    </script>
 </body>
 </html>

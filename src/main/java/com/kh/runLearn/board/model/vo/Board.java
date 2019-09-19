@@ -11,11 +11,12 @@ public class Board {
 	private String b_status;
 	private int b_count;
 	private String m_id;
+	private String b_subcategory;
 	
 	public Board() {}
 
 	public Board(int b_num, String b_title, String b_content, Date b_reg_date, String b_category, String b_status,
-			int b_count, String m_id) {
+			int b_count, String m_id, String b_subcategory) {
 		super();
 		this.b_num = b_num;
 		this.b_title = b_title;
@@ -25,6 +26,7 @@ public class Board {
 		this.b_status = b_status;
 		this.b_count = b_count;
 		this.m_id = m_id;
+		this.b_subcategory = b_subcategory;
 	}
 
 	public int getB_num() {
@@ -91,11 +93,20 @@ public class Board {
 		this.m_id = m_id;
 	}
 
+	
+	public String getB_subcategory() {
+		return b_subcategory;
+	}
+
+	public void setB_subcategory(String b_subcategory) {
+		this.b_subcategory = b_subcategory;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [b_num=" + b_num + ", b_title=" + b_title + ", b_content=" + b_content + ", b_reg_date="
 				+ b_reg_date + ", b_category=" + b_category + ", b_status=" + b_status + ", b_count=" + b_count
-				+ ", m_id=" + m_id + "]";
+				+ ", m_id=" + m_id + ", b_subcategory=" + b_subcategory + "]";
 	}
-	
+
 }

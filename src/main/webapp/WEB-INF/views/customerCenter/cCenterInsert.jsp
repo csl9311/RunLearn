@@ -9,29 +9,26 @@
 	.centerDetailBack {
 		height: auto;
 		margin-top: 60px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.centerDetailBack table {
 		position: relative;
 		margin: 50px auto;
 		width: 95%;
 		text-align: left;
-		font-size: 18px;
+		font-size: 16px;
 		border-collapse: collapse;
-		border-top: 2px solid #3d4045;
+		border-top: 1px solid #3d4045;
 	}
 	
 	.centerDetailBack tr {
 		border-bottom: 1px solid #3d4045;
-		font-weight: 700;
-	}
-	
-	#nSubTr {
-		font-size: 14px;
 	}
 	
 	.centerDetailBack th, .centerDetailBack td {
 		padding: 10px 30px;
 		margin: 0px;
+		font-weight: 700;
 	}
 	
 	.centerDetailBack th {
@@ -44,11 +41,11 @@
 		height: 300px;
 		resize: none;
 		font-weight: 400;
-		border: 1px solid lightgray;
+		border: 1px solid #3d4045;
 		outline: none;
 	}
 	
-	.centerDetailBack button {
+	.centerDetailBack .buttons button {
 		border: none;
 	    background: #ff005a;
 	    padding: 10px;
@@ -60,33 +57,146 @@
 	.centerDetailBack select {
 		width: 17%;
 		height: 30px;
+		font-size: 15px;
 	}
 	
-	.centerDetailBack button:hover {
+	.centerDetailBack .buttons button:hover {
 	    box-shadow: 0 0 3px 0 #ff005a;
 	}
 	
-	.centerDetailBack input {
+	.centerDetailBack input[type='text'] {
 		border: none;
 		outline: none;
-		border-bottom: 1px solid lightgray;
+		border-bottom: 1px solid #3d4045;
 		width: 90%;
 	}
 	
-	.centerDetailBack input:hover, .centerDetailBack input:focus {
+	.centerDetailBack input[type='text']:hover, .centerDetailBack input[type='text']:focus {
 		border-bottom: 1px solid #ff005a;
 	}
 	
-	#bContent:hover, #bContent:focus {
+	.centerDetailBack select {
+		outline: none;
+	}
+	
+	#bContent:hover, #bContent:focus, .centerDetailBack select:hover, .centerDetailBack select:focus {
 		border: 1px solid #ff005a;
+	}
+	
+	.file-upload {
+		margin-top: 30px;
+	}
+	
+	.file-upload-btn {
+	  width: 20%;
+	  margin-top: 10px;
+	  background: lightgray;
+	  border: none;
+	  padding: 10px;
+	  border-radius: 4px;
+	  border-bottom: 4px solid #bababa;
+	  transition: all .2s ease;
+	  outline: none;
+	  font-size: 14px;
+	  font-weight: 700;
+	}
+	
+	.file-upload-btn:hover {
+	  transition: all .2s ease;
+	  cursor: pointer;
+	}
+	
+	.file-upload-btn:active {
+	  border: 0;
+	  transition: all .2s ease;
+	}
+	
+	.file-upload-content {
+	  display: none;
+	  text-align: center;
+	}
+	
+	.file-upload-input {
+	  position: absolute;
+	  margin: 0;
+	  padding: 0;
+	  width: 60%;
+	  height: 100%;
+	  outline: none;
+	  opacity: 0;
+	  cursor: pointer;
+	}
+	
+	.image-upload-wrap {
+	  margin-top: 20px;
+	  border: 1px dashed #3d4045;
+	  position: relative;
+	}
+	
+	.image-upload-wrap:hover {
+	  border: 1px dashed #ff005a;
+	}
+	
+	.image-upload-wrap:hover .drag-text h4 {
+		color: #ff005a;
+    }
+	
+	.image-dropping {
+		border: 1px dashed #3d4045;
+	}
+	
+	.image-title-wrap {
+	  padding: 0 15px 15px 15px;
+	  color: #222;
+	}
+	
+	.drag-text {
+	  text-align: center;
+	}
+	
+	.drag-text h4 {
+	  font-weight: 100;
+	  color: #3d4045;
+	  padding: 60px 0;
+	}
+	
+	.file-upload-image {
+		max-width: 80%;
+		max-height: 80%;
+	  margin: auto;
+	  padding: 20px;
+	}
+	
+	.remove-image {
+	  width: 100px;
+	  margin: 0;
+	  background: lightgray;
+	  border: none;
+	  padding: 10px;
+	  border-radius: 4px;
+	  border-bottom: 4px solid #bababa;
+	  transition: all .2s ease;
+	  outline: none;
+	  text-transform: uppercase;
+	  font-size: 13px;
+	  font-weight: 700;
+	}
+	
+	.remove-image:hover {
+	  transition: all .2s ease;
+	  cursor: pointer;
+	}
+	
+	.remove-image:active {
+	  border: 0;
+	  transition: all .2s ease;
 	}
 </style>
 </head>
 <body>
 	<c:import url="../common/header.jsp"/>
-	
 	<div class="container centerDetailBack">
-		<form action="cCenterInsert.do" method="POST">
+		<form action="cCenterInsert.do" method="POST" enctype="Multipart/form-data">
 			<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 			<input type="hidden" name="b_category" value="${ b_category }">
 			<div class="row">
@@ -95,24 +205,42 @@
 					<table>
 						<tr id="bTitleTr">
 							<th>제목</th>
-							<td><input type="text" name="b_title"></td>
+							<td><input type="text" name="b_title" required></td>
 						</tr>
 						<tr>
 							<th>세부 카테고리</th>
 							<td>
-								<select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
+								<select name="b_subcategory">
+									<option>상품</option>
+									<option>강의</option>
+									<option>기타</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<th rowspan="2">내용</th>
 							<td style="width: 100%; padding: 50px;">
-								<textarea id="bContent" name="b_content"></textarea>
-								<c:if test="b_category eq '신고글'">
-								<p>dd</p>
+								<textarea id="bContent" name="b_content" required></textarea>
+								<c:if test="${ b_category eq '신고글' }">
+									<div class="file-upload">
+									  <div class="image-upload-wrap">
+									    <input class="file-upload-input" type='file' onchange="readURL(this);" accept=".gif, .jpg, .png" name="uploadFile" />
+									    <input type="hidden" name="test" value="test">
+									    <div class="drag-text">
+									      <h4>드래그&드랍이나 이미지 첨부 버튼을 눌러주세요</h4>
+									    </div>
+									  </div>
+									  <div class="file-upload-content">
+									    <img class="file-upload-image" src="#" alt="your image" />
+									    <div class="image-title-wrap">
+									      <p class="image-title">Uploaded Image</p>
+									      <button type="button" onclick="removeUpload()" class="remove-image">이미지 삭제</button>
+									    </div>
+									  </div>
+									  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">이미지 첨부</button>
+									</div>
+								</c:if>
+								<c:if test="${ b_category ne '신고글' }">
 								</c:if>
 							</td>
 						</tr>
@@ -123,7 +251,7 @@
 					<c:param name="b_category" value="${ b_category }"/>
 					<c:param name="page" value="${ page }"/>
 				</c:url>
-				<div class="col-md" style="text-align: center; margin-bottom: 50px;">
+				<div class="col-md buttons" style="text-align: center; margin-bottom: 50px;">
 					<button type="button" onclick="location.href='${blist}'" style="margin-right: 20px;">목록으로</button>
 					<button type="submit">작성하기</button>
 				</div>
@@ -132,5 +260,44 @@
 	</div>
 	
 	<c:import url="../common/footer.jsp"/>
+	
+	<script>
+		function readURL(input) {
+			  if (input.files && input.files[0]) {
+	
+			    var reader = new FileReader();
+	
+			    reader.onload = function(e) {
+			      $('.image-upload-wrap').hide();
+				  $('.file-upload-btn').hide();
+				  
+			      $('.file-upload-image').attr('src', e.target.result);
+			      $('.file-upload-content').show();
+	
+			      $('.image-title').html(input.files[0].name);
+			      $('.file-upload-input').attr('value', input.files[0].name);
+			    };
+	
+			    reader.readAsDataURL(input.files[0]);
+	
+			  } else {
+			    removeUpload();
+			  }
+			}
+	
+			function removeUpload() {
+			  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+			  $('.file-upload-input').val("");
+			  $('.file-upload-content').hide();
+			  $('.image-upload-wrap').show();
+			  $('.file-upload-btn').show();
+			}
+			$('.image-upload-wrap').bind('dragover', function () {
+					$('.image-upload-wrap').addClass('image-dropping');
+				});
+				$('.image-upload-wrap').bind('dragleave', function () {
+					$('.image-upload-wrap').removeClass('image-dropping');
+			});
+	</script>
 </body>
 </html>

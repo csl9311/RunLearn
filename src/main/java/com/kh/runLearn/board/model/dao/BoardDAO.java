@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.board.model.vo.Board;
+import com.kh.runLearn.board.model.vo.Board_Image;
 import com.kh.runLearn.common.PageInfo;
 
 @Repository("bDAO")
@@ -48,6 +50,14 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
 
+	public int insertBoard_Image(Board_Image bi) {
+		return sqlSession.insert("boardMapper.insertBoardImg", bi);
+	}
+	
+	public String selectBoardImg(Board b) {
+		return sqlSession.selectOne("boardMapper.selectBoardImg", b.getB_num());
+	}
+	
 	/* ---------------고객센터용---------------  */
 	public ArrayList<HashMap<String, String>> selectCenterBoardList(Map<String, Object> map) {
 		PageInfo pi = (PageInfo) map.get("pi");
