@@ -112,18 +112,30 @@
 	</select>
   
 	<select id="selectLecture" parameterType="_int" resultType="map">
-		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name
+		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name, m_id
 		from lecture l
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
 		where l_num=#{l_num}
 	</select>
-  
+	<select id="userPayCheck" parameterType="string" resultType="map">
+		select *
+		from payment
+    		join lecture_pay using(pay_num)
+		where m_id = #{m_id}
+	</select>
 	<select id="selectLectureImage" parameterType="hashmap" resultType="map">
 		select l_image_num, l_origin_name, l_changed_name, l_file_level, l_num
 		from lecture_image
 		where l_num=#{l_num} and l_file_level = #{MCR}
 	</select>
+  
+  	<select id="findEachNum" parameterType="_int" resultType="string">
+  		select *
+  		from (select min(l_each_num)
+  			  from lecture_each
+  			  where l_num = #{l_num})
+  	</select>
   
 	<select id="classEnter" parameterType="hashmap" resultType="Lecture_Each">
 		select *
@@ -134,9 +146,15 @@
 	<select id="classList" parameterType="_int" resultType="map">
 		select *
 		from lecture_each
+			left join lecture_file using(l_each_num)
+		where l_num = #{l_num} and l_each_confirm = 'Y'
+	</select>
+	<select id="tclassList" parameterType="_int" resultType="map">
+		select *
+		from lecture_each
+			left join lecture_file using(l_each_num)
 		where l_num = #{l_num}
 	</select>
-  
 	<select id="selectLectureFile" parameterType="_int" resultType="Lecture_File">
 		select *
 		from lecture_file
@@ -171,11 +189,11 @@
 	</insert>
 	<insert id="insertLecture" parameterType="Lecture_Each">
 		insert into lecture_each
-		values(lecture_each_seq.nextval, #{l_each_name}, #{l_each_content}, #{l_num})
+		values(lecture_each_seq.nextval, #{l_each_name}, #{l_each_content}, 'Y', #{l_num})
 	</insert>
 	<insert id="insertLectureFile" parameterType="Lecture_File">
 		insert into lecture_file
-		values(lecture_file_seq.nextval, #{ l_origin_name }, #{l_changed_name}, #{l_file_video}, lecture_each_seq.currval)
+		values(lecture_file_seq.nextval, #{ l_file_origin_name }, #{l_file_changed_name}, #{l_file_video}, lecture_each_seq.currval)
 	</insert>
 	<update id="updateLecture_Image" parameterType="Lecture_Image">
 		update lecture_image
@@ -214,4 +232,19 @@
 		delete from lecture_image
 		where l_num = #{l_num}
 	</delete>
+	<update id="updateLectureEach" parameterType="Lecture_Each">
+		update lecture_each
+		set l_each_name = #{l_each_name}, l_each_content = #{l_each_content}
+		where l_each_num = #{l_each_num}
+	</update>
+	<update id="updateLectureFile" parameterType="Lecture_File">
+		update lecture_file
+		set l_file_origin_name = #{l_file_origin_name}, l_file_changed_name=#{l_file_changed_name}, l_file_video=#{l_file_video}
+		where l_each_num = #{l_each_num}
+	</update>
+	<update id="enableLectureEach" parameterType="_int">
+		update lecture_each
+		set l_each_confirm = 'N'
+		where l_each_num = #{l_each_num}
+	</update>
 </mapper>

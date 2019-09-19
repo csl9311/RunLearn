@@ -31,11 +31,12 @@ public interface LectureService {
 	Lecture_Each classEnter(HashMap<String, Integer> map); // 강의의 제 n화를 선택했을때+
 	Lecture_File selectLectureFile(int l_each_num); //강의 n화를 가져올때 n화의 첨부파일+
 	ArrayList classList(int l_num);//제 n화 강의에서 나올 나머지 강의 리스트 가져오기+
+	ArrayList tclassList(int l_num);
 	HashMap<String, Object> mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때+
 	
 	int insertLecture(Lecture_Each le); // 튜터가 강의를 1화 추가할때+
 	int insertLectureFile(Lecture_File lf);//튜터가 강의 1화를 추가시 첨부파일을 추가할때+
-	int deleteLecture(Lecture_Each le); // 튜터가 강의를 1화 삭제할때
+	int updateLectureEach(Lecture_Each le); // 튜터가 강의를 1화 수정할때
 	
 	int insertLecture_Image(Lecture_Image li); // 강의 메인이미지 업로드+
 	int insertLecture_cImage(Lecture_Image li); //강의 상세,커리큘럼 이미지 추가+
@@ -48,6 +49,11 @@ public interface LectureService {
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
 	ArrayList<String> selectHotLecture(); // home.jsp에 인기강의 조회
 	int findValue();
+	String findEachNum(int l_num);
+	int updateLectureFile(Lecture_File lf);
+	int enableLectureEach(int l_each_num);
+	ArrayList userPayCheck(String m_id);
+	
 
 
 }

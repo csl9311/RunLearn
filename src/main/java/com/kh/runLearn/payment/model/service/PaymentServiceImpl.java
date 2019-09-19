@@ -13,8 +13,17 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentDAO payDAO;
 
 	@Override
-	public int insertProductPayment(HashMap<String, Object> map) {
+  public int insertProductPayment(HashMap<String, Object> map) {
 		return payDAO.insertProductPayment(map);
 	}
+
+	@Override
+	public int insertLecturePayment(int l_num) {
+		return payDAO.insertLecturePayment(l_num);
+	}
+
+	
+	
+	
 
 }

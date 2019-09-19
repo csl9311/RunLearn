@@ -116,11 +116,6 @@
 			<br>
 				<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;"><br>
 				<label style="font-size: 15pt; font-weight: bold;">강사명 : ${ list.M_NAME }</label><br>
-				
-				<label style="font-size: 12pt; font-weight: bold;">연혁</label><br>
-				1999년 첫 탈출 시도<br>
-				2000년 두 번째 탈출 시도<br>
-				2002년 집에 도착<br>
 			</div>
 			<div class="col-sm-12">
 			<div id="curr" style="height: 60px;"></div>
@@ -267,29 +262,33 @@
 		</ul>
 		<ul class="list-group mb-3">
 			<li class="list-group-item" onclick="location.href='#target'">
-				
 				<div>
 					<h5 class="my-0">강의 목표</h5>
 					<br>
 					<h6 class="my-0">${ list.L_OBJECT }</h6>
 				</div>
-				
 			</li>
 		</ul>
 		
 		
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
-			<div class="btn btn-primary">결제하기
+			<c:url var="lecturePay" value="lecture.pay">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-primary" onclick="location.href='${ lecturePay }'">결제하기
 			</div>
 			<div class="btn btn-secondary">찜에추가
 			</div>
+		</div>
+		<c:forEach var="k" begin="0" end="${ paycheck.size()-1 }" step="1">
+		<div>
 			<c:url var="LEMainView" value="lectureEachMainView.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
-				<c:param name="l_each_num" value="1"/>
 			</c:url>
 			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'">강의보기
 			</div>
 		</div>
+		</c:forEach>
 	</div>
 	<script>
 		$(window).scroll(function() {

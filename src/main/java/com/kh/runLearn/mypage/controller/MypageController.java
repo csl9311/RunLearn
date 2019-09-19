@@ -50,7 +50,6 @@ public class MypageController {
 		mv.setViewName("mypage/memberUpdate");
 		return mv;
 //      return "mypage/memberUpdate";
-
 	}
 
 	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
