@@ -43,10 +43,15 @@
 
 				<input type="hidden" name="p_num" value="${ list.get(0).P_NUM }">
 				<input type="hidden" name="p_status" value="${ list.get(0).P_STATUS }">
+				<c:forEach items="${ poList }" var="po">
+					<input type="hidden" name="page_option" value="${ po.p_option }/${po.p_stock}">
+				</c:forEach>
+				
+				
 				<table class="table" id="p_info">
 					<tr>
-						<td>상품명</td>
-						<td class="right">
+						<td style="width: 40%;">상품명</td>
+						<td class="right" style="width: 60%;">
 							${ list.get(0).P_NAME }
 							<input type="hidden" name="p_name" value="${ list.get(0).P_NAME }">
 						</td>
@@ -65,7 +70,12 @@
 								<input id="item" type="text" name="productOption" list="datalist" onchange="choice();" placeholder="옵션 선택">
 								<datalist id="datalist" style="text-align: center;">
 									<c:forEach items="${ poList }" var="po">
-										<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
+										<c:if test="${ po.p_stock+0 eq 0 }">
+											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원 </option>
+										</c:if>
+										<c:if test="${ po.p_stock+0 ne 0 }">
+											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
+										</c:if>
 									</c:forEach>
 								</datalist>
 							</td>
@@ -90,24 +100,11 @@
 						<tr id="totalTr">
 							<td>총 금액</td>
 							<td class="right">
-								<input id="total" name="total" class="center" type="text" placeholder="수량을 선택해주세요." readonly>
+								<input id="total" name="total" class="center" type="text" placeholder="수량을 선택해주세요." value="" readonly>
 							</td>
 						</tr>
 
 
-						<script>
-							$("#del").click(function() {
-								if ($("#amount").val() > 1) {
-									$("#amount").val($("#amount").val() - 1);
-									getTotal();
-								}
-							});
-
-							$("#add").click(function() {
-								$("#amount").val($("#amount").val() - (-1));
-								getTotal();
-							});
-						</script>
 					</c:if>
 				</table>
 				<c:if test="${ list.get(0).M_ID eq loginUser.m_id  }">
@@ -135,36 +132,47 @@
 		<div id="abcd"></div>
 		<%-- 상품 정보 끝 --%>
 		<script type="text/javascript">
-			
-			
-		
-		
 			/* p_info = table명 */
 			var $p_info = $('#p_info');
 			/* amount의 id 지정 */
-			var i = 0;
 			var $item = $('#item');
 			/* 옵션 변경 시 */
-			function choice() {
-				var $p_num = $('#p_num' + i);
-				var $script = $('#abcd');
+			
 
+			
+			var q = 0;
+			function choice() {
 				var won = $('#' + $item.val()).text();
 				var price = Number(won.substring(0, won.length - 1));
 
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
 				// 테이블에 내용 추가
-
+				var page_option = document.getElementsByName('page_option');
+				for(var i = 0; i < page_option.length ; i ++) {
+					var name = page_option[i].value.split("/")[0];
+					var stock = page_option[i].value.split("/")[1];
+					console.log(name);
+					console.log(stock);
+					if($item.val() == name){
+						if(stock > 0) {
+							alert("품절 상품입니다.");
+						}
+					}
+				}
 				$p_info.append(
-					'<tr>' +
-					'<td>' + $item.val() + '<input type="hidden" name="item" value="' + $item.val() + '"><br> 1 / ' + price + '원</td>' +
-					'<td class="right">' +
-						'<input class="btn" type="button" value="-" id="del'+i+'">' +
-						'<input name="amount" class="form-control" type="text" value="1" onchange="getTotal();" id="amount' + i + '" style="display: inline-block; text-align: center; width: 80px;">' +
-						'<input class="btn" type="button" value="+" id="add'+i+'"><br>' +
-						'<input name="pricearr" type="hidden" value='+price+'>' +
-					'</td>' +
+					'<tr id="optionTr'+q+'">' +
+						'<td>' +
+							$item.val() +
+							'<input type="hidden" name="item" value="' + $item.val() + '"><br> 1 / ' + price + '원' +
+							'<input id="deleteBtn' + q + '" class="btn" type="button" onclick="deleteOption(' + q + ');" value="X">' +
+						'</td>' +
+						'<td class="right">' +
+							'<input class="btn" type="button" value="-" id="del'+q+'">' +
+							'<input name="amount" class="form-control" type="text" value="1" onchange="getTotal();" id="amount' + q + '" style="display: inline-block; text-align: center; width: 80px;">' +
+							'<input class="btn" type="button" value="+" id="add'+q+'"><br>' +
+							'<input name="pricearr" type="hidden" value='+price+'>' +
+						'</td>' +
 					'</tr>' +
 					'<tr id="totalTr">' +
 						'<td>총 금액</td>' +
@@ -173,26 +181,43 @@
 						'</td>' +
 					'</tr>'
 				);
-				getTotal();
 				/* div에 script 추가 */
+				
+				var items = document.getElementsByName('item');
+				console.log(items);
+				for(var i = 0 ; i < items.length ; i ++){
+					for(var num = i+1 ; num < items.length ; num++){
+						if(items[i].value == items[num].value){
+							$('#deleteBtn' + q).trigger('click');
+							alert("같은 옵션이 이미 존재합니다.");
+							break;
+						}
+					}
+				}
+				appendScript(q);
+				q++;
+				$item.val('');
+				getTotal();
+			};
+			
+			var $script = $('#abcd');
+			function appendScript(q){
 				$script.append(
 					'<script>' +
-					'$("#del' + i + '").click(function(){' +
-						'if($("#amount' + i + '").val()>1){' +
-							'$("#amount' + i + '").val($("#amount' + i + '").val() - 1);' +
+					'$("#del' + q + '").click(function(){' +
+						'if($("#amount' + q + '").val()>1){' +
+							'$("#amount' + q + '").val($("#amount' + q + '").val() - 1);' +
 							'getTotal();' +
 						'}' +
 					'});' + 
-					'$("#add' + i + '").click(function(){' +
-						'$("#amount' + i + '").val($("#amount' + i + '").val()-(-1));' +
+					'$("#add' + q + '").click(function(){' +
+						'$("#amount' + q + '").val($("#amount' + q + '").val()-(-1));' +
 						'getTotal();' +
 						'});'
 					+ '<\/script>'
 				);
-
-				$item.val('');
-				i++;
-			};
+			}
+			
 			function getTotal() {
 				// 입력 될 영역
 				var $total = $('#total');
@@ -208,6 +233,12 @@
 				$total.val(total);
 			};
 
+			function deleteOption(i){
+				var optionTr = $('#optionTr' + i);
+				optionTr.remove();
+			}
+			
+			
 			function addCart() {
 				var form = $('#form');
 				form.prop('action', 'insert.cart');
@@ -219,6 +250,8 @@
 			}
 			
 			function check(){
+				var stock = '${ poList }';
+				console.log(stock);
 				var user = '${sessionScope.loginUser.m_id}';
 				var $total = $('#total');
 				// 구매 버튼 클릭 시 로그인 안되어있다면 로그인 유도
@@ -232,6 +265,18 @@
 					return false;
 				}
 			}
+			
+			$("#del").click(function() {
+				if ($("#amount").val() > 1) {
+					$("#amount").val($("#amount").val() - 1);
+					getTotal();
+				}
+			});
+
+			$("#add").click(function() {
+				$("#amount").val($("#amount").val() - (-1));
+				getTotal();
+			});
 			
 		</script>
 		<br> <br> <br> <br> <br> <br>

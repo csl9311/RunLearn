@@ -126,7 +126,7 @@ public class MypageController {
 
 	@RequestMapping("mypage.do")
 	public ModelAndView myPage(@RequestParam(value = "page", required = false) Integer page, HttpSession session,
-			ModelAndView mv, @RequestParam("cate") String cate, @RequestParam("kind") String kind) {
+			ModelAndView mv, @RequestParam("cate") String cate) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
 		int currentPage = 1;
@@ -148,7 +148,7 @@ public class MypageController {
 			m_grade = "튜티";
 		}
 
-		if (cate.equals("수강목록") && kind.equals("강의")) {
+		if (cate.equals("수강목록")) {
 			int listCount = myService.selectLectureCount(userId); // 수강목록 수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, String>> lList = myService.selectLectureView(userId, pi); // 수강목록
@@ -158,7 +158,7 @@ public class MypageController {
 			mv.addObject("count", count);
 		}
 
-		if (cate.equals("강의찜목록") && kind.equals("강의")) {
+		if (cate.equals("강의찜목록")) {
 			int listCount = myService.selectNopayLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> noPaylList = myService.selectNoPayLectureView(userId, pi); // 강의 찜목록
@@ -177,7 +177,7 @@ public class MypageController {
 			mv.addObject("pi", pi);
 		}
 
-		if ((cate.equals("상품찜목록") && kind.equals("상품")) || cate.equals("productCate")) {
+		if ((cate.equals("상품찜목록")) || cate.equals("productCate")) {
 			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
@@ -197,7 +197,7 @@ public class MypageController {
 
 		}
 
-		if (cate.equals("결제상품") && kind.equals("상품")) {
+		if (cate.equals("결제상품")) {
 			int listCount = myService.productPayCount(userId); // 결제상품수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, String>> pList = myService.productPayList(userId, pi); // 상품 찜목록
@@ -209,7 +209,7 @@ public class MypageController {
 
 		}
 
-		if (cate.equals("튜터") || kind.equals("튜터")) {
+		if (cate.equals("튜터")) {
 			int listCount = myService.tuterLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> tLectureList = myService.selectTuterLecturePageView(userId, pi);
@@ -238,7 +238,6 @@ public class MypageController {
 
 		}
 
-		mv.addObject("kind", kind);
 		mv.addObject("profile", profile);
 		mv.addObject("m_grade", m_grade);
 		mv.addObject("lCount", lCount);
