@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +32,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -430,68 +433,55 @@ public class MemberController {
 
 
 	
-	@RequestMapping("gLogin.do")
-	public ModelAndView gLogin(ModelAndView mv, String idtoken, HttpSession session, UriComponentsBuilder uriBuilder, Member m) {
-
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-// Specify the CLIENT_ID of the app that accesses the backend:
-				.setAudience(Collections
-						.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
-// Or, if multiple clients access the backend:
-//.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-				.build();
-
-// (Receive idTokenString by HTTPS POST)
-
-		GoogleIdToken idToken;
-		try {
-			idToken = verifier.verify(idtoken);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-		if (idToken != null) {
-			Payload payload = idToken.getPayload();
-
-			// Print user identifier
-			String userId = payload.getSubject();
-			System.out.println("User ID: " + userId);
-
-			String email = payload.getEmail();
-			String name = (String) payload.get("name");
-			String pictureUrl = (String) payload.get("picture");
-			String locale = (String) payload.get("locale");
-			System.out.println("email: " + email);
-			System.out.println("name: " + name);
-			System.out.println("pictureUrl: " + pictureUrl);
-			System.out.println("locale: " + locale);
-			
-			
-			RedirectView redirectView = new RedirectView();
-			
-			m.setM_id(userId);
-			
-			Member loginUser = mService.findMember(m);
-			if(loginUser != null) {
-				session.setAttribute("loginUser", loginUser);
-				redirectView.setUrl("home.do");
-				redirectView.setExposeModelAttributes(false);
-				mv.setView(redirectView);
-				return mv;
-			} else {
-				m.setM_name(name);
-				m.setM_email(email);
-				mv.addObject("pImg", pictureUrl);
-				redirectView.setUrl("gSignUp.do");
-				redirectView.setExposeModelAttributes(false);
-				mv.addObject("member", m);
-				mv.setView(redirectView);
-				return mv;
-			} 
-
-		} else {
-			System.out.println("Invalid ID token.");
-			throw new MemberException("구글 로그인 실패 ㅠㅠ");
-		}
-	}
+	/*@RequestMapping("gLogin.do")
+	public ResponseEntity<?> tokenSignIn(Member m, String idtoken, HttpSession session, UriComponentsBuilder uriBuilder) {
+	    HttpHeaders headers = new HttpHeaders();
+	     
+	    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+	        .setAudience(Collections.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
+	        // Or, if multiple clients access the backend:
+	        //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+	        .build();
+	 
+	    // (Receive idTokenString by HTTPS POST)
+	 
+	    GoogleIdToken idToken;
+	    try {
+	      idToken = verifier.verify(idtoken);
+	    } catch (Exception e) {
+	      throw new RuntimeException(e);
+	    }
+	     
+	    if (idToken != null) {
+	      Payload payload = idToken.getPayload();
+	 
+	      // Print user identifier
+	      String userId = payload.getSubject();
+	 
+	      m.setM_email((String)payload.getEmail());
+	      m.setM_name((String) payload.get("name"));
+	      googleUser.setLocale((String) payload.get("locale"));
+	      googleUser.setFamilyName((String) payload.get("family_name"));
+	      googleUser.setGivenName((String) payload.get("given_name"));
+	 
+	 
+	      session.setAttribute("name", googleUser.getName());
+	      session.setAttribute("email", googleUser.getEmail());
+	 
+	      // Use or store profile information
+	 
+	      if(session!=null && session.getAttribute("url")!=null) {
+	        String param = (String)session.getAttribute("param");
+	        if(param == null) {
+	          headers.setLocation(uriBuilder.path((String)session.getAttribute("url")).build().toUri());
+	        }else {
+	          headers.setLocation(uriBuilder.path((String)session.getAttribute("url") + "?" + param).build().toUri());
+	        }
+	      }
+	    } else {
+	      throw new RuntimeException("Invalid ID token.");
+	    }
+	    headers.setLocation(uriBuilder.path("/").build().toUri());
+	    return new ResponseEntity<Void>(headers, HttpStatus.OK);
+	  }*/
 }

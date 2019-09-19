@@ -1232,23 +1232,7 @@ span.suc1{color: green;}
 				var phone = $("#phone").val();
 				var postNum = $("#sample4_postcode").val();
 				var daddress = $("#sample4_detailAddress").val();
-				if($("#check1").val() == 0){
-					alert("아이디를 확인해주세요.");
-					$("#m_id").focus();
-					return false;
-				} else if ($("#check2").val() == 0) {
-					alert("비밀번호를 확인해주세요.");
-					$("#m_pw").focus();
-					return false;
-				} else if(name == "") {
-					alert("이름을 입력해주세요.");
-					$("#m_name").focus();
-					return false;
-				} else if(email == "") {
-					alert("이메일을 입력해주세요.");
-					$("#eamil").focus();
-					return false;
-				} else if(phone == "") {
+				if(phone == "") {
 					alert("전화번호를 입력해주세요.");
 					$("#phone").focus();
 					return false;
@@ -1258,9 +1242,6 @@ span.suc1{color: green;}
 				} else if(postNum == "" || daddress == "") {
 					alert("주소를 입력해주세요.");
 					$("#sample4_detailAddress").focus();
-					return false;
-				} else if($("#check3").val() == 0) {
-					alert("이메일을 확인해주세요");
 					return false;
 				} else if($("input[name='chk']:checked").length < 2) {
 					alert("모든 약관에 동의해주세요.");
