@@ -34,10 +34,10 @@
     </select>
     
     <!-- 인기강의 조회 -->
-    <select id="selectHotLectureList" resultType="hashmap">
+    <select id="selectHotLectureList" resultType="string">
     	<![CDATA[
-    		select rownum, l.*
-			from (select l_num, count(l_num), l_changed_name
+    		select l.*
+			from (select l_changed_name
         			from lec_view
         			group by l_num, l_changed_name
         			order by count(l_num) desc) l

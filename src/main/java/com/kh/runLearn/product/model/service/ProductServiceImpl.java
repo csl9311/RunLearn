@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.product.model.dao.ProductDAO;
+import com.kh.runLearn.product.model.vo.Cart;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -83,6 +84,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteProduct(int p_num) {
 		pDAO.deleteProduct(p_num);
+	}
+
+	@Override
+	public int insertCart(ArrayList<Cart> list) {
+		return pDAO.insertCart(list);
 	}
 
 }

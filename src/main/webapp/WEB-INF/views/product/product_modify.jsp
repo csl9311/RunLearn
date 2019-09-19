@@ -34,7 +34,7 @@
 							<td><input type="text"></td>
 						</tr>
 						<tr>
-							<td><input type="button" class="btn" value="취소"></td>
+							<td><input type="button" class="btn" value="취소" onclick="history.go(-1);"></td>
 							<td><input type="submit" class="btn" value="수정"></td>
 						</tr>
 					</table>

@@ -21,6 +21,23 @@ img:hover {
 .empty{
 	height: 5vh;
 }
+
+.profileImg {
+width:50px; height:50px;
+border-radius:75px;
+text-align:center;
+margin:0 15px;
+font-size:12px; color:#fff;
+vertical-align:middle;
+overflow:hidden;
+background-size: contain;
+background-repeat: no-repeat;
+background-size:100%;
+padding: auto;
+float: left;
+}
+
+
 </style>
 </head>
 <body>
@@ -45,7 +62,7 @@ img:hover {
 								<p>${ p.P_PRICE }</p>
 							</div>
 							<div class="col-md-6" id="sellerInfo">
-								<img class="img-responsive" alt="판매자이미지" src="${contextPath}/resources/images/member/${p.M_CHANGED_NAME}">
+								<div class="profileImg" alt="판매자이미지" style="background-image: url(${contextPath}/resources/images/member/${p.M_CHANGED_NAME})"></div>
 								<p>${ p.M_NAME } </p>
 								<p>${ p.M_NICKNAME }</p>
 							</div>

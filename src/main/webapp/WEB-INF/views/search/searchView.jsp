@@ -223,7 +223,7 @@ ul li a:hover {
 			                  		<c:forEach var="p" items="${ pList }" begin="0" end="5">
 				                    <div class="col-md-4">
 				                      <div class="card mb-4 shadow-sm">
-				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 				                        <div class="card-body" style="width: 90%;">
 				                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
 				                          <p class="card-text"><small class="text-muted">${ p.P_PRICE }￦</small></p>
@@ -236,7 +236,7 @@ ul li a:hover {
 				                    <c:forEach var="p" items="${ pList }">
 				                    <div class="col-md-4">
 				                      <div class="card mb-4 shadow-sm">
-				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/main/lectureImg_sample.PNG" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 				                        <div class="card-body" style="width: 90%;">
 				                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
 				                          <p class="card-text"><small class="text-muted">${ p.P_PRICE }￦</small></p>

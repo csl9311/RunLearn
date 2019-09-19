@@ -21,22 +21,18 @@
 	<div class="contents center">
 		<div class="row">
 			<%-- 첨부파일 등록을 위해 Multipart/form-data encType 지정  --%>
-			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return imgCheck();">
+			<form action="insert.product" class="form" method="post" enctype="Multipart/form-data" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
 			<%-- Session에서 판매자 정보 받아와야 함. --%>
 				<input type="hidden" name="p_num" value="0">
 				<input type="hidden" name="m_id" value="${ sessionScope.loginUser.m_id }">
 				
 				<button class="btn" type="button" onclick="uploadThumbnail();">썸네일 업로드</button>
 				<input type='file' name="pi_thumbnail" id="imgInp" style="display: none;">
-        		<div class="row">
-					<div id="thumbnailArea"></div>
-        		</div>
+        		<div class="row"><div id="thumbnailArea"></div></div>
 				
 				<button class="btn" type="button" onclick="uploadImage();">상세 이미지 업로드</button>
 				<input type="file" id="input_imgs" name="pi_detail" multiple style="display: none;">
-				<div>
-					<div id="detailImgArea" class="row"></div>
-				</div>
+				<div><div id="detailImgArea" class="row"></div></div>
 								
 				<table id="productDetail"class="col-md-6 table center">
 					<tr>
@@ -57,11 +53,7 @@
 							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
 						</td>
 					</tr>
-					<tr id="price">
-						<td>기본가격(￦)</td>
-						<td><input type="number" step="100" min="0" name="p_price" required="required"></td>
-					</tr>
-					<tr>
+					<!-- <tr>
 						<td>옵션추가</td>
 						<td>
 							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
@@ -70,6 +62,23 @@
 							<input id="optionX" type="radio" name="option" value="X" required="required">
 							<label>삭제</label>
 						</td>
+					</tr> -->
+					<tr style="background: gray;"><td></td><td></td></tr>
+					<tr id="option0">
+						<td>옵션</td>
+						<td><input type="text" name="p_option" required="required"></td>
+					</tr>
+					<tr id="price0">
+						<td>가격(￦)</td>
+						<td><input type="number" min="0" step="100" name="p_optionPrice" required="required"></td>
+					</tr>
+					<tr id="stock0">
+						<td>재고</td>
+						<td><input type="number" min="0" name="p_stock" required="required"></td>
+					</tr>
+					<tr id="optionAddNDelete0">
+						<td><input id="add0" class="btn" type="button" value="옵션 추가" onclick="optionAdd(0);"></td>
+						<td><input class="btn" type="button" value="옵션 삭제" onclick="optionDelete(0);"></td>
 					</tr>
 				</table>
 				<div class="row center">
@@ -160,36 +169,11 @@
 
 
 <%-- 옵션 --%>
-	<%-- 옵션 유무 선택 --%>
-		var $table = $('#productDetail');
-		var $p_optionCheck = $('#p_optionCheck');
-		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		$('#optionX').prop('checked', true).prop('disabled', true);
-		$p_optionCheck.val('X');
-		$('#optionO').click(function(){
-			$('#optionO').prop('disabled', 'disabled');
-			$('#optionX').removeAttr('disabled');
-			$p_optionCheck.val('O');
-			optionAdd(j);
-			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		});
-		
-		$('#optionX').click(function(){
-			for(var q = j; q >= 0 ; q --) {
-				optionDelete(q);
-			}
-			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		});
-		
-	<%-- 옵션 유무 선택 끝 --%>
-
+	var $table = $('#productDetail');
+	var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
 	<%-- 옵션 추가 --%>
 		function optionAdd(num){
-			$p_optionCheck.val('O');
-			$('#optionO').prop('checked', true);
-			$('#optionX').prop('checked', false);
 			$('#add'+ num).hide();
-	
 			$table.append(
 				'<tr id="option' + j + '">'+
 					'<td>옵션</td>'+
@@ -224,23 +208,44 @@
 				var lastBtn = $table.children(':last').children(':last').children(':first').children(':first');
 				lastBtn.css('display', 'inline-block');
 			}
-			if(length <= 1) {
-				$p_optionCheck.val('X');
-				$('#optionO').removeAttr('disabled');
-				$('#optionX').prop('disabled', 'disabled');
-				$('#optionO').prop('checked', false);
-				$('#optionX').prop('checked', true);
-			}
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
 		};
 	<%-- 옵션 삭제 끝 --%>
 	
 <%-- 옵션 끝 --%>
-
 	<%-- 썸네일 등록 여부 확인 --%>
-		function imgCheck(){
+		function check(){
+			var p_option = document.getElementsByName("p_option");
+			var p_name = $('#p_name');
+			console.log(p_option);
+			
+			for (var i = 0 ; i < p_option.length; i ++) {
+				// 공백
+				if(p_name.val().trim() == ''){
+					p_name.val('');
+					alert("빈 값이 있습니다. 확인 후 입력해주세요.");
+					p_name.focus();
+					return false;
+				}
+				if(p_option[i].value.trim() == ''){
+					p_option[i].value = '';
+					alert("빈 값이 있습니다. 확인 후 입력해주세요.");
+					p_option[i].focus();
+					return false;
+				}
+				
+				// 같은 옵션명
+				for(var num = i+1 ; num < p_option.length ; num ++) {
+					if(p_option[num].value == p_option[i].value){
+						console.log(p_option[i].value);
+						alert("옵션 중 같은 이름이 있습니다. 확인 후 변경해주세요.");
+						return false;
+					}
+				}
+			}
 			if($('#imgInp').val() == '') {
-				alert("이미지를 등록해주세요.");
+				alert("썸네일을 등록해주세요.");
+				$("#imgInp").trigger('click');
 				return false;
 			}
 		}

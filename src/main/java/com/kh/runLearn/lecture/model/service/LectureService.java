@@ -47,7 +47,7 @@ public interface LectureService {
 	
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
-	ArrayList<Lecture_Image> selectHotLecture(); // home.jsp에 인기강의 조회
+	ArrayList<String> selectHotLecture(); // home.jsp에 인기강의 조회
 	int findValue();
 	String findEachNum(int l_num);
 	int updateLectureFile(Lecture_File lf);

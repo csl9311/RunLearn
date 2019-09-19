@@ -12,11 +12,37 @@
 </head>
 <c:import url="../common/header.jsp" />
 <body>
-	
+	<div style="height:50vh;">
+		<div class="content center">
+			<div class="row">
+				<div>
+					<input type="radio" name="method" value="basicAddress" checked><label>기존 주소 사용</label>
+				</div>
+				<div>
+					<input type="radio" name="method" value="newAddress"><label>새로운 주소 등록</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$('input[name=method]').click(function(){
+			var radio = $('input[name=method]');
+			for(var i = 0 ; i < radio.length; i++){
+				if(radio[i].checked){
+					if(radio[i].value == 'basicAddress'){
+						
+					} else if {
+						
+					}
+				}
+			}
+		});
+		
+	</script>
 	<form id="auto" action="payment.save" method="post">
 		<input id="p_num" type="hidden" name="p_num" value="${ map.p.p_num }">
 		<input id="p_name" type="hidden" name="p_name" value="${ map.p.p_name }">
-		<input id="p_price" type="hidden" name="p_price" value="${ map.p.p_price }">
+
 		
 		<input id="m_id" type="hidden" name="m_id" value="${ map.m.m_id }">
 		<input id="m_name" type="hidden" name="m_name" value="${ map.m.m_name }">
@@ -59,8 +85,7 @@
 		var amount = $('#amount').val();
 		var total = $('#total').val();
 		var pay_method = $('#pay_method').val();
-		
-		
+
 		/* var IMP = window.IMP; // 생략가능
 		IMP.init('imp79905221'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
@@ -78,19 +103,23 @@
 			buyer_postcode : postnum
 		}, function(rsp) {
 			if (rsp.success) {
+				$('#auto').submit();
 				var msg = '결제가 완료되었습니다.';
 				msg += '고유ID : ' + rsp.imp_uid;
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				$('#auto').submit();
+
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
+				setTimeout(function(){
+					history.go(-3);
+				},3000);
 			}
 			alert(msg);
 		}); */
-		$('#auto').submit();
+
 	//TODO URLScheme정의하는 부분 추가
 	</script>
 	<br>
