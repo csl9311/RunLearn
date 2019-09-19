@@ -28,7 +28,7 @@
 		 <property name="host" value="smtp.gmail.com" />
 		 <property name="port" value="587" />
 		 <property name="username" value="soomin33333@gmail.com" />
-		 <property name="password" value="9195978l" />
+		 <property name="password" value="591rhksflqn!" />
 		 <property name="javaMailProperties">
 		 <props>
 			 <prop key="mail.smtp.auth">true</prop>
@@ -36,4 +36,22 @@
 		 </props>
 		 </property>
 	 </bean>
+	 <!-- google Class Bean설정 추가 -->
+		<!-- 클라이언트ID와 보안비밀 세팅 -->
+		<bean id="googleConnectionFactory"
+		  class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		  <constructor-arg
+		    value="654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com" />
+		  <constructor-arg value="o870YH5eoWjKjFT8-Z54arfA" />
+		</bean>
+		<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+		<bean id="googleOAuth2Parameters"
+		  class="org.springframework.social.oauth2.OAuth2Parameters">
+		  <property name="scope"
+		    value="https://www.googleapis.com/auth/plus.login" />
+		  <property name="redirectUri"
+		    value="http://localhost/user/googleSignInCallback" />
+		</bean>
+	 
+	 
 </beans>

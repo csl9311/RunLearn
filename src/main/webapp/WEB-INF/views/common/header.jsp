@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript" src="${ contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean" rel="stylesheet">
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -20,7 +26,6 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/login.css">
 <!-- 검색어 highlight jQuery plugin -->
 <script type="text/javascript" src="${ contextPath }/resources/js/jquery.highlight-5.js"></script>
-
 <title>만취남녀</title>
 <style>
 body {
@@ -410,7 +415,18 @@ header .search .lcont input[type=text] {
 }
 .modal-dialog {margin: 280px auto;}
 </style>
-</head>
+</head> 
+<%
+	String clientId = "WCEvL0a5xvaTlg3af58w";//애플리케이션 클라이언트 아이디값";
+	String redirectURI = URLEncoder.encode("http://localhost:9070/runLearn/callback", "UTF-8");
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	apiURL += "&client_id=" + clientId;
+	apiURL += "&redirect_uri=" + redirectURI;
+	apiURL += "&state=" + state;
+	session.setAttribute("state", state);
+%>
 <body>
 	<div class="fixed-menu">
 		<div class="logoDiv">
@@ -520,16 +536,18 @@ header .search .lcont input[type=text] {
 												<form action="login.do" method="post" id="loginForm">
 													<div class="form-group">
 														<i class="fa fa-user"></i>
-														<input type="text" class="form-control" id="m_id" name="m_id" placeholder="아이디" />
+														<input type="text" onkeyup="enterkey();" class="form-control" id="m_id" name="m_id" placeholder="아이디" />
 													</div>
 													<div class="form-group">
 														<i class="fa fa-lock"></i>
-														<input type="password" class="form-control" id="m_pw" name="m_pw" placeholder="비밀번호" />
+														<input type="password" onkeyup="enterkey();" class="form-control" id="m_pw" name="m_pw" placeholder="비밀번호" />
 													</div>
 													<div class="form-group">
 														<input type="button" onclick="signUp();" class="btn btn-primary btn-block btn-lg" value="로그인" />
 														<input id="urlInput" type="hidden" name="url" value="${document.location.href}">
 													</div>
+													<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+													<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 												</form>
 											</div>
 											<div class="modal-footer">
@@ -743,6 +761,32 @@ header .search .lcont input[type=text] {
 		
 	</script>
 	<script>
+	function enterkey() {
+        if (window.event.keyCode == 13) {
+        	console.log("dd")
+       		m_id = $("#m_id");
+       		m_pw = $("#m_pw");
+       		$.ajax({
+       			url: "checkUser.do",
+       			data: {id : m_id.val(),
+       				   pw : m_pw.val()},
+       			method: "post",
+       			success: function(data){
+       				if(data.check == true){
+       					$("#loginForm").submit();
+       				} else {
+       					alert("회원정보를 확인해주세요!");
+       					return false;
+       				}
+       			}, error: function(jqxhr, textStatus, errorThrown){
+       				console.log("ajax 처리 실패");
+       				console.log(jqxhr);
+       				console.log(textStatus);
+       				console.log(errorThrown);
+       			}
+       		});
+        }
+	}
 	function signUp(){
 		
 		m_id = $("#m_id");
@@ -767,6 +811,29 @@ header .search .lcont input[type=text] {
 			}
 		});
 	}
+	
+	function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+        
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'gLogin.do');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+          console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('idtoken=' + id_token);
+      }
 	</script>
 </body>
 </html>

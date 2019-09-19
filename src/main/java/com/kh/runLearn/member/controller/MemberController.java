@@ -1,8 +1,13 @@
 package com.kh.runLearn.member.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,11 +29,20 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+
 
 @SessionAttributes("loginUser")
 @Controller
@@ -46,6 +60,8 @@ public class MemberController {
 
 	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
 	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
+	private static final HttpTransport transport = new NetHttpTransport();
+	private static final  JsonFactory jsonFactory = new JacksonFactory();
 
 	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")
@@ -77,6 +93,12 @@ public class MemberController {
 	public String fmember() {
 		return "member/findMemberView";
 	}
+	
+	@RequestMapping(value = "/callback")
+	public String navLogin(HttpServletRequest request) throws Exception {	
+		return "common/callback";
+	}	
+
 
 	/************** 로그인 관련 ***************/
 
@@ -266,7 +288,11 @@ public class MemberController {
 
 		if (typecheck.equals("0")) {
 			if (isUsable == true) {
-				int random = (int) (Math.random() * 10000);
+				int random = 0;
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
 				System.out.println("인증번호 확인용" + random);
 
@@ -400,6 +426,95 @@ public class MemberController {
 		} else {
 			throw new MemberException("암호 변경에 실패하였습니다 ;ㅅ;");
 		}
-
 	}
+	
+
+
+		
+	@RequestMapping("gLogin.do")
+	public void gLogin(String idtoken, HttpSession session, UriComponentsBuilder uriBuilder, Member loginUser) {
+
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+			    // Specify the CLIENT_ID of the app that accesses the backend:
+			    .setAudience(Collections.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
+			    // Or, if multiple clients access the backend:
+			    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+			    .build();
+		
+		// (Receive idTokenString by HTTPS POST)
+		
+		GoogleIdToken idToken;
+		try {
+			idToken = verifier.verify(idtoken);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		if (idToken != null) {
+		  Payload payload = idToken.getPayload();
+		
+		  // Print user identifier
+		  String userId = payload.getSubject();
+		  System.out.println("User ID: " + userId);
+		
+		  String email = payload.getEmail();
+		  String name = (String) payload.get("name");
+		  String pictureUrl = (String) payload.get("picture");
+		  String locale = (String) payload.get("locale");
+		  System.out.println("email: " + email);
+		  System.out.println("name: " + name);
+		  System.out.println("pictureUrl: " + pictureUrl);
+		  System.out.println("locale: " + locale);
+		  
+		  loginUser.setM_id(userId);
+		  loginUser.setM_email(email);
+		  loginUser.setM_name(name);
+		  
+		  session.setAttribute("loginUser", loginUser);
+		  
+		  System.out.println(loginUser);
+		  
+		} else {
+		  System.out.println("Invalid ID token.");
+		  throw new MemberException("구글 로그인 실패 ㅠㅠ");
+		}
+	}
+
+	@RequestMapping(value = "/testLogin")
+	public String isComplete(HttpSession session) {
+		return "/naver/naverlogin";
+	}
+	
+	@RequestMapping(value = "/personalInfo")
+	public void personalInfo(HttpServletRequest request) throws Exception {
+        String token = "AAAAORjZSGW7rGPf6t3JjO8SA3aF3_fP36lCytK5eMuD1M2wcBH1yAcUSXecG8hqdDGhMusGGGMECZ8dzEOs6g5ssLs";// 네이버 로그인 접근 토큰; 여기에 복사한 토큰값을 넣어줍니다.
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        try {
+            String apiURL = "https://openapi.naver.com/v1/nid/me";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+            System.out.println(response.toString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+	}
+
+	
+	
 }

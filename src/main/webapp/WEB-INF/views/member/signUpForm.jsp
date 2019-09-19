@@ -1488,6 +1488,7 @@ span.suc1{color: green;}
 					$("#checkall").focus();
 					return false;
 				} else {
+					alert("가입되었습니다.");
 					$(Form).submit();
 					window.parent.location.href='${contextPath}';
 				}
