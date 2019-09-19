@@ -33,7 +33,7 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 
-	public ArrayList<Map<String, String>> selectNoPayLectureView(String userId, PageInfo pi) { // 강의 찜목록
+	public ArrayList<Map<String, Object>> selectNoPayLectureView(String userId, PageInfo pi) { // 강의 찜목록
 		return myDAO.selectNoPayLectureView(userId, pi);
 	}
 
@@ -50,7 +50,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public ArrayList<Map<String, String>> selectProductView(String userId, PageInfo pi) { // 상품찜목록
+	public ArrayList<Map<String, Object>> selectProductView(String userId, PageInfo pi) { // 상품찜목록
 		return myDAO.selectProductView(userId, pi);
 	}
 
