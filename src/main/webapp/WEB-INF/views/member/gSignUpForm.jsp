@@ -133,147 +133,11 @@ span.suc1{color: green;}
 	<div class="row justify-content-md-center">
 		<div class="dd col-md-auto mx-auto">
 			<hr>
-			<form action="minsert.do" method="post" name="form" enctype="Multipart/form-data">
-				<div class="form-group">
-					<p class="title-f"><em class="color-red">* </em>아이디</p>
-					<input type="text" class="form-control" id="m_id" name="m_id" placeholder="아이디">
-					<input type="hidden" name="typecheck" id="typecheck" value="0">
-					<input type="hidden" id="check1" value="0">
-					<span id="idp"class="fontA"></span>
-					<span class="text-muted">5~20자의 영문자, 숫자를 입력해주세요 </span>
-					<span class="idc ok">사용 가능한 아이디입니다.</span>
-					<span class="idc error1">5~20자의 영문자, 숫자만 사용가능합니다.</span>
-					<span class="idc error2">사용중인 아이디입니다.</span>
-					<span class="idc error3">필수 정보입니다.</span>
-				</div>
-					<script>
-						var m_id = $('#m_id');
-						
-						$(".idc").hide();
-						$("#m_id").blur(function(){
-							var check =/^[a-zA-Z0-9]{5,19}$/g;
-							if(m_id.val().length == 0){
-								$(".text-muted").hide();
-								$(".idc").hide();
-								$(".idc.error3").show();
-								return;
-							} if(!check.test(m_id.val())){
-								$(".idc").hide();
-								$(".idc.error1").show();
-								$(".text-muted").hide();
-								$("#check1").val(0);							
-								return;										
-							} else {
-								$(".idc").hide();
-								$("#check1").val(1);
-							}
-							$.ajax({
-								url: "checkId.do",
-								data: {id: m_id.val()},
-								success: function(data){
-									if(data.isUsable == true){
-										$(".text-muted").hide();
-										$(".idc").hide();
-										$(".idc.ok").show();
-										$("#check1").val(1);
-									} else {
-										$(".idc.ok").hide();
-										$(".text-muted").hide();
-										$(".idc.error2").show();											
-										$("#check1").val(0)
-									}
-								}, error: function(jqxhr, textStatus, errorThrown){
-									console.log("ajax 처리 실패");
-									console.log(jqxhr);
-									console.log(textStatus);
-									console.log(errorThrown);
-								}
-							});
-						});
-
-						
-					</script>
-				<div class="form-group">
-					<p class="title-f"><em class="color-red">* </em>비밀번호</p>
-					<input type="password" class="form-control" id="m_pw" name="m_pw" placeholder="비밀번호">
-					<span id="pwp" class="fontA"></span>
-					<span class="pc">6자리 영문자와 숫자, 특수문자가 1회이상 사용하여야합니다.</span>
-					<span class="pc error1">6자리 이상의 비밀번호를 입력해주세요.</span>
-					<span class="pc error2">영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.</span>
-					<span class="pc suc">사용 가능합니다.</span>
-					
-				</div>
-				<div class="form-group">
-					<input type="password" class="form-control" id="m_pwc" name="pwCheck"  placeholder="비밀번호 확인">
-					<input type="hidden" id="check2" value="0"> 
-					<span id="pwcp" class="fontA"></span>
-					<span class="pc error3">비밀번호를 확인해주세요!</span>
-					<span class="pc suc1">일치합니다.</span>
-				</div>
-					<script>
-						$(".pc.error1").hide();
-						$(".pc.error2").hide();
-						$(".pc.error3").hide();
-						$(".pc.suc").hide();
-						$(".pc.suc1").hide();
-						
-						var regPw = /^.*(?=^.{6,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-						
-						var pwUsable = false;
-						var pwUsable1 = false;
-						
-						
-						$("#m_pw").on("keyup", function() {
-							var pw = $(this).val();
-							var pwc = $("#m_pwc").val();
-						    if (pw.length < 6) {
-						      	$(".pc").hide();
-							    $(".pc.error1").show();
-							    pwUsable = false;
-						    } else if (!regPw.test(pw)) {
-						    	$(".pc").hide();
-								$(".pc.error2").show();
-							    pwUsable = false;
-						    } else {
-						    	$(".pc").hide();
-								$(".pc.suc").show();
-								pwUsable = true;
-							}
-						    if(pwc.length != 0 && pw != pwc){
-						    	pwUsable1 = false;
-						    }
-						    if(pwUsable == true && pwUsable1 == true){
-						    	$("#check2").val(1);
-						    	alert("ㅇㅇ");
-							} else {
-								$("#check2").val(0);
-							}
-						});
-						$("#m_pwc").blur(function(){
-							var pwc= $(this).val();
-							var pw = $("#m_pw").val();
-							if(pw != pwc){
-							    $(".pc.error3").show();
-							    return;
-							} else if(pwUsable == false) {
-								$(".pc.error3").show();
-								return;
-							} else {
-								$(".pc").hide();
-								$(".pc.suc1").show();
-								pwUsable1 = true;
-								console.log(pwUsable1)
-							}
-							if(pwUsable == true && pwUsable1 == true){
-								$("#check2").val(1);
-							} else {
-								$("#check2").val(0);
-							}
-						});
-					</script>
+			<form action="ginsert.do" method="post" name="form" enctype="Multipart/form-data">
+				
 				<div class="form-group">
 					<p class="title-f"><em class="color-red">* </em>이름</p>
-					<input type="text" class="form-control" id="m_name" name="m_name" placeholder="이름"> 
+					<input type="text" class="form-control" id="m_name" name="m_name" > 
 					<span id="np" class="fontA"></span>
 				</div>
 				<div class="form-group">
@@ -334,64 +198,6 @@ span.suc1{color: green;}
 
 						
 					</script>
-				<div class="form-group">
-					<p class="title-f"><em class="color-red">* </em>이메일</p>
-					<input type="text" class="form-control" id="m_email" name="m_email" placeholder="email333@naver.com">
-					<input type="hidden" id="check4" value="0">
-					<span id="mp" class="fontA"></span>
-					<span class="mt">아이디, 비밀번호 찾기에 사용됩니다. </span>
-					<span class="mc ok">사용 가능한 이메일입니다.</span>
-					<span class="mc error1">올바른 이메일 주소를 입력해주세요.</span>
-					<span class="mc error2">사용중인 이메일입니다.</span>
-					<span class="mc error3">필수 정보입니다.</span>
-				</div>
-				
-				<script>
-				var m_email = $('#m_email');
-				
-				$(".mc").hide();
-				$("#m_email").blur(function(){
-					var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-z]([-_.]?[0-9a-z])*.[a-z]{2,3}$/;
-					if(m_email.val().length == 0){
-						$(".mt").hide();
-						$(".mc").hide();
-						$(".mc.error3").show();
-						return;
-					} if(!regExp.test(m_email.val())){
-						$(".mc").hide();
-						$(".mc.error1").show();
-						$(".mt").hide();
-						$("#check4").val(0);							
-						return;										
-					} else {
-						$(".mc").hide();
-						$("#check4").val(1);
-					}
-					$.ajax({
-						url: "checkEmailo.do",
-						data: {m_email: m_email.val()},
-						success: function(data){
-							if(data.isUsable == true){
-								$(".mt").hide();
-								$(".mc").hide();
-								$(".mc.ok").show();
-								$("#check4").val(1);
-							} else {
-								$(".mc.ok").hide();
-								$(".mt").hide();
-								$(".mc.error2").show();											
-								$("#check4").val(0)
-							}
-						}, error: function(jqxhr, textStatus, errorThrown){
-							console.log("ajax 처리 실패");
-							console.log(jqxhr);
-							console.log(textStatus);
-							console.log(errorThrown);
-						}
-					});
-				});
-				</script>
-				
 				<p class="title-f"><em class="color-red">* </em>전화번호</p>
 				<div class="input-group mb-2">
 					<input type="text" class="form-control" name="m_phone" id="phoneNum" onKeyup="inputPhoneNumber(this);" maxlength="13" placeholder="010-1234-5678" aria-describedby="button-addon2">
@@ -510,31 +316,6 @@ span.suc1{color: green;}
 						});
 					}
 				</script>
-				
-				
-			<p class="title-f">프로필 사진</p>
-			<div class="input-group mb-2">
-			<input type="file" name="profileImg" id="profileImg">
-			</div>
-			<p class="title-f"><em class="color-red">* </em>주소</p>
-			<div class="input-group mb-2" style="width:50%;">
-			<input type="text" id="sample4_postcode" name="postnum" class="form-control" placeholder="우편번호" readonly>
-			<input type="button" onclick="sample4_execDaumPostcode()" class="form-control" value="우편번호 찾기"><br>
-			</div>
-			<div class="input-group mb-2">
-			<div style="margin-right: 5px;">
-			<input type="text" id="sample4_roadAddress" class="form-control" name="r_address" placeholder="도로명주소" readonly>
-			</div>
-			<div>
-			<input type="text" id="sample4_jibunAddress" class="form-control" name="g_address" placeholder="지번주소" readonly>
-			</div>
-			</div>
-			<div class="input-group">
-			<span id="guide" style="color:#999;display:none"></span>
-			<input type="text" id="sample4_detailAddress" class="form-control" name="d_address" placeholder="상세주소">
-			</div>
-			<input type="hidden" id="sample4_extraAddress" class="form-control" placeholder="참고항목">
-				
 			<!-- 주소 api -->	
 			<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 			
@@ -1448,8 +1229,6 @@ span.suc1{color: green;}
 			<script>
 			function signUp(){
 				Form = document.form;
-				var name = $("#m_name").val();
-				var email = $("#email").val();
 				var phone = $("#phone").val();
 				var postNum = $("#sample4_postcode").val();
 				var daddress = $("#sample4_detailAddress").val();
