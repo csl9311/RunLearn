@@ -1,11 +1,7 @@
 package com.kh.runLearn.member.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,6 +34,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.kh.runLearn.member.NaverLoginBO;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
@@ -57,6 +54,7 @@ public class MemberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	
 
 	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
 	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
@@ -94,10 +92,6 @@ public class MemberController {
 		return "member/findMemberView";
 	}
 	
-	@RequestMapping(value = "/callback")
-	public String navLogin(HttpServletRequest request) throws Exception {	
-		return "common/callback";
-	}	
 
 
 	/************** 로그인 관련 ***************/
@@ -480,41 +474,8 @@ public class MemberController {
 		  throw new MemberException("구글 로그인 실패 ㅠㅠ");
 		}
 	}
+	
 
-	@RequestMapping(value = "/testLogin")
-	public String isComplete(HttpSession session) {
-		return "/naver/naverlogin";
-	}
-	
-	@RequestMapping(value = "/personalInfo")
-	public void personalInfo(HttpServletRequest request) throws Exception {
-        String token = "AAAAORjZSGW7rGPf6t3JjO8SA3aF3_fP36lCytK5eMuD1M2wcBH1yAcUSXecG8hqdDGhMusGGGMECZ8dzEOs6g5ssLs";// 네이버 로그인 접근 토큰; 여기에 복사한 토큰값을 넣어줍니다.
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
-        try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", header);
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-            if(responseCode==200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // 에러 발생
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            br.close();
-            System.out.println(response.toString());
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-	}
 
-	
-	
+
 }
