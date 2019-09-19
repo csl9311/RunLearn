@@ -1,5 +1,6 @@
 package com.kh.runLearn.payment.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,16 +105,11 @@ public class PaymentController {
 		return result;
 	}
 	@RequestMapping("lecturePayment.save")
-	@ResponseBody
 	public String paymentSave(
 			@RequestParam("l_num") int l_num,
 			@RequestParam("pay_method") String pay_method,
-			@RequestParam("l_title") String l_title,
-			@RequestParam("l_price") int l_price,
 			@RequestParam("m_id") String m_id,
-			@RequestParam("m_name") String m_name,
-			@RequestParam("m_phone") String m_phone,
-			@RequestParam("m_email") String m_email
+			HttpSession session
 			) {
 		Payment pay = new Payment();
 		pay.setPay_method(pay_method);
@@ -129,5 +125,11 @@ public class PaymentController {
 			throw new Exception("결제 실패.");
 		}
 	}
-
+	
+	@RequestMapping("lecturePaymentFail.save")
+	public ModelAndView paymentFail(@RequestParam("l_num") int l_num, ModelAndView mv) {
+		mv.addObject("l_num", l_num);
+		mv.setViewName("redirect:lectureDetailView.le");
+		return mv;
+	}
 }

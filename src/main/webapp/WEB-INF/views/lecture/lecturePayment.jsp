@@ -14,29 +14,35 @@
 <body>
 	<div style="height: 600px;">
 	</div>
+	<form id="auto" action="lecturePayment.save" method="post">
+		<input id="l_num" type="hidden" name="l_num" value="${list.L_NUM}">
+		<input id="l_title" type="hidden" name="l_title" value="${list.L_TITLE}">
+		<input id="l_price" type="hidden" name="l_price" value="${list.L_PRICE}">
+		
+		<input id="m_id" type="hidden" name="m_id" value="${ m.m_id }">
+		<input id="m_name" type="hidden" name="m_name" value="${ m.m_name }">
+		<input id="m_email" type="hidden" name="m_email" value="${ m.m_email }">
+		<input id="m_phone" type="hidden" name="m_phone" value="${ m.m_phone }">
+		<input id="pay_method" type="hidden" name="pay_method" value="card">
+	</form>
+	<form id="fail" action="lecturePaymentFail.save" method="post">
+	<input name="l_num" type="hidden" name="l_num" value="${list.L_NUM}">
+	</form>
 	<input type="hidden">
 	<!-- 아임포트 자바스크립트는 jQuery 기반으로 개발되었습니다 -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script type="text/javascript">
-		/* var p_num = ${map.p.p_num};
-		var p_name = '${map.p.p_name}';
-		var m_name = '${map.m.m_name}';
-		var m_phone = '${map.m.m_phone}';
-		var m_email = '${map.m.m_email}';
-		var postnum = '${map.m.postnum}';
-		var amount = ${map.amount};
-		var total = ${map.total};
-		var pay_method = 'card'; */
+
+		var l_num = $('#l_num').val();
+		var l_title = $('#l_title').val();
+		var l_price = $('#l_price').val();
+		var m_id = $('#m_id').val();
+		var m_name = $('#m_name').val();
+		var m_email = $('#m_email').val();
+		var m_phone = $('#m_phone').val();
+		var pay_method = $('#pay_method').val();
 		
-		var l_num = ${list.L_NUM};
-		var l_title = '${list.L_TITLE}';
-		var l_price = ${list.L_PRICE};
-		var m_id = '${ m.m_id }';
-		var m_name = '${m.m_name}';
-		var m_phone = '${m.m_phone}';
-		var m_email = '${m.m_email}';
-		var pay_method = 'card';
 		
 		
 		/* $.ajax({
@@ -100,24 +106,26 @@
 		//onclick, onload 등 원하는 이벤트에 호출합니다
 		IMP.request_pay({
 			pg : 'inicis', // version 1.1.0부터 지원.
-			pay_method : 'card',
+			pay_method : pay_method,
 			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : p_name,
-			amount : l_price, // total
-			buyer_email : '${m.m_email}',
-			buyer_name : '${m.m_name}',
-			buyer_tel : '${m.m_phone}',
+			name : l_title,
+			amount : 100, // total
+			buyer_email : m_email,
+			buyer_name : m_name,
+			buyer_tel : m_phone
 		}, function(rsp) {
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
-				msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num;
-				
+				msg += '<br>고유ID : ' + rsp.imp_uid;
+				msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
+				msg += '<br>결제 금액 : ' + rsp.paid_amount;
+				msg += '<br>카드 승인번호 : ' + rsp.apply_num;
+				$('#auto').submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
+				msg += '<br>에러내용 : ' + rsp.error_msg;
+				msg += '<br>강의 상세페이지로 돌아갑니다.'
+				$('#fail').submit();
 			}
 			alert(msg);
 		});
