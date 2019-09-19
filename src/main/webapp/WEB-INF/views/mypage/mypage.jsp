@@ -76,9 +76,9 @@
 }
 
 #content21 {
-   background: #ffff5d;
-   color: black;
-   box-shadow: 0px 0px 20px 3px yellow;
+   background: #bfbfbb;
+   color: white;
+  
 }
 
 #content21:hover {
@@ -87,6 +87,7 @@
 }
 
 #content22 {
+   
    background: white;
    color: black;
    box-shadow: inset -1px 0px 9px 0px #c9c9c9;
@@ -110,10 +111,10 @@
    cursor: pointer;
 }
 
-#content202 {
-   background: white;
-   color: black;
+#content202{
+	color:white;
 }
+
 
 #content202:hover {
    color: #F4A460;
@@ -125,6 +126,16 @@
    cursor: pointer;
 }
 
+#contentMenu2{
+	margin-left:220px;
+}
+
+#contentMenu3{
+	margin-left:220px;
+}
+
+
+
 #contentMenu3:hover {
    border-bottom: 1px dashed #F08080;
    cursor: pointer;
@@ -135,11 +146,17 @@
    cursor: pointer;
 }
 
+#contentMenu2:hover {
+   border-bottom: 1px dashed #F08080;
+   cursor: pointer;
+}
+
 .content22 {
    width: 31%;
-   height: 100%;
-   margin-left: 10px;
+   height: 30px;
+   margin-left: 100px;
    text-align: center;
+   
 }
 
 #sub1 {
@@ -257,6 +274,12 @@
    font-size: 15px;
 }
 
+#tableCategory2 {
+   text-align: center;
+   font-size: 15px;
+   padding-top: 35px;
+}
+
 #image1 {
    margin: 5px;
    text-align: center;
@@ -323,6 +346,28 @@
    text-align: center;
    font-weight: bolder
 }
+
+#lectureDate2 {
+   font-size: 15px;
+   text-align: center;
+   font-weight: bolder;
+   padding-top:35px;
+}
+
+#lecturelist{
+	font-size:20px;
+	border-right:1px solid #f1f1f1;
+	cursor:pointer;
+}
+
+#lecturelist:hover{
+	background : black;
+	color : white;
+
+}
+
+
+
 
 #tr1 {
    border-bottom: 1px solid lightgray;
@@ -407,13 +452,20 @@
    padding-right: 30px;
 }
 
+#classImage3 {
+   border-right: 1px solid white;
+   text-align: center;
+   margin-left: 10px;
+   padding-right: 30px;
+}
+
 .count1 {
    margin-top: 40px;
 }
 
 #membercontent1 {
    font-size: 17px;
-   margin-left: 10;
+   margin-left: 10px;
    margin-top: 25px;
 }
 
@@ -425,12 +477,14 @@
 }
 
 #classInsert {
-   background: #fff;
-   font-size: 18px;
+   background-image:url("/resources/images/mypage/menu02.png");
+   font-size: 20px;
+   font_weight:bold;
    padding: 10px;
    box-shadow: 0 0 6px 0px black;
    text-shadow: 0px 0px 20px black;
    color: #232222;
+   background-repeat:no-repeat;
 }
 
 .tr3 {
@@ -458,6 +512,26 @@
    text-shadow: 0 0 0px black;
    box-shadow: 0 0 2px 0px black;
 }
+
+#title2{
+	border:1px solid #f1f1f1
+}
+
+
+#productlist{
+	font-size:20px;
+	cursor:pointer;
+
+}
+
+#productlist:hover{
+	background:black;
+	color:white;
+
+}
+
+
+
 }
 </style>
 
@@ -556,7 +630,10 @@
                   <h5>${ nPayPcount }개</h5>
                </div>
             </div>
+            
+            
 
+			
             <div class="leftSide1" id="membercontent1">
                <div id="name">
                   <label>&nbsp;&nbsp;이름 </label>
@@ -595,11 +672,8 @@
       <!--  entry 끝 -->
    </div>
    <!--  paper끝 -->
-
-   <br>
-   <br>
-   <br>
-
+   <br><br><br>
+   
    <div id="paper2" style="height: auto;">
       <br>
       <div class="container" id="entry2"
@@ -607,39 +681,68 @@
          <div class="row">
             <c:url var="lListView" value="mypage.do">
                <c:param name="cate" value="수강목록" />
+               <c:param name="kind" value="강의"/>
             </c:url>
 
             <c:url var="tuterPage" value="mypage.do">
                <c:param name="cate" value="튜터" />
+               <c:param name="kind" value="튜터"/>
             </c:url>
-            <div id="content21" class="content21">수강생</div>
-            <div id="content22" class="content21"
-               <c:if test="${ m_grade ne '튜티' }">onclick="NotTuterPage();"</c:if>
-               <c:if test="${ m_grade ne '튜터' }">onclick="location.href='${ tuterPage }'"</c:if>>튜터</div>
-         </div>
-         <!--  row끝 -->
-
+            
          <c:url var="selectList" value="mypage.do">
             <c:param name="cate" value="강의찜목록" />
+            <c:param name="kind" value="강의"/>
          </c:url>
          <c:url var="productList" value="mypage.do">
             <c:param name="cate" value="상품찜목록" />
+            <c:param name="kind" value="상품"/>
          </c:url>
+         
+         <c:url var="productpayList" value="mypage.do">
+            <c:param name="cate" value="결제상품" />
+            <c:param name="kind" value="상품"/>
+         </c:url>
+         
+            <div id="content21" class="content21">수강생</div>
+            <div id="content22" class="content21"
+               <c:if test="${ m_grade eq '튜티' }">onclick="NotTuterPage();"</c:if>
+               <c:if test="${ m_grade eq '튜터' }">onclick="location.href='${ tuterPage }'"</c:if>>튜터</div>
+         </div>
+         
+         <div class="row" id="title2">
+         <div class="content21" id="lecturelist"  onclick="location.href='${ lListView }'" <c:if test="${ cate eq '수강목록' || kind eq '강의' }">style="font-weight:bold; font-size:25px; color:red;" </c:if>>강의</div>
+         <div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록' || kind eq '상품' }">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
+         </div>
+         <!--  row끝 -->
 
+
+         
+         
+		
          <div class="row" id="sub1">
+         <c:if test="${ kind eq '강의' }">
             <div class="content22" onclick="location.href='${ lListView }'"
                id="contentMenu1"
-               <c:if test="${ cate eq '수강목록' }">style="font-weight:bold;"</c:if>>
+               <c:if test="${ cate eq '수강목록' }">style="font-weight:bold; font-size:25px;"</c:if>>
                수강목록</div>
             <div class="content22" onclick="location.href='${ selectList }'"
                id="contentMenu3"
-               <c:if test="${ cate eq '강의찜목록' }">style="font-weight:bold;"</c:if>>
+               <c:if test="${ cate eq '강의찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>
                강의찜목록</div>
+        </c:if>    
+        <c:if test="${ kind eq '상품' }">   
+       	
             <div class="content22" onclick="location.href='${ productList }'"
                id="contentMenu4"
-               <c:if test="${ cate eq '상품찜목록' }">style="font-weight:bold;"</c:if>>
+               <c:if test="${ cate eq '상품찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>
                상품찜목록</div>
-
+               
+           <div class="content22" onclick="location.href='${ productpayList }'"
+               id="contentMenu2"
+               <c:if test="${ cate eq '결제상품' }">style="font-weight:bold; font-size:25px"</c:if>>
+               결제상품</div>    
+               
+         </c:if>
          </div>
 
          <br> <br>
@@ -649,8 +752,9 @@
                <table>
                   <tr class="tr3" style="text-align: center;">
                      <th style="width: 150px;"><div class="title123">카테고리</div></th>
-                     <th style="width: 300px; height: 25px;"><div
-                           class="title123">강의이미지</div></th>
+                     <th style="width: 300px; height: 25px;">
+                     <div class="title123">강의이미지</div>
+                     </th>
                      <th style="width: 600px;"><div class="title123">강의정보</div></th>
                      <th style="width: 150px;"><div class="lDate" id="lDate1">신청날짜</div></th>
                   </tr>
@@ -658,7 +762,7 @@
                   <c:if test="${ empty lList }">
 
                      <tr id="tr1">
-                        <td class="td1" colspan="5" style="text-align: center;"><h3>수강한
+                        <td class="td1" colspan="4" style="text-align: center;"><h3>수강한
                               강의가 없습니다.</h3></td>
                      </tr>
                   </c:if>
@@ -696,27 +800,32 @@
             </div>
 
          </c:if>
+         
          <!--  content23끝 -->
          <c:if test="${cate eq '강의찜목록' }">
             <div id="content25">
-               <c:if test="${ empty noPaylList}">
-                     <tr id="tr1">
-                        <td class="td1" colspan="5" style="text-align:center;"><h3>찜한
-                              강의가 없습니다.</h3></td>
-                     </tr>
-               </c:if>
-               <c:if test="${ !empty noPaylList}">
+
+              
                   <table class="table">
+			                
                      <tr class="tr3" style="text-align: center;">
                         <th style="width: 150px;"><div class="title123">카테고리</div></th>
                         <th style="width: 300px; height: 25px;"><div class="title123">강의이미지</div></th>
                         <th style="width: 600px;"><div class="title123">강의정보</div></th>
-                        <th style="width: 150px;"><div class="lDate" id="lDate1">가격</div></th>
+                        <th style="width: 150px;"><div class="lDate" id="lDate1">강의방식</div></th>
                      </tr>
+       
+               <c:if test="${ empty noPaylList}">
+                     <tr id="tr1">
+                        <td class="td1" colspan="4" ><h3 style="text-align:center;">찜한 강의가 없습니다.</h3></td>
+                     </tr>
+               </c:if>
+                     
+                     
                      <c:forEach var="i" items="${ noPaylList }">
                         <tr id="tr1">
                            <td class="td1" style="height: 100px;"><div
-                                 id="tableCategory1">${ i.L_CATEGORY }</div></td>
+                                 id="tableCategory2">${ i.L_CATEGORY }</div></td>
                            <td class="td1"><div id="image1">
                                  <img
                                     src="${contextPath}/resources/images/mypage/classtest1.jpg"
@@ -737,11 +846,11 @@
                                  </div>
                               </div>
                            </td>
-                           <td><div id="lectureDate" class="lDate">${ i.L_CONFIRM }</div></td>
+                           <td><div id="lectureDate2" class="lDate">${ i.L_SYSTEM }</div></td>
                         </tr>
                      </c:forEach>
                   </table>
-               </c:if>
+               
             </div>
          </c:if>
          <!--  content25 끝 -->
@@ -749,6 +858,7 @@
          <c:if test="${cate eq '상품찜목록'}">
             <div id="content26">
                <table>
+                
                   <tr class="tr3" style="text-align: center;">
                      <th style="width: 150px;"><div class="title123">체크</div>
                      <th style="width: 200px;"><div class="title123">카테고리</div></th>
@@ -758,10 +868,11 @@
                      <th style="width: 150px;"><div class="lDate" id="lDate1">상품수량</div></th>
                      <th style="width: 150px;"><div class="lDate" id="lDate1">총가격</div></th>
                   </tr>
+                
                   <c:if test="${empty pList }">
-                     <td colspan="5" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+                     <td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
                   </c:if>
-
+				
                   <c:forEach var="i" items="${ pList }">
                      <tr id="tr1">
                         <td style="text-align: center"><input type="checkbox" value="${ i.P_NUM }" name="checkboxAll" id="checkProduct${ i.P_NUM }" onclick="check1(${ i.P_NUM });" checked></td>
@@ -785,22 +896,26 @@
                         </td>
                      </tr>
                   </c:forEach>
+                 <c:if test="${!empty pList }">
                      <tr>
                         <td colspan="5"></td>
+                        
                         <td style="text-align:center; font-size:20px; font-weight:bold;">총 가격 :</td>
                         <td style="text-align: center"><div id="totalPrice"></div></td>
+                        
                      </tr>
+                    </c:if>
                </table>
                <div id="cash" style="text-align: right;">
-                  <button type="button" id="cashButton">결제하기</button>
+                  <button type="button" id="cashButton" onclick="cash();">결제하기</button>
                </div>
             </div>
          </c:if>
          <!--  content26끝 -->
+        
 
    <script>
-
-      var result = 0;
+   
       checkedSum();
       function add(p_num){
          
@@ -836,10 +951,9 @@
             totalPrice += Number(sumArr[i].value);
          }
          $('#totalPrice').text(totalPrice);
-         
       }
-   
       
+         
       //체크
       
       function check1(p_num){  
@@ -872,18 +986,99 @@
           });
          
          $('#totalPrice').text(sumPrice);
+         total = $('#totalPrice').text(sumPrice);
       }
       
       
       
       
       
+      function cash(){
+          var check = document.getElementsByName("checkboxAll");
+          var pcount = document.getElementsByName("p_count");
+          var sum = document.getElementsByName("sum");
+          total = 0;
+          
+          
+          
+          for (var i = 0; i < check.length; i++) {
+             if (check[i].checked) {  	
+            	total += parseInt(sum[i].value); // 총가격
+            	var result = new Array(parseInt(check[i].value), parseInt(sum[i].value), parseInt(pcount[i].value)); // 상품번호, 총합, 수량
+            	console.log(result); 	
+             }else{
+            	 var result = new Array();
+            	 var result = new Array(0, 0, 0); // 상품번호, 체크한거총합, 수량
+            	 console.log(result);
+             }
+             
+          }
+          console.log(total);
+          
+          /* location href = 'searchAll.do?result='+result+'&total='+total; */
+          
+         
+          
+          
+       }
+      
+      
    
       
       
    </script>
-
+   
+           <c:if test="${cate eq '결제상품'}">
+            <div id="content26">
+               <table>
+                
+                  <tr class="tr3" style="text-align: center;">
+                     <th style="width: 200px;"><div class="title123">카테고리</div></th>
+                     <th style="width: 300px; height: 25px;"><div class="title123">상품이미지</div></th>
+                     <th style="width: 350px;"><div class="title123">상품명</div></th>
+                     <th style="width: 200px;"><div class="lDate" id="lDate1">상품가격</div></th>
+                     <th style="width: 225px;"><div class="lDate" id="lDate1">구매수량</div></th>
+                     <th style="width: 225px;"><div class="lDate" id="lDate1">총가격</div></th>
+                  </tr>
+                
+                  <c:if test="${empty pList }">
+                     <td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+                  </c:if>
+				
+                  <c:forEach var="i" items="${ pList }">
+                     <tr id="tr1">
+                       
+                        <td class="td1" style="height: 100px;"><div id="tableCategory1">${ i.P_CATEGORY }</div></td>
+                        <td class="td1"><div id="image1"><img src="${contextPath}/resources/images/mypage/testitem1.jpg" width="150px" height="80px"></div></td>
+                        <td><div id="lectureTitle" style="text-align: center;">${ i.P_NAME }</div></td>
+                        <td> <div id="lecturePrice" class="lDate"style="text-align: center;">${ i.P_PRICE}</div> 
+                           <input type="hidden" id="price_hidden${ i.P_NUM }" value="${ i.P_PRICE }">
+                           <input type="hidden" id="name_hidden" value="${ i.P_NAME }">
+                        </td>
+                     
+                        <td>
+                           <div id="lecturePrice" class="lDate" style="text-align: center; color: black; width:150px;">
+                            ${ i.P_PAY_AMOUNT }
+                           </div>
+                        </td>
+                        <td style="text-align: center;" >
+                        <div id="sum">
+                         ${ i.P_PAY_AMOUNT * i.P_PRICE } 
+                        </div>
+                        </td>
+                     </tr>
+                  </c:forEach>
+              
+               </table>
+              
+            </div>
+         </c:if>
+   
+   
+   
+   
       </div>
+
       <!-- entry2 끝 -->
       <br> <br>
          <div id="pagging">
@@ -894,6 +1089,7 @@
          <c:if test="${ pi.currentPage > 1 }">
             <c:url var="before" value="mypage.do">
                <c:param name="cate" value="${ cate }" />
+               <c:param name="kind" value="${ kind }" />
                <c:param name="page" value="${ pi.currentPage - 1 }" />
             </c:url>
             <a href="${ before }">[이전]</a> &nbsp;
@@ -908,6 +1104,7 @@
             <c:if test="${ p ne currentPage }">
                <c:url var="pagination" value="mypage.do">
                   <c:param name="cate" value="${ cate }" />
+                  <c:param name="kind" value="${ kind }" />
                   <c:param name="page" value="${ p }" />
                   <!--  blist.do?page=1과 같음  -->
                </c:url>
@@ -922,6 +1119,7 @@
          <c:if test="${ pi.currentPage < pi.maxPage }">
             <c:url var="after" value="mypage.do">
                <c:param name="cate" value="${ cate }" />
+               <c:param name="kind" value="${ kind }" />
                <c:param name="page" value="${ pi.currentPage + 1 }" />
             </c:url>
             <a href="${ after }">[다음]</a>
@@ -932,9 +1130,6 @@
    </div>
    <!--  paper2 끝 -->
 
-   <c:url var="tuterPage" value="mypage.do">
-      <c:param name="cate" value="튜터" />
-   </c:url>
 
    <c:if test="${ cate eq '튜터' }">
       <script>
@@ -948,7 +1143,7 @@
                <div id="content201" class="content21"
                   onclick="location.href='${ lListView }'">수강생</div>
                <div id="content202" class="content21"
-                  <c:if test="${ cate eq '튜터' }">style="background: #ffff5d; box-shadow:0px 0px 20px 3px yellow;"</c:if>>튜터</div>
+                  <c:if test="${ cate eq '튜터' }">style="background: #bfbfbb;"</c:if>>튜터</div>
             </div>
 
             <!--  row끝 -->
@@ -1046,6 +1241,7 @@
          <c:if test="${ pi.currentPage > 1 }">
             <c:url var="before" value="mypage.do">
                <c:param name="cate" value="${ cate }" />
+               <c:param name="kind" value="${ kind }" />
                <c:param name="page" value="${ pi.currentPage - 1 }" />
             </c:url>
             <a href="${ before }">[이전]</a> &nbsp;
@@ -1060,6 +1256,7 @@
             <c:if test="${ p ne currentPage }">
                <c:url var="pagination" value="mypage.do">
                   <c:param name="cate" value="${ cate }" />
+                  <c:param name="kind" value="${ kind }" />
                   <c:param name="page" value="${ p }" />
                   <!--  blist.do?page=1과 같음  -->
                </c:url>
@@ -1074,6 +1271,7 @@
          <c:if test="${ pi.currentPage < pi.maxPage }">
             <c:url var="after" value="mypage.do">
                <c:param name="cate" value="${ cate }" />
+               <c:param name="kind" value="${ kind }" />
                <c:param name="page" value="${ pi.currentPage + 1 }" />
             </c:url>
             <a href="${ after }">[다음]</a>
@@ -1090,8 +1288,6 @@
 
    <script>
       function tuterPage() {
-         $("#content202").css("background", "#ffff5d");
-         $("#content202").css("box-shadow", "0px 0px 20px 3px yellow")
          $("#paper2").hide();
          $("#paper3").css("display", "block");
 
@@ -1114,6 +1310,9 @@
          $("#paper2").css("display", "block");
          $("#paper3").hide();
       });
+      
+      
+
    </script>
 
 
