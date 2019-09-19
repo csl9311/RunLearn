@@ -122,7 +122,12 @@ public class LectureController {
 			String radr = sadr[0];
 			list.put("L_ADDRESS", radr);
 		}
-		System.out.println("mid:"+loginUser.getM_id());
+		if(loginUser != null) {
+			System.out.println("mid:"+loginUser.getM_id());
+			ArrayList paycheck = lService.userPayCheck(loginUser.getM_id());
+			System.out.println(paycheck);
+			mv.addObject("paycheck", paycheck);
+		}
 		System.out.println(list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
@@ -165,7 +170,7 @@ public class LectureController {
 		}
 		System.out.println("etc: "+etc);
 		System.out.println("lf: "+lf);
-		
+		System.out.println("tlist: "+tlist);
 		mv.addObject("etc", etc);
 		mv.addObject("tlist", tlist);
 		mv.addObject("list", list);
@@ -181,9 +186,11 @@ public class LectureController {
 		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
 		System.out.println(map);
 		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
+		ArrayList tlist = lService.tclassList(((BigDecimal)map.get("L_NUM")).intValue());
 		System.out.println("list: "+list);
 		System.out.println("map: "+map);
 		if(!map.isEmpty() && !list.isEmpty()) {
+			mv.addObject("tlist", tlist);
 			mv.addObject("list", list);
 			mv.addObject("media", map);
 			mv.setViewName("lecture/lectureVideoView");

@@ -188,4 +188,9 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.enableLectureEach(l_each_num);
 	}
 
+	@Override
+	public ArrayList userPayCheck(String m_id) {
+		return lDAO.userPayCheck(m_id);
+	}
+
 }

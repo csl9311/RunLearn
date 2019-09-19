@@ -262,13 +262,11 @@
 		</ul>
 		<ul class="list-group mb-3">
 			<li class="list-group-item" onclick="location.href='#target'">
-				
 				<div>
 					<h5 class="my-0">강의 목표</h5>
 					<br>
 					<h6 class="my-0">${ list.L_OBJECT }</h6>
 				</div>
-				
 			</li>
 		</ul>
 		
@@ -281,12 +279,16 @@
 			</div>
 			<div class="btn btn-secondary">찜에추가
 			</div>
+		</div>
+		<c:forEach var="k" begin="0" end="${ paycheck.size()-1 }" step="1">
+		<div>
 			<c:url var="LEMainView" value="lectureEachMainView.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
 			</c:url>
 			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'">강의보기
 			</div>
 		</div>
+		</c:forEach>
 	</div>
 	<script>
 		$(window).scroll(function() {

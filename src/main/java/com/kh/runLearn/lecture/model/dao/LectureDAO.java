@@ -154,5 +154,9 @@ public class LectureDAO {
 		return sqlSession.update("lectureMapper.enableLectureEach", l_each_num);
 	}
 
+	public ArrayList userPayCheck(String m_id) {
+		return (ArrayList)sqlSession.selectList("lectureMapper.userPayCheck", m_id);
+	}
+
 	
 }

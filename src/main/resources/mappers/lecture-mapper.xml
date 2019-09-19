@@ -118,7 +118,12 @@
 			left join member_image mi using(m_id)
 		where l_num=#{l_num}
 	</select>
-  
+	<select id="userPayCheck" parameterType="string" resultType="map">
+		select *
+		from payment
+    		join lecture_pay using(pay_num)
+		where m_id = #{m_id}
+	</select>
 	<select id="selectLectureImage" parameterType="hashmap" resultType="map">
 		select l_image_num, l_origin_name, l_changed_name, l_file_level, l_num
 		from lecture_image
@@ -184,7 +189,7 @@
 	</insert>
 	<insert id="insertLecture" parameterType="Lecture_Each">
 		insert into lecture_each
-		values(lecture_each_seq.nextval, #{l_each_name}, #{l_each_content}, default, #{l_num})
+		values(lecture_each_seq.nextval, #{l_each_name}, #{l_each_content}, 'Y', #{l_num})
 	</insert>
 	<insert id="insertLectureFile" parameterType="Lecture_File">
 		insert into lecture_file

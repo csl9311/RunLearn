@@ -59,6 +59,7 @@ td:hover{
 				<th style="width: 75%;">강좌 명</th>
 				<th style="width: 10%;">강의듣기</th>
 			</tr>
+			<c:if test="${ loginUser.m_id ne 'admin1' && loginUser.m_id ne etc.M_ID }">
 			<c:forEach var="i" begin="0" end="${ list.size()-1 }" step="1">
 			<c:url var="mediaView" value="lectureMediaView.le">
 				<c:param name="l_each_num" value="${ list.get(i).L_EACH_NUM }"/>
@@ -78,6 +79,28 @@ td:hover{
 				
 			</tr>
 			</c:forEach>
+			</c:if>
+			<c:if test="${ loginUser.m_id eq 'admin1' || loginUser.m_id eq etc.M_ID }">
+			<c:forEach var="i" begin="0" end="${ tlist.size()-1 }" step="1">
+			<c:url var="mediaView" value="lectureMediaView.le">
+				<c:param name="l_each_num" value="${ tlist.get(i).L_EACH_NUM }"/>
+			</c:url>
+			<c:url var="eachContent" value="lectureEachMainView.le">
+				<c:param name="l_each_num" value="${ tlist.get(i).L_EACH_NUM }"/>
+				<c:param name="l_num" value="${ etc.L_NUM }"/>
+			</c:url>
+			<tr>
+				<td>${ i+1 }</td>
+				<td onclick="location.href='${ eachContent }'">${ tlist.get(i).L_EACH_NAME }</td>
+				<td>
+					<c:if test="${ tlist.get(i).L_FILE_VIDEO ne null }">
+						<button class="btn btn-sm btn-primary" onclick="location.href='${ mediaView }'">듣기</button>
+					</c:if>
+				</td>
+				
+			</tr>
+			</c:forEach>
+			</c:if>
 		</table>
 		</c:if>
 		<c:url var="eachInput" value="lectureEachInsert.le">

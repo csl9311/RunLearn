@@ -52,6 +52,7 @@ public interface LectureService {
 	String findEachNum(int l_num);
 	int updateLectureFile(Lecture_File lf);
 	int enableLectureEach(int l_each_num);
+	ArrayList userPayCheck(String m_id);
 	
 
 
