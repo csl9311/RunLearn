@@ -74,6 +74,11 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
+	public ArrayList tclassList(int l_num) {
+		return lDAO.tclassList(l_num);
+	}
+
+	@Override
 	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return lDAO.mediaEnter(l_each_num);
 	}
@@ -182,4 +187,5 @@ public class LectureServiceImpl implements LectureService {
 	public int enableLectureEach(int l_each_num) {
 		return lDAO.enableLectureEach(l_each_num);
 	}
+
 }

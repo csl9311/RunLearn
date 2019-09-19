@@ -62,6 +62,9 @@ public class LectureDAO {
 	public ArrayList classList(int l_num) {
 		return (ArrayList) sqlSession.selectList("lectureMapper.classList", l_num);
 	}
+	public ArrayList tclassList(int l_num) {
+		return (ArrayList) sqlSession.selectList("lectureMapper.tclassList", l_num);
+	}
 
 	public HashMap<String, Object> mediaEnter(int l_each_num) {
 		return sqlSession.selectOne("lectureMapper.mediaEnter", l_each_num);
@@ -150,4 +153,6 @@ public class LectureDAO {
 	public int enableLectureEach(int l_each_num) {
 		return sqlSession.update("lectureMapper.enableLectureEach", l_each_num);
 	}
+
+	
 }

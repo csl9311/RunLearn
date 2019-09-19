@@ -95,9 +95,10 @@ public class LectureController {
 	
 	//강의 상세페이지
 	@RequestMapping("lectureDetailView.le")
-	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv) {
+	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv, HttpSession session) {
 
 //		ArrayList list = lService.selectLecture(l_num);
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		HashMap<String, String> list = lService.selectLecture(l_num);
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("l_num", l_num);
@@ -121,6 +122,7 @@ public class LectureController {
 			String radr = sadr[0];
 			list.put("L_ADDRESS", radr);
 		}
+		System.out.println("mid:"+loginUser.getM_id());
 		System.out.println(list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
@@ -149,6 +151,7 @@ public class LectureController {
 		HashMap<String, String> etc = lService.selectLecture(l_num);
 		Lecture_Each l_each = lService.classEnter(map);
 		ArrayList list = lService.classList(l_num);
+		ArrayList tlist = lService.tclassList(l_num);
 		Lecture_File lf = lService.selectLectureFile(l_each_num);
 		System.out.println();
 		System.out.println("l_each: "+l_each);
@@ -164,6 +167,7 @@ public class LectureController {
 		System.out.println("lf: "+lf);
 		
 		mv.addObject("etc", etc);
+		mv.addObject("tlist", tlist);
 		mv.addObject("list", list);
 		mv.addObject("l_each", l_each);
 		mv.addObject("lf", lf);
@@ -306,9 +310,10 @@ public class LectureController {
 										  @RequestParam(value="mainImage", required=false) MultipartFile mainImage,
 										  @RequestParam(value="adr1", required=false) String adr1,
 										  @RequestParam(value="adr2", required=false) String adr2,
-										  ModelAndView mv, MultipartHttpServletRequest request) {
-		
-		l.setM_id("yee");//Session에서 이름받아오기 전까지 사용될 m_id
+										  ModelAndView mv, MultipartHttpServletRequest request,
+										  HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		l.setM_id(loginUser.getM_id());//Session에서 이름받아오기 전까지 사용될 m_id
 		System.out.println(l);
 		System.out.println("adr1:"+adr1);
 		System.out.println("adr2:"+adr2);
@@ -344,58 +349,19 @@ public class LectureController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	@RequestMapping("apply.le")
-	public ModelAndView example(@RequestParam("l_num") int l_num, ModelAndView mv ) {
-		HashMap<String, String> list = lService.selectLecture(l_num);
-		HashMap<String, Integer> map = new HashMap<>();
-		map.put("l_num", l_num);
-		map.put("MCR", 0);
-		ArrayList im_list = lService.selectLectureImage(map);
-		map.put("MCR", 1);
-		ArrayList ic_list = lService.selectLectureImage(map);
-		map.put("MCR", 2);
-		ArrayList it_list = lService.selectLectureImage(map);
-		map.put("MCR", 3);
-		ArrayList ir_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
-		System.out.println("c : "+ic_list);
-		System.out.println("t : "+it_list);
-		System.out.println("r : "+ir_list);
-		String adr = (String)list.get("L_ADDRESS");
-		System.out.println(adr);
-		if(adr != null && adr.contains("/")) {
-			String[] sadr = adr.split("/");
-			String radr = sadr[0];
-			list.put("L_ADDRESS", radr);
-		}
-		System.out.println(list);
-		mv.addObject("list", list);
-		mv.addObject("im_list", im_list);
-		mv.addObject("ic_list", ic_list);
-		mv.addObject("it_list", it_list);
-		mv.addObject("ir_list", ir_list);
-		mv.setViewName("lecture/lectureConfirm");
-		return mv;
-//		return "lecture/lectureApply";
-	}
-	
 	@RequestMapping("lectureUpdate.le")
 	public ModelAndView lectureUpdate(Lecture l,
 									  @RequestParam(value="mainImage", required=false) MultipartFile mainImage,
 									  @RequestParam(value="adr1", required=false) String adr1,
 									  @RequestParam(value="adr2", required=false) String adr2,
-									  ModelAndView mv, MultipartHttpServletRequest request) {
+									  ModelAndView mv, MultipartHttpServletRequest request,
+									  HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		System.out.println("L:"+l);
 		System.out.println("mi:"+mainImage);
 		System.out.println(adr1);
 		System.out.println(adr2);
-		l.setM_id("yee");//Session에서 이름받아오기 전까지 사용될 m_id
+		l.setM_id(loginUser.getM_id());//Session에서 이름받아오기 전까지 사용될 m_id
 		System.out.println(l);
 		System.out.println("adr1:"+adr1);
 		System.out.println("adr2:"+adr2);

@@ -31,6 +31,7 @@ public interface LectureService {
 	Lecture_Each classEnter(HashMap<String, Integer> map); // 강의의 제 n화를 선택했을때+
 	Lecture_File selectLectureFile(int l_each_num); //강의 n화를 가져올때 n화의 첨부파일+
 	ArrayList classList(int l_num);//제 n화 강의에서 나올 나머지 강의 리스트 가져오기+
+	ArrayList tclassList(int l_num);
 	HashMap<String, Object> mediaEnter(int l_each_num); // 강의의 제 n화 영상보기를 선택했을때+
 	
 	int insertLecture(Lecture_Each le); // 튜터가 강의를 1화 추가할때+
@@ -51,6 +52,7 @@ public interface LectureService {
 	String findEachNum(int l_num);
 	int updateLectureFile(Lecture_File lf);
 	int enableLectureEach(int l_each_num);
+	
 
 
 }

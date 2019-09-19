@@ -282,7 +282,7 @@
 			</li>
 		</ul>
 		
-		
+		<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id eq 'admin1' }">
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
 			<c:url var="confirm" value="lectureConfirm.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
@@ -293,7 +293,8 @@
 			</c:url>
 			<div class="btn btn-secondary" onclick="location.href='${ deny }'">요청거부</div>
 		</div>
-		
+		</c:if>
+		<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id eq list.M_ID }">
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
 			<c:url var="update" value="lectureUpdateform.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
@@ -304,6 +305,7 @@
 			</c:url>
 			<div class="btn btn-secondary" onclick="location.href='${ delete }'">신청취소</div>
 		</div>
+		</c:if>
 	</div>
 	<script>
 		$(window).scroll(function() {

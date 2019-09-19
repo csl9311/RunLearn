@@ -87,10 +87,12 @@ td:hover{
 			<c:param name="l_num" value="${ etc.L_NUM }"/>
 			<c:param name="l_each_num" value="${ l_each.l_each_num }"/>
 		</c:url>
+		<c:if test="${ sessionScope.loginUser.m_id eq etc.M_ID }">
 		<div align="right">
 			<div class="btn btn-primary" onclick="location.href='${ eachInput }'">강의추가</div>
 			<div class="btn btn-secondary" onclick="location.href='${ eachUpdate }'">강의수정</div>
 		</div>
+		</c:if>
 	</div>
 
 	<c:import url="../common/footer.jsp" />

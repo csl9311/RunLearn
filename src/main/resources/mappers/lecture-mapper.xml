@@ -112,7 +112,7 @@
 	</select>
   
 	<select id="selectLecture" parameterType="_int" resultType="map">
-		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name
+		select l_num, l_content, l_title, l_category, l_price, l_system, l_address, l_object, l_confirm, m_name, m_nickname, m_changed_name, m_id
 		from lecture l
 			left join member m using(m_id)
 			left join member_image mi using(m_id)
@@ -144,7 +144,12 @@
 			left join lecture_file using(l_each_num)
 		where l_num = #{l_num} and l_each_confirm = 'Y'
 	</select>
-  
+	<select id="tclassList" parameterType="_int" resultType="map">
+		select *
+		from lecture_each
+			left join lecture_file using(l_each_num)
+		where l_num = #{l_num}
+	</select>
 	<select id="selectLectureFile" parameterType="_int" resultType="Lecture_File">
 		select *
 		from lecture_file

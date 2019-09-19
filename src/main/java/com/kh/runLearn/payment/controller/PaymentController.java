@@ -105,12 +105,13 @@ public class PaymentController {
 		return result;
 	}
 	@RequestMapping("lecturePayment.save")
-	public String paymentSave(
+	public ModelAndView paymentSave(
 			@RequestParam("l_num") int l_num,
 			@RequestParam("pay_method") String pay_method,
 			@RequestParam("m_id") String m_id,
-			HttpSession session
+			HttpSession session, ModelAndView mv
 			) {
+		
 		Payment pay = new Payment();
 		pay.setPay_method(pay_method);
 		pay.setPay_target("l");
@@ -120,7 +121,9 @@ public class PaymentController {
 		
 		int result = payService.insertLecturePayment(l_num);
 		if(result>0) {
-			return "success";
+			mv.addObject("l_num", l_num);
+			mv.setViewName("redirect:lectureDetailView.le");
+			return mv;
 		} else {
 			throw new Exception("결제 실패.");
 		}
