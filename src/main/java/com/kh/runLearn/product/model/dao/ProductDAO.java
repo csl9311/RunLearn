@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.runLearn.common.PageInfo;
+import com.kh.runLearn.product.model.vo.Cart;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -85,5 +86,9 @@ public class ProductDAO {
 
 	public void deleteProduct(int p_num) {
 		sqlSession.update("productMapper.deleteProduct", p_num);
+	}
+
+	public int insertCart(ArrayList<Cart> list) {
+		return sqlSession.insert("productMapper.insertCart", list);
 	}
 }

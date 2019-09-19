@@ -54,7 +54,7 @@
 	<insert id="insertProduct" parameterType="map">
 		INSERT ALL
 			INTO PRODUCT VALUES (
-				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, #{p.p_price}, #{p.p_optionCheck}, 'Y', SYSDATE, NULL, #{p.m_id}
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, 'Y', SYSDATE, NULL, #{p.m_id}
 			)
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
@@ -99,8 +99,6 @@
 		UPDATE PRODUCT SET 
 			P_NAME = #{p_name},
 			P_CATEGORY = #{p_category},
-			P_PRICE = #{p_price},
-			P_OPTIONCHECK = #{p_optionCheck},
 			P_MODIFY_DATE = SYSDATE
 		WHERE P_NUM = #{p_num}
 	</update>
@@ -149,7 +147,19 @@
 			P_MODIFY_DATE = SYSDATE
 		WHERE P_NUM = #{p_num}
 	</update>
+<!-- 상품 삭제 -->
 
+<!-- 장바구니 추가 -->
+	<insert id="insertCart" parameterType="list">
+		INSERT ALL
+			<foreach collection="list" item="item" index="index" separator=" ">
+				into CART VALUES(
+					#{item.m_id}, #{item.p_option}, #{item.p_num}, #{item.amount}
+				)
+			</foreach>
+		SELECT * FROM DUAL
+	</insert>
+<!-- 장바구니 추가 -->
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map" resultType="hashmap">

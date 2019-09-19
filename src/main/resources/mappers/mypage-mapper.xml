@@ -1,100 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mypageMapper">
-     
-          
-     <update id="updateMember" parameterType="Member">
-      update member 
-      set M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone}, M_MODIFY_DATE = SYSDATE, POSTNUM = #{postnum}, G_ADDRESS = #{g_address}, R_ADDRESS = #{r_address}, D_ADDRESS = #{d_address}
-      where M_ID = #{m_id} and M_STATUS = 'Y'
-   </update>
-  
-  
-     <update id="updateMember_Image" parameterType="Member_Image"> <!--  회원정보 수정 이미지 첨부 -->
-      update Member_Image
-      set M_ORIGIN_NAME = #{m_origin_name}, M_CHANGED_NAME = #{m_changed_name}, M_UPLOAD_DATE = SYSDATE
-      where M_ID = #{m_id}
-   </update>
-  
-  
-  
-      <select id="selectLectureView" parameterType="string" resultType="hashmap">  <!--  마이페이지 수강목록 -->
-      select *
-      from LEC_VIEW
-      where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NOT NULL
-   </select>
-  
-   <select id="selectLetureCount" parameterType="string" resultType="_int"> <!--  마이페이지 수강목록 전체 수 -->
-      select count(*)
-      from LEC_VIEW
-      where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NOT NULL
-   </select>
-   
-    <select id="selectNoPayLectureView" parameterType="string" resultType="hashmap">  <!-- 마이페이지 강의찜목록 -->
-      select *
-      from LEC_VIEW
-      where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NULL
-   </select>
-   
-   <select id="selectNopayLectureCount" parameterType="string" resultType="_int">  <!-- 마이페이지 강의 찜목록 전체 수  -->
-      select count(*)
-      from LEC_VIEW
-      where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NULL
-   </select> 
-   
-   
-   
-   <select id="selectTuterLecturePageView" parameterType="string" resultType="hashmap"> <!--  튜터 강의 목록 -->
-      select *
-      from TUTER_LECTUREVIEW
-      where M_ID = #{m_id} and L_STATUS = 'Y'
-   </select>
-   
-   
-   <select id="tuterLectureCount" parameterType="string" resultType="_int"> <!--  튜터 강의 수 -->
-      select count(*)
-      from TUTER_LECTUREVIEW
-      where M_ID = #{m_id} and L_STATUS = 'Y'
-   </select>
-   
-   
-      <select id="selectProductView" parameterType="string" resultType="hashmap">   <!-- 마이페이지 상품 찜목록  -->
-      select *
-      from PRODUCT_NOPAYVIEW
-      where M_ID = #{m_id} and P_STATUS = 'Y'
-   </select>
-   
-   
-   <select id="selectPlistCount" parameterType="string" resultType="_int"> <!--  마이페이지 상품 수 -->
-      select count(*)
-      from PRODUCT_NOPAYVIEW
-      where M_ID = #{m_id} and P_STATUS = 'Y'
-   </select>
-   
-   <select id="selectProfile" parameterType="string" resultType="Member_Image">  <!--  프로필 사진 -->
-      select *
-      from MEMBER_IMAGE
-      where M_ID = #{m_id}
-   </select>
-   
-   
-   <select id="selectLecture" parameterType="string" resultType="Lecture">
-      select *
-      from LECTURE
-      where M_ID = #{m_id}
-   </select>
-   
-   
 
-   
-   
 
-   
-   
-   
-  
-  
-  
-  
-  
+	<update id="updateMember" parameterType="Member">
+		update member
+		set M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone},
+		M_MODIFY_DATE = SYSDATE, POSTNUM = #{postnum}, G_ADDRESS =
+		#{g_address}, R_ADDRESS = #{r_address}, D_ADDRESS = #{d_address}
+		where M_ID = #{m_id} and M_STATUS = 'Y'
+	</update>
+
+
+	<update id="updateMember_Image" parameterType="Member_Image"> <!-- 회원정보 수정 이미지 첨부 -->
+		update Member_Image
+		set M_ORIGIN_NAME = #{m_origin_name}, M_CHANGED_NAME = #{m_changed_name},
+		M_UPLOAD_DATE = SYSDATE
+		where M_ID = #{m_id}
+	</update>
+
+
+
+	<select id="selectLectureView" parameterType="string"
+		resultType="hashmap">  <!-- 마이페이지 수강목록 -->
+		select *
+		from LEC_VIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NOT NULL
+	</select>
+
+	<select id="selectLetureCount" parameterType="string"
+		resultType="_int"> <!-- 마이페이지 수강목록 전체 수 -->
+		select count(*)
+		from LEC_VIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NOT NULL
+	</select>
+
+	<select id="selectNoPayLectureView" parameterType="string"
+		resultType="hashmap">  <!-- 마이페이지 강의찜목록 -->
+		select *
+		from LEC_VIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NULL
+	</select>
+
+	<select id="selectNopayLectureCount" parameterType="string"
+		resultType="_int">  <!-- 마이페이지 강의 찜목록 전체 수 -->
+		select count(*)
+		from LEC_VIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y' and PAY_DATE IS NULL
+	</select>
+
+
+
+	<select id="selectTuterLecturePageView" parameterType="string"
+		resultType="hashmap"> <!-- 튜터 강의 목록 -->
+		select *
+		from TUTER_LECTUREVIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y'
+	</select>
+
+
+	<select id="tuterLectureCount" parameterType="string"
+		resultType="_int"> <!-- 튜터 강의 수 -->
+		select count(*)
+		from TUTER_LECTUREVIEW
+		where M_ID = #{m_id} and L_STATUS = 'Y'
+	</select>
+
+
+	<select id="selectProductView" parameterType="string"
+		resultType="hashmap">   <!-- 마이페이지 상품 찜목록 -->
+		select *
+		from PRODUCT_NOPAYVIEW
+		where M_ID = #{m_id}
+	</select>
+
+
+	<select id="selectPlistCount" parameterType="string"
+		resultType="_int"> <!-- 마이페이지 상품 수 -->
+		select count(*)
+		from PRODUCT_NOPAYVIEW
+		where M_ID = #{m_id}
+	</select>
+
+	<select id="selectProfile" parameterType="string"
+		resultType="Member_Image">  <!-- 프로필 사진 -->
+		select *
+		from MEMBER_IMAGE
+		where M_ID = #{m_id}
+	</select>
+
+
+	<select id="selectLecture" parameterType="string"
+		resultType="Lecture">
+		select *
+		from LECTURE
+		where M_ID = #{m_id}
+	</select>
+
+	<resultMap type="Product_Option" id="getProductOption">
+		<id column="P_OPTION" property="p_option"/>
+		<result column="P_NUM" property="p_num"/>
+		<result column="P_OPTIONPRICE" property="p_optionPrice"/>
+		<result column="P_STOCK" property="p_stock"/>
+	</resultMap>
+	<select id="selectProductOption" parameterType="string" resultMap="getProductOption">
+		SELECT * FROM PRODUCT_OPTION WHERE P_OPTION = #{p_option}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

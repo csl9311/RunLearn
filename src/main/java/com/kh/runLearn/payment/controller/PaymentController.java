@@ -16,7 +16,6 @@ import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.payment.model.vo.Payment;
 import com.kh.runLearn.payment.model.vo.Product_Pay;
 import com.kh.runLearn.product.model.vo.Product;
-import com.kh.runLearn.product.model.vo.Product_Option;
 
 @Controller
 public class PaymentController {
@@ -35,6 +34,12 @@ public class PaymentController {
 			@RequestParam("total") String total,
 			HttpServletRequest request
 			) {
+		System.out.println(p);
+		System.out.println(m);
+		System.out.println(amount);
+		System.out.println(item);
+		System.out.println(pricearr);
+		System.out.println(total);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("p", p);
 		map.put("m", m);
@@ -63,9 +68,14 @@ public class PaymentController {
 		HashMap<String, Object> map = new HashMap<>();
 		pay.setPay_target("p");
 		map.put("pay", pay);
+		
+		System.out.println(p);
+		System.out.println(m);
+		System.out.println(pay);
 		System.out.println(item);
-		
-		
+		System.out.println(amount);
+		System.out.println(price);
+		System.out.println(total);
 		
 //		String[] itemArr = item.split(",");
 		String[] amountArr = amount.split(",");
@@ -89,7 +99,7 @@ public class PaymentController {
 		
 		int result = payService.insertProductPayment(map);
 		if (result > 0) {
-			return "redirect:"; // 마이페이지 결제정보
+			return "redirect:mypage.do?cate=productCate"; // 마이페이지 결제정보
 		} else {
 			throw new Exception("결제정보등록에 실패했습니다.");
 		}

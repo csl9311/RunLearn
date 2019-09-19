@@ -5,7 +5,7 @@
 	<insert id="insertProductPayment" parameterType="map">
 	INSERT ALL
 		INTO PAYMENT VALUES(PAYMENT_SEQ.NEXTVAL, #{pay.pay_target}, SYSDATE, #{pay.pay_method}, DEFAULT, #{pay.m_id})
-		INTO PRODUCT_PAY VALUES (PAYMENT_SEQ.CURRVAL, #{pp.p_num}, #{pp.p_pay_amount}, #{pp.pay_total}, #{pp.delivery}, #{pp.p_option})
+		INTO PRODUCT_PAY VALUES (PAYMENT_SEQ.CURRVAL, #{pp.p_option}, #{pp.p_num}, #{pp.p_pay_amount}, #{pp.pay_total}, #{pp.delivery})
 	SELECT * FROM DUAL
 	</insert>
 </mapper>

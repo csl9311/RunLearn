@@ -33,7 +33,6 @@
 						<div id="thumbnailImg">
 							<c:forEach var="p" items="${ list }">
 								<c:if test="${ p.P_FILE_LEVEL+0 == 0 }">
-								* 상품 이미지를 다시 등록해주세요. *
 									<img class="img-responsive center" alt="썸네일" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
 									<input type="hidden" name="thumbnailFileName" value="${p.P_CHANGED_NAME}">
 								</c:if>
@@ -64,29 +63,7 @@
 						<td>카테고리</td>
 						<td><input id="p_category" type="text" name="p_category" value="${ list.get(0).P_CATEGORY }" required="required"></td>
 					</tr>
-					<tr id="price">
-						<td>기본가격(￦)</td>
-						<td><input type="number" step="100" min="0" name="p_price" value="${ list.get(0).P_PRICE }" required="required"></td>
-					</tr>
-					<tr>
-						<td>옵션추가</td>
-						<td>
-							<input id="p_optionCheck" name="p_optionCheck" type="hidden" value="${ list.get(0).P_OPTIONCHECK }">
-							<c:if test="${ list.get(0).P_OPTIONCHECK eq 'O' }">
-								<input id="optionO" type="radio" name="option" value="O" required="required" checked>
-								<label>추가</label>
-								<input id="optionX" type="radio" name="option" value="X" required="required">
-								<label>삭제</label>
-							</c:if>
-							<c:if test="${ list.get(0).P_OPTIONCHECK eq 'X' }">
-								<input id="optionO" type="radio" name="option" value="O" required="required">
-								<label>추가</label>
-								<input id="optionX" type="radio" name="option" value="X" required="required" checked>
-								<label>삭제</label>
-							</c:if>
-						</td>
-					</tr>
-					
+					<tr style="background: gray;"><td></td><td></td></tr>
 					<c:forEach items="${ poList }" var="po" varStatus="i"> 
 						<tr id="option${ i.index }">
 							<td>옵션</td>
@@ -199,9 +176,6 @@
 			});
 		};
 		/* 이미지 확대 */
-		function expend(){
-			
-		};
 		/* 이미지 삭제 */
 		function deleteImage(index){
 			sel_files.splice(index,1);
@@ -212,31 +186,11 @@
 
 
 <%-- 옵션 --%>
-	<%-- 옵션 유무 선택 --%>
 		var $table = $('#productDetail');
-		
 		var j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		
-		$('#optionO').click(function(){
-			$('#optionO').prop('disabled', 'disabled');
-			$('#optionX').removeAttr('disabled');
-			optionAdd(j);
-			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		});
-		
-		$('#optionX').click(function(){
-			for(var q = j; q >= 0 ; q --) {
-				optionDelete(q);
-			}
-			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
-		});
-		
-	<%-- 옵션 유무 선택 끝 --%>
 
 	<%-- 옵션 추가 --%>
 		function optionAdd(num){
-			$('#optionO').prop('checked', true);
-			$('#optionX').prop('checked', false);
 			$('#add'+ num).hide();
 	
 			$table.append(
@@ -273,19 +227,31 @@
 				var lastBtn = $table.children(':last').children(':last').children(':first').children(':first');
 				lastBtn.css('display', 'inline-block');
 			}
-			if(length <= 1) {
-				$('#optionO').removeAttr('disabled');
-				$('#optionX').prop('disabled', 'disabled');
-				$('#optionO').prop('checked', false);
-				$('#optionX').prop('checked', true);
-			}
 			j = parseInt(document.getElementById('productDetail').lastChild.childElementCount / 4);
 		};
 	<%-- 옵션 삭제 끝 --%>
 	
 <%-- 옵션 끝 --%>
 
-		
+		function check(){
+			var p_option = document.getElementsByName("p_option");
+			console.log(p_option);
+			
+			for (var i = 0 ; i < p_option.length; i ++) {
+				for(var num = i+1 ; num < p_option.length ; num ++) {
+					if(p_option[num].value == p_option[i].value){
+						console.log(p_option[i].value);
+						alert("옵션 중 같은 이름이 있습니다. 확인 후 변경해주세요.");
+						return false;
+					}
+				}
+			}
+			if($('#imgInp').val() == '') {
+				alert("썸네일을 다시 등록해주세요.");
+				$("#imgInp").trigger('click');
+				return false;
+			}
+		}
 	</script>
 </body>
 <c:import url="../common/footer.jsp" />

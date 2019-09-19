@@ -30,7 +30,7 @@
 			<%-- 상품 이미지 끝--%>
 			<br> <br> <br> <br>
 			<%-- 상품 정보 --%>
-			<form action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
+			<form id="form" action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
 				<input type="hidden" value="${ loginUser }">
 				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
@@ -49,14 +49,6 @@
 						<td class="right">
 							${ list.get(0).P_NAME }
 							<input type="hidden" name="p_name" value="${ list.get(0).P_NAME }">
-						</td>
-					</tr>
-
-					<tr>
-						<td>기본가격(￦)</td>
-						<td class="right">
-							${ list.get(0).P_PRICE }원
-							<input type="hidden" name="p_price" value="${ list.get(0).P_PRICE }">
 						</td>
 					</tr>
 					<tr>
@@ -166,7 +158,7 @@
 
 				$p_info.append(
 					'<tr>' +
-					'<td>' + $item.val() + '<input type="hidden" name="item" value="' + $item.val() + '"><<br> 1 / ' + price + '원</td>' +
+					'<td>' + $item.val() + '<input type="hidden" name="item" value="' + $item.val() + '"><br> 1 / ' + price + '원</td>' +
 					'<td class="right">' +
 						'<input class="btn" type="button" value="-" id="del'+i+'">' +
 						'<input name="amount" class="form-control" type="text" value="1" onchange="getTotal();" id="amount' + i + '" style="display: inline-block; text-align: center; width: 80px;">' +
@@ -217,7 +209,9 @@
 			};
 
 			function addCart() {
-				location.href = "";
+				var form = $('#form');
+				form.prop('action', 'insert.cart');
+				form.submit();
 			}
 			
 			function updateProduct(){

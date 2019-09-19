@@ -2,6 +2,7 @@ package com.kh.runLearn.product.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.product.model.service.ProductService;
+import com.kh.runLearn.product.model.vo.Cart;
 import com.kh.runLearn.product.model.vo.Product;
 import com.kh.runLearn.product.model.vo.Product_Image;
 import com.kh.runLearn.product.model.vo.Product_Option;
@@ -284,5 +286,35 @@ public class ProductController {
 	public String deleteProduct(@ModelAttribute Product p) {
 		pService.deleteProduct(p.getP_num());
 		return "redirect:getList.product";
+	}
+	
+	@RequestMapping("insert.cart")
+	public String insertCart(
+			@ModelAttribute Cart c,
+			@RequestParam("amount") String amount,
+			@RequestParam("item") String item,
+			HttpServletRequest request
+			) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String[] amountArr = amount.split(",");
+		String[] itemArr = item.split(",");
+		ArrayList <Cart> list = new ArrayList<>();
+		for(int i = 0 ; i < itemArr.length ; i ++) {
+			Cart cart = new Cart();
+			cart.setP_num(c.getP_num());
+			cart.setM_id(c.getM_id());
+			cart.setP_option(itemArr[i]);
+			cart.setAmount(Integer.parseInt(amountArr[i]));
+			
+			System.out.println(cart);
+			list.add(cart);
+		}
+		int result = pService.insertCart(list);
+		
+		return "redirect:mypage.do?cate=productCate";
 	}
 }
