@@ -9,6 +9,7 @@
 	.centerDetailBack {
 		height: auto;
 		margin-top: 60px;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
 	.centerDetailBack table {
 		position: relative;
@@ -16,7 +17,7 @@
 		width: 95%;
 		text-align: left;
 		border-collapse: collapse;
-		border-top: 2px solid #3d4045;
+		border-top: 1px solid #3d4045;
 	}
 	
 	.centerDetailBack tr {
@@ -25,7 +26,7 @@
 	}
 	
 	#bTitleTr {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	
 	#nSubTr {
@@ -40,6 +41,10 @@
 	.centerDetailBack th {
 		background-color: #f2f2f2;
 	    width: 15%;
+	}
+	
+	.centerDetailBack td {
+		width: 18%;
 	}
 	
 	#bContent{
@@ -63,6 +68,12 @@
 	.centerDetailBack button:hover {
 	    box-shadow: 0 0 3px 0 #ff005a;
 	}
+	
+	.uploadImg {
+		max-width: 80%;
+		max-height: 70%;
+		margin-bottom: 50px;
+	}
 </style>
 </head>
 <body>
@@ -80,13 +91,24 @@
 					<tr id="nSubTr">
 						<th>작성자</th>
 						<td>${ b.m_id }</td>
-						<th>작성일</th>
-						<td>${ b.b_reg_date }</td>
+						<c:if test="${ b.b_category ne '공지사항' }">
+						<th>카테고리</th>
+						<td>${ b.b_subcategory }</td>
+						</c:if>
+						<c:if test="${ b.b_category eq '공지사항' }">
 						<th>조회수</th>
 						<td>${ b.b_count }</td>
+						</c:if>
+						<th>작성일</th>
+						<td>${ b.b_reg_date }</td>
 					</tr>
 					<tr>
 						<td colspan="6" style="width: 100%; padding: 50px;">
+							<c:if test="${ b.b_category eq '신고글' }">
+							<c:if test="${ !empty b_changed_name }">
+							<img src="${ contextPath }/resources/images/board/${b_changed_name}" class="uploadImg">
+							</c:if>
+							</c:if>
 							<textarea id="bContent" readonly>${ b.b_content }</textarea>
 						</td>
 					</tr>

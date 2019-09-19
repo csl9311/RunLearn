@@ -39,9 +39,6 @@ public class MypageController {
    
    @Autowired
    private MypageService myService;
-   
-   @Autowired
-   private BoardService bService;
 
    @Autowired
    private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -116,6 +113,7 @@ public class MypageController {
       }
       model.addAttribute("profile",profile);
       model.addAttribute("cate", "수강목록");
+      model.addAttribute("kind", "강의");
       return "redirect:mypage.do?";
    }
    
@@ -158,7 +156,7 @@ public class MypageController {
    
    
    @RequestMapping("mypage.do")
-   public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate) {
+   public ModelAndView myPage(@RequestParam(value="page", required=false ) Integer page, HttpSession session, ModelAndView mv, @RequestParam("cate") String cate, @RequestParam("kind") String kind) {
       Member loginUser = (Member)session.getAttribute("loginUser");
       String userId = loginUser.getM_id();
       int currentPage = 1;
@@ -186,7 +184,7 @@ public class MypageController {
       
    
       
-      if(cate.equals("수강목록")) {
+      if(cate.equals("수강목록") && kind.equals("강의")) {
          int listCount = myService.selectLectureCount(userId); //수강목록 수
          PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit); 
          ArrayList<Map<String, String>> lList = myService.selectLectureView(userId, pi); // 수강목록   
@@ -198,17 +196,30 @@ public class MypageController {
       }
 
       
-      if(cate.equals("강의찜목록")) {
+      if(cate.equals("강의찜목록") && kind.equals("강의")) {
          int listCount = myService.selectNopayLectureCount(userId);
          PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-         ArrayList<Map<String, String>> noPaylList = myService.selectNoPayLectureView(userId, pi); //강의 찜목록
+         ArrayList<Map<String, Object>> noPaylList = myService.selectNoPayLectureView(userId, pi); //강의 찜목록
+         
+         for(int i = 0 ; i < noPaylList.size(); i++) {
+             int system = Integer.parseInt(String.valueOf(noPaylList.get(i).get("L_SYSTEM")));
+             if(system == 0) {
+            	 noPaylList.get(i).put("L_SYSTEM", "현장");
+             }else if(system == 1){
+            	 noPaylList.get(i).put("L_SYSTEM", "영상");
+             }
+                
+          }
+         
+       
          mv.addObject("noPaylList", noPaylList);
          mv.addObject("listCount", listCount);
          mv.addObject("pi",pi);      
          
       }
       
-		if (cate.equals("상품찜목록") || cate.equals("productCate")) {
+
+		if ((cate.equals("상품찜목록") && kind.equals("상품")) || cate.equals("productCate")) {
 			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
@@ -232,8 +243,21 @@ public class MypageController {
 			mv.addObject("pi", pi);
 			
 		}
+
       
-      if(cate.equals("튜터")) {
+      if(cate.equals("결제상품") && kind.equals("상품")) {
+          int listCount =  myService.productPayCount(userId); //결제상품수
+          PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+          ArrayList<Map<String, String>> pList = myService.productPayList(userId, pi); // 상품 찜목록   
+          mv.addObject("pList", pList);
+          mv.addObject("listCount", listCount);
+          mv.addObject("pi", pi);
+          
+          System.out.println(pList);
+          
+       }
+      
+      if(cate.equals("튜터") || kind.equals("튜터")) {
          int listCount = myService.tuterLectureCount(userId);
          PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
          ArrayList<Map<String, Object>> tLectureList = myService.selectTuterLecturePageView(userId, pi);   
@@ -264,6 +288,7 @@ public class MypageController {
          
       }
       
+      mv.addObject("kind",kind);
       mv.addObject("profile", profile);
       mv.addObject("m_grade", m_grade);
       mv.addObject("lCount", lCount);
@@ -282,9 +307,9 @@ public class MypageController {
       public String enterTutorForm() {
          return "mypage/enterTutorForm";
       }
-   @RequestMapping("tutorInsert.do") // 튜터 신청
+   @RequestMapping(value="tutorInsert.do", method=RequestMethod.POST) // 튜터 신청
       public ModelAndView tutorInsert(@ModelAttribute Board b, ModelAndView mv) {
-         int result = bService.insertBoard(b);
+         int result = myService.insertEnterTutor(b);
 
          if (result > 0) {
             mv.addObject("cate", "튜터").setViewName("mypage/mypage");
@@ -294,5 +319,20 @@ public class MypageController {
          
          return mv;
       }
+   
+   
+   
+   @RequestMapping("cash.do")
+   public String cash() {
+	   
+	   return "cash";
+   }
+   
+   
+   
+   
+   
+   
+   
    
 }

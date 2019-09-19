@@ -9,11 +9,12 @@
 	</select>
 	
 	<select id="selectBoardList" parameterType="Board" resultType="Board">
-		select *
-		from board
-		where b_status = 'Y'
-			and b_category = #{b_category}
-		order by B_REG_DATE desc
+		select rownum, l.*
+    		from (select *
+            		from board
+            		where b_status = 'Y'
+						and b_category = '공지사항'
+            		order by B_REG_DATE desc) l
 	</select>
 	
 	<update id="updateCount" parameterType="_int">
@@ -28,10 +29,27 @@
 		where b_num = #{b_num}
 			and b_status = 'Y'
 	</select>
+	
+	<select id="selectBoardImg" parameterType="_int" resultType="string">
+		select b_changed_name
+		from board_image
+		where b_num = #{b_num}
+	</select>
 
 	<insert id="insertBoard" parameterType="Board">
 		insert into board
-		values(board_seq.nextval, #{b_title}, #{b_content}, sysdate, #{b_category}, 'Y', 0, #{m_id}, #{b_subcategory})
+		values(board_seq.nextval, #{b_title}, #{b_content}, sysdate, #{b_category}, #{b_subcategory}, 'Y', 0, #{m_id})
+		<selectKey keyProperty="b_num" resultType="_int" order="AFTER">
+			select board_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<insert id="insertBoardImg" parameterType="Board_Image">
+		<selectKey keyProperty="b_num" resultType="_int" order="BEFORE">
+			select board_seq.currval from dual
+		</selectKey>
+		insert into board_image(b_changed_name, b_origin_name, b_upload_date, b_num)
+		values(#{b_changed_name}, #{b_origin_name}, sysdate, #{b_num})
 	</insert>
 	
 	<update id="deleteBoard" parameterType="_int">
@@ -42,10 +60,9 @@
 	
 	<update id="updateBoard" parameterType="Board">
 		update board
-		set b_title = #{b_title}, b_content = #{b_content}
+		set b_title = #{b_title}, b_content = #{b_content}, b_subcategory = #{b_subcategory}
 		where b_num = #{b_num}
 	</update>
-	
 	
 	<!-- 고객센터용 쿼리 -->
 	<select id="getCenterListCount" parameterType="map" resultType="_int">

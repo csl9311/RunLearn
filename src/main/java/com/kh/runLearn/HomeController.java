@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.kh.runLearn.lecture.model.service.LectureService;
-import com.kh.runLearn.lecture.model.vo.Lecture_Image;
 import com.kh.runLearn.product.model.service.ProductService;
 
 @Controller
@@ -29,8 +28,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		ArrayList<Lecture_Image> hotList = lService.selectHotLecture();
-		model.addAttribute("list", hotList);
 		return "home";
 	}
 	
@@ -64,5 +61,18 @@ public class HomeController {
 		
 		Gson gson = new Gson();
 		gson.toJson(pList, response.getWriter());
+	}
+	
+	@RequestMapping("getHotLectureList.do")
+	private void hotLectureList(HttpServletResponse response) throws Exception {
+		ArrayList<String> hotList = lService.selectHotLecture();
+		
+		
+		for (int i = 0; i < hotList.size(); i++) {
+			hotList.set(i, URLEncoder.encode(hotList.get(i), "utf-8"));
+		}
+		
+		Gson gson = new Gson();
+		gson.toJson(hotList, response.getWriter());
 	}
 }

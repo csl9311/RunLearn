@@ -18,7 +18,7 @@ public interface BoardService {
 	ArrayList<Board> selectBoardList(PageInfo pi, Lecture l); // 카테고리별 게시목록조회
 	ArrayList<Board> selectBoardList(PageInfo pi, String b_category); // 카테고리별 게시목록조회
 	
-	ArrayList<Board_Image> selectBoardImg(Board b); // 이미지파일 불러오기
+	String selectBoardImg(Board b); // 이미지파일 불러오기
 	
 	int insertBoard(Board b); // 게시글 등록
 	int updateBoard(Board b); // 게시글 수정

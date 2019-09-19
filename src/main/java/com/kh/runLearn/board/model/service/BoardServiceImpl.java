@@ -52,9 +52,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Board_Image> selectBoardImg(Board b) {
-		// TODO Auto-generated method stub
-		return null;
+	public String selectBoardImg(Board b) {
+		return bDAO.selectBoardImg(b);
 	}
 
 	@Override
@@ -74,8 +73,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int insertBoard_Image(Board_Image bi) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bDAO.insertBoard_Image(bi);
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.kh.runLearn.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
+import com.kh.runLearn.board.model.vo.Board_Image;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.member.model.vo.Member;
@@ -68,9 +73,14 @@ public class BoardController {
 														@RequestParam("page") Integer page) {
 		bService.addReadCount(b_num);
 		Board b = bService.selectBoard(b_num);
+		String b_changed_name = null;
+		
+		if (b_category.equals("신고글")) {
+			b_changed_name = bService.selectBoardImg(b);
+		}
 
 		if (b != null) {
-			mv.addObject("b", b).addObject("page", page)
+			mv.addObject("b", b).addObject("page", page).addObject("b_changed_name", b_changed_name)
 				.setViewName("customerCenter/cCenterDetail");
 		}
 
@@ -87,17 +97,57 @@ public class BoardController {
 
 	// 고객센터 게시글 등록
 	@RequestMapping(value = "cCenterInsert.do", method = RequestMethod.POST)
-	public String cCenterInsert(@ModelAttribute Board b, Model model) {
-		System.out.println(b.getM_id());
-		int result = bService.insertBoard(b);
-
-		if (result > 0) {
+	public String cCenterInsert(@ModelAttribute Board b, Model model, @RequestParam(value="uploadFile", required = false) MultipartFile uploadFile, HttpServletRequest request) {
+		Board_Image bi = new Board_Image();
+		
+		int result1 = bService.insertBoard(b);
+		
+		if (b.getB_category().equals("신고글")) {
+			if (!uploadFile.isEmpty()) {
+				if (uploadFile != null && !uploadFile.isEmpty()) {
+					String renameFileName = saveFile(uploadFile, request);
+					
+					if (renameFileName != null) {
+						bi.setB_origin_name(uploadFile.getOriginalFilename());
+						bi.setB_changed_name(renameFileName);
+					}
+				}
+				
+				result1 += bService.insertBoard_Image(bi);
+			}
+		}
+		
+		if (result1 > 0) {
 			model.addAttribute("b_category", b.getB_category());
 			return "redirect:cCenterView.do";
 		} else {
 			return "home";
 		}
 	}
+	
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\images\\board";
+		
+		File folder = new File(savePath);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originalFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new java.sql.Date(System.currentTimeMillis())) + "." +  originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+		String renamePath = folder + "\\" + renameFileName;
+		
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
+	
 
 	// 고객센터 게시물 삭제
 	@RequestMapping("cCenterDelete.do")
@@ -126,7 +176,6 @@ public class BoardController {
 	@RequestMapping(value="cCenterUpdate.do", method = RequestMethod.POST)
 	public ModelAndView cCenterUpdate(@ModelAttribute Board b, ModelAndView mv, @RequestParam("page") Integer page) {
 		int result = bService.updateBoard(b);
-		System.out.println(page);
 		if (result > 0) {
 			mv.addObject("b_category", b.getB_category()).addObject("b_num", b.getB_num()).addObject("page", page)
 				.setViewName("redirect:cCenterDetailView.do");

@@ -127,7 +127,7 @@ public class LectureDAO {
 		return sqlSession.delete("lectureMapper.deleteLectureImage", l_num);
 	}
 
-	public ArrayList<Lecture_Image> selectHotLectureList() {
+	public ArrayList<String> selectHotLectureList() {
 		return (ArrayList) sqlSession.selectList("lectureMapper.selectHotLectureList");
 	}
 
