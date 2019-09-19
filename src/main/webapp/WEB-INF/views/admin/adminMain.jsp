@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 <!-- <script type="text/javascript"
 	src="resources/js/jquery-3.4.1.min.js"></script> --><!-- js 오류 날시  -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -32,6 +32,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
   <hr>
+  <input type="hidden" name="i" value="${ i }">
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round  hotpink fontwhite" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
@@ -42,12 +43,9 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 </div>
 
 <div class="minh"style="margin-left:190px"><!--관리자 페이지 주화면영역  -->
-<!--   <div class="w3-padding">관리자페이지입니다 관리자가 아니시면 홈으로가주세요</div> -->
 <!-- 관리자 메인 -->
-						<!-- 	<iframe src="https://daum.net" style="width:100%;height:1000px;border:white;"></iframe> -->
   <div id="sideTabs1" class="w3-container sideTabs animate-fading">
     <h2 class="w3-padding fontthick fonthotpink">관리자 메인</h2><hr class="borderhotpink">
-    
     <!-- 관리자 메인 임시  -->
     <div style="width:1100px;height:1100px;border-right:2px solid #ff005a;float:left;">
     <div id="adminmain1" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
@@ -146,96 +144,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
     </div>
     <div class="borderhotpinkthick mainBorderRa" style="width:500px;min-height: 1000px;margin-left: 1150px;"> 여유 있으면 통계 같은거 넣자!</div>
   </div>
-<!--/관리자 메인 -------------------------------------------------------------------------------------------->
-
-<!-- /회원관리 ---------------------------------------------------------------------------------------------->
-  <%-- <div id="sideTabs2" class="w3-container sideTabs animate-fading" style="display:none;">
-   <c:import url="admin/adminUser.jsp"/>
-  </div> --%>
-<!-- /회원관리 ----------------------------------------------------------------------------------------------->
-
-<!-- 결제관리 ------------------------------------------------------------------------------------------------>
-  <%-- <div id="sideTabs3" class="w3-container sideTabs animate-fading" style="display:none">
-  <c:import url="admin/adminPayManage.jsp"/>
-  </div> --%>
-<!-- /결제관리------------------------------------------------------------------------------------------------>
-
-<!-- 고객센터 관리자-------------------------------------------------------------------------------------------->
-    <%-- <div id="sideTabs4" class="w3-container sideTabs animate-fading" style="display:none">
-   <c:import url="admin/adminNoticeAdmin.jsp"/>
-  </div> --%>
-<!-- /고객센터 관리자------------------------------------------------------------------------------------------->
-
-<!-- 고객센터 유저--------------------------------------------------------------------------------------------->
- <%-- <div id="sideTabs5" class="w3-container sideTabs animate-fading" style="display:none">
-<c:import url="admin/adminNoticeUser.jsp"/>
-</div> --%>
-<!-- /고객센터 유저 -------------------------------------------------------------------------------------------->
-
-<!-- (작업용)게시판-------------------------------------------------------------------------------------------->
-<%-- <div id="sideTabs6" class="w3-container sideTabs animate-fading"style="display:none">
-<c:import url="admin/adminBoardIDetailView.jsp"/>
-</div> --%>
-<!-- /(작업용)게시판------------------------------------------------------------------------------------------->
-
-<!-- (작업용)게시판 작성 ---------------------------------------------------------------------------------------->
-<%-- <div id="sideTabs8" class="w3-container sideTabs animate-fading"style="display:none">
-<c:import url="admin/adminBoardInsertForm.jsp"/>
-</div> --%>
-
-<!--  /(작업용)게시판 작성---------------------------------------------------------------------------------------->
-
-
 </div><!-- /관리자 페이지 주화면 -->
-
-
-<script>
-/*왼쪽 사이드텝 펑션  */
- /* function sideTab(evt, sideTab, tablink) {
-  var i, x, tablinks;
-  x = document.getElementsByClassName("sideTabs");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" hotpink fontwhite", ""); 
-    
-  }
-  document.getElementById(sideTab).style.display = "block";
-  document.getElementById(tablink).className += " hotpink fontwhite";
-  evt.currentTarget.className += " hotpink fontwhite";
-
-} */
-/* function moreBtn(evt, sideTab, tablink) {
-	  var i, x, tablinks;
-	  x = document.getElementsByClassName("sideTabs");
-	  for (i = 0; i < x.length; i++) {
-	    x[i].style.display = "none";
-	  }
-	  tablinks = document.getElementsByClassName("tablink");
-	  for (i = 0; i < x.length; i++) {
-	    tablinks[i].className = tablinks[i].className.replace(" hotpink fontwhite", ""); 
-
-	  }
-	  document.getElementById(sideTab).style.display = "block";
-	  document.getElementById(tablink).className += " hotpink fontwhite";
-	  evt.currentTarget.className += " hotpink fontwhite";
-
-	} */
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

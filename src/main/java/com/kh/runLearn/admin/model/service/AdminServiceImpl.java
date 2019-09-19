@@ -95,10 +95,6 @@ public class AdminServiceImpl implements AdminService {
 		return aDAO.allUserListMD(pi);
 	}
 	@Override
-	public ArrayList<Member> allUserListG(PageInfo pi) {//등급 정렬
-		return aDAO.allUserListG(pi);
-	}
-	@Override
 	public ArrayList<Member> allUserListS(PageInfo pi) {//상태 정렬
 		return aDAO.allUserListS(pi);
 	}
@@ -129,10 +125,6 @@ public class AdminServiceImpl implements AdminService {
 		return aDAO.allUserListMDR(pi);
 	}
 	@Override
-	public ArrayList<Member> allUserListGR(PageInfo pi) {//등급 정렬
-		return aDAO.allUserListGR(pi);
-	}
-	@Override
 	public ArrayList<Member> allUserListSR(PageInfo pi) {//상태 정렬
 		return aDAO.allUserListSR(pi);
 	}
@@ -148,7 +140,25 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return aDAO.allUserListNameR(pi);
 	}
-		
+	@Override
+	public ArrayList<Member> allUserListM(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return aDAO.allUserListM(pi);
+	}
+	@Override
+	public ArrayList<Member> allUserListTor(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return  aDAO.allUserListTor(pi);
+	}@Override
+	public ArrayList<Member> allUserListU(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return  aDAO.allUserListU(pi);
+	}
+	@Override
+	public ArrayList<Member> searchId(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return  aDAO.searchId(pi);
+	}
 	
 	
 	

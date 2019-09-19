@@ -38,12 +38,8 @@ public class AdminController {
 	}
 	//어드민 회원조회
 	@RequestMapping("adminUser.do")
-	public ModelAndView adminUser(@RequestParam(value="page",required=false)Integer page,
+	public ModelAndView adminUser(@RequestParam(value="page",required=false)Integer page,@RequestParam(value="i",required=false,defaultValue = "0")Integer i,
 											ModelAndView mv) {//어드민 회원 조회
-		int i=0;
-		
-		
-		
 		int currentPage=1;
 		if(page != null) {
 			currentPage= page;
@@ -55,8 +51,6 @@ public class AdminController {
 		int leaveUserCount= aService.leaveUserCount();
 		int adminUserCount= aService.adminUserCount();
 		
-		
-		
 		PageInfo pia= Pagination.getPageInfo(currentPage, allUserCount, 20);
 		PageInfo pitor= Pagination.getPageInfo(currentPage, tutorUserCount, 20);
 		PageInfo pitee= Pagination.getPageInfo(currentPage, tuteeUserCount, 20);
@@ -64,58 +58,8 @@ public class AdminController {
 		PageInfo pil= Pagination.getPageInfo(currentPage, leaveUserCount, 20);
 		PageInfo piad= Pagination.getPageInfo(currentPage, adminUserCount, 20);
 			ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
-		switch(i) {
-		case 0:	userList=aService.allUserList(pia);//모든회원 조회
-			break;
-		case 1:	  userList=aService.allUserListId(pia);//아이디 조회
-		break;
-		case 2:	 userList=aService.allUserListNick(pia);//닉네임 조회
-		break;
-		case 3:	 userList=aService.allUserListEm(pia);//이메일 조회
-		break;
-		case 4:	 userList=aService.allUserListPh(pia);//폰 조회
-		break;
-		case 5:	 userList=aService.allUserListMD(pia);//수정일 조회
-		break;
-		case 6:	userList=aService.allUserListG(pia);//등급 조회
-		break;
-		case 7:	  userList=aService.allUserListS(pia);//상태 조회
-		break;
-		
-		//오름
-		case 8:	 userList=aService.allUserListR(pia);//모든회원 조회
-		break;
-		case 9:	 userList=aService.allUserListIdR(pia);//모든회원 조회
-		break;
-		case 10: userList=aService.allUserListNickR(pia);//모든회원 조회
-		break;
-		case 11: userList=aService.allUserListEmR(pia);//모든회원 조회
-		break;
-		case 12: userList=aService.allUserListPhR(pia);//모든회원 조회
-		break;
-		case 13: userList=aService.allUserListMDR(pia);//모든회원 조회
-		break;
-		case 14:  userList=aService.allUserListGR(pia);//모든회원 조회
-		break;
-		case 15: userList=aService.allUserListSR(pia);//모든회원 조회
-		break;
-		case 16:  userList=aService.allUserListName(pia);//이름 내림
-		break;
-		case 17: userList=aService.allUserListNameR(pia);
-		break;
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-				System.out.println(userList);
+		System.out.println(i);
+		mv.addObject("i",i)		;
 		mv.addObject("userList",userList);
 		mv.addObject("pia",pia);
 		mv.addObject("pitor",pitor);
@@ -123,15 +67,49 @@ public class AdminController {
 		mv.addObject("pib",pib);
 		mv.addObject("pil",pil);
 		mv.addObject("piad",piad);
-		
 		mv.setViewName("admin/adminUser");
-		
+		return mv;
+	}
+	
+	//회원 아이디 검색
+	@RequestMapping("adminUserSearchId.do")
+	public ModelAndView adminUserSearchId(@RequestParam(value="page",required=false)Integer page,@RequestParam(value="i",required=false,defaultValue = "0")Integer i,
+											@RequestParam(value="search",required=false)String search,
+											ModelAndView mv) {//어드민 아이디 조회
+		int currentPage=1;
+		if(page != null) {
+			currentPage= page;
+		}
+		int allUserCount= aService.allUserCount();
+		int tutorUserCount= aService.tutorUserCount();
+		int tuteeUserCount= aService.tuteeUserCount();
+		int blackUserCount= aService.blackUserCount();
+		int leaveUserCount= aService.leaveUserCount();
+		int adminUserCount= aService.adminUserCount();
+		PageInfo pia= Pagination.getPageInfo(currentPage, allUserCount, 20);
+		PageInfo pitor= Pagination.getPageInfo(currentPage, tutorUserCount, 20);
+		PageInfo pitee= Pagination.getPageInfo(currentPage, tuteeUserCount, 20);
+		PageInfo pib= Pagination.getPageInfo(currentPage, blackUserCount, 20);
+		PageInfo pil= Pagination.getPageInfo(currentPage, leaveUserCount, 20);
+		PageInfo piad= Pagination.getPageInfo(currentPage, adminUserCount, 20);
+			ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
+		System.out.println(i);
+				System.out.println(userList);
+		mv.addObject("i",i)		;
+		mv.addObject("userList",userList);
+		mv.addObject("pia",pia);
+		mv.addObject("pitor",pitor);
+		mv.addObject("pitee",pitee);
+		mv.addObject("pib",pib);
+		mv.addObject("pil",pil);
+		mv.addObject("piad",piad);
+		mv.setViewName("admin/adminUser");
 		return mv;
 	}
 	
 	//  /회원 조회
 	@RequestMapping(value="targetUserUpdate.do", method = RequestMethod.POST)
-	public String targetTrInsert(@ModelAttribute Member m,@ModelAttribute Member_Image mi,@RequestParam("page") Integer page,HttpServletRequest request) {//해당회원 정보수정
+	public String targetTrInsert(@ModelAttribute Member m,@RequestParam("page") Integer page,HttpServletRequest request) {//해당회원 정보수정
 		int result = aService.targetUserUpdate(m);
 		
 
