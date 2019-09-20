@@ -279,7 +279,6 @@ public class MemberController {
 				}
 				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
 				
 				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -291,8 +290,11 @@ public class MemberController {
 		} else if (typecheck.equals("1") || typecheck.equals("00")) {
 			if (isUsable == false) {
 				int random = (int) (Math.random() * 10000);
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
 				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 				  
@@ -304,8 +306,11 @@ public class MemberController {
 		} else if (typecheck.equals("01") || typecheck.equals("02")) {
 			if (isUsable == false) {
 				int random = (int) (Math.random() * 10000);
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
 				String setfrom = "soomin3333@gmail.com";
 				String tomail = email;
