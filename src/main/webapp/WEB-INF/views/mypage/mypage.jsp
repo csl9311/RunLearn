@@ -351,8 +351,8 @@
 }
 
 #lecturelist:hover {
-	background: black;
-	color: white;
+	background: #fdffe2;
+
 }
 
 #tr1 {
@@ -509,8 +509,8 @@
 }
 
 #productlist:hover {
-	background: black;
-	color: white;
+	background: #fdffe2;
+	
 }
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -534,12 +534,14 @@
 					<div id="memberInformation">
 						<h3>${ loginUser.m_name }님</h3>
 						<label class="label1" id="update1" onclick="location.href='memberUpdate.do'">정보수정</label>
-						<c:if test="${m_grade eq 'T' }">
+						<c:if test="${m_grade eq '튜티' }">
 							<label class="label1" id="insertTuter">튜터신청</label>
 						</c:if>
+            
 						<c:url var="Apply" value="Apply.le"/>
-						<c:if test="${m_grade ne 'T'}">
+						<c:if test="${m_grade eq '튜터'}">
 							<label class="label1" id="classInsertButton" onclick="location.href='${Apply}'">강의등록</label>
+
 						</c:if>
 						<label class="label1" id="logout" onclick="location.href='logout.do'">로그아웃</label>
 					</div>
@@ -629,26 +631,26 @@
 			<div class="row">
 				<c:url var="lListView" value="mypage.do">
 					<c:param name="cate" value="수강목록" />
-					<c:param name="kind" value="강의" />
+					
 				</c:url>
 
 				<c:url var="tuterPage" value="mypage.do">
 					<c:param name="cate" value="튜터" />
-					<c:param name="kind" value="튜터" />
+					
 				</c:url>
 
 				<c:url var="selectList" value="mypage.do">
 					<c:param name="cate" value="강의찜목록" />
-					<c:param name="kind" value="강의" />
+					
 				</c:url>
 				<c:url var="productList" value="mypage.do">
 					<c:param name="cate" value="상품찜목록" />
-					<c:param name="kind" value="상품" />
+					
 				</c:url>
 
 				<c:url var="productpayList" value="mypage.do">
 					<c:param name="cate" value="결제상품" />
-					<c:param name="kind" value="상품" />
+					
 				</c:url>
 
 				<div id="content21" class="content21">수강생</div>
@@ -658,17 +660,17 @@
 			</div>
 
 			<div class="row" id="title2">
-				<div class="content21" id="lecturelist" onclick="location.href='${ lListView }'" <c:if test="${ cate eq '수강목록' || kind eq '강의' }">style="font-weight:bold; font-size:25px; color:red;" </c:if>>강의</div>
-				<div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록' || kind eq '상품' }">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
+				<div class="content21" id="lecturelist" onclick="location.href='${ lListView }'" <c:if test="${ cate eq '수강목록'}">style="font-weight:bold; font-size:25px; color:red;" </c:if>>강의</div>
+				<div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록'}">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
 			</div>
 			<!--  row끝 -->
 
 			<div class="row" id="sub1">
-				<c:if test="${ kind eq '강의' }">
+				<c:if test="${ cate eq '수강목록' || cate eq '강의찜목록' }">
 					<div class="content22" onclick="location.href='${ lListView }'" id="contentMenu1" <c:if test="${ cate eq '수강목록' }">style="font-weight:bold; font-size:25px;"</c:if>>수강목록</div>
 					<div class="content22" onclick="location.href='${ selectList }'" id="contentMenu3" <c:if test="${ cate eq '강의찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>강의찜목록</div>
 				</c:if>
-				<c:if test="${ kind eq '상품' }">
+				<c:if test="${ cate eq '상품찜목록' || cate eq '결제상품' }">
 					<div class="content22" onclick="location.href='${ productList }'" id="contentMenu4" <c:if test="${ cate eq '상품찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>상품찜목록</div>
 					<div class="content22" onclick="location.href='${ productpayList }'" id="contentMenu2" <c:if test="${ cate eq '결제상품' }">style="font-weight:bold; font-size:25px"</c:if>>결제상품</div>
 				</c:if>
@@ -775,7 +777,7 @@
 					<form action="product.pay" method="post">
 						<table>
 							<tr class="tr3" style="text-align: center;">
-								<th style="width: 150px;"><div class="title123">체크</div>
+								<th style="width: 150px;"><div class="title123"></div>
 								<th style="width: 200px;"><div class="title123">카테고리</div></th>
 								<th style="width: 300px; height: 25px;"><div class="title123">상품이미지</div></th>
 								<th style="width: 350px;"><div class="title123">상품명</div></th>
@@ -784,7 +786,7 @@
 								<th style="width: 150px;"><div class="lDate" id="lDate1">총가격</div></th>
 							</tr>
 							<c:if test="${empty pList }">
-								<td colspan="5" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+								<td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
 							</c:if>
 
 							<c:forEach var="i" items="${ pList }" varStatus="status">
@@ -948,7 +950,7 @@
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:url var="before" value="mypage.do">
 					<c:param name="cate" value="${ cate }" />
-					<c:param name="kind" value="${ kind }" />
+				
 					<c:param name="page" value="${ pi.currentPage - 1 }" />
 				</c:url>
 				<a href="${ before }">[이전]</a> &nbsp;
@@ -962,7 +964,7 @@
 				<c:if test="${ p ne currentPage }">
 					<c:url var="pagination" value="mypage.do">
 						<c:param name="cate" value="${ cate }" />
-						<c:param name="kind" value="${ kind }" />
+					
 						<c:param name="page" value="${ p }" />
 						<!--  blist.do?page=1과 같음  -->
 					</c:url>
@@ -975,7 +977,7 @@
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="after" value="mypage.do">
 					<c:param name="cate" value="${ cate }" />
-					<c:param name="kind" value="${ kind }" />
+				
 					<c:param name="page" value="${ pi.currentPage + 1 }" />
 				</c:url>
 				<a href="${ after }">[다음]</a>
@@ -1073,7 +1075,7 @@
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:url var="before" value="mypage.do">
 					<c:param name="cate" value="${ cate }" />
-					<c:param name="kind" value="${ kind }" />
+				
 					<c:param name="page" value="${ pi.currentPage - 1 }" />
 				</c:url>
 				<a href="${ before }">[이전]</a> &nbsp;
@@ -1088,7 +1090,7 @@
 				<c:if test="${ p ne currentPage }">
 					<c:url var="pagination" value="mypage.do">
 						<c:param name="cate" value="${ cate }" />
-						<c:param name="kind" value="${ kind }" />
+					
 						<c:param name="page" value="${ p }" />
 						<!--  blist.do?page=1과 같음  -->
 					</c:url>
@@ -1101,7 +1103,7 @@
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="after" value="mypage.do">
 					<c:param name="cate" value="${ cate }" />
-					<c:param name="kind" value="${ kind }" />
+				
 					<c:param name="page" value="${ pi.currentPage + 1 }" />
 				</c:url>
 				<a href="${ after }">[다음]</a>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +32,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -55,11 +58,6 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	
 
-	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
-	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
-	private static final HttpTransport transport = new NetHttpTransport();
-	private static final  JsonFactory jsonFactory = new JacksonFactory();
-
 	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")
 	public String memberInsertView() {
@@ -78,11 +76,6 @@ public class MemberController {
 		return "/member/signUpForm";
 	}
 	
-	/* 구글 회원가입 폼 */
-	@RequestMapping("gSignUp.do")
-	public String gSignUpForm() {
-		return "/member/signUpForm";
-	}
 
 	/* 로그아웃 */
 	@RequestMapping("logout.do")
@@ -426,72 +419,7 @@ public class MemberController {
 			throw new MemberException("암호 변경에 실패하였습니다 ;ㅅ;");
 		}
 	}
-	
-
 
 	
-	@RequestMapping("gLogin.do")
-	public ModelAndView gLogin(ModelAndView mv, String idtoken, HttpSession session, UriComponentsBuilder uriBuilder, Member m) {
-
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-// Specify the CLIENT_ID of the app that accesses the backend:
-				.setAudience(Collections
-						.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
-// Or, if multiple clients access the backend:
-//.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-				.build();
-
-// (Receive idTokenString by HTTPS POST)
-
-		GoogleIdToken idToken;
-		try {
-			idToken = verifier.verify(idtoken);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-		if (idToken != null) {
-			Payload payload = idToken.getPayload();
-
-			// Print user identifier
-			String userId = payload.getSubject();
-			System.out.println("User ID: " + userId);
-
-			String email = payload.getEmail();
-			String name = (String) payload.get("name");
-			String pictureUrl = (String) payload.get("picture");
-			String locale = (String) payload.get("locale");
-			System.out.println("email: " + email);
-			System.out.println("name: " + name);
-			System.out.println("pictureUrl: " + pictureUrl);
-			System.out.println("locale: " + locale);
-			
-			
-			RedirectView redirectView = new RedirectView();
-			
-			m.setM_id(userId);
-			
-			Member loginUser = mService.findMember(m);
-			if(loginUser != null) {
-				session.setAttribute("loginUser", loginUser);
-				redirectView.setUrl("home.do");
-				redirectView.setExposeModelAttributes(false);
-				mv.setView(redirectView);
-				return mv;
-			} else {
-				m.setM_name(name);
-				m.setM_email(email);
-				mv.addObject("pImg", pictureUrl);
-				redirectView.setUrl("gSignUp.do");
-				redirectView.setExposeModelAttributes(false);
-				mv.addObject("member", m);
-				mv.setView(redirectView);
-				return mv;
-			} 
-
-		} else {
-			System.out.println("Invalid ID token.");
-			throw new MemberException("구글 로그인 실패 ㅠㅠ");
-		}
-	}
+	
 }
