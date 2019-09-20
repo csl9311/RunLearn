@@ -14,5 +14,13 @@
 			INTO PRODUCT_PAY VALUES(PAYMENT_SEQ.CURRVAL, #{pp.p_option}, #{pp.p_num}, #{pp.p_pay_amount}, #{pp.pay_total}, #{pp.delivery})
 		SELECT * FROM DUAL
 	</insert>
-	
+	<update id="updateProductOption" parameterType="map">
+		UPDATE PRODUCT_OPTION
+		SET P_STOCK = (
+			SELECT P_STOCK - #{pp.p_pay_amount}
+			FROM PRODUCT_OPTION
+			WHERE P_OPTION = #{pp.p_option} and p_num = #{pp.p_num}
+			)
+		WHERE P_OPTION = #{pp.p_option} and p_num = #{pp.p_num}
+	</update>
 </mapper>

@@ -94,7 +94,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public ArrayList<Map<String, String>> productPayList(String userId, PageInfo pi) { // 결제상품목록
+	public ArrayList<Map<String, Object>> productPayList(String userId, PageInfo pi) { // 결제상품목록
 		return myDAO.productPayList(userId, pi);
 	}
 

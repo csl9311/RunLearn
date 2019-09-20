@@ -14,6 +14,7 @@ public class PaymentDAO {
 	private SqlSessionTemplate sqlSession;
 
 	public int insertProductPayment(HashMap<String, Object> map) {
+		sqlSession.update("paymentMapper.updateProductOption", map);
 		return sqlSession.insert("paymentMapper.insertProductPayment", map);
 	}
 

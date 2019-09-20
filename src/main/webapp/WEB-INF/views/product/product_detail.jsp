@@ -255,8 +255,8 @@
 			}
 			
 			function check(){
+				getTotal();
 				var stock = '${ poList }';
-				console.log(stock);
 				var user = '${sessionScope.loginUser.m_id}';
 				var $total = $('#total');
 				// 구매 버튼 클릭 시 로그인 안되어있다면 로그인 유도

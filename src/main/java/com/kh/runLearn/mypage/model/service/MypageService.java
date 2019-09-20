@@ -23,7 +23,7 @@ public interface MypageService {
 	int updateMember_Image(Member_Image mi); // 회원 정보 프로필 수정
 	Member_Image selectProfile(String userId); // 회원 프로필 사진
 	int productPayCount(String userId); // 상품결제 목록 수
-	ArrayList<Map<String, String>> productPayList(String userId, PageInfo pi); // 상품결제 목록
+	ArrayList<Map<String, Object>> productPayList(String userId, PageInfo pi); // 상품결제 목록
 	int insertEnterTutor(Board b);
 	int tuterLectureCount(String userId); // 튜터페이지 강의 수
 	Lecture selectLecture(String userId);
