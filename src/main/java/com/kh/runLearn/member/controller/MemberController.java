@@ -58,11 +58,6 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	
 
-	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
-	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
-	private static final HttpTransport transport = new NetHttpTransport();
-	private static final  JsonFactory jsonFactory = new JacksonFactory();
-
 	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")
 	public String memberInsertView() {
@@ -81,11 +76,6 @@ public class MemberController {
 		return "/member/signUpForm";
 	}
 	
-	/* 구글 회원가입 폼 */
-	@RequestMapping("gSignUp.do")
-	public String gSignUpForm() {
-		return "/member/signUpForm";
-	}
 
 	/* 로그아웃 */
 	@RequestMapping("logout.do")
@@ -429,59 +419,7 @@ public class MemberController {
 			throw new MemberException("암호 변경에 실패하였습니다 ;ㅅ;");
 		}
 	}
-	
-
 
 	
-	/*@RequestMapping("gLogin.do")
-	public ResponseEntity<?> tokenSignIn(Member m, String idtoken, HttpSession session, UriComponentsBuilder uriBuilder) {
-	    HttpHeaders headers = new HttpHeaders();
-	     
-	    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-	        .setAudience(Collections.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
-	        // Or, if multiple clients access the backend:
-	        //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-	        .build();
-	 
-	    // (Receive idTokenString by HTTPS POST)
-	 
-	    GoogleIdToken idToken;
-	    try {
-	      idToken = verifier.verify(idtoken);
-	    } catch (Exception e) {
-	      throw new RuntimeException(e);
-	    }
-	     
-	    if (idToken != null) {
-	      Payload payload = idToken.getPayload();
-	 
-	      // Print user identifier
-	      String userId = payload.getSubject();
-	 
-	      m.setM_email((String)payload.getEmail());
-	      m.setM_name((String) payload.get("name"));
-	      googleUser.setLocale((String) payload.get("locale"));
-	      googleUser.setFamilyName((String) payload.get("family_name"));
-	      googleUser.setGivenName((String) payload.get("given_name"));
-	 
-	 
-	      session.setAttribute("name", googleUser.getName());
-	      session.setAttribute("email", googleUser.getEmail());
-	 
-	      // Use or store profile information
-	 
-	      if(session!=null && session.getAttribute("url")!=null) {
-	        String param = (String)session.getAttribute("param");
-	        if(param == null) {
-	          headers.setLocation(uriBuilder.path((String)session.getAttribute("url")).build().toUri());
-	        }else {
-	          headers.setLocation(uriBuilder.path((String)session.getAttribute("url") + "?" + param).build().toUri());
-	        }
-	      }
-	    } else {
-	      throw new RuntimeException("Invalid ID token.");
-	    }
-	    headers.setLocation(uriBuilder.path("/").build().toUri());
-	    return new ResponseEntity<Void>(headers, HttpStatus.OK);
-	  }*/
+	
 }
