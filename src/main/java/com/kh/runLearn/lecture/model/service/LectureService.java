@@ -9,6 +9,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 import com.kh.runLearn.lecture.model.vo.Lecture_File;
 import com.kh.runLearn.lecture.model.vo.Lecture_Image;
+import com.kh.runLearn.lecture.model.vo.Wishlist;
 
 public interface LectureService {
 	int getListCount();//강의 전체 갯수 받아오기+
@@ -42,8 +43,6 @@ public interface LectureService {
 	int insertLecture_cImage(Lecture_Image li); //강의 상세,커리큘럼 이미지 추가+
 	int dropLectureImage(HashMap<String, Integer> map); //이미지 수정시 강의 이미지 제거.+
 	
-	int insertWishlist(Lecture l, String m_id); // 강의찜목록 등록+
-	int deleteWishlist(int l_num, String m_id); // 강의찜목록에서 삭제+
 	
 	
 	ArrayList<Map<String, String>> selectNewLectureList(); // home.jsp에 최신강의 조회
@@ -52,7 +51,10 @@ public interface LectureService {
 	String findEachNum(int l_num);
 	int updateLectureFile(Lecture_File lf);
 	int enableLectureEach(int l_each_num);
-	ArrayList userPayCheck(String m_id);
+	ArrayList userPayCheck(HashMap<String, Object> check);
+	int insertWishlist(HashMap<String, Object> wish); // 강의찜목록 등록+
+	Wishlist selectWishList(HashMap<String, Object> wish);
+	int deleteWishlist(HashMap<String, Object> wish);
 	
 
 

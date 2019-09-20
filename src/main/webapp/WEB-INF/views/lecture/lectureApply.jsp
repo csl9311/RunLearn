@@ -66,7 +66,7 @@
 			<div class="col-md-12 mb-4">
 				<div class="row">
 					<h3>강의 가격</h3>
-					<input type="number" class="form-control" name="l_price" placeholder="강의 가격을 입력해 주세요" value="" step="100" required>
+					<input type="number" class="form-control" name="l_price" placeholder="강의 가격을 입력해 주세요" value="" min="0" step="100" required>
 				</div>
 			</div>
 			<h3>카테고리</h3>

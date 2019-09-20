@@ -13,6 +13,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 import com.kh.runLearn.lecture.model.vo.Lecture_File;
 import com.kh.runLearn.lecture.model.vo.Lecture_Image;
+import com.kh.runLearn.lecture.model.vo.Wishlist;
 
 @Service("lService")
 public class LectureServiceImpl implements LectureService {
@@ -99,15 +100,6 @@ public class LectureServiceImpl implements LectureService {
 		return lDAO.insertLecture_cImage(li);
 	}
 	
-	@Override
-	public int insertWishlist(Lecture l, String m_id) {
-		return 0;
-	}
-
-	@Override
-	public int deleteWishlist(int l_num, String m_id) {
-		return 0;
-	}
 
 	@Override
 	public ArrayList selectLectureImage(HashMap<String, Integer> map) {
@@ -189,8 +181,23 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public ArrayList userPayCheck(String m_id) {
-		return lDAO.userPayCheck(m_id);
+	public ArrayList userPayCheck(HashMap<String, Object> check) {
+		return lDAO.userPayCheck(check);
+	}
+
+	@Override
+	public int insertWishlist(HashMap<String, Object> wish) {
+		return lDAO.insertWishlist(wish);
+	}
+
+	@Override
+	public Wishlist selectWishList(HashMap<String, Object> wish) {
+		return lDAO.selectWishList(wish);
+	}
+
+	@Override
+	public int deleteWishlist(HashMap<String, Object> wish) {
+		return lDAO.deleteWishlist(wish);
 	}
 
 }

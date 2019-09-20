@@ -14,6 +14,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 import com.kh.runLearn.lecture.model.vo.Lecture_File;
 import com.kh.runLearn.lecture.model.vo.Lecture_Image;
+import com.kh.runLearn.lecture.model.vo.Wishlist;
 
 @Repository("lDAO")
 public class LectureDAO {
@@ -154,8 +155,20 @@ public class LectureDAO {
 		return sqlSession.update("lectureMapper.enableLectureEach", l_each_num);
 	}
 
-	public ArrayList userPayCheck(String m_id) {
-		return (ArrayList)sqlSession.selectList("lectureMapper.userPayCheck", m_id);
+	public ArrayList userPayCheck(HashMap<String, Object> check) {
+		return (ArrayList)sqlSession.selectList("lectureMapper.userPayCheck", check);
+	}
+
+	public int insertWishlist(HashMap<String, Object> wish) {
+		return sqlSession.update("lectureMapper.insertWishlist", wish);
+	}
+
+	public Wishlist selectWishList(HashMap<String, Object> wish) {
+		return sqlSession.selectOne("lectureMapper.selectWishList", wish);
+	}
+
+	public int deleteWishlist(HashMap<String, Object> wish) {
+		return sqlSession.delete("lectureMapper.deleteWishlist", wish);
 	}
 
 	
