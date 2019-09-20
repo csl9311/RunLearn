@@ -81,6 +81,7 @@ public class MypageController {
 
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
+			loginUser.setM_grade(m.getM_grade());
 			loginUser.setM_email(m.getM_email());
 			loginUser.setM_phone(m.getM_phone());
 			loginUser.setPostnum(m.getPostnum());
@@ -92,7 +93,6 @@ public class MypageController {
 		}
 		model.addAttribute("profile", profile);
 		model.addAttribute("cate", "수강목록");
-		model.addAttribute("kind", "강의");
 		return "redirect:mypage.do?";
 	}
 
@@ -136,16 +136,9 @@ public class MypageController {
 		int nPayPcount = myService.selectPlistCount(userId);
 		int count = 1;
 		Member_Image profile = myService.selectProfile(userId);
-
+		
 		if (page != null) {
 			currentPage = page;
-		}
-
-		String m_grade = "";
-		if (loginUser.getM_grade().equals("튜터")) {
-			m_grade = "튜터";
-		} else if (loginUser.getM_grade().equals("U")) {
-			m_grade = "튜티";
 		}
 
 		if (cate.equals("수강목록")) {
@@ -240,7 +233,6 @@ public class MypageController {
 		}
       
 		mv.addObject("profile", profile);
-		mv.addObject("m_grade", m_grade);
 		mv.addObject("lCount", lCount);
 		mv.addObject("nPayLcount", nPayLcount);
 		mv.addObject("nPayPcount", nPayPcount);

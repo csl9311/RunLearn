@@ -3,6 +3,7 @@ package com.kh.runLearn.admin.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,8 +56,8 @@ public class AdminController {
 		PageInfo pib= Pagination.getPageInfo(currentPage, blackUserCount, 20);
 		PageInfo pil= Pagination.getPageInfo(currentPage, leaveUserCount, 20);
 		PageInfo piad= Pagination.getPageInfo(currentPage, adminUserCount, 20);
-			ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
-			ArrayList<Board> boardList=aService.boardListA(blc);//모든보드 조회
+		ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
+		ArrayList<Board> boardList=aService.boardListA(blc);//모든보드 조회
 			
 		System.out.println(i);
 		mv.addObject("boardList",boardList);
@@ -116,6 +117,7 @@ public class AdminController {
 	public String targetTrInsert(@ModelAttribute Member m,@RequestParam("page") Integer page,HttpServletRequest request) {//해당회원 정보수정
 		int result = aService.targetUserUpdate(m);
 		if(result>0) {
+			
 			return "redirect:adminUser.do";
 		} else { 
 			throw new Exception("회원수정에 실패하였습니다");

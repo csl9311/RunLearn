@@ -37,7 +37,11 @@ public class SearchController {
 		ArrayList lList= sService.selectLecture(map);
 		
 		ArrayList pList = sService.selectProduct(map);
-		
+		if(!pList.isEmpty()) {		
+			for(int i = 0 ; i < pList.size(); i ++) {
+				System.out.println(pList.get(i));
+			}
+		}
 		mv.addObject("lList", lList);
 		mv.addObject("pList", pList);
 		mv.addObject("search", search);
