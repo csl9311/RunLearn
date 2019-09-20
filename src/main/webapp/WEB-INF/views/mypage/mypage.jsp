@@ -351,8 +351,8 @@
 }
 
 #lecturelist:hover {
-	background: black;
-	color: white;
+	background: #fdffe2;
+
 }
 
 #tr1 {
@@ -509,8 +509,8 @@
 }
 
 #productlist:hover {
-	background: black;
-	color: white;
+	background: #fdffe2;
+	
 }
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -534,11 +534,11 @@
 					<div id="memberInformation">
 						<h3>${ loginUser.m_name }님</h3>
 						<label class="label1" id="update1" onclick="location.href='memberUpdate.do'">정보수정</label>
-						<c:if test="${m_grade eq 'T' }">
+						<c:if test="${m_grade eq '튜티' }">
 							<label class="label1" id="insertTuter">튜터신청</label>
 						</c:if>
 
-						<c:if test="${m_grade ne 'T'}">
+						<c:if test="${m_grade eq '튜터'}">
 							<label class="label1" id="classInsertButton" onclick="location.href='#'">강의등록</label>
 						</c:if>
 						<label class="label1" id="logout" onclick="location.href='logout.do'">로그아웃</label>
@@ -658,8 +658,8 @@
 			</div>
 
 			<div class="row" id="title2">
-				<div class="content21" id="lecturelist" onclick="location.href='${ lListView }'" <c:if test="${ cate eq '수강목록' || kind eq '강의' }">style="font-weight:bold; font-size:25px; color:red;" </c:if>>강의</div>
-				<div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록' || kind eq '상품' }">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
+				<div class="content21" id="lecturelist" onclick="location.href='${ lListView }'" <c:if test="${ cate eq '수강목록'}">style="font-weight:bold; font-size:25px; color:red;" </c:if>>강의</div>
+				<div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록'}">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
 			</div>
 			<!--  row끝 -->
 
@@ -779,7 +779,7 @@
 					<form action="product.pay" method="post">
 						<table>
 							<tr class="tr3" style="text-align: center;">
-								<th style="width: 150px;"><div class="title123">체크</div>
+								<th style="width: 150px;"><div class="title123"></div>
 								<th style="width: 200px;"><div class="title123">카테고리</div></th>
 								<th style="width: 300px; height: 25px;"><div class="title123">상품이미지</div></th>
 								<th style="width: 350px;"><div class="title123">상품명</div></th>
@@ -788,7 +788,7 @@
 								<th style="width: 150px;"><div class="lDate" id="lDate1">총가격</div></th>
 							</tr>
 							<c:if test="${empty pList }">
-								<td colspan="5" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+								<td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
 							</c:if>
 
 							<c:forEach var="i" items="${ pList }" varStatus="status">

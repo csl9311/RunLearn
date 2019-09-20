@@ -144,7 +144,7 @@ public class MypageController {
 		String m_grade = "";
 		if (loginUser.getM_grade().equals("튜터")) {
 			m_grade = "튜터";
-		} else if (loginUser.getM_grade().equals("튜티")) {
+		} else if (loginUser.getM_grade().equals("U")) {
 			m_grade = "튜티";
 		}
 

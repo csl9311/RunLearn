@@ -18,40 +18,49 @@
 </head>
 <c:import url="../common/header.jsp" />
 <body>
+
+	
 	<div style="height:50vh;">
 		<div class="content center">
 			<div class="row">
-			
 				<form id="auto" action="payment.save" method="post">
+					
 					<div>
 						<input type="radio" name="method" value="basicAddress" checked><label>기존 주소 사용</label>
 					</div>
+					
 					<div>
 						<input type="radio" name="method" value="newAddress"><label>새로운 주소 등록</label>
 						<div id="newAddress" style="display:none;" >
-							<div class="input1">
-								<label>우편번호 : </label>
-								<input type="text" id="sample4_postcode" placeholder="우편번호" name="postnum" onclick="btnClick();" value="${ map.m.postnum }">
-								<input id="findBtn" type="button" class="btn" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">
-							</div>
-							<br>
-							<div class="input1">
-								<label>지번주소 : </label>
-								<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="g_address" onclick="btnClick();" value="${ map.m.g_address }" style="width: 40%;">
-							</div>
-							<br>
-							<div class="input1">
-								<label>도로명주소 : </label>
-								<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="r_address" onclick="btnClick();" value=" ${ map.m.r_address }" style="width: 40%;">
-							</div>
-							<br>
-							<div class="input1">
-								<label>상세주소 : </label>
-								<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="d_address" value="${ map.m.d_address }" style="width: 40%;">
-							</div>
-							<span id="guide" style="color: #999; display: none"></span>
+							<table class="table">
+								<tr>
+									<td style="text-align: right; width: 45vw;"><label>우편번호 : </label></td>
+									<td style="text-align: left; width: 55vw;">
+										<input type="text" id="sample4_postcode" placeholder="우편번호" name="postnum" onclick="btnClick();" value="${ map.m.postnum }">
+										<input id="findBtn" type="button" class="btn" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: right"><label>지번주소 : </label></td>
+									<td style="text-align: left"><input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="g_address" onclick="btnClick();" value="${ map.m.g_address }" style="width: 40%;"></td>
+								</tr>
+								<tr>
+									<td style="text-align: right"><label>도로명주소 : </label></td>
+									<td style="text-align: left"><input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="r_address" onclick="btnClick();" value="${ map.m.r_address }" style="width: 40%;"></td>
+								</tr>
+								<tr>
+									<td style="text-align: right"><label>상세주소 : </label></td>
+									<td style="text-align: left">
+										<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="d_address" value="${ map.m.d_address }" style="width: 40%;">
+										<span id="guide" style="color: #999; display: none"></span>
+									</td>
+								</tr>
+							</table>
 						</div>
+						
+						
 					</div>
+					
 					<br>
 					
 					<input id="p_num" type="hidden" name="p_num" value="${ map.p.p_num }">
