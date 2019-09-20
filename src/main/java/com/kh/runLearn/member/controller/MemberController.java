@@ -3,7 +3,6 @@ package com.kh.runLearn.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,19 +24,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 
 @SessionAttributes("loginUser")
@@ -54,12 +48,9 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-
 	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
 	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
-	private static final HttpTransport transport = new NetHttpTransport();
-	private static final  JsonFactory jsonFactory = new JacksonFactory();
-
+	
 	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")
 	public String memberInsertView() {
@@ -78,11 +69,6 @@ public class MemberController {
 		return "/member/signUpForm";
 	}
 	
-	/* 구글 회원가입 폼 */
-	@RequestMapping("gSignUp.do")
-	public String gSignUpForm() {
-		return "/member/signUpForm";
-	}
 
 	/* 로그아웃 */
 	@RequestMapping("logout.do")
@@ -259,7 +245,7 @@ public class MemberController {
 	public ModelAndView checkPhone(ModelAndView mv, Member m, String typecheck) {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		String phoneNum1;
-		String phoneNum2;
+		String phoneNum2 = "";
 
 		if (typecheck.equals("0") || typecheck.equals("00") || typecheck.equals("1")) {
 			phoneNum1 = m.getM_phone();
@@ -293,36 +279,38 @@ public class MemberController {
 				}
 				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
-				/*
-				 * Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				 * 
-				 * Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to new
-				 * PhoneNumber("+12563716554"), // from "만취남녀 회원가입 인증번호는 [" + phoneCheck +
-				 * "] 입니다.").create();
-				 */
+				
+				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				 
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), new PhoneNumber("+12563716554"),
+						"만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();
+				 
 			}
 		} else if (typecheck.equals("1") || typecheck.equals("00")) {
 			if (isUsable == false) {
 				int random = (int) (Math.random() * 10000);
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
-				/*
-				 * Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				 * 
-				 * Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to new
-				 * PhoneNumber("+12563716554"), // from "만취남녀 인증번호는 [" + phoneCheck +
-				 * "] 입니다.").create();
-				 */
+				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				  
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), new PhoneNumber("+12563716554"), 
+						"만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();
+				 
 
 			}
 		} else if (typecheck.equals("01") || typecheck.equals("02")) {
 			if (isUsable == false) {
 				int random = (int) (Math.random() * 10000);
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
 				String setfrom = "soomin3333@gmail.com";
 				String tomail = email;
@@ -426,72 +414,7 @@ public class MemberController {
 			throw new MemberException("암호 변경에 실패하였습니다 ;ㅅ;");
 		}
 	}
-	
-
 
 	
-	@RequestMapping("gLogin.do")
-	public ModelAndView gLogin(ModelAndView mv, String idtoken, HttpSession session, UriComponentsBuilder uriBuilder, Member m) {
-
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-// Specify the CLIENT_ID of the app that accesses the backend:
-				.setAudience(Collections
-						.singletonList("654607030007-rmvtt0rfkcr0qtntboeh3aqjas5djvdf.apps.googleusercontent.com"))
-// Or, if multiple clients access the backend:
-//.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-				.build();
-
-// (Receive idTokenString by HTTPS POST)
-
-		GoogleIdToken idToken;
-		try {
-			idToken = verifier.verify(idtoken);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-		if (idToken != null) {
-			Payload payload = idToken.getPayload();
-
-			// Print user identifier
-			String userId = payload.getSubject();
-			System.out.println("User ID: " + userId);
-
-			String email = payload.getEmail();
-			String name = (String) payload.get("name");
-			String pictureUrl = (String) payload.get("picture");
-			String locale = (String) payload.get("locale");
-			System.out.println("email: " + email);
-			System.out.println("name: " + name);
-			System.out.println("pictureUrl: " + pictureUrl);
-			System.out.println("locale: " + locale);
-			
-			
-			RedirectView redirectView = new RedirectView();
-			
-			m.setM_id(userId);
-			
-			Member loginUser = mService.findMember(m);
-			if(loginUser != null) {
-				session.setAttribute("loginUser", loginUser);
-				redirectView.setUrl("home.do");
-				redirectView.setExposeModelAttributes(false);
-				mv.setView(redirectView);
-				return mv;
-			} else {
-				m.setM_name(name);
-				m.setM_email(email);
-				mv.addObject("pImg", pictureUrl);
-				redirectView.setUrl("gSignUp.do");
-				redirectView.setExposeModelAttributes(false);
-				mv.addObject("member", m);
-				mv.setView(redirectView);
-				return mv;
-			} 
-
-		} else {
-			System.out.println("Invalid ID token.");
-			throw new MemberException("구글 로그인 실패 ㅠㅠ");
-		}
-	}
+	
 }

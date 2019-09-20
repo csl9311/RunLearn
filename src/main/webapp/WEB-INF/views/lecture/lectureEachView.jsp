@@ -73,7 +73,7 @@ td:hover{
 				<td onclick="location.href='${ eachContent }'">${ list.get(i).L_EACH_NAME }</td>
 				<td>
 					<c:if test="${ list.get(i).L_FILE_VIDEO ne null }">
-						<button class="btn btn-sm btn-primary" onclick="location.href='${ mediaView }'">듣기</button>
+						<button class="btn btn-xs btn-primary" onclick="location.href='${ mediaView }'">듣기</button>
 					</c:if>
 				</td>
 				

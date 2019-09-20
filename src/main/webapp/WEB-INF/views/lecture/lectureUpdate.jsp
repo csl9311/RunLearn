@@ -671,7 +671,7 @@
 					<div class="col-md-2 mb-3">
 						<div class="custom-control custom-radio" onclick="openAddress();">
 							<input id="offline" name="l_system" type="radio"
-								class="custom-control-input" value="1" checked required> <label
+								class="custom-control-input" value="1" <c:if test="${ list.L_SYSTEM == 1 }">checked</c:if> required> <label
 								class="custom-control-label" for="offline" id="offlineLabel">현장강의</label>
 						</div>
 					</div>
@@ -680,8 +680,8 @@
 						<div class="custom-control custom-radio"
 							onclick="closeAddress();">
 							<input id="online" name="l_system" type="radio"
-								class="custom-control-input" value="0" required> <label
-								class="custom-control-label" for="online" id="onlineLabel">온라인
+								class="custom-control-input" value="0" required <c:if test="${ list.L_SYSTEM == 0 }">checked</c:if>> <label
+								class="custom-control-label" for="online" id="onlineLabel"  >온라인
 								강의</label>
 						</div>
 					</div>
@@ -697,6 +697,7 @@
 		        	$('#sample4_detailAddress').val("");
 		        }
 		        </script>
+		        
 				<div class="mb-3 row" id="addressInput">
 					<div class="col-md-5 mb-3">
 						<label>강의 주소</label> <input type="hidden" id="sample4_postcode"
@@ -705,8 +706,8 @@
 							placeholder="도로명주소*" value="${ list.L_ADDRESS }" name="adr1" >
 					</div>
 					<div class="col-md-3 mb-3">
-						<label>(개인정보보호를 위해 수정시 상세주소는 출력되지 않습니다.)</label> <input type="text" class="form-control"
-							id="sample4_detailAddress" name="adr2" placeholder="상세주소*">
+						<label>　</label> <input type="text" class="form-control"
+							id="sample4_detailAddress" name="adr2" <c:if test="${ adrD ne null }">value="${ adrD }"</c:if> placeholder="상세주소*">
 					</div>
 					<div class="col-md-2 mb-3" align="center">
 						<div style="height: 40%;"></div>
@@ -738,20 +739,6 @@
 				<script>
 				function mapOpen(){
 					$('#mapC').slideDown();
-					
-					$.ajax({
-						url : "imageupload.le",
-						encType : "multipart/form-data",
-						type : "POST",
-						processData : false,
-						contentType : false,
-						cache : false,
-						data : Data,
-						dataType : 'JSON',
-						success : function(data){
-							console.log(data);
-						}
-					});
 					
 					var location = $('#sample4_roadAddress').val();
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -793,9 +780,14 @@
 				}
 				$(function(){
 					$('#mapC').css("display","none");
+					var oc = $("#system").val();
+					if(oc==0){
+						$("#addressInput").css("display","none");
+					}
 				});
 				</script>
 			</div>
+			<input type="hidden" id="system" value="${ list.L_SYSTEM }"/>
 			<h6></h6>
 			<div class="col-sm-12">
 				<div id="reply" style="height: 40px;"></div>
@@ -819,7 +811,7 @@
 			</div>
 			<h6>　</h6>
 			<div align="right">
-				<button type="button" class="btn btn-secondary" id="submitBtn" style="margin-right: 5%;">신청하기</button>
+				<button type="button" class="btn btn-secondary" id="submitBtn" style="margin-right: 5%;">수정하기</button>
 			</div>
 		</form>
 		<form id="ruploadForm" style="display: none;"></form>

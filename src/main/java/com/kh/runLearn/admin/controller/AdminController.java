@@ -3,6 +3,7 @@ package com.kh.runLearn.admin.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,31 +35,33 @@ public class AdminController {
 
 	// 어드민 회원조회
 	@RequestMapping("adminUser.do")
-	public ModelAndView adminUser(@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "i", required = false, defaultValue = "0") Integer i, ModelAndView mv) {// 어드민 회원 조회
-		int currentPage = 1;
-		if (page != null) {
-			currentPage = page;
-		}
-		int allUserCount = aService.allUserCount();
-		int tutorUserCount = aService.tutorUserCount();
-		int tuteeUserCount = aService.tuteeUserCount();
-		int blackUserCount = aService.blackUserCount();
-		int leaveUserCount = aService.leaveUserCount();
-		int adminUserCount = aService.adminUserCount();
-		int boardListCount = aService.boardListCount();
-		int boardListCountA = aService.boardListCountA();
 
-		PageInfo bla = Pagination.getPageInfo(currentPage, boardListCountA, 20);
-		PageInfo blc = Pagination.getPageInfo(currentPage, boardListCount, 20);
-		PageInfo pia = Pagination.getPageInfo(currentPage, allUserCount, 20);
-		PageInfo pitor = Pagination.getPageInfo(currentPage, tutorUserCount, 20);
-		PageInfo pitee = Pagination.getPageInfo(currentPage, tuteeUserCount, 20);
-		PageInfo pib = Pagination.getPageInfo(currentPage, blackUserCount, 20);
-		PageInfo pil = Pagination.getPageInfo(currentPage, leaveUserCount, 20);
-		PageInfo piad = Pagination.getPageInfo(currentPage, adminUserCount, 20);
-		ArrayList<Member> userList = aService.allUserList(pia);// 모든회원 조회
-		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
+	public ModelAndView adminUser(@RequestParam(value="page",required=false)Integer page,@RequestParam(value="i",required=false,defaultValue = "0")Integer i,
+											ModelAndView mv) {//어드민 회원 조회
+		int currentPage=1;
+		if(page != null) {
+			currentPage= page;
+		}
+		int allUserCount= aService.allUserCount();
+		int tutorUserCount= aService.tutorUserCount();
+		int tuteeUserCount= aService.tuteeUserCount();
+		int blackUserCount= aService.blackUserCount();
+		int leaveUserCount= aService.leaveUserCount();
+		int adminUserCount= aService.adminUserCount();
+		int boardListCount= aService.boardListCount();
+		int boardListCountA= aService.boardListCountA();
+		
+		PageInfo bla= Pagination.getPageInfo(currentPage, boardListCountA, 20);
+		PageInfo blc= Pagination.getPageInfo(currentPage, boardListCount, 20);
+		PageInfo pia= Pagination.getPageInfo(currentPage, allUserCount, 20);
+		PageInfo pitor= Pagination.getPageInfo(currentPage, tutorUserCount, 20);
+		PageInfo pitee= Pagination.getPageInfo(currentPage, tuteeUserCount, 20);
+		PageInfo pib= Pagination.getPageInfo(currentPage, blackUserCount, 20);
+		PageInfo pil= Pagination.getPageInfo(currentPage, leaveUserCount, 20);
+		PageInfo piad= Pagination.getPageInfo(currentPage, adminUserCount, 20);
+		ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
+		ArrayList<Board> boardList=aService.boardListA(blc);//모든보드 조회
+			
 
 		System.out.println(i);
 		mv.addObject("boardList", boardList);
@@ -373,6 +376,7 @@ public class AdminController {
 	public String targetTrBDelete(@ModelAttribute Member m, @RequestParam("page") Integer page,
 			HttpServletRequest request) {// 해당회원 정보수정
 		int result = aService.targetUserUpdate(m);
+
 		if (result > 0) {
 			return "redirect:adminUser.do";
 		} else {

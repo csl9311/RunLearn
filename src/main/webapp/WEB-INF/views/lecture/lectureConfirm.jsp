@@ -92,7 +92,7 @@
 			</div>
 			<div class="col-sm-12">
 			<c:if test="${ list.L_CONTENT ne null }">
-				<div>${ list.L_CONTENT }</div>
+				<div><pre style="background-color: white;">${ list.L_CONTENT }</pre></div>
 			</c:if>
 			<br>
 			<c:if test="${ !ic_list.isEmpty() }">
@@ -166,6 +166,7 @@
 					<label>이 강의는 온라인 강의이므로 위치정보를 지원하지 않습니다.</label>
 				</c:if>
 				<c:if test="${ list.L_SYSTEM eq 1 }">
+					<label>${ list.L_ADDRESS }</label>
 					<div id="mapC">
 					<div id="map" style="width: 100%; height: 350px;"></div>
 					<input type="hidden" value="${ list.L_ADDRESS }" id="adr"/> 
@@ -226,7 +227,7 @@
 		</div>
 		</div>
 		</div>
-	<div id="followquick" class="container">
+	<div id="followquick" class="container" style="padding-bottom: 15px">
 		<ul class="list-group mb-3" style="padding-top: 10px">
 			<li	class="list-group-item d-flex justify-content-between lh-condensed" onclick="location.href='#main'">
 				<div>
@@ -253,7 +254,7 @@
 					<h5 class="my-0">강사명 : ${ list.M_NAME }</h5>
 					<br>
 					<div align="center">
-					<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;">
+					<img src="${contextPath}/resources/images/member/${ list.M_CHANGED_NAME }" style="width:100%; height:100px;">
 					</div>
 				</div>
 				
@@ -276,7 +277,7 @@
 				<div>
 					<h5 class="my-0">강의 가격</h5>
 					<br>
-					<h6 class="my-0">${ list.L_PRICE }</h6>
+					<h6 class="my-0">${ list.L_PRICE }&#8361;</h6>
 				</div>
 				
 			</li>

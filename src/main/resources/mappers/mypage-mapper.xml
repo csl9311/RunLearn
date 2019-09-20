@@ -25,7 +25,7 @@
 	<select id="selectLectureView" parameterType="string" resultType="hashmap">  <!-- 마이페이지 수강목록 -->
 		select *
 		from LEC_VIEW
-		where M_ID = #{m_id} and L_STATUS = 'Y'
+		where M_ID = #{m_id} and L_STATUS = 'Y' and l_file_level = 0
 	</select>
 
 	<select id="selectLetureCount" parameterType="string" resultType="_int"> <!-- 마이페이지 수강목록 전체 수 -->
@@ -50,13 +50,13 @@
 	<select id="productPayList" parameterType="string" resultType="hashmap"> <!-- 결제 상품 목록 -->
 		select *
 		from PRODUCT_PAYVIEW
-		where M_ID = #{m_id} and P_STATUS = 'Y'
+		where M_ID = #{m_id}
 	</select>
 
 	<select id="productPayCount" parameterType="string" resultType="_int"> <!-- 결제 상품 목록 수 -->
 		select count(*)
 		from PRODUCT_PAYVIEW
-		where M_ID = #{m_id} and P_STATUS = 'Y'
+		where M_ID = #{m_id}
 	</select>
 
 	<select id="selectProductView" parameterType="string" resultType="hashmap">   <!-- 마이페이지 상품 찜목록 -->

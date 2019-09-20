@@ -31,7 +31,7 @@
 	margin-right: 480px;
 	text-align: center;
 	width: 200px;
-	min-height: 400px;
+	min-height: 300px;
 	background-color: aliceblue;
 	color: black;
 }
@@ -42,7 +42,7 @@
 	right: 50%;
 	margin-right: 480px;
 	width: 200px;
-	min-height: 400px;
+	min-height: 300px;
 	background-color: aliceblue;
 	color: black;
 	margin-top: 100px;
@@ -67,6 +67,8 @@
 .row .col-sm-2 a:hover {
 	cursor: pointer;
 }
+
+
 </style>
 </head>
 
@@ -92,7 +94,7 @@
 			</div>
 			<div class="col-sm-12">
 			<c:if test="${ list.L_CONTENT ne null }">
-				<div>${ list.L_CONTENT }</div>
+				<div><pre style="background-color: white;">${ list.L_CONTENT }</pre></div>
 			</c:if>
 			<br>
 			<c:if test="${ !ic_list.isEmpty() }">
@@ -114,8 +116,10 @@
 			</div>
 			<div class="col-sm-12">
 			<br>
-				<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;"><br>
+				<c:if test="${ !it_list.isEmpty() }">
+				<img src="${contextPath}/resources/images/lecture/${ it_list.get(0).L_CHANGED_NAME }" style="width:100%;"><br>
 				<label style="font-size: 15pt; font-weight: bold;">강사명 : ${ list.M_NAME }</label><br>
+				</c:if>
 			</div>
 			<div class="col-sm-12">
 			<div id="curr" style="height: 60px;"></div>
@@ -167,6 +171,7 @@
 					<label>이 강의는 온라인 강의이므로 위치정보를 지원하지 않습니다.</label>
 				</c:if>
 				<c:if test="${ list.L_SYSTEM eq 1 }">
+					<label>${ list.L_ADDRESS }</label>
 					<div id="mapC">
 					<div id="map" style="width: 100%; height: 350px;"></div>
 					<input type="hidden" value="${ list.L_ADDRESS }" id="adr"/> 
@@ -224,10 +229,42 @@
 			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
+			
+			<!-- 댓글시작 -->
+			<div>
+				<c:import url="../reply/replyView.jsp" />
+			</div>
+			<script>
+				reply('${ list.L_NUM }', '강의');
+				
+				$('#commentAddBtn').click(function() {
+					if ('${ loginUser }' != '') {
+						var result = insertReply('${ list.L_NUM }', '강의');
+						
+						if (result) {
+							reply('${ list.L_NUM }', '강의');
+						}
+					} else {
+						alert('로그인 후 이용가능합니다.');
+						$('#replySubmit').val("");
+					}
+				});
+				
+				function deleteBtn(btn) {
+					var r_num = btn.siblings('input').val();
+					var result = deleteReply(r_num);
+					
+					if (result) {
+						reply('${ list.L_NUM }', '강의');
+					}
+				}
+			</script>
+			<!-- 댓글끝 -->
+			
 		</div>
 		</div>
 		</div>
-	<div id="followquick" class="container">
+	<div id="followquick" class="container" style="padding-bottom: 15px">
 		<ul class="list-group mb-3" style="padding-top: 10px">
 			<li	class="list-group-item d-flex justify-content-between lh-condensed" onclick="location.href='#main'">
 				<div>
@@ -254,7 +291,7 @@
 					<h5 class="my-0">강사명 : ${ list.M_NAME }</h5>
 					<br>
 					<div align="center">
-					<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="height:100px;">
+					<img src="${contextPath}/resources/images/member/${ list.M_CHANGED_NAME }" style="width:100%; height:100px;">
 					</div>
 				</div>
 				
@@ -269,26 +306,60 @@
 				</div>
 			</li>
 		</ul>
-		
-		
+		<ul class="list-group mb-3">
+			<li class="list-group-item" onclick="location.href='#target'">
+				
+				<div>
+					<h5 class="my-0">강의 가격</h5>
+					<br>
+					<h6 class="my-0">${ list.L_PRICE }&#8361;</h6>
+				</div>
+				
+			</li>
+		</ul>
+		<c:if test="${ loginUser ne null }">
+		<c:if test="${ paycheck.isEmpty() && list.M_ID ne loginUser.m_id }">
 		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
 			<c:url var="lecturePay" value="lecture.pay">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
 			</c:url>
 			<div class="btn btn-primary" onclick="location.href='${ lecturePay }'">결제하기
 			</div>
-			<div class="btn btn-secondary">찜에추가
+			<c:if test="${ w_list.l_num ne list.L_NUM }">
+			<c:url var="lectureWish" value="lectureWish.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-secondary" onclick="location.href='${ lectureWish }'">찜에추가
 			</div>
+			</c:if>
+			<c:if test="${ w_list.l_num eq list.L_NUM }">
+			<c:url var="lectureWishDel" value="lectureWishDel.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-secondary" onclick="location.href='${ lectureWishDel }'">찜 해제
+			</div>
+			</c:if>
 		</div>
-		<c:forEach var="k" begin="0" end="${ paycheck.size()-1 }" step="1">
+		</c:if>
+		<c:if test="${ !paycheck.isEmpty() }">
 		<div>
 			<c:url var="LEMainView" value="lectureEachMainView.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
 			</c:url>
-			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'">강의보기
+			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'" style="width: 100%">강의보기
 			</div>
 		</div>
-		</c:forEach>
+		</c:if>
+		<c:if test="${ paycheck.isEmpty() && list.M_ID eq loginUser.m_id }">
+		<div>
+			<c:url var="LEMainView" value="lectureEachMainView.le">
+				<c:param name="l_num" value="${ list.L_NUM }"/>
+			</c:url>
+			<div class="btn btn-secondary" onclick="location.href='${ LEMainView }'" style="width: 100%">강의확인
+			</div>
+		</div>
+		</c:if>
+		</c:if>
 	</div>
 	<script>
 		$(window).scroll(function() {

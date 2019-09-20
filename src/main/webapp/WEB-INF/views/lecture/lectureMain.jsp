@@ -23,6 +23,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap" rel="stylesheet">
 <style>
 #Ctable td:hover {
 	cursor: pointer;
@@ -71,7 +72,7 @@
 					<div class="card mb-4 shadow-sm">
 						<img class="bd-placeholder-img card-img-top" width="100%"
 							height="225" src="${contextPath}/resources/images/lecture/${list.L_CHANGED_NAME}">
-						<div class="card-body row">
+						<div style="min-height:150px" class="card-body row">
 							<div class="col-md-8">
 								<p style="font-weight: bolder;">${ list.L_TITLE }</p>
 								<div class="d-flex align-items-center">
@@ -81,7 +82,7 @@
 							<div class="col-md-4">
 								<div class="peopleAttach">
 									<div class="peopleImage">
-										<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="width:100%; height:100%;">
+										<img src="${contextPath}/resources/images/member/${ list.M_CHANGED_NAME }" style="width:100%; height:65px;">
 									</div>
 									<div class="peopleContext" style="text-align: center;">
 									<p>${ list.M_NAME }</p>
@@ -94,7 +95,7 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div>
+		<div align="center" style="font-size: 15pt; font-family: 'Sunflower', sans-serif; margin-top: 30px">
 			<c:if test="${ list ne null }">
 				<c:if test="${ cName ne null }">
 					<c:set var="loc" value="/selectLectureList.le" scope="page"/>

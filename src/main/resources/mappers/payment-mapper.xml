@@ -3,18 +3,24 @@
 <mapper namespace="paymentMapper">
 
 	<insert id="insertPayment" parameterType="Payment">
-		insert into payment
-		values(payment_seq.nextval, #{pay_target}, sysdate, #{pay_method}, default, #{m_id})
+		insert into payment values(payment_seq.nextval, #{pay_target}, sysdate, #{pay_method}, default, #{m_id})
 	</insert>
 	<insert id="insertLecturePayment" parameterType="_int">
-		insert into lecture_pay
-		values(payment_seq.currval, #{l_num})
+		insert into lecture_pay values(payment_seq.currval, #{l_num})
 	</insert>
 	<insert id="insertProductPayment" parameterType="map">
-	INSERT ALL
-		INTO PAYMENT VALUES(PAYMENT_SEQ.NEXTVAL, #{pay.pay_target}, SYSDATE, #{pay.pay_method}, DEFAULT, #{pay.m_id})
-		INTO PRODUCT_PAY VALUES (PAYMENT_SEQ.CURRVAL, #{pp.p_option}, #{pp.p_num}, #{pp.p_pay_amount}, #{pp.pay_total}, #{pp.delivery})
-	SELECT * FROM DUAL
-
+		INSERT ALL
+			INTO PAYMENT VALUES(PAYMENT_SEQ.NEXTVAL, #{pay.pay_target}, SYSDATE, #{pay.pay_method}, DEFAULT, #{pay.m_id})
+			INTO PRODUCT_PAY VALUES(PAYMENT_SEQ.CURRVAL, #{pp.p_option}, #{pp.p_num}, #{pp.p_pay_amount}, #{pp.pay_total}, #{pp.delivery})
+		SELECT * FROM DUAL
 	</insert>
+	<update id="updateProductOption" parameterType="map">
+		UPDATE PRODUCT_OPTION
+		SET P_STOCK = (
+			SELECT P_STOCK - #{pp.p_pay_amount}
+			FROM PRODUCT_OPTION
+			WHERE P_OPTION = #{pp.p_option} and p_num = #{pp.p_num}
+			)
+		WHERE P_OPTION = #{pp.p_option} and p_num = #{pp.p_num}
+	</update>
 </mapper>

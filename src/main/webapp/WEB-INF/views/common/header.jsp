@@ -532,7 +532,6 @@ header .search .lcont input[type=text] {
 														<input type="button" onclick="signUp();" class="btn btn-primary btn-block btn-lg" value="로그인" />
 														<input id="urlInput" type="hidden" name="url" value="${document.location.href}">
 													</div>
-													<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 												</form>
 											</div>
 											<div class="modal-footer">
@@ -552,7 +551,6 @@ header .search .lcont input[type=text] {
 						<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id ne 'admin1' }">
 						<c:url var="lListView" value="mypage.do">
  						<c:param name="cate" value="수강목록"/>
- 						<c:param name="kind" value="강의"/>
  					 	</c:url>
 							<li id="myPage"><a href="${ lListView }">마이페이지</a></li>
 						</c:if>
@@ -560,9 +558,6 @@ header .search .lcont input[type=text] {
 							<li><a href="adminMain.do">관리자페이지</a></li>
 						</c:if>
 						<li><a href="cCenterView.do?b_category=공지사항">고객센터</a></li>
-						<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id eq 'admin1' }">
-							<li><a href="#">ID/PWD찾기</a></li>
-						</c:if>
 					</ul>
 				</div>
 			</div>
@@ -797,29 +792,6 @@ header .search .lcont input[type=text] {
 			}
 		});
 	}
-	
-	function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-        
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'gLogin.do');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-          console.log('Signed in as: ' + xhr.responseText);
-        };
-        xhr.send('idtoken=' + id_token);
-      }
 	</script>
 </body>
 </html>

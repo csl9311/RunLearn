@@ -172,19 +172,19 @@
 		<if test="price != null">
 			<choose>
 				<when test='price == "0"'>
-					and p_price = 0
+					and p_optionPrice = 0
 				</when>
 				<when test='price == "1"'>
-					and p_price between 1 and 9999
+					and p_optionPrice between 1 and 9999
 				</when>
 				<when test='price == "2"'>
-					and p_price between 10000 and 20000
+					and p_optionPrice between 10000 and 20000
 				</when>
 				<when test='price == "3"'>
-					and p_price between 20000 and 30000
+					and p_optionPrice between 20000 and 30000
 				</when>
 				<when test='price == "4"'>
-					and p_price > 30000
+					and p_optionPrice > 30000
 				</when>
 			</choose>
 		</if>
@@ -200,19 +200,19 @@
         <if test="price != null">
         	<choose>
         		<when test='price == "0"'>
-        			and p_price = 0
+        			and p_optionPrice = 0
         		</when>
         		<when test='price == "1"'>
-        			and p_price between 1 and 9999
+        			and p_optionPrice between 1 and 9999
         		</when>
         		<when test='price == "2"'>
-        			and p_price between 10000 and 20000
+        			and p_optionPrice between 10000 and 20000
         		</when>
         		<when test='price == "3"'>
-        			and p_price between 20000 and 30000
+        			and p_optionPrice between 20000 and 30000
         		</when>
         		<when test='price == "4"'>
-        			and p_price > 30000
+        			and p_optionPrice > 30000
         		</when>
         	</choose>
         </if>

@@ -81,6 +81,7 @@ public class MypageController {
 
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
+			loginUser.setM_grade(m.getM_grade());
 			loginUser.setM_email(m.getM_email());
 			loginUser.setM_phone(m.getM_phone());
 			loginUser.setPostnum(m.getPostnum());
@@ -92,7 +93,6 @@ public class MypageController {
 		}
 		model.addAttribute("profile", profile);
 		model.addAttribute("cate", "수강목록");
-		model.addAttribute("kind", "강의");
 		return "redirect:mypage.do?";
 	}
 
@@ -126,7 +126,7 @@ public class MypageController {
 
 	@RequestMapping("mypage.do")
 	public ModelAndView myPage(@RequestParam(value = "page", required = false) Integer page, HttpSession session,
-			ModelAndView mv, @RequestParam("cate") String cate, @RequestParam("kind") String kind) {
+			ModelAndView mv, @RequestParam("cate") String cate) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
 		int currentPage = 1;
@@ -136,19 +136,12 @@ public class MypageController {
 		int nPayPcount = myService.selectPlistCount(userId);
 		int count = 1;
 		Member_Image profile = myService.selectProfile(userId);
-
+		
 		if (page != null) {
 			currentPage = page;
 		}
 
-		String m_grade = "";
-		if (loginUser.getM_grade().equals("M")) {
-			m_grade = "튜터";
-		} else if (loginUser.getM_grade().equals("U")) {
-			m_grade = "튜티";
-		}
-
-		if (cate.equals("수강목록") && kind.equals("강의")) {
+		if (cate.equals("수강목록")) {
 			int listCount = myService.selectLectureCount(userId); // 수강목록 수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, String>> lList = myService.selectLectureView(userId, pi); // 수강목록
@@ -158,7 +151,7 @@ public class MypageController {
 			mv.addObject("count", count);
 		}
 
-		if (cate.equals("강의찜목록") && kind.equals("강의")) {
+		if (cate.equals("강의찜목록")) {
 			int listCount = myService.selectNopayLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> noPaylList = myService.selectNoPayLectureView(userId, pi); // 강의 찜목록
@@ -166,9 +159,9 @@ public class MypageController {
 			for (int i = 0; i < noPaylList.size(); i++) {
 				int system = Integer.parseInt(String.valueOf(noPaylList.get(i).get("L_SYSTEM")));
 				if (system == 0) {
-					noPaylList.get(i).put("L_SYSTEM", "현장");
-				} else if (system == 1) {
 					noPaylList.get(i).put("L_SYSTEM", "영상");
+				} else if (system == 1) {
+					noPaylList.get(i).put("L_SYSTEM", "현장");
 				}
 			}
 
@@ -177,7 +170,8 @@ public class MypageController {
 			mv.addObject("pi", pi);
 		}
 
-		if ((cate.equals("상품찜목록") && kind.equals("상품")) || cate.equals("productCate")) {
+
+		if (cate.equals("상품찜목록")) {
 			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
@@ -197,19 +191,31 @@ public class MypageController {
 
 		}
 
-		if (cate.equals("결제상품") && kind.equals("상품")) {
+		if (cate.equals("결제상품") || cate.equals("productPay")) {
 			int listCount = myService.productPayCount(userId); // 결제상품수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-			ArrayList<Map<String, String>> pList = myService.productPayList(userId, pi); // 상품 찜목록
+			ArrayList<Map<String, Object>> pList = myService.productPayList(userId, pi); // 상품 결제목록
+			for (int i = 0; i < pList.size(); i++) {
+				String p_option = "";
+				p_option = pList.get(i).get("P_OPTION").toString();
+				if (!p_option.equals("")) {
+					Product_Option po = myService.selectProductOption(p_option);
+					pList.get(i).put("po", po);
+				} else {
+					break;
+				}
+			}
+			
+			for(int i = 0 ; i < pList.size(); i ++) {
+				System.out.println("pList : " + pList.get(i));
+			}
+			mv.addObject("productPay", "productPay");
 			mv.addObject("pList", pList);
 			mv.addObject("listCount", listCount);
 			mv.addObject("pi", pi);
-
-			System.out.println(pList);
-
 		}
 
-		if (cate.equals("튜터") || kind.equals("튜터")) {
+		if (cate.equals("튜터")) {
 			int listCount = myService.tuterLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> tLectureList = myService.selectTuterLecturePageView(userId, pi);
@@ -223,13 +229,12 @@ public class MypageController {
 
 			}
 
-			System.out.println(tLectureList);
 			for (int i = 0; i < tLectureList.size(); i++) {
 				int system = Integer.parseInt(String.valueOf(tLectureList.get(i).get("L_SYSTEM")));
 				if (system == 0) {
-					tLectureList.get(i).put("L_SYSTEM", "현장");
-				} else if (system == 1) {
 					tLectureList.get(i).put("L_SYSTEM", "영상");
+				} else if (system == 1) {
+					tLectureList.get(i).put("L_SYSTEM", "현장");
 				}
 			}
 
@@ -237,10 +242,8 @@ public class MypageController {
 			mv.addObject("tLectureList", tLectureList);
 
 		}
-
-		mv.addObject("kind", kind);
+      
 		mv.addObject("profile", profile);
-		mv.addObject("m_grade", m_grade);
 		mv.addObject("lCount", lCount);
 		mv.addObject("nPayLcount", nPayLcount);
 		mv.addObject("nPayPcount", nPayPcount);

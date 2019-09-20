@@ -1443,7 +1443,7 @@ span.suc1{color: green;}
 			<hr>
 			<div class="acenter">
 			<button type="button" onclick="signUp();" class="btn btn-outline-primary">가입하기</button>
-			<button type="button" class="btn btn-outline-danger" onclick="reset();">취소하기</button>
+			<button type="button" class="btn btn-outline-danger" onclick="cancel();">취소하기</button>
 			</div>
 			<script>
 			function signUp(){
@@ -1492,6 +1492,9 @@ span.suc1{color: green;}
 					$(Form).submit();
 					window.parent.location.href='${contextPath}';
 				}
+			}
+			function cancel(){
+				window.parent.location.href='${contextPath}';
 			}
 			</script>
 			</form>

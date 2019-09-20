@@ -132,6 +132,11 @@ input {
 #updateFont {
    font-size: 20px;
 }
+.fontA{
+	color:#c20000;
+	font-size:13px;
+}
+
 </style>
 
 
@@ -192,8 +197,52 @@ input {
 
                <div class="input1">
                   <label>새 비밀번호 :</label>
-                  <input type="password" name="m_pw" value="" id="userPw2" style="width: 50%;">
+                  <input type="password"  name="m_pw" value="" id="userPw2" style="width: 50%;">
+                <span id="pwp" class="fontA"></span><br>
+					<span class="pc" style="color: gray;">변경시 6자리 영문자와 숫자, 특수문자가 1회이상 사용되어야합니다.</span>
+					<span class="pc error1" style="color: red;">6자리 이상의 비밀번호를 입력해주세요.</span>
+					<span class="pc error2" style="color: red;">영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.</span>
+					<span class="pc suc" style="color: green;">사용 가능합니다.</span> 
                </div>
+                <script>
+				$(".pc.error1").hide();
+				$(".pc.error2").hide();
+				$(".pc.suc").hide();
+		
+				function pwCheck(){
+					alert('비밀번호를 확인해주세요.');
+				}
+				var regPw = /^.*(?=^.{6,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+				
+
+				$("#userPw2").on("keyup", function() {
+					$("#update").attr("type","button");
+					$("#update").attr("onclick","pwCheck();");
+					
+					var pw = $(this).val();
+					var pwc = $("#m_pwc").val();
+					
+				    if (pw.length > 0 && pw.length < 6) {
+				      	$(".pc").hide();
+					    $(".pc.error1").show();
+					   	$("#update").attr("type", "button");
+					   	
+				    } else if (!regPw.test(pw)) {
+				    	$(".pc").hide();
+						$(".pc.error2").show();
+						$("#update").attr("type", "button");
+				
+				    } else {
+				    	$(".pc").hide();
+						$(".pc.suc").show();
+						$("#update").removeAttr("onclick");
+						$("#update").attr("type", "submit");
+					}
+				});
+		
+				
+
+               </script> 
 
                <div class="input1">
                   <label>이메일:</label>
@@ -233,7 +282,10 @@ input {
 
 
             <div id="right">
-            <div id="updateFont" style="width: 100%;" class="alert alert-warning">프로필 사진을 선택해주세요.</div>   
+            <div id="updateFont" style="width: 100%;" class="alert alert-warning">
+            	<label>프로필 사진을 선택해주세요.</label>
+            
+            </div>   
                
                 <div id="imagebox" style="width:300px; height:300px; background:white;">
                <img src="${contextPath}/resources/images/member/${ profile.m_changed_name }" id="image123" style="width:300px; height:300px; background:white;"/>
@@ -252,9 +304,7 @@ input {
 
       <div id="submitButton" class="container">
          <button type="submit" id="update">수정하기</button>
-
       </div>
-
    </form>
 
    <br>

@@ -81,7 +81,7 @@ public class MypageDAO {
 		return sqlSession.selectOne("mypageMapper.selectProductOption", p_option);
 	}
 
-	public ArrayList<Map<String, String>> productPayList(String userId, PageInfo pi) { // 결제상품 목록
+	public ArrayList<Map<String, Object>> productPayList(String userId, PageInfo pi) { // 결제상품 목록
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("mypageMapper.productPayList", userId, rowBounds);
