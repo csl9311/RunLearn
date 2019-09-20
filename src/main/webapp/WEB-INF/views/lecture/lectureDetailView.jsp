@@ -229,6 +229,38 @@
 			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
 			</div>
 			</div>
+			
+			<!-- 댓글시작 -->
+			<div>
+				<c:import url="../reply/replyView.jsp" />
+			</div>
+			<script>
+				reply('${ list.L_NUM }', '강의');
+				
+				$('#commentAddBtn').click(function() {
+					if ('${ loginUser }' != '') {
+						var result = insertReply('${ list.L_NUM }', '강의');
+						
+						if (result) {
+							reply('${ list.L_NUM }', '강의');
+						}
+					} else {
+						alert('로그인 후 이용가능합니다.');
+						$('#replySubmit').val("");
+					}
+				});
+				
+				function deleteBtn(btn) {
+					var r_num = btn.siblings('input').val();
+					var result = deleteReply(r_num);
+					
+					if (result) {
+						reply('${ list.L_NUM }', '강의');
+					}
+				}
+			</script>
+			<!-- 댓글끝 -->
+			
 		</div>
 		</div>
 		</div>

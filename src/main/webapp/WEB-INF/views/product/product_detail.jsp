@@ -285,6 +285,38 @@
 			
 		</script>
 		<br> <br> <br> <br> <br> <br>
+		
+		<!-- 댓글시작 -->
+		<div>
+			<c:import url="../reply/replyView.jsp" />
+		</div>
+		<script>
+			reply('${ list.get(0).P_NUM }', '상품');
+			
+			$('#commentAddBtn').click(function() {
+				if ('${ loginUser }' != '') {
+					var result = insertReply('${ list.get(0).P_NUM }', '상품');
+					
+					if (result) {
+						reply('${ list.get(0).P_NUM }', '상품');
+					}
+				} else {
+					alert('로그인 후 이용가능합니다.');
+					$('#replySubmit').val("");
+				}
+			});
+			
+			function deleteBtn(btn) {
+				var r_num = btn.siblings('input').val();
+				var result = deleteReply(r_num);
+				
+				if (result) {
+					reply('${ list.get(0).P_NUM }', '상품');
+				}
+			}
+		</script>
+		<!-- 댓글끝 -->
+		
 		<%-- 라이브리 시티 설치 코드 --%>
 		<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
 			<script type="text/javascript">
