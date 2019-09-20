@@ -198,65 +198,51 @@ input {
                <div class="input1">
                   <label>새 비밀번호 :</label>
                   <input type="password"  name="m_pw" value="" id="userPw2" style="width: 50%;">
-<!--                <span id="pwp" class="fontA"></span><br>
-					<span class="pc" style="color: red;">변경시 6자리 영문자와 숫자, 특수문자가 1회이상 사용하여야합니다.</span>
+                <span id="pwp" class="fontA"></span><br>
+					<span class="pc" style="color: gray;">변경시 6자리 영문자와 숫자, 특수문자가 1회이상 사용되어야합니다.</span>
 					<span class="pc error1" style="color: red;">6자리 이상의 비밀번호를 입력해주세요.</span>
 					<span class="pc error2" style="color: red;">영문과 숫자, 특수문자가 각 1회 이상 사용되어야합니다.</span>
-					<span class="pc suc" style="color: green;">사용 가능합니다.</span> -->
+					<span class="pc suc" style="color: green;">사용 가능합니다.</span> 
                </div>
-<!--                <script>
-                
+                <script>
 				$(".pc.error1").hide();
 				$(".pc.error2").hide();
 				$(".pc.suc").hide();
-				
+		
+				function pwCheck(){
+					alert('비밀번호를 확인해주세요.');
+				}
 				var regPw = /^.*(?=^.{6,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 				
-				var pwUsable = false;
-				var pwUsable1 = false;
-               	
+
 				$("#userPw2").on("keyup", function() {
+					$("#update").attr("type","button");
+					$("#update").attr("onclick","pwCheck();");
+					
 					var pw = $(this).val();
 					var pwc = $("#m_pwc").val();
-				    if (pw.length < 6) {
+					
+				    if (pw.length > 0 && pw.length < 6) {
 				      	$(".pc").hide();
 					    $(".pc.error1").show();
-					    pwUsable = false;
+					   	$("#update").attr("type", "button");
+					   	
 				    } else if (!regPw.test(pw)) {
 				    	$(".pc").hide();
 						$(".pc.error2").show();
-					    pwUsable = false;
+						$("#update").attr("type", "button");
+				
 				    } else {
 				    	$(".pc").hide();
 						$(".pc.suc").show();
-						pwUsable = true;
-					}
-				    if(pwc.length != 0 && pw != pwc){
-				    	pwUsable1 = false;
-				    }
-				    if(pwUsable == true && pwUsable1 == true){
-				    	$("#check2").val(1);
-				    	alert("ㅇㅇ");
-					} else {
-						$("#check2").val(0);
+						$("#update").removeAttr("onclick");
+						$("#update").attr("type", "submit");
 					}
 				});
-				
-				$("#update").on("click", function(){
-					
-					var regPw = /^.*(?=^.{6,}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-					
-					var pw = $("userPw2").val();
-					
-					if(!regPw.test(pw)){
-						$("#update").attr("type", "button");
-						alert("다시 입력해주세요.");
-					}
-				})
-				
+		
 				
 
-               </script> -->
+               </script> 
 
                <div class="input1">
                   <label>이메일:</label>
@@ -317,17 +303,8 @@ input {
       <!-- container끝 -->
 
       <div id="submitButton" class="container">
-         <button type="submit" id="update" onclick="sign();">수정하기</button>
-
+         <button type="submit" id="update">수정하기</button>
       </div>
-		
-		
-
-
-
-
-	
-	
    </form>
 
    <br>
