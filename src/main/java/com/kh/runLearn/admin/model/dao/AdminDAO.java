@@ -44,14 +44,48 @@ public class AdminDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.allUserList", null, rowBounds); // arraylist로 형변환해주기
 	}
-	
-	
-	
-	public ArrayList<Member> searchId(PageInfo pi) {//이이디 검색 정보 가지고 오기
+	public ArrayList<Member> allUserListtee(PageInfo pi) {//
 		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("adminMapper.searchId", null, rowBounds); // arraylist로 형변환해주기
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListtee", null, rowBounds); // arraylist로 형변환해주기
 	}
+	public ArrayList<Member> allUserListtor(PageInfo pi) {//
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListtor", null, rowBounds); // arraylist로 형변환해주기
+	}
+	public ArrayList<Member> allUserListbl(PageInfo pi) {//
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListbl", null, rowBounds); // arraylist로 형변환해주기
+	}
+	public ArrayList<Member> allUserListM(PageInfo pi) {//
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListM", null, rowBounds); // arraylist로 형변환해주기
+	}
+	public ArrayList<Member> allUserListY(PageInfo pi) {//
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListY", null, rowBounds); // arraylist로 형변환해주기
+	}
+	public ArrayList<Member> allUserListN(PageInfo pi) {//
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.allUserListN", null, rowBounds); // arraylist로 형변환해주기
+	}
+	
+	public ArrayList<Member> adminUserSearchId(String search, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.searchId", search, rowBounds); // arraylist로 형변환해주기
+	}
+	
+//	public ArrayList<Member> searchId(String search, PageInfo pi) {//이이디 검색 정보 가지고 오기
+//		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+//	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+//		return (ArrayList)sqlSession.selectList("adminMapper.searchId", search, rowBounds); // arraylist로 형변환해주기
+//	}
 	
 	
 	
@@ -92,6 +126,32 @@ public class AdminDAO {
 	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("adminMapper.boardListA", null, rowBounds); // arraylist로 형변환해주기
 	}
+	public int addReadCount(int bId) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("adminMapper.updateCount",bId);
+	}
+	public Board selectBoard(int bId) {
+		// TODO Auto-generated method stub
+		System.out.println(bId);
+		return sqlSession.selectOne("adminMapper.selectBoard",bId);
+	}
+	public int insertBoard(Board b) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("adminMapper.insertBoard",b);
+	}
+	public int targetTrBDelete(Board b) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("adminMapper.targetTrBDelete",b);
+	}
+	public ArrayList applylectureList(PageInfo pi) {
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.applylectureList", null, rowBounds);
+	}
+	public int applyLectureCount() {
+		return sqlSession.selectOne("adminMapper.applyListCount");
+	}
+	
 	
 	
 

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-
+<script type="text/javascript" src="${ contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href='${ contextPath }/resources/css/admin/admin.css'>
 </head>
@@ -22,11 +22,10 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-  <input type="button" value="홈으로" onclick="location.href='adminToHome.do';">
-  <hr>
+ <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">강의신청</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
 
 
@@ -39,7 +38,7 @@
 
   <div class="w3-bar w3-white w3-card">
     <button class="w3-bar-item sidetab2menu sidetab2menu1 w3-round hoverpink hotpink fontwhite" onclick="st2menu(event,'st2menu1');" style="min-width:150px; margin-left:5px;margin-right:5px;">회원관리</button>
-    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="st2menu(event,'st2menu2');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원신청</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="st2menu(event,'st2menu2');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터신청</button>
   </div>
   
   <div id="st2menu1" class="w3-container borderhotpink sidetab2menus animate-fading" style="border-top:white">
@@ -48,14 +47,28 @@
     <span class="fonthotpink">튜티회원 : ${ pitee.listCount } |</span>
     <span class="fonthotpink">튜터회원 : ${ pitor.listCount } |</span>
     <span class="fonthotpink">블랙회원 : ${ pib.listCount } |</span>
-    <span class="fonthotpink">탈퇴회원 : ${ pil.listCount } |</span>
+    <span class="fonthotpink">상태 'N' 회원 : ${ pil.listCount } |</span>
     <span class="fonthotpink">관리자 수 : ${ piad.listCount }</span>
     <form action="adminUserSearchId.do">
+    	
 				<div class="borderhotpinkthick" style="width:350px;">
-					<input type="text" name="search" id="fixed-searchcss" placeholder="아이디를 입력해주세요" autocomplete="off" value="" style="border:white;width:300px;">
-					<img src="${contextPath}/resources/images/common/search.png" class="searchBtn" onclick="">
+					<input type="text" name="search" id="fixed-searchcss" placeholder="아이디를 입력해주세요" autocomplete="off" value="" style="border:white;width:290px;">
+					<%-- <img src="${contextPath}/resources/images/common/search.png" class="searchBtn" onclick="location.href='adminUserSearchId.do;"> --%>
+					<input type="submit" id="search" value="검색"> 
 				</div>
 	</form>
+	 <div class="w3-bar w3-white w3-card">
+    <button class="w3-bar-item sidetab2menu sidetab2menu1 w3-round hoverpink" onclick="location.href='adminUser.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">모든회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUsertee.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">튜티회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUsertor.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUserbl.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">블랙회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUserY.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">상태 Y</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUserN.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">상태 N</button>
+    
+  	</div>
+	 <!-- 난 바보다 -->
+
+	
 <!--     <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
    	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button> -->
     <table class="w3-table-all hoverTablePink" style="width:100%;">
@@ -69,7 +82,7 @@
   		<th style="width:auto;text-align:center;">가입일</th>
   		<th style="width:auto;text-align:center;">수정일</th>  		
   		<th style="width:auto;text-align:center;">등급</th>
-  		<th style="width:auto;text-align:center;">상태</th>
+  		<th style="width:30px;text-align:center;">상태</th>
   		<th style="width:auto;text-align:center;">주소</th> 
   		<th style="width:auto;text-align:center;">수정</th>
   		<input type="hidden" name="i" value="${i}">
@@ -101,15 +114,24 @@
 			<button type="button" class="${ a.m_id }B allUserB listbtn fontwhite" style="display:block;"onclick="insertTr('${ a.m_id }','${ a.m_id }B','${ a.m_id }BC');">수정</button>
 			<button type="submit" class="${ a.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">수정하기</button>
 			</td>
-		</tr>
-		<script>
-		function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+			<script>
+			function insertTr(target, targetB, targetBC){/* 회원 정보 수정 */
+				/* if (typeof jQuery == 'undefined') {
+
+					alert("없음");
+
+					}else{
+
+					alert("있음");
+
+					}  */
 			console.log(target);
 			console.log(typeof(target));
-		
-			$('.'+target).removeAttr('readonly').attr;
+			 $('.'+target).removeAttr('readonly').attr; 
+			
 			
 			x = document.getElementsByClassName(target);
+			
 			console.log(typeof(target));
 			listInform = document.getElementsByClassName(target);
 			  for (i = 0; i < x.length; i++) {
@@ -126,6 +148,8 @@
 				}
 		}
 		</script>
+		</tr>
+		
 			</form>
 		</c:forEach>
 				<!-- 페이징 -->
@@ -185,20 +209,25 @@
   	</thead>
   	<c:forEach var="b" items="${ boardList }">
   		<c:if test="${ b.b_status  eq 'Y' and b.b_category eq '튜터신청'}">
-  		<form action="targetBoardDelete.do" method="post" enctype="Multipart/form-data">
+  		<form action="targetBoardDelete2.do" method="post" enctype="Multipart/form-data">
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
   			<input type="hidden" name="b_status" value="${ b.b_status }" class=" borderInform"readonly>
-  			<input type="hidden" name="b_category" value="${ b.b_category }" class="${b.m_id } borderInform allUser" readonly>
-  			<input type="hidden" name="b_content" value="${ b.b_content }" class="${ b.m_id } borderInform allUser"readonly></td>
+  			<input type="hidden" name="b_category" value="${ b.b_category }" class="${ b.m_id } borderInform allUser" readonly>
+  			<input type="hidden" name="b_content" value="${ b.b_content }" class="${ b.m_id } borderInform allUser"readonly>
+  			<input type="hidden" name="b_subcategory" value="${ b.b_subcategory }" class=" borderInform"readonly>
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ b.b_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
-			<td style="text-align:center;"><input type="text" name="b_title" value="${ b.b_title }" class="${ a.m_id } borderInform allUser"  readonly></td>
+			<td style="text-align:center;">
+			<c:url var="bdetail" value="aabdetail.do">
+						<c:param name="bId" value="${ b.b_num }"/>
+						<c:param name="page" value="${ bla.currentPage }"/>
+					</c:url>
+					<a href="${ bdetail }">${ b.b_title }</a>
+			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ b.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ b.b_count }" class=" borderInform"readonly></td>
-			
-			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ b.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
-			<input type="hidden" name="b_subcategory" value="${ b.b_subcategory }" class=" borderInform"readonly>
-			<td><button type="button" class="${ b.m_id }BC  allUserBC listbtn fontwhite" style="display:none;">삭제하기</button></td>
+			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ b.b_reg_date }" class="${ b.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
+			<td><button type="submit" value="삭제하기"class="${ b.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		

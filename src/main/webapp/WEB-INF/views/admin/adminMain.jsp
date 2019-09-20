@@ -30,12 +30,12 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-  <input type="button" value="홈으로" onclick="location.href='adminToHome.do';">
+  <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">
   <hr>
   <input type="hidden" name="i" value="${ i }">
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round  hotpink fontwhite" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">강의신청</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
 
 </div>
@@ -47,97 +47,17 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
     <!-- 관리자 메인 임시  -->
     <div style="width:1100px;height:1100px;border-right:2px solid #ff005a;float:left;">
     <div id="adminmain1" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
-    <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">회원 관리</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn" onclick="location.href='adminUser.do';">more</button>
-    <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
-    	<table class="w3-table-all hoverTablePink">
-  	<thead>
-  	<tr class="fontwhite mainlistfont" style="background-color:#ff005a;">
-  		<th style="width:15%;">회원번호</th>
-  		<th style="width:45%;text-align:center;">글제목</th>
-  		<th style="width:15%;">카테고리</th>
-  		<th style="width:15%;">작성자</th>
-  		<th style="width:15%;">시간</th>
-  	</tr>
-  	</thead>
-  	<tr>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  	</tr>
-  	</table>
+    
+  	
     </div>
   	<div id="adminmain2" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
-    <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">결제 관리</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="location.href='adminPayManage.do';">more</button>
- 	<hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
- 		<table class="w3-table-all hoverTablePink">
-  	<thead>
-  	<tr class="fontwhite mainlistfont" style="background-color:#ff005a;">
-  		<th style="width:15%;">글번호</th>
-  		<th style="width:45%;text-align:center;">글제목</th>
-  		<th style="width:15%;">카테고리</th>
-  		<th style="width:15%;">작성자</th>
-  		<th style="width:15%;">시간</th>
-  	</tr>
-  	</thead>
-  	<tr>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-
-  		<th>실험용</th>
-  		<th>실험용</th>
-  	</tr>
-  	</table>
+   
   	</div>	
   	<div id="adminmain3" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
-    <span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">고겍센터(관리자)</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="location.href='adminNoticeAdmin.do';">more</button>
-   <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
-   	<table class="w3-table-all hoverTablePink">
-  	<thead>
-  	<tr class="fontwhite mainlistfont" style="background-color:#ff005a;">
-  		<th style="width:15%;">글번호</th>
-  		<th style="width:45%;text-align:center;">글제목</th>
-  		<th style="width:15%;">카테고리</th>
-  		<th style="width:15%;">작성자</th>
-  		<th style="width:15%;">시간</th>
-  	</tr>
-  	</thead>
-  	<tr>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  	</tr>
-  	</table>
+   
   	</div>
   	<div id="adminmain4" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
-   	<span class="fonthotpink" style="margin:15px;margin-top:20px;font-size:20px;">고객센터(요청)</span>
-    <button  class=" ligt-pink borderhotpink w3-round-large hoverpink fonthotpink mainMoreBtn"  onclick="location.href='adminNoticeUser.do';">more</button>
-    <hr class="borderhotpink" style="margin-top:5px;width:90%;margin-left:5%;margin-right:5%;">
-    	<table class="w3-table-all hoverTablePink">
-  	<thead>
-  	<tr class="fontwhite mainlistfont" style="background-color:#ff005a;">
-  		<th style="width:15%;">글번호</th>
-  		<th style="width:45%;text-align:center;">글제목</th>
-  		<th style="width:15%;">카테고리</th>
-  		<th style="width:15%;">작성자</th>
-  		<th style="width:15%;">시간</th>
-  	</tr>
-  	</thead>
-  	<tr>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  		<th>실험용</th>
-  	</tr>
-  	</table>
+   
   	</div>
     </div>
     <div class="borderhotpinkthick mainBorderRa" style="width:500px;min-height: 1000px;margin-left: 1150px;"> 여유 있으면 통계 같은거 넣자!</div>

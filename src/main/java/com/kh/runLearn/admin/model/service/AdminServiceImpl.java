@@ -62,6 +62,10 @@ public class AdminServiceImpl implements AdminService {
 		return aDAO.adminUserCount();
 	}
 	@Override
+	public ArrayList<Member> adminUserSearchId(String search, PageInfo pi) {
+		return aDAO.adminUserSearchId(search, pi);
+	}
+	@Override
 	public int targetUserUpdate(Member m) {//타겟 회원 정보수정
 		System.out.println("pl"+ m);
 		return aDAO.targetUserUpdate(m);
@@ -71,6 +75,33 @@ public class AdminServiceImpl implements AdminService {
 public ArrayList<Member> allUserList(PageInfo pi) {
 	return aDAO.allUserList(pi);
 }
+@Override
+public ArrayList<Member> allUserListtee(PageInfo pi) {
+	return aDAO.allUserListtee(pi);
+}
+@Override
+public ArrayList<Member> allUserListtor(PageInfo pi) {
+	return aDAO.allUserListtor(pi);
+}
+@Override
+public ArrayList<Member> allUserListbl(PageInfo pi) {
+	return aDAO.allUserListbl(pi);
+}
+@Override
+public ArrayList<Member> allUserListM(PageInfo pi) {
+	return aDAO.allUserListM(pi);
+}
+@Override
+public ArrayList<Member> allUserListY(PageInfo pi) {
+	return aDAO.allUserListY(pi);
+}
+@Override
+public ArrayList<Member> allUserListN(PageInfo pi) {
+	return aDAO.allUserListN(pi);
+}
+
+
+
 
 @Override
 public ArrayList<Board> boardList(PageInfo pi) {
@@ -110,15 +141,39 @@ public int boardListCountDecl() {//전체 보드 수 가져오기
 	}
 	
 	
+	@Override
+	public int addReadCount(int bId) {
+		// TODO Auto-generated method stub
+		return aDAO.addReadCount(bId);
+	}
+	@Override
+	public Board selectBoard(int bId) {
+		// TODO Auto-generated method stub
+		return aDAO.selectBoard(bId);
+	
+	
+	}
+	@Override
+	public int insertBoard(Board b) {
+		// TODO Auto-generated method stub
+		return aDAO.insertBoard(b);
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
+	@Override
+	public int targetTrBDelete(Board b) {
+		// TODO Auto-generated method stub
+		return aDAO.targetTrBDelete(b);
+	}
+	@Override
+	public ArrayList applylectureList(PageInfo lpi) {
+		return aDAO.applylectureList(lpi);
+	}
+	@Override
+	public int applyLectureCount() {
+		return aDAO.applyLectureCount();
+	}
 	
 	
 	

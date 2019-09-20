@@ -25,11 +25,11 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-  <input type="button" value="홈으로" onclick="location.href='adminToHome.do';">
+ <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  
   <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">강의신청</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
 
 </div>
@@ -37,7 +37,7 @@
 <div class="minh"style="margin-left:190px">
 	<h2 class="w3-padding fontthick fonthotpink">마더뷰</h2>
 	<hr class="borderhotpink">
-	<form action="adminboardinsert.do" method="post"
+	<form action="adminInsertNotice.do" method="post"
 		enctype="Multipart/form-data">
 		<div class="w3-container minh" style="margin-left: 160px;">
 			<!-- 틀 -->
@@ -46,25 +46,29 @@
 				style="width: 1300px; min-height: 200px; border-radius: 10px; opacity: 0.8; margin-bottom: 10px;">
 				<!--게시글 날짜 표시할것  -->
 				<h3 class="fonthotpink"
-					style="opacity: 0.4; margin-left: 30px; margin-top: 10px;">해당
-					카테고리에서 작성할때 카테고리가 표시됩니다 예) 질문 > 건의 사항</h3>
-
-
+					style="opacity: 0.4; margin-left: 30px; margin-top: 10px;">공지사항
+				
+					</h3>
+					<input type="hidden" name=b_category value="공지">
+					<input type="hidden" name=b_subcategory value="기타">
+					<input type="hidden" name="m_id" value="${ loginUser.m_id}">
+				
 				<div style="float: left; width: 100%;">
 					<!-- 제목부분 -->
 					<label class="fonthotpink"
 						style="margin-left: 50px; font-size: 30px;">제목 : </label><input
-						type="text" name="adminBoardTitle" class="fonthotpink"
+						type="text" name="b_title" class="fonthotpink"
 						style="width: 800px; height: 40px; font-weight: bold; margin-right: 15px; border: white; padding-bottom: -50px; z-index: 4; font-size: 20px; border-bottom: 3px solid #ff005a;" />
 					<!-- 	<hr class="borderhotpink" style="width:70%;margin-left:5%;margin-right:5%;z-index:3;"> -->
 				</div>
 
 				<br>
 				<h4
-					style="opacity: 2.0; padding-top: 40px; float: right; margin-right: 30px;">작성자
-					부분입니다</h4>
+					style="opacity: 2.0; padding-top: 40px; float: right; margin-right: 30px;">작성자 : 
+					<input type="text" name="bWriter" readonly value="운영자" style="background: lightgrey;">
+					</h4>
 				<h6 style="color: #FA5882; margin-left: 30px;"><label style="font-size:36px;">날짜 : </label>
-					<input type="date" id="currentDate"
+					<input type="date" id="currentDate" 
 						style="border: white; font-size: 40px; margin-top: 60px" readonly />
 				</h6>
 				<!-- 날짜 -->
@@ -77,7 +81,7 @@
 
 					<textArea
 						style="margin-left: 15px; width: 1250px; min-height: 900px; border: 0.3px solid gray;"
-						placeholder="내용을 입력해주세요" name="adminBoardContent"></textArea>
+						placeholder="내용을 입력해주세요" name="b_content"></textArea>
 
 
 				</div>
