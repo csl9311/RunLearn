@@ -3,7 +3,6 @@ package com.kh.runLearn.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,20 +24,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kh.runLearn.member.model.exception.MemberException;
 import com.kh.runLearn.member.model.service.MemberService;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.member.model.vo.Member_Image;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 
 @SessionAttributes("loginUser")
@@ -57,7 +48,9 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-
+	public static final String ACCOUNT_SID = "AC21c41324ca2adfa4e2bc3defc22dd7ae";
+	public static final String AUTH_TOKEN = "7cce4d0bdf247fd4332ef341800fe135";
+	
 	/* 회원가입 뷰 이동 */
 	@RequestMapping("minsertView.do")
 	public String memberInsertView() {
@@ -252,7 +245,7 @@ public class MemberController {
 	public ModelAndView checkPhone(ModelAndView mv, Member m, String typecheck) {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		String phoneNum1;
-		String phoneNum2;
+		String phoneNum2 = "";
 
 		if (typecheck.equals("0") || typecheck.equals("00") || typecheck.equals("1")) {
 			phoneNum1 = m.getM_phone();
@@ -286,36 +279,38 @@ public class MemberController {
 				}
 				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
-				/*
-				 * Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				 * 
-				 * Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to new
-				 * PhoneNumber("+12563716554"), // from "만취남녀 회원가입 인증번호는 [" + phoneCheck +
-				 * "] 입니다.").create();
-				 */
+				
+				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				 
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), new PhoneNumber("+12563716554"),
+						"만취남녀 회원가입 인증번호는 [" + phoneCheck + "] 입니다.").create();
+				 
 			}
 		} else if (typecheck.equals("1") || typecheck.equals("00")) {
 			if (isUsable == false) {
 				int random = (int) (Math.random() * 10000);
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
-				/*
-				 * Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-				 * 
-				 * Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), // to new
-				 * PhoneNumber("+12563716554"), // from "만취남녀 인증번호는 [" + phoneCheck +
-				 * "] 입니다.").create();
-				 */
+				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+				  
+				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), new PhoneNumber("+12563716554"), 
+						"만취남녀 인증번호는 [" + phoneCheck + "] 입니다.").create();
+				 
 
 			}
 		} else if (typecheck.equals("01") || typecheck.equals("02")) {
 			if (isUsable == false) {
 				int random = (int) (Math.random() * 10000);
+				while(random < 1000) {
+					random = (int) (Math.random() * 10000);
+				}
+				
 				phoneCheck = random;
-				System.out.println("인증번호 확인용" + random);
 
 				String setfrom = "soomin3333@gmail.com";
 				String tomail = email;
