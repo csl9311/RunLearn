@@ -851,13 +851,13 @@ public class LectureController {
 	@RequestMapping("lectureConfirm.le")
 	public String lectureConfirm(@RequestParam("l_num") int l_num) {
 		lService.confirmLecture(l_num);
-		return "home";
+		return "redirect:adminPayManage.do";
 	}
 	
 	@RequestMapping("lectureDeny.le")
 	public String lectureDeny(@RequestParam("l_num") int l_num) {
 		lService.denyLecture(l_num);
-		return "home";
+		return "redirect:adminPayManage.do";
 	}
 	
 	@RequestMapping("lectureUpdateform.le")
