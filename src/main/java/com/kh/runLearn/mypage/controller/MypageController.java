@@ -142,7 +142,7 @@ public class MypageController {
 		}
 
 		String m_grade = "";
-		if (loginUser.getM_grade().equals("M")) {
+		if (loginUser.getM_grade().equals("튜터")) {
 			m_grade = "튜터";
 		} else if (loginUser.getM_grade().equals("U")) {
 			m_grade = "튜티";
@@ -166,9 +166,9 @@ public class MypageController {
 			for (int i = 0; i < noPaylList.size(); i++) {
 				int system = Integer.parseInt(String.valueOf(noPaylList.get(i).get("L_SYSTEM")));
 				if (system == 0) {
-					noPaylList.get(i).put("L_SYSTEM", "현장");
-				} else if (system == 1) {
 					noPaylList.get(i).put("L_SYSTEM", "영상");
+				} else if (system == 1) {
+					noPaylList.get(i).put("L_SYSTEM", "현장");
 				}
 			}
 
@@ -176,6 +176,7 @@ public class MypageController {
 			mv.addObject("listCount", listCount);
 			mv.addObject("pi", pi);
 		}
+
 
 		if ((cate.equals("상품찜목록")) || cate.equals("productCate")) {
 			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
@@ -227,9 +228,9 @@ public class MypageController {
 			for (int i = 0; i < tLectureList.size(); i++) {
 				int system = Integer.parseInt(String.valueOf(tLectureList.get(i).get("L_SYSTEM")));
 				if (system == 0) {
-					tLectureList.get(i).put("L_SYSTEM", "현장");
-				} else if (system == 1) {
 					tLectureList.get(i).put("L_SYSTEM", "영상");
+				} else if (system == 1) {
+					tLectureList.get(i).put("L_SYSTEM", "현장");
 				}
 			}
 
@@ -237,7 +238,7 @@ public class MypageController {
 			mv.addObject("tLectureList", tLectureList);
 
 		}
-
+      
 		mv.addObject("profile", profile);
 		mv.addObject("m_grade", m_grade);
 		mv.addObject("lCount", lCount);
