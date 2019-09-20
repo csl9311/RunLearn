@@ -60,9 +60,6 @@
 						
 						
 					</div>
-					
-					<br>
-					
 					<input id="p_num" type="hidden" name="p_num" value="${ map.p.p_num }">
 					<input id="p_name" type="hidden" name="p_name" value="${ map.p.p_name }">
 					<input id="m_id" type="hidden" name="m_id" value="${ map.m.m_id }">
@@ -73,7 +70,6 @@
 					<input id="g_address" type="hidden" name="g_address" value="${ map.m.g_address }">
 					<input id="r_address" type="hidden" name="r_address" value="${ map.m.r_address }">
 					<input id="d_address" type="hidden" name="d_address" value="${ map.m.d_address }">
-					
 					<c:forEach items="${ map.item }" var="item" varStatus="i">
 						<input id="item${i.index}" type="hidden" name="item" value="${ item }">
 					</c:forEach>
@@ -87,13 +83,15 @@
 					<input id="pay_method" type="hidden" name="pay_method" value="card">
 					
 					<button class="btn" type="button" onclick="history.go(-1);">취소</button>
-					<button class="btn" type="button" onclick="pay();">새로운 주소로 결제</button>
+					<button class="btn" type="button" onclick="pay();">결제</button>
 					
 				</form>
 			</div>
 		</div>
 	</div>
 	<script>
+	
+		// 다음 주소 api
 	    function sample4_execDaumPostcode() {
 	        new daum.Postcode({
 	           oncomplete : function(data) {
@@ -144,7 +142,7 @@
 	        }).open();
 	     }	
 		
-		
+		// 인풋태그 클릭 시 api 실행
 		function btnClick() {
 			$('#findBtn').trigger('click');
 		}
@@ -159,7 +157,6 @@
 	<script type="text/javascript">
 	
 		var p_name = $('#p_name').val();
-	
 		var m_name = $('#m_name').val();
 		var m_email = $('#m_email').val();
 		var m_phone = $('#m_phone').val();
@@ -170,7 +167,8 @@
 		var amount = $('#amount').val();
 		var total = $('#total').val();
 		var pay_method = $('#pay_method').val();
-
+		
+		// 라디오버튼 클릭 시 주소 정보 변경 
 		$('input[name=method]').click(function(){
 			var radio = $('input[name=method]');
 			for(var i = 0 ; i < radio.length; i++){
@@ -195,7 +193,7 @@
 		
 		
 		
-		
+		// 아임포트 스크립트
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp79905221'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		function pay() {
@@ -232,29 +230,8 @@
 				alert(msg);
 			});
 		}
-
 	//TODO URLScheme정의하는 부분 추가
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	</script>
-	<br>
-	<br>
-	<br>
-	<br>
-
 </body>
 <c:import url="../common/footer.jsp" />
 </html>

@@ -649,7 +649,7 @@
 				</c:url>
 
 				<c:url var="productpayList" value="mypage.do">
-					<c:param name="cate" value="결제상품" />
+					<c:param name="cate" value="productPay" />
 					
 				</c:url>
 
@@ -670,9 +670,9 @@
 					<div class="content22" onclick="location.href='${ lListView }'" id="contentMenu1" <c:if test="${ cate eq '수강목록' }">style="font-weight:bold; font-size:25px;"</c:if>>수강목록</div>
 					<div class="content22" onclick="location.href='${ selectList }'" id="contentMenu3" <c:if test="${ cate eq '강의찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>강의찜목록</div>
 				</c:if>
-				<c:if test="${ cate eq '상품찜목록' || cate eq '결제상품' }">
+				<c:if test="${ cate eq '상품찜목록' || cate eq 'productPay' }">
 					<div class="content22" onclick="location.href='${ productList }'" id="contentMenu4" <c:if test="${ cate eq '상품찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>상품찜목록</div>
-					<div class="content22" onclick="location.href='${ productpayList }'" id="contentMenu2" <c:if test="${ cate eq '결제상품' }">style="font-weight:bold; font-size:25px"</c:if>>결제상품</div>
+					<div id="productPay" class="content22" onclick="location.href='${ productpayList }'" id="contentMenu2" <c:if test="${ cate eq 'productPay' }">style="font-weight:bold; font-size:25px"</c:if>>결제상품</div>
 				</c:if>
 			</div>
 			<br> <br>
@@ -772,7 +772,7 @@
 			</c:if>
 			<!--  content25 끝 -->
 
-			<c:if test="${cate eq '상품찜목록' || cate eq 'productCate'}">
+			<c:if test="${cate eq '상품찜목록'}">
 				<div id="content26">
 					<form action="product.pay" method="post">
 						<table>
@@ -830,7 +830,6 @@
 			</c:if>
 			<!--  content26끝 -->
 		<script>
-   
 			checkedSum();
 			function add(p_num){
 				$('#p_count'+p_num).val(Number($('#p_count'+p_num).val()) +1);
@@ -900,7 +899,7 @@
           /* location href = 'searchAll.do?result='+result+'&total='+total; */
 			}
 		</script>
-			<c:if test="${cate eq '결제상품'}">
+			<c:if test="${cate eq 'productPay'}">
 				<div id="content26">
 					<table>
 						<tr class="tr3" style="text-align: center;">
@@ -913,7 +912,7 @@
 						</tr>
 
 						<c:if test="${empty pList }">
-							<td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+							<td colspan="7" style="text-align: center"><h3>구매한 상품이 없습니다.</h3></td>
 						</c:if>
 
 						<c:forEach var="i" items="${ pList }">
@@ -921,12 +920,12 @@
 								<td class="td1" style="height: 100px;"><div id="tableCategory1">${ i.P_CATEGORY }</div></td>
 								<td class="td1">
 									<div id="image1">
-										<img src="${contextPath}/resources/images/mypage/testitem1.jpg" width="150px" height="80px">
+										<img src="${contextPath}/resources/images/product/${i.P_CHANGED_NAME}" width="150px" height="80px">
 									</div>
 								</td>
 								<td><div id="lectureTitle" style="text-align: center;">${ i.P_NAME }</div></td>
 								<td>
-									<div id="lecturePrice" class="lDate" style="text-align: center;">${ i.P_PRICE}</div>
+									<div id="lecturePrice" class="lDate" style="text-align: center;">${ i.po.p_optionPrice }</div>
 									<input type="hidden" id="price_hidden${ i.P_NUM }" value="${ i.P_PRICE }">
 									<input type="hidden" id="name_hidden" value="${ i.P_NAME }">
 								</td>
@@ -934,7 +933,7 @@
 									<div id="lecturePrice" class="lDate" style="text-align: center; color: black; width: 150px;">${ i.P_PAY_AMOUNT }</div>
 								</td>
 								<td style="text-align: center;">
-									<div id="sum">${ i.P_PAY_AMOUNT * i.P_PRICE }</div>
+									<div id="sum">${ i.po.p_optionPrice * i.P_PAY_AMOUNT }</div>
 								</td>
 							</tr>
 						</c:forEach>
