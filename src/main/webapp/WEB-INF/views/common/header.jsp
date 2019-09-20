@@ -558,9 +558,6 @@ header .search .lcont input[type=text] {
 							<li><a href="adminMain.do">관리자페이지</a></li>
 						</c:if>
 						<li><a href="cCenterView.do?b_category=공지사항">고객센터</a></li>
-						<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.m_id eq 'admin1' }">
-							<li><a href="#">ID/PWD찾기</a></li>
-						</c:if>
 					</ul>
 				</div>
 			</div>
