@@ -144,22 +144,10 @@
 			function choice() {
 				var won = $('#' + $item.val()).text();
 				var price = Number(won.substring(0, won.length - 1));
-
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
 				// 테이블에 내용 추가
-				var page_option = document.getElementsByName('page_option');
-				for(var i = 0; i < page_option.length ; i ++) {
-					var name = page_option[i].value.split("/")[0];
-					var stock = page_option[i].value.split("/")[1];
-					console.log(name);
-					console.log(stock);
-					if($item.val() == name){
-						if(stock > 0) {
-							alert("품절 상품입니다.");
-						}
-					}
-				}
+				
 				$p_info.append(
 					'<tr id="optionTr'+q+'">' +
 						'<td>' +
@@ -184,7 +172,6 @@
 				/* div에 script 추가 */
 				
 				var items = document.getElementsByName('item');
-				console.log(items);
 				for(var i = 0 ; i < items.length ; i ++){
 					for(var num = i+1 ; num < items.length ; num++){
 						if(items[i].value == items[num].value){
@@ -194,10 +181,28 @@
 						}
 					}
 				}
+				
+				
+				var page_option = document.getElementsByName('page_option');
+				for(var i = 0; i < page_option.length ; i ++) {
+					var name = page_option[i].value.split("/")[0];
+					var stock = page_option[i].value.split("/")[1];
+					if($item.val() == name){
+						if(stock <= 0) {
+							var items = document.getElementsByName('item');
+							var target = items[0].parentNode.parentNode.parentNode;
+							target.removeChild(target.lastChild.previousSibling);
+							alert("품절 상품입니다.");
+						}
+					}
+				}
+				
+				
 				appendScript(q);
 				q++;
 				$item.val('');
 				getTotal();
+				
 			};
 			
 			var $script = $('#abcd');
