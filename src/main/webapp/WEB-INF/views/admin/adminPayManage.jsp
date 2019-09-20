@@ -26,7 +26,7 @@
  <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminPayManage.do';" style="width:175px">상품/강의</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
 
 </div>
@@ -64,7 +64,6 @@
   		<th style="text-align:center;">실험용</th>
   		<th style="text-align:center;">실험용</th>
   		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
   	</tr>
   	</table>
   </div>
@@ -75,24 +74,71 @@
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:5%;text-align:center;">글번호</th>
-  		<th style="width:60%;text-align:center;">글제목</th>
-  		<th style="width:5%;text-align:center;">작성자</th>
-  		<th style="width:5%;text-align:center;">조회수</th>
-  		<th style="width:5%;text-align:center;">댓글수</th>
-  		<th style="width:10%;text-align:center;">작성시간</th>
-  		<th style="width:10%;text-align:center;">작성시간</th>
+  		<th style="width:auto;text-align:center;">강의글번호</th>
+  		<th style="width:auto;text-align:center;">강의제목</th>
+  		<th style="width:auto;text-align:center;">강의 가격</th>
+  		<th style="width:auto;text-align:center;">카테고리</th>
+  		<th style="width:auto;text-align:center;">신청자</th>
+
   	</tr>
   	</thead>
-  	<tr>
-  		<th style="text-align:center;">실험용</th>
-  		<th>실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;"><button class="listbtn fontwhite">수정</button></th>
-  	</tr>
+  	<c:forEach var="a" items="${ l_list }">
+  		<tr>
+  			<input type="hidden" name="page" value="${ page }">
+			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ a.l_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
+			<td style="text-align:center;">
+			<c:url var="Apply" value="lectureComfirmView.le">
+						<c:param name="l_num" value="${ a.l_num }"/>
+					</c:url>
+					<a href="${ Apply }">${ a.l_title }</a>
+			</td>
+			<td style="text-align:center;"><input type="text" name="m_id" value="${ a.l_price }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.l_category }" class=" borderInform"readonly></td>
+			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.m_id }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
+		</tr>
+		
+		
+			
+		</c:forEach>
+		<!-- 페이징 -->
+		<tr align="center" height="20" id="buttonTab">
+			<td style="text-align:center;" colspan="6">
+				<!-- [이전] -->
+				<c:if test="${ lpi.currentPage <= 1 }">
+					[이전] &nbsp;
+				</c:if>
+				<c:if test="${ lpi.currentPage > 1 }">
+					<c:url var="before" value="adminPayManage.do">
+						<c:param name="page" value="${ lpi.currentPage - 1 }"/>
+					</c:url>
+					<a href="${ before }">[이전]</a> &nbsp;
+				</c:if>
+				<!-- 페이지 -->
+				<c:forEach var="p" begin="${ lpi.startPage }" end="${ lpi.endPage }">
+					<c:if test="${ p eq currentPage }">
+						<font color="red" size="4"><b>[${ p }]</b></font>
+					</c:if>
+					
+					<c:if test="${ p ne currentPage }">
+						<c:url var="pagination" value="adminPayManage.do">
+							<c:param name="page" value="${ p }"/>
+						</c:url>
+						<a href="${ pagination }">${ p }</a> &nbsp;<!--blist.do?page=1 페이지라는 변수가지고 컨트롤러를 짜야함  -->
+					</c:if>
+				</c:forEach>
+				<!-- [다음] -->
+				<c:if test="${ lpi.currentPage >= lpi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${ lpi.currentPage < lpi.maxPage }">
+					<c:url var="after" value="blist.do">
+						<c:param name="page" value="${ lpi.currentPage + 1 }"/>
+					</c:url> 
+					<a href="${ after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
+		<!-- /페이징 -->
   	</table>
     
   </div>

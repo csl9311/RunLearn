@@ -166,6 +166,14 @@ public int boardListCountDecl() {//전체 보드 수 가져오기
 		// TODO Auto-generated method stub
 		return aDAO.targetTrBDelete(b);
 	}
+	@Override
+	public ArrayList applylectureList(PageInfo lpi) {
+		return aDAO.applylectureList(lpi);
+	}
+	@Override
+	public int applyLectureCount() {
+		return aDAO.applyLectureCount();
+	}
 	
 	
 	

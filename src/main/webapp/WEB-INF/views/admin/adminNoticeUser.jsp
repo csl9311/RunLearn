@@ -30,8 +30,7 @@
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터(관리자)</button>
   <button id="tablink5" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminNoticeUser.do';" style="width:175px">고객센터(요청)</button>
-  <button id="tablink6" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminBoardDetailView.do';" style="width:175px">(작업용)게시판뷰</button>
-  <button id="tablink8" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminBoardInsertForm.do';" style="width:175px">(작업용)게시판작성</button>
+
 </div>
 
 <div class="minh"style="margin-left:190px">

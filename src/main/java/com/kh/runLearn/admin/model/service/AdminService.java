@@ -46,6 +46,8 @@ public interface AdminService {
 	int insertBoard(Board b);
 	ArrayList<Member> adminUserSearchId(String search, PageInfo pia);
 	int targetTrBDelete(Board b);
+	ArrayList applylectureList(PageInfo lpi);
+	int applyLectureCount();
 
 
 

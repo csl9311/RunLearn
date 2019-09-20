@@ -407,9 +407,28 @@ public class AdminController {
 	}
 	
 
-	@RequestMapping("adminPayManage.do")
-	public String adminPayManage() {// 어드민 결제관리
-		return "admin/adminPayManage";
+	@RequestMapping("adminPayManage.do")///상품강의
+	public ModelAndView adminPayManage(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {// 어드민 상품/강의관리
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+		int lectureCount = aService.applyLectureCount();
+
+		PageInfo lpi = Pagination.getPageInfo(currentPage, lectureCount, 20);
+		
+		ArrayList l_list = aService.applylectureList(lpi);
+		System.out.println(l_list);
+		
+		
+		
+		
+		
+		
+		mv.addObject("lpi",lpi);
+		mv.addObject("l_list",l_list);
+		mv.setViewName("admin/adminPayManage");
+		return mv;
 	}
 
 	// 어드민 고객 센터

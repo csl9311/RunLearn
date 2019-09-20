@@ -143,6 +143,14 @@ public class AdminDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("adminMapper.targetTrBDelete",b);
 	}
+	public ArrayList applylectureList(PageInfo pi) {
+		 int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 계산법 현재페이지가 1이면 0
+	      RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("adminMapper.applylectureList", null, rowBounds);
+	}
+	public int applyLectureCount() {
+		return sqlSession.selectOne("adminMapper.applyListCount");
+	}
 	
 	
 	

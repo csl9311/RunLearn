@@ -45,7 +45,7 @@
 	<select id="allUserListtor" resultType="Member"><!--튜터 정렬 (가입일) -->
 		select *
 		from member
-		where m_grade ='튜타' or m_grade='튜터/블랙'
+		where m_grade ='튜터' or m_grade='튜터/블랙'
 		order by m_create_date desc
 	</select>
 	<select id="allUserListbl" resultType="Member"><!--블랙 정렬 (가입일) -->
@@ -190,9 +190,17 @@
 								#{b_category},#{b_subcategory},default,default,#{m_id})
 	</insert>
 
+	<select id="applyListCount" resultType="_int">
+	 select count(*)
+	 from lecture
+	 where l_status ='Y' and l_confirm='N'
+	</select>
 
-
-
+	<select id="applylectureList" resultType="Lecture">
+		select *
+		from lecture
+		where l_status ='Y' and l_confirm='N'
+	</select>
 
 
 

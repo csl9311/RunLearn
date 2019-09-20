@@ -26,7 +26,7 @@
  <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
  <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">상품/강의</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
 
 </div>
@@ -40,7 +40,6 @@
     <button class="w3-bar-item  sidetab4menu w3-round hoverpink" onclick="st4menu(event,'st4menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">질문</button>
      <button class="w3-bar-item  sidetab4menu w3-round hoverpink" onclick="st4menu(event,'st4menu3')" style="min-width:150px; margin-left:5px;margin-right:5px;">건의</button>
       <button class="w3-bar-item  sidetab4menu w3-round hoverpink" onclick="st4menu(event,'st4menu4')" style="min-width:150px; margin-left:5px;margin-right:5px;">신고글</button>
-    
   </div>
   
   <div id="st4menu1" class="w3-container borderhotpink sidetab4menus animate-fading" style="border-top:white">
@@ -390,6 +389,7 @@
 		<!-- /페이징 -->
   	</table>
   </div>
+
 </div>
 
 <script>
