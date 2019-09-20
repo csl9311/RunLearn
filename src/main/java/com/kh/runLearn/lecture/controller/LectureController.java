@@ -30,6 +30,7 @@ import com.kh.runLearn.lecture.model.vo.Lecture;
 import com.kh.runLearn.lecture.model.vo.Lecture_Each;
 import com.kh.runLearn.lecture.model.vo.Lecture_File;
 import com.kh.runLearn.lecture.model.vo.Lecture_Image;
+import com.kh.runLearn.lecture.model.vo.Wishlist;
 import com.kh.runLearn.member.model.vo.Member;
 
 @Controller
@@ -93,9 +94,9 @@ public class LectureController {
 		return mv;
 	}
 	
-	//강의 상세페이지
-	@RequestMapping("lectureDetailView.le")
-	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv, HttpSession session) {
+	//강의 허가/거부페이지
+	@RequestMapping("lectureConfirmView.le")
+	public ModelAndView lectureConfirmView(@RequestParam("l_num") int l_num, ModelAndView mv, HttpSession session) {
 
 //		ArrayList list = lService.selectLecture(l_num);
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -123,9 +124,70 @@ public class LectureController {
 			list.put("L_ADDRESS", radr);
 		}
 		if(loginUser != null) {
-			System.out.println("mid:"+loginUser.getM_id());
-			ArrayList paycheck = lService.userPayCheck(loginUser.getM_id());
-			System.out.println(paycheck);
+			HashMap<String, Object> check = new HashMap<>();
+			check.put("m_id", loginUser.getM_id());
+			check.put("l_num", l_num);
+			ArrayList paycheck = lService.userPayCheck(check);
+			System.out.println("pay: "+paycheck);
+			mv.addObject("paycheck", paycheck);
+		}
+		System.out.println(list);
+		mv.addObject("list", list);
+		mv.addObject("im_list", im_list);
+		mv.addObject("ic_list", ic_list);
+		mv.addObject("it_list", it_list);
+		mv.addObject("ir_list", ir_list);
+		mv.setViewName("lecture/lectureConfirm");
+		return mv;
+	}
+	
+	@RequestMapping("lectureDetailView.le")
+	public ModelAndView lectureDetailView(@RequestParam("l_num") int l_num, ModelAndView mv, HttpSession session) {
+
+//		ArrayList list = lService.selectLecture(l_num);
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		HashMap<String, String> list = lService.selectLecture(l_num);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("MCR", 0);
+		ArrayList im_list = lService.selectLectureImage(map);
+		map.put("MCR", 1);
+		ArrayList ic_list = lService.selectLectureImage(map);
+		map.put("MCR", 2);
+		ArrayList it_list = lService.selectLectureImage(map);
+		map.put("MCR", 3);
+		ArrayList ir_list = lService.selectLectureImage(map);
+		System.out.println("L : "+list);
+		System.out.println("m : "+im_list);
+		System.out.println("c : "+ic_list);
+		System.out.println("t : "+it_list);
+		System.out.println("r : "+ir_list);
+		String adr = (String)list.get("L_ADDRESS");
+		System.out.println(adr);
+		if(adr != null && adr.contains("/")) {
+			String[] sadr = adr.split("/");
+			String radr = sadr[0];
+			if(sadr[1] != null) {
+				radr = radr +" " +sadr[1];
+			}
+			list.put("L_ADDRESS", radr);
+		}
+		if(loginUser != null) {
+			HashMap<String, Object> wish = new HashMap<>();
+			wish.put("l_num", l_num);
+			wish.put("m_id", loginUser.getM_id());
+			Wishlist w_list = lService.selectWishList(wish);
+			System.out.println("w_list: "+w_list);
+			if(w_list != null) {
+				mv.addObject("w_list", w_list);
+			}
+			
+			HashMap<String, Object> check = new HashMap<>();
+			check.put("m_id", loginUser.getM_id());
+			check.put("l_num", l_num);
+			ArrayList paycheck = lService.userPayCheck(check);
+			System.out.println("pay: "+paycheck);
 			mv.addObject("paycheck", paycheck);
 		}
 		System.out.println(list);
@@ -165,9 +227,9 @@ public class LectureController {
 			l_each = new Lecture_Each();
 			l_each.setL_num(l_num);
 			l_each.setL_each_name("강의가 없습니다!");
-			l_each.setL_each_content("강의가 준비중입니다.");
 			l_each.setL_each_num(0);
 		}
+		System.out.println("22: "+l_each);
 		System.out.println("etc: "+etc);
 		System.out.println("lf: "+lf);
 		System.out.println("tlist: "+tlist);
@@ -310,6 +372,10 @@ public class LectureController {
 		return mv;
 	}
 	
+	@RequestMapping("Apply.le")
+	public String apply() {
+		return "lecture/lectureApply";
+	}
 	
 //	튜터의 강의 신청
 	@RequestMapping("lectureApply.le")
@@ -349,7 +415,9 @@ public class LectureController {
 			result = lService.insertLecture_Image(li);
 		}
 		if(result>0) {
-			mv.setViewName("home");
+			mv.addObject("cate", "튜터");
+			mv.addObject("kind", "튜터");
+			mv.setViewName("redirect:mypage.do");
 			return mv;
 		} else {
 			throw new Exception("강의를 신청하는데 실패했습니다. 다시 시도해 주세요.");
@@ -405,13 +473,125 @@ public class LectureController {
 			System.out.println("들어온값이 없음");
 		}
 		if(result>0) {
-			mv.setViewName("home");
+			mv.addObject("cate", "튜터");
+			mv.addObject("kind", "튜터");
+			mv.setViewName("redirect:mypage.do");
 			return mv;
 		} else {
 			throw new Exception("강의를 신청하는데 실패했습니다. 다시 시도해 주세요.");
 		}
 	}
 	
+	//강의 찜목록 추가
+	@RequestMapping("lectureWish.le")
+	public ModelAndView lectureWish(@RequestParam("l_num") int l_num, HttpSession session, ModelAndView mv) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		HashMap<String, String> list = lService.selectLecture(l_num);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("MCR", 0);
+		ArrayList im_list = lService.selectLectureImage(map);
+		map.put("MCR", 1);
+		ArrayList ic_list = lService.selectLectureImage(map);
+		map.put("MCR", 2);
+		ArrayList it_list = lService.selectLectureImage(map);
+		map.put("MCR", 3);
+		ArrayList ir_list = lService.selectLectureImage(map);
+		System.out.println("L : "+list);
+		System.out.println("m : "+im_list);
+		System.out.println("c : "+ic_list);
+		System.out.println("t : "+it_list);
+		System.out.println("r : "+ir_list);
+		String adr = (String)list.get("L_ADDRESS");
+		System.out.println(adr);
+		if(adr != null && adr.contains("/")) {
+			String[] sadr = adr.split("/");
+			String radr = sadr[0];
+			list.put("L_ADDRESS", radr);
+		}
+		if(loginUser != null) {
+			HashMap<String, Object> wish = new HashMap<>();
+			wish.put("l_num", l_num);
+			wish.put("m_id", loginUser.getM_id());
+			lService.insertWishlist(wish);
+			Wishlist w_list = lService.selectWishList(wish);
+			System.out.println("w_list: "+w_list);
+			if(w_list != null) {
+				mv.addObject("w_list", w_list);
+			}
+			
+			HashMap<String, Object> check = new HashMap<>();
+			check.put("m_id", loginUser.getM_id());
+			check.put("l_num", l_num);
+			ArrayList paycheck = lService.userPayCheck(check);
+			System.out.println("pay: "+paycheck);
+			mv.addObject("paycheck", paycheck);
+		}
+		System.out.println(list);
+		mv.addObject("list", list);
+		
+		mv.addObject("im_list", im_list);
+		mv.addObject("ic_list", ic_list);
+		mv.addObject("it_list", it_list);
+		mv.addObject("ir_list", ir_list);
+		mv.setViewName("lecture/lectureDetailView");
+		return mv;
+	}
+	@RequestMapping("lectureWishDel.le")
+	public ModelAndView lectureWishDel(@RequestParam("l_num") int l_num, HttpSession session, ModelAndView mv) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		HashMap<String, String> list = lService.selectLecture(l_num);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("l_num", l_num);
+		map.put("MCR", 0);
+		ArrayList im_list = lService.selectLectureImage(map);
+		map.put("MCR", 1);
+		ArrayList ic_list = lService.selectLectureImage(map);
+		map.put("MCR", 2);
+		ArrayList it_list = lService.selectLectureImage(map);
+		map.put("MCR", 3);
+		ArrayList ir_list = lService.selectLectureImage(map);
+		System.out.println("L : "+list);
+		System.out.println("m : "+im_list);
+		System.out.println("c : "+ic_list);
+		System.out.println("t : "+it_list);
+		System.out.println("r : "+ir_list);
+		String adr = (String)list.get("L_ADDRESS");
+		System.out.println(adr);
+		if(adr != null && adr.contains("/")) {
+			String[] sadr = adr.split("/");
+			String radr = sadr[0];
+			list.put("L_ADDRESS", radr);
+		}
+		if(loginUser != null) {
+			HashMap<String, Object> wish = new HashMap<>();
+			wish.put("l_num", l_num);
+			wish.put("m_id", loginUser.getM_id());
+			lService.deleteWishlist(wish);
+			Wishlist w_list = lService.selectWishList(wish);
+			System.out.println("w_list: "+w_list);
+			if(w_list != null) {
+				mv.addObject("w_list", w_list);
+			}
+			
+			HashMap<String, Object> check = new HashMap<>();
+			check.put("m_id", loginUser.getM_id());
+			check.put("l_num", l_num);
+			ArrayList paycheck = lService.userPayCheck(check);
+			System.out.println("pay: "+paycheck);
+			mv.addObject("paycheck", paycheck);
+		}
+		System.out.println(list);
+		mv.addObject("list", list);
+		mv.addObject("im_list", im_list);
+		mv.addObject("ic_list", ic_list);
+		mv.addObject("it_list", it_list);
+		mv.addObject("ir_list", ir_list);
+		mv.setViewName("lecture/lectureDetailView");
+		return mv;
+	}
 	//강의 추가시 상세설명 이미지 추가
 	@ResponseBody
     @RequestMapping(value="contImageInsert.le", method=RequestMethod.POST)
@@ -700,12 +880,17 @@ public class LectureController {
 		System.out.println("r : "+ir_list);
 		String adr = (String)list.get("L_ADDRESS");
 		System.out.println(adr);
+		String adrD = "";
 		if(adr != null && adr.contains("/")) {
 			String[] sadr = adr.split("/");
 			String radr = sadr[0];
 			list.put("L_ADDRESS", radr);
+			if(sadr[1] != null) {
+				adrD = sadr[1];
+			}
 		}
 		System.out.println(list);
+		mv.addObject("adrD", adrD);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
 		mv.addObject("ic_list", ic_list);
@@ -716,7 +901,7 @@ public class LectureController {
 	}
 	
 	@RequestMapping("lectureDelete.le")
-	public String lectureDelete(@RequestParam("l_num") int l_num, HttpServletRequest request) {
+	public ModelAndView lectureDelete(@RequestParam("l_num") int l_num, HttpServletRequest request, ModelAndView mv) {
 		lService.denyLecture(l_num);
 		ArrayList<Map> list= lService.deleteLecture(l_num);
 		System.out.println(list);
@@ -725,7 +910,10 @@ public class LectureController {
 			deleteFile2((String)((Map)list.get(i)).get("L_CHANGED_NAME"), request);
 		}
 		lService.deleteLectureImage(l_num);
-		return "home";
+		mv.addObject("cate", "튜터");
+		mv.addObject("kind", "튜터");
+		mv.setViewName("redirect:mypage.do");
+		return mv;
 	}
 	
 	@RequestMapping("lectureEachInsert.le")

@@ -537,9 +537,11 @@
 						<c:if test="${m_grade eq '튜티' }">
 							<label class="label1" id="insertTuter">튜터신청</label>
 						</c:if>
-
+            
+						<c:url var="Apply" value="Apply.le"/>
 						<c:if test="${m_grade eq '튜터'}">
-							<label class="label1" id="classInsertButton" onclick="location.href='#'">강의등록</label>
+							<label class="label1" id="classInsertButton" onclick="location.href='${Apply}'">강의등록</label>
+
 						</c:if>
 						<label class="label1" id="logout" onclick="location.href='logout.do'">로그아웃</label>
 					</div>
@@ -712,9 +714,6 @@
 									</div>
 									<div class="row" id="lecturebox1">
 										<div id="left">
-											<div id="teacherName">강사명 :${ l.M_NICKNAME }</div>
-										</div>
-										<div id="right">
 											<div id="lecturePrice">가격 :${ l.L_PRICE }</div>
 										</div>
 									</div>
@@ -744,13 +743,12 @@
 							</tr>
 						</c:if>
 
-
 						<c:forEach var="i" items="${ noPaylList }">
-							<tr id="tr1">
+							<tr id="tr1" >
 								<td class="td1" style="height: 100px;"><div id="tableCategory2">${ i.L_CATEGORY }</div></td>
 								<td class="td1">
 									<div id="image1">
-										<img src="${contextPath}/resources/images/mypage/classtest1.jpg" width="150px" height="80px">
+										<img src="${contextPath}/resources/images/lecture/${i.L_CHANGED_NAME}" width="150px" height="80px">
 									</div></td>
 								<td>
 									<div id="lectureTitle" style="text-align: left;">${ i.L_TITLE }</div>
@@ -1011,9 +1009,9 @@
 					<div id="contentMenu5">
 						<label>내 강의목록</label>
 					</div>
-
+					<c:url var="Apply" value="Apply.le"/>
 					<div id="classInsertMenu">
-						<button type="button" id="classInsert" onclick="location.href='#'">강의등록</button>
+						<button type="button" id="classInsert" onclick="location.href='${Apply}'">강의등록</button>
 					</div>
 				</div>
 				<!-- sub1끝 -->
@@ -1038,16 +1036,15 @@
 						<c:if test="${ empty tLectureList }">
 							<td colspan="5" style="text-align: center; font-size: 20px;">등록한 강의가 없습니다.</td>
 						</c:if>
-
-
-
-
 						<c:forEach var="i" items="${ tLectureList }">
-							<tr id="tr1">
+							<c:url var="lectureConfirmView" value="lectureConfirmView.le">
+								<c:param name="l_num" value="${ i.L_NUM }"/>
+							</c:url>
+							<tr id="tr1" onclick="location.href='${lectureConfirmView}'">
 								<td class="td1" style="height: 100px;"><div id="tableCategory1">${ i.L_CATEGORY }</div></td>
 								<td class="td1">
 									<div id="image1">
-										<img src="${contextPath}/resources/images/mypage/testitem1.jpg" width="150px" height="80px">
+										<img src="${contextPath}/resources/images/lecture/${ i.L_CHANGED_NAME }" width="150px" height="80px">
 									</div></td>
 								<td>
 									<div id="lectureTitle" style="text-align: left;">${ i.L_TITLE }</div>
@@ -1055,7 +1052,7 @@
 									<div id="lectureContent" style="text-align: left;">${ i.L_OBJECT }</div>
 									<div class="row" id="lecturebox1">
 										<div id="right">
-											<div id="lecturePrice" style="text-align: left;">${ i.L_PRICE }</div>
+											<div id="lecturePrice" style="text-align: left;">&#8361;${ i.L_PRICE }</div>
 										</div>
 									</div>
 								</td>

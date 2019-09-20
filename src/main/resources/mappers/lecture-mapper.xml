@@ -118,11 +118,11 @@
 			left join member_image mi using(m_id)
 		where l_num=#{l_num}
 	</select>
-	<select id="userPayCheck" parameterType="string" resultType="map">
+	<select id="userPayCheck" parameterType="hashmap" resultType="map">
 		select *
 		from payment
     		join lecture_pay using(pay_num)
-		where m_id = #{m_id}
+		where m_id = #{m_id} and l_num = #{l_num}
 	</select>
 	<select id="selectLectureImage" parameterType="hashmap" resultType="map">
 		select l_image_num, l_origin_name, l_changed_name, l_file_level, l_num
@@ -247,4 +247,17 @@
 		set l_each_confirm = 'N'
 		where l_each_num = #{l_each_num}
 	</update>
+	<insert id="insertWishlist" parameterType="hashmap">
+		insert into wishlist
+		values(#{l_num}, #{m_id})
+	</insert>
+	<select id="selectWishList" parameterType="hashmap" resultType="Wishlist">
+		select *
+		from wishlist
+		where l_num = #{l_num} and m_id=#{m_id}
+	</select>
+	<delete id="deleteWishlist" parameterType="hashmap">
+		delete from wishlist
+		where l_num = #{ l_num } and m_id= #{ m_id }
+	</delete>
 </mapper>

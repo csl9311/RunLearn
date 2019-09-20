@@ -25,7 +25,7 @@
 	<select id="selectLectureView" parameterType="string" resultType="hashmap">  <!-- 마이페이지 수강목록 -->
 		select *
 		from LEC_VIEW
-		where M_ID = #{m_id} and L_STATUS = 'Y'
+		where M_ID = #{m_id} and L_STATUS = 'Y' and l_file_level = 0
 	</select>
 
 	<select id="selectLetureCount" parameterType="string" resultType="_int"> <!-- 마이페이지 수강목록 전체 수 -->

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.runLearn.common.Exception;
 
 import com.kh.runLearn.lecture.model.service.LectureService;
-
+import com.kh.runLearn.lecture.model.vo.Wishlist;
 import com.kh.runLearn.member.model.vo.Member;
 import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.payment.model.vo.Payment;
@@ -141,6 +141,7 @@ public class PaymentController {
 			@RequestParam("m_id") String m_id,
 			HttpSession session, ModelAndView mv
 			) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		Payment pay = new Payment();
 		pay.setPay_method(pay_method);
@@ -149,6 +150,18 @@ public class PaymentController {
 		payService.insertPayment(pay);
 		System.out.println(pay);
 		
+		HashMap<String, Object> wish = new HashMap<>();
+		wish.put("l_num", l_num);
+		wish.put("m_id", loginUser.getM_id());
+		Wishlist w_list = lService.selectWishList(wish);
+		if(w_list.getL_num() == l_num && m_id.equals(loginUser.getM_id())) {
+			lService.deleteWishlist(wish);
+		}
+		
+		System.out.println("w_list: "+w_list);
+		if(w_list != null) {
+			mv.addObject("w_list", w_list);
+		}
 		int result = payService.insertLecturePayment(l_num);
 		if(result>0) {
 			mv.addObject("l_num", l_num);
