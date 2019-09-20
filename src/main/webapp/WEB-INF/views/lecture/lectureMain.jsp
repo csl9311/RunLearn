@@ -82,7 +82,7 @@
 							<div class="col-md-4">
 								<div class="peopleAttach">
 									<div class="peopleImage">
-										<img src="${contextPath}/resources/images/lecture/${ list.M_CHANGED_NAME }" style="width:100%; height:100%;">
+										<img src="${contextPath}/resources/images/member/${ list.M_CHANGED_NAME }" style="width:100%; height:65px;">
 									</div>
 									<div class="peopleContext" style="text-align: center;">
 									<p>${ list.M_NAME }</p>

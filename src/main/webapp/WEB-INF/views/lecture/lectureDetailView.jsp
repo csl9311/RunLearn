@@ -94,7 +94,7 @@
 			</div>
 			<div class="col-sm-12">
 			<c:if test="${ list.L_CONTENT ne null }">
-				<div>${ list.L_CONTENT }</div>
+				<div><pre style="background-color: white;">${ list.L_CONTENT }</pre></div>
 			</c:if>
 			<br>
 			<c:if test="${ !ic_list.isEmpty() }">
@@ -259,7 +259,7 @@
 					<h5 class="my-0">강사명 : ${ list.M_NAME }</h5>
 					<br>
 					<div align="center">
-					<img src="${contextPath}/resources/images/member/${ list.M_CHANGED_NAME }" style="height:100px;">
+					<img src="${contextPath}/resources/images/member/${ list.M_CHANGED_NAME }" style="width:100%; height:100px;">
 					</div>
 				</div>
 				

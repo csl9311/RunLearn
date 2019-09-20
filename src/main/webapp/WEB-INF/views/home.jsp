@@ -70,7 +70,7 @@
       
       .detailDiv .imgRow img {
          width: 100%;
-         height: 300px;
+         height: 250px;
       }
       
       .detailDiv .subRow {
@@ -321,9 +321,9 @@
 		            var $price;
 		            
 		            if (cate == '강의') {
-		            	$('#img-detail').attr('src', '${contextPath}/resources/buploadFiles/'+data[0].L_CHANGED_NAME);
+		            	$('#img-detail').attr('src', '${contextPath}/resources/images/lecture/'+data[0].L_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].L_TITLE.replace(/\+/g,' ')));
-						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_CONTENT.replace(/\+/g,' ')));
+						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_OBJECT.replace(/\+/g,' ')));
 						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
 						
 		            	for (var i = 0; i < 4; i++) {
@@ -331,7 +331,7 @@
 							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/lecture/'+data[i].L_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
-							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_CONTENT.replace(/\+/g,' ')));
+							$sub = $('<div class="sub">').text(decodeURIComponent(data[i].L_OBJECT.replace(/\+/g,' ')));
 							$price = $('<div class="price">').text(data[i].L_PRICE+"￦");
 							
 							$tr.append($img);
