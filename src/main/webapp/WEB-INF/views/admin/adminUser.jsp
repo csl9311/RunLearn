@@ -22,8 +22,7 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-  <input type="button" value="홈으로" onclick="location.href='adminToHome.do';">
-  <hr>
+ <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
@@ -39,7 +38,7 @@
 
   <div class="w3-bar w3-white w3-card">
     <button class="w3-bar-item sidetab2menu sidetab2menu1 w3-round hoverpink hotpink fontwhite" onclick="st2menu(event,'st2menu1');" style="min-width:150px; margin-left:5px;margin-right:5px;">회원관리</button>
-    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="st2menu(event,'st2menu2');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원신청</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="st2menu(event,'st2menu2');" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터신청</button>
   </div>
   
   <div id="st2menu1" class="w3-container borderhotpink sidetab2menus animate-fading" style="border-top:white">
@@ -51,11 +50,25 @@
     <span class="fonthotpink">탈퇴회원 : ${ pil.listCount } |</span>
     <span class="fonthotpink">관리자 수 : ${ piad.listCount }</span>
     <form action="adminUserSearchId.do">
+    	
 				<div class="borderhotpinkthick" style="width:350px;">
-					<input type="text" name="search" id="fixed-searchcss" placeholder="아이디를 입력해주세요" autocomplete="off" value="" style="border:white;width:300px;">
-					<img src="${contextPath}/resources/images/common/search.png" class="searchBtn" onclick="">
+					<input type="text" name="search" id="fixed-searchcss" placeholder="아이디를 입력해주세요" autocomplete="off" value="" style="border:white;width:290px;">
+					<%-- <img src="${contextPath}/resources/images/common/search.png" class="searchBtn" onclick="location.href='adminUserSearchId.do;"> --%>
+					<input type="submit" id="search" value="검색"> 
 				</div>
 	</form>
+	 <div class="w3-bar w3-white w3-card">
+    <button class="w3-bar-item sidetab2menu sidetab2menu1 w3-round hoverpink" onclick="location.href='adminUser.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">모든회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUsertee.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">튜티회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUsertor.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">튜터회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUserbl.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">블랙회원</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUserY.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">상태 Y</button>
+    <button class="w3-bar-item sidetab2menu sidetab2menu3 w3-round hoverpink" onclick="location.href='adminUserN.do';" style="min-width:150px; margin-left:5px;margin-right:5px;">상태 N</button>
+    
+  	</div>
+	 <!-- 난 바보다 -->
+
+	
 <!--     <button class="allUserChangeBtn listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:block;" onclick="insertTrAll('allUser','allUserB','allUserBC');">모든회원 수정 상태로</button>
    	<button class="allUserChangeBtnCan listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;width:auto;display:none;" onclick="insertTrAllRollback('allUser','allUserB','allUserBC');">모든회원 수정 상태 풀기</button> -->
     <table class="w3-table-all hoverTablePink" style="width:100%;">
@@ -69,7 +82,7 @@
   		<th style="width:auto;text-align:center;">가입일</th>
   		<th style="width:auto;text-align:center;">수정일</th>  		
   		<th style="width:auto;text-align:center;">등급</th>
-  		<th style="width:auto;text-align:center;">상태</th>
+  		<th style="width:30px;text-align:center;">상태</th>
   		<th style="width:auto;text-align:center;">주소</th> 
   		<th style="width:auto;text-align:center;">수정</th>
   		<input type="hidden" name="i" value="${i}">
@@ -196,7 +209,7 @@
   	</thead>
   	<c:forEach var="b" items="${ boardList }">
   		<c:if test="${ b.b_status  eq 'Y' and b.b_category eq '튜터신청'}">
-  		<form action="targetBoardDelete.do" method="post" enctype="Multipart/form-data">
+  		<form action="targetBoardDelete2.do" method="post" enctype="Multipart/form-data">
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
   			<input type="hidden" name="b_status" value="${ b.b_status }" class=" borderInform"readonly>
@@ -214,7 +227,7 @@
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ b.m_id }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ b.b_count }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ b.b_reg_date }" class="${ b.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
-			<td><button type="button" value="삭제하기"class="${ b.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			<td><button type="submit" value="삭제하기"class="${ b.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		

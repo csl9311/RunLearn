@@ -23,8 +23,7 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-  <input type="button" value="홈으로" onclick="location.href='adminToHome.do';">
-  <hr>
+ <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
  <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">결제관리</button>
@@ -79,7 +78,7 @@
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.b_count }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
 			
-			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			<td><button type="submit" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		
@@ -168,7 +167,7 @@
 			
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
 			
-			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			<td><button type="submit" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		
@@ -255,7 +254,7 @@
 			
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
 			
-			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			<td><button type="submit" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		
@@ -341,7 +340,7 @@
 			
 			<td style="text-align:center;"><input type="text" name="b_reg_date" value="${ a.b_reg_date }" class="${ a.m_id } borderInform2 allUser" style="border:rgba(0,0,0)"readonly></td>
 			
-			<td><button type="button" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
+			<td><button type="submit" value="삭제하기"class="${ a.m_id }BC  allUserBC listbtn fontwhite" >삭제하기</button></td>
 			
 		</tr>
 		

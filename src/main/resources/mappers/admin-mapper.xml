@@ -36,6 +36,56 @@
 		from member
 		order by m_create_date desc
 	</select>
+	<select id="allUserListtee" resultType="Member"><!--튜티 정렬 (가입일) -->
+		select *
+		from member
+		where m_grade ='튜티' or m_grade='튜티/블랙'
+		order by m_create_date desc
+	</select>
+	<select id="allUserListtor" resultType="Member"><!--튜터 정렬 (가입일) -->
+		select *
+		from member
+		where m_grade ='튜타' or m_grade='튜터/블랙'
+		order by m_create_date desc
+	</select>
+	<select id="allUserListbl" resultType="Member"><!--블랙 정렬 (가입일) -->
+		select *
+		from member
+		where m_grade ='튜티/블랙' or m_grade='튜티/블랙'
+		order by m_create_date desc
+	</select>
+	<select id="allUserListM" resultType="Member"><!--어드민 정렬 (가입일) -->
+		select *
+		from member
+		where m_grade ='튜티/블랙' or m_grade='튜티/블랙'
+		order by m_create_date desc
+	</select>
+	<select id="allUserListY" resultType="Member"><!--Y 정렬 (가입일) -->
+		select *
+		from member
+		where m_status='Y'
+		order by m_create_date desc
+	</select>
+	<select id="allUserListN" resultType="Member"><!--N 정렬 (가입일) -->
+		select *
+		from member
+		where m_status='N'
+		order by m_create_date desc
+	</select>
+	
+	
+	<select id="searchId" parameterType="string" resultType="Member"><!-- 검색 -->
+		select *
+		from member
+		where m_Id like '%'|| #{search} ||'%'
+		order by m_create_date desc
+	</select>
+	<select id="searchNick" parameterType="String" resultType="Member"><!-- 검색 -->
+		select *
+		from member
+		where m_nickname like '%' || #{search} || '%'
+		order by m_create_date desc
+	</select>
 
 
 
@@ -56,11 +106,7 @@
 		D_ADDRESS=#{d_address}
 		where M_ID = #{m_id}
 	</update>
-	<select id="searchId" parameterType="Member">
-		select *
-		from member
-		where m_Id like '%' || #{search} || '%'
-	</select>
+	
 
 <!--board  -->
 	<select id="boardList" resultType="board"><!--보드 리스 트 -->
@@ -76,31 +122,31 @@
 	<select id="boardListCountNot" resultType="_int"><!-- 공지 보드개수 -->
 		select Count(*)
 		from board
-		where B_CATEGORY ='공지'
+		where B_CATEGORY ='공지' and b_status= 'Y'
 		order by B_REG_DATE desc
 	</select>
 	<select id="boardListCountQe" resultType="_int"><!--  질문보드개수 -->
 		select Count(*)
 		from board
-		where B_CATEGORY ='질문'
+		where B_CATEGORY ='질문' and b_status= 'Y'
 		order by B_REG_DATE desc
 	</select>
 	<select id="boardListCountSug" resultType="_int"><!--  건의보드개수 -->
 		select Count(*)
 		from board
-		where B_CATEGORY ='건의'
+		where B_CATEGORY ='건의' and b_status= 'Y'
 		order by B_REG_DATE desc
 	</select>
 	<select id="boardListCountDecl" resultType="_int"><!--  신고보드개수 -->
 		select Count(*)
 		from board
-		where B_CATEGORY ='신고'
+		where B_CATEGORY ='신고' and b_status= 'Y'
 		order by B_REG_DATE desc
 	</select>
 	<select id="boardListCountA" resultType="_int"><!--  튜터신청보드개수 -->
 		select Count(*)
 		from board
-		where B_CATEGORY ='튜터신청'
+		where B_CATEGORY ='튜터신청' and b_status= 'Y'
 		order by B_REG_DATE desc
 	</select>
 	<select id="boardListA" resultType="Board"><!--  튜터신청보드리스트ㄴ -->
@@ -113,6 +159,12 @@
 	update board
 	set b_count = b_count+1
 	where b_num=#{bId}
+	</update>
+	<update id="targetTrBDelete" parameterType="Board"><!-- 특정 게시판 삭제 -->
+		update Board
+		set
+		b_status = 'N'
+		where b_num = #{b_num}
 	</update>
 	
 	<resultMap type="Board" id="BoardResultSet">
