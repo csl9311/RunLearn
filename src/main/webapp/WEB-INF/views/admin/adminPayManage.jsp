@@ -26,51 +26,15 @@
  <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
-  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminPayManage.do';" style="width:175px">상품/강의</button>
+  <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminPayManage.do';" style="width:175px">강의신청</button>
   <button id="tablink4" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminNoticeAdmin.do';" style="width:175px">고객센터</button>
 
 </div>
 
 <div class="minh"style="margin-left:190px">
-  <h2 class="w3-padding fontthick fonthotpink">결제관리</h2><hr class="borderhotpink">
+  <h2 class="w3-padding fontthick fonthotpink">강의 신청</h2><hr class="borderhotpink">
  <div class="w3-container">
-
-  <div class="w3-bar w3-white w3-card">
-    <button class="w3-bar-item  sidetab3menu w3-round hoverpink hotpink fontwhite" onclick="st3menu(event,'st3menu1')" style="min-width:150px; margin-left:5px;margin-right:5px;">상품</button>
-    <button class="w3-bar-item  sidetab3menu w3-round hoverpink" onclick="st3menu(event,'st3menu2')" style="min-width:150px; margin-left:5px;margin-right:5px;">강의</button>
-   
-  </div>
-  
-  <div id="st3menu1" class="w3-container borderhotpink sidetab3menus animate-fading">
-
-     <h3 class="fonthotpink" style="font-weight:bold">상품</h3>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
-    <table class="w3-table-all hoverTablePink">
-  	<thead>
-  	<tr class="fontwhite" style="background-color:#ff005a;">
-  		<th style="width:5%;text-align:center;">글번호</th>
-  		<th style="width:60%;text-align:center;">글제목</th>
-  		<th style="width:5%;text-align:center;">작성자</th>
-  		<th style="width:5%;text-align:center;">조회수</th>
-  		<th style="width:5%;text-align:center;">댓글수</th>
-  		<th style="width:10%;text-align:center;">작성시간</th>
-  		<th style="width:10%;text-align:center;">작성시간</th>
-  	</tr>
-  	</thead>
-  	<tr>
-  		<th style="text-align:center;">실험용</th>
-  		<th>실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  		<th style="text-align:center;">실험용</th>
-  	</tr>
-  	</table>
-  </div>
-
-  <div id="st3menu2" class="w3-container borderhotpink sidetab3menus animate-fading" style="display:none">
-   <h3 class="fonthotpink" style="font-weight:bold">강의</h3>
-    <button class="listbtn fontwhite" style="margin:5px;margin-right:20px;float:right;">글 작성</button>
+  <div id="st3menu2" class="w3-container borderhotpink sidetab3menus animate-fading" >
     <table class="w3-table-all hoverTablePink">
   	<thead>
   	<tr class="fontwhite" style="background-color:#ff005a;">
