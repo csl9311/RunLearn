@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="replyMapper">
+	<select id="selectReplyList" parameterType="map" resultType="hashmap">
+		select *
+		from reply_view
+		<if test="type == '강의'">
+			where l_num = #{num}
+		</if>
+		<if test="type == '상품'">
+			where p_num = #{num}
+		</if>
+		<if test="type == '고객센터'">
+			where b_num = #{num}
+		</if>
+		order by R_CREATE_DATE
+	</select>
+	
+	<insert id="insertReply">
+		insert into reply
+		<if test="type == '강의'">
+			values(reply_seq.nextval, #{id}, #{content}, sysdate, default, null, null, #{num}, null)
+		</if>
+		<if test="type == '상품'">
+			values(reply_seq.nextval, #{id}, #{content}, sysdate, default, null, #{num}, null, null)
+		</if>
+		<if test="type == '고객센터'">
+			values(reply_seq.nextval, #{id}, #{content}, sysdate, default, #{num}, null, null, null)
+		</if>
+	</insert>
+	
+	<update id="deleteReply" parameterType="_int">
+		update reply
+		set r_status = 'N'
+		where r_num = #{r_num}
+	</update>
+</mapper>
