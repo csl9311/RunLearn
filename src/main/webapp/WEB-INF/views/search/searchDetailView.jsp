@@ -178,7 +178,7 @@ ul li a:hover {
 						                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 						                        <div class="card-body" style="width: 90%;">
 						                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
-						                          <p class="card-text">${ l.L_CONTENT }</p><br>
+						                          <p class="card-text">${ l.L_OBJECT }</p><br>
 						                          <p class="card-text"><small class="text-muted">${ l.L_PRICE }￦</small></p>
 						                        </div>
 						                      </div>
@@ -196,7 +196,7 @@ ul li a:hover {
 						                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 						                        <div class="card-body" style="width: 90%;">
 						                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
-						                          <p class="card-text"><small class="text-muted">${ p.P_PRICE }￦</small></p>
+						                          <p class="card-text"><small class="text-muted">${ p.P_OPTIONPRICE }￦</small></p>
 						                        </div>
 						                      </div>
 						                    </div>

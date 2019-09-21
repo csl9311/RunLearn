@@ -8,7 +8,7 @@
 		select *
 		from lsearch_view
 		where (l_title like '%' || #{search} || '%'
-                or l_content like '%' || #{search} || '%')
+                or L_OBJECT like '%' || #{search} || '%')
         <if test="subcate != null">
         	and l_category = #{subcate}
         </if>
@@ -45,13 +45,11 @@
     	]]>
     </select>
     
-    <!-- 수민(3) 끝! -->
-    
     <select id="search-getListCount" parameterType="map" resultType="_int">
     	select count(*)
     	from lsearch_view
     	where (l_title like '%' || #{search} || '%'
-                or l_content like '%' || #{search} || '%')
+                or l_object like '%' || #{search} || '%')
     	 <if test="subcate != null">
         	and l_category = #{subcate}
         </if>
@@ -76,6 +74,7 @@
         </if>
     </select>
     
+    <!-- 수민(3) 끝! -->
   
 	<select id="getListCount" resultType="_int">
 		select count(*)
