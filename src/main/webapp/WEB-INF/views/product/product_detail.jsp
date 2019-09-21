@@ -287,7 +287,7 @@
 		<br> <br> <br> <br> <br> <br>
 		
 		<!-- 댓글시작 -->
-		<div>
+		<div style="width:80%; margin: 0 auto;">
 			<c:import url="../reply/replyView.jsp" />
 		</div>
 		<script>
@@ -318,7 +318,7 @@
 		<!-- 댓글끝 -->
 		
 		<%-- 라이브리 시티 설치 코드 --%>
-		<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
+		<%-- <div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
 			<script type="text/javascript">
 				(function(d, s) {
 					var j, e = d.getElementsByTagName(s)[0];
@@ -335,7 +335,7 @@
 				})(document, 'script');
 			</script>
 			<noscript>라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
-			<%-- 
+			
 			<div class="row center">
 				<button type="button" class="btn" onclick="deleteAd();">광고 지우기</button>
 			</div>
@@ -345,8 +345,8 @@
 					$ad.remove();
 				}
 			</script>
-			 --%>
-		</div>
+			
+		</div> --%>
 		<%-- 시티 설치 코드 끝 --%>
 	</div>
 </body>
