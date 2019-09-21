@@ -54,6 +54,7 @@
          height: 100%;
          border: 1px solid lightgray;
          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+         cursor: pointer;
       }
       
       .detailDiv table {
@@ -128,7 +129,7 @@
       }
       
       .sideDiv td {
-         padding: 8px 0;
+         padding: 5px 0;
          border-top: 1px solid lightgray;
          border-bottom: 1px solid lightgray;
          cursor: pointer;
@@ -205,10 +206,10 @@
    <div class="body">
       <div class="slide-area">
          <div class="slide">
-         	<%-- <c:forEach var="list" items="${ list }">
-         		<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
+         	<c:forEach var="list" items="${ list }">
+         		<div class="slideItem"><img src="${contextPath}/resources/images/lecture/${list.l_changed_name}"></div>
          		<!-- 강의 의미지 경로만 바꿔주면 됨! DB에서 인기 강의는 불러왔음! -->
-         	</c:forEach> --%>
+         	</c:forEach>
          </div>
          <script>
          	console.log('${list}');
@@ -220,6 +221,7 @@
             <table class="topItem">
                <tr class="imgRow">
                   <td>
+                  	 <input type="hidden" name="num" value="">
                      <img id="img-detail">
                   </td>
                </tr>
@@ -313,21 +315,19 @@
 					$table = $(".sideItems");
 		            $table.html("");
 		            
-		            var $tr;
-		            var $img;
-		            var $td;
-		            var $title;
-		            var $sub;
-		            var $price;
+		            var $tr, $img, $td, $title, $sub, $price;
 		            
 		            if (cate == '강의') {
+		            	$('.topItem').attr('onclick','goLectureDetail($(this));');
 		            	$('#img-detail').attr('src', '${contextPath}/resources/images/lecture/'+data[0].L_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].L_TITLE.replace(/\+/g,' ')));
 						$('.imgRow').siblings('.sub').children('td').html(decodeURIComponent(data[0].L_OBJECT.replace(/\+/g,' ')));
 						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].L_PRICE+"￦");
+						$('.imgRow').find('input').attr('value',data[0].L_NUM);
 						
 		            	for (var i = 0; i < 4; i++) {
-							$tr = $('<tr class="rows">');
+							$tr = $('<tr class="rows" onclick="goLectureDetail($(this));">');
+							$num = $('<input type="hidden" name="num" value="'+data[i].L_NUM+'">');
 							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/lecture/'+data[i].L_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].L_TITLE.replace(/\+/g,' ')));
@@ -335,6 +335,7 @@
 							$price = $('<div class="price">').text(data[i].L_PRICE+"￦");
 							
 							$tr.append($img);
+							$tr.append($num);
 							
 							$td.append($title);
 							$td.append($sub);
@@ -345,19 +346,23 @@
 							$table.append($tr);
 						}
 		            } else if (cate == '상품') {
+		            	$('.topItem').attr('onclick','goProductDetail($(this));');
 		            	$('#img-detail').attr('src', '${contextPath}/resources/images/product/'+data[0].P_CHANGED_NAME);
 		            	$('.imgRow').siblings('.title').children('td').html("<br>"+decodeURIComponent(data[0].P_NAME.replace(/\+/g,' ')));
 		            	$('.imgRow').siblings('.sub').children('td').html('');
 						$('.imgRow').siblings('.price').children('td').html("<br>"+data[0].P_OPTIONPRICE+"￦");
+						$('.imgRow').find('input').attr('value',data[0].P_NUM);
 						
 						for (var i = 0; i < 4; i++) {
-							$tr = $('<tr class="rows">');
+							$tr = $('<tr class="rows" onclick="goProductDetail($(this));">');
+							$num = $('<input type="hidden" name="num" value="'+data[i].P_NUM+'">');
 							$img = $('<td class="imgRow-side"><img src="${contextPath}/resources/images/product/'+data[i].P_CHANGED_NAME+'">');
 							$td = $('<td>');
 							$title =  $('<div class="title">').text(decodeURIComponent(data[i].P_NAME.replace(/\+/g,' ')));
 							$price = $('<div class="price">').text(data[i].P_OPTIONPRICE+"￦");
 							
 							$tr.append($img);
+							$tr.append($num);
 							
 							$td.append($title);
 							$td.append($price);
@@ -400,6 +405,16 @@
 			   });
 		   }
 	   });
+	   
+	   function goLectureDetail(object) {
+		   var num = object.find('input').val();
+		   location.href='lectureDetailView.le?l_num='+num;
+	   }
+	   
+	   function goProductDetail(object) {
+		   var num = object.find('input').val();
+		   location.href='select.product?p_num='+num;
+	   }
    </script>
 </body>
 </html>

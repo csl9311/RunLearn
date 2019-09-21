@@ -85,8 +85,10 @@ ul li a:hover {
 	width: auto;
 }
 
-.card img, .card-title b, .card-body .card-text, .text-muted {
+.card {
 	cursor: pointer;
+	border: 1px solid #ececec;
+	margin: 0 auto;
 }
 
 .highlight {
@@ -174,8 +176,9 @@ ul li a:hover {
 					                  	</c:if>
 			                  			<c:forEach var="l" items="${ list }">
 					                    	<div class="col-md-4">
-						                      <div class="card mb-4 shadow-sm">
-						                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+						                      <div class="card mb-4 shadow-sm" onclick="goLectureDetail($(this));">
+						                        <input type="hidden" name="num" value="${ l.L_NUM }">
+						                        <img class="bd-placeholder-img card-img-top" width="100%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 						                        <div class="card-body" style="width: 90%;">
 						                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
 						                          <p class="card-text">${ l.L_OBJECT }</p><br>
@@ -192,8 +195,9 @@ ul li a:hover {
 					                  	</c:if>
 			                  			<c:forEach var="p" items="${ list }">
 					                    	<div class="col-md-4">
-						                      <div class="card mb-4 shadow-sm">
-						                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+						                      <div class="card mb-4 shadow-sm" onclick="goProductDetail($(this));">
+						                        <input type="hidden" name="num" value="${ p.P_NUM }">
+						                        <img class="bd-placeholder-img card-img-top" width="100%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 						                        <div class="card-body" style="width: 90%;">
 						                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
 						                          <p class="card-text"><small class="text-muted">${ p.P_OPTIONPRICE }￦</small></p>
@@ -346,6 +350,16 @@ ul li a:hover {
 				location.href='searchCate.do?&search=${search}&cate=${cate}&subcate=${subcate}&price=' + price;
 			}
 		});
+   		
+   		function goLectureDetail(object) {
+  		   var num = object.find('input').val();
+  		   location.href='lectureDetailView.le?l_num='+num;
+  	    }
+  	   
+  	    function goProductDetail(object) {
+  		   var num = object.find('input').val();
+  		   location.href='select.product?p_num='+num;
+  	    }
    </script>
 </body>
 </html>
