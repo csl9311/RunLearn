@@ -244,7 +244,6 @@ span.suc1{color: green;}
 						    }
 						    if(pwUsable == true && pwUsable1 == true){
 						    	$("#check2").val(1);
-						    	alert("ㅇㅇ");
 							} else {
 								$("#check2").val(0);
 							}
