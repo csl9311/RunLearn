@@ -29,8 +29,73 @@ public class AdminController {
 	SearchService sService;
 
 	@RequestMapping("adminMain.do")
-	public String adminMain() {// 어드민 메인페이지로 이동
-		return "admin/adminMain";
+	public ModelAndView adminMain(@RequestParam(value="page",required=false)Integer page,@RequestParam(value="i",required=false,defaultValue = "0")Integer i,
+			ModelAndView mv) {//어드민 회원 조회
+int currentPage=1;
+if(page != null) {
+currentPage= page;
+}
+int allUserCount= aService.allUserCount();
+int tutorUserCount= aService.tutorUserCount();
+int tuteeUserCount= aService.tuteeUserCount();
+int blackUserCount= aService.blackUserCount();
+int leaveUserCount= aService.leaveUserCount();
+int adminUserCount= aService.adminUserCount();
+int modifyUserCount= aService.modifyUserCount();
+int createUserCount=aService.createUserCount();
+int boardListCount= aService.boardListCount();
+int boardListCountA= aService.boardListCountA();
+
+
+int boardListCountNot = aService.boardListCountNot();
+int boardListCountQe = aService.boardListCountQe();
+int boardListCountSug = aService.boardListCountSug();
+int boardListCountDecl = aService.boardListCountDecl();
+
+PageInfo blc = Pagination.getPageInfo(currentPage, boardListCount, 20);
+PageInfo blcn = Pagination.getPageInfo(currentPage, boardListCountNot, 20);
+PageInfo blcq = Pagination.getPageInfo(currentPage, boardListCountQe, 20);
+PageInfo blcs = Pagination.getPageInfo(currentPage, boardListCountSug, 20);
+PageInfo blcd = Pagination.getPageInfo(currentPage, boardListCountDecl, 20);
+
+PageInfo bla= Pagination.getPageInfo(currentPage, boardListCountA, 20);
+PageInfo pia= Pagination.getPageInfo(currentPage, allUserCount, 20);
+PageInfo pitor= Pagination.getPageInfo(currentPage, tutorUserCount, 20);
+PageInfo pitee= Pagination.getPageInfo(currentPage, tuteeUserCount, 20);
+PageInfo pib= Pagination.getPageInfo(currentPage, blackUserCount, 20);
+PageInfo pil= Pagination.getPageInfo(currentPage, leaveUserCount, 20);
+PageInfo piad= Pagination.getPageInfo(currentPage, adminUserCount, 20);
+ArrayList<Member> userList=aService.allUserList(pia);//모든회원 조회
+ArrayList<Board> boardList=aService.boardListA(blc);//모든보드 조회
+
+int lectureCount = aService.applyLectureCount();
+
+PageInfo lpi = Pagination.getPageInfo(currentPage, lectureCount, 20);
+
+ArrayList l_list = aService.applylectureList(lpi);
+System.out.println(l_list);
+
+
+mv.addObject("lpi",lpi);
+mv.addObject("blcd", blcd);
+mv.addObject("blcs", blcs);
+mv.addObject("blcq", blcq);
+mv.addObject("blcn", blcn);
+mv.addObject("blc", blc);
+mv.addObject("modifyUserCount",modifyUserCount);
+mv.addObject("createUserCount",createUserCount);
+mv.addObject("boardList", boardList);
+mv.addObject("bla", bla);
+mv.addObject("i", i);
+mv.addObject("userList", userList);
+mv.addObject("pia", pia);
+mv.addObject("pitor", pitor);
+mv.addObject("pitee", pitee);
+mv.addObject("pib", pib);
+mv.addObject("pil", pil);
+mv.addObject("piad", piad);
+mv.setViewName("admin/adminMain");
+return mv;
 	}
 
 	// 어드민 회원조회
