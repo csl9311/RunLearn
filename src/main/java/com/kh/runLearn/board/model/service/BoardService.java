@@ -26,6 +26,7 @@ public interface BoardService {
 
 	int insertBoard_Image(Board_Image bi); // 게시글 이미지 등록
 	int updateBoard_Image(Board_Image bi); // 게시글 이미지 수정
+	int deleteBoard_Image(Board_Image bi); // 게시글 이미지 삭제
 
 	/* ---------------고객센터용---------------  */
 	ArrayList<HashMap<String, String>> selectCenterBoardList(Map<String, Object> map); // 고객센터 게시목록조회
@@ -33,4 +34,5 @@ public interface BoardService {
 
 	/* ---------------마이페이지용---------------  */
 	Board selectBoardTutor(String userId); //튜터신청여부
+
 }

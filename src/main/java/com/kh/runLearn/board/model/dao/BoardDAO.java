@@ -58,6 +58,14 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.selectBoardImg", b.getB_num());
 	}
 	
+	public int updateBoard_Image(Board_Image bi) {
+		return sqlSession.update("boardMapper.updateBoardImg", bi);
+	}
+	
+	public int deleteBoard_Image(Board_Image bi) {
+		return sqlSession.delete("boardMapper.deleteBoardImg", bi);
+	}
+	
 	/* ---------------고객센터용---------------  */
 	public ArrayList<HashMap<String, String>> selectCenterBoardList(Map<String, Object> map) {
 		PageInfo pi = (PageInfo) map.get("pi");
