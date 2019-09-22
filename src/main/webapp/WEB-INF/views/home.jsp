@@ -32,11 +32,12 @@
       .slide .slideItem {
          display: inline-block;
          height: 450px;
+         width: 100%;
       }
       
       .slide .slideItem img {
-         height: 450px;
-         width: 100%;
+      	 height: 450px;
+      	 width: 100%;
       }
       
       /* -----------------------메인 아래부분----------------------- */
@@ -187,7 +188,7 @@
       }
       
       .mentDiv .ment {
-          position: absolute;
+         position: absolute;
          top:50%;
          left:50%;
          transform: translate(-50%, -50%);                                                                   
@@ -206,14 +207,7 @@
    <div class="body">
       <div class="slide-area">
          <div class="slide">
-         	<c:forEach var="list" items="${ list }">
-         		<div class="slideItem"><img src="${contextPath}/resources/images/lecture/${list.l_changed_name}"></div>
-         		<!-- 강의 의미지 경로만 바꿔주면 됨! DB에서 인기 강의는 불러왔음! -->
-         	</c:forEach>
          </div>
-         <script>
-         	console.log('${list}');
-         </script>
       </div>
       <div class="container main-bottom">
           <h3>최신 강의</h3><br>
@@ -386,7 +380,8 @@
 			   var $img;
 			   
 			   for (var i = 0; i < data.length; i++) {
-				   $img = $('<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg">');
+				   console.log(data[i]);
+				   $img = $('<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner'+(i+1)+'.jpg">');
 				   
 				   $div.append($img);
 			   }

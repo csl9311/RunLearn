@@ -39,6 +39,7 @@
     		select l.*
 			from (select l_changed_name
         			from lec_view
+        			where l_file_level = 0
         			group by l_num, l_changed_name
         			order by count(l_num) desc) l
 			where rownum < 4
