@@ -60,7 +60,10 @@
 	
 	<update id="updateBoard" parameterType="Board">
 		update board
-		set b_title = #{b_title}, b_content = #{b_content}, b_subcategory = #{b_subcategory}
+		set b_title = #{b_title}, b_content = #{b_content}
+		<if test="b_subcategory != null">
+			, b_subcategory = #{b_subcategory}
+		</if>
 		where b_num = #{b_num}
 	</update>
 	
@@ -84,5 +87,13 @@
 			and m_id = #{m_id}
 		</if>
 		order by B_REG_DATE desc
+	</select>
+	
+	<select id="selectBoardTutor" parameterType="string" resultType="Board">
+		select *
+		from board
+		where b_status = 'Y'
+			and b_category = '튜터신청'
+			and m_id = #{m_id}
 	</select>
 </mapper>

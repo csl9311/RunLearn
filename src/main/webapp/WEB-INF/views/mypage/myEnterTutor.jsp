@@ -46,7 +46,6 @@
 	.enterDiv input {
 		border: none;
 		outline: none;
-		border-bottom: 1px solid lightgray;
 		width: 90%;
 	}
 	
@@ -62,52 +61,51 @@
 	.enterDiv button:hover {
 	    box-shadow: 0 0 3px 0 #ff005a;
 	}
-	
-	.enterDiv input:hover, .enterDiv input:focus {
-		border-bottom: 1px solid #ff005a;
-	}
-	
-	#bContent:hover, #bContent:focus {
-		border: 1px solid #ff005a;
-	}
 </style>
 </head>
 <body>
 	<c:import url="../common/header.jsp" />
 	
 	<div class="container enterDiv">
-		<form action="tutorInsert.do" method="POST">
-		<input type="hidden" name="b_category" value="튜터신청">
-		<div class="rows">
-			<div class="col-md title" style="margin: 10px 0; text-align: center;">
-				<h2>튜터 신청</h2>
-			</div>
-			<div class="x-100"></div>
-			<div class="col-md">
-				<table>
-					<tr>
-						<th class="titleTh">제목</th>
-						<td colspan="2"><input type="text" name="b_title" required></td>
-					</tr>
-					<tr>
-						<td colspan="6" style="width: 100%; padding: 50px;">
-							<textarea id="bContent" name="b_content" placeholder="신청사유를 상세히 적어주세요^^!" required></textarea>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="x-100"></div>
+			<input type="hidden" name="b_category" value="튜터신청">
+			<input type="hidden" name="m_id" value="${ loginUser.m_id }">
+			<div class="rows">
+				<div class="col-md title" style="margin: 10px 0; text-align: center;">
+					<h2>튜터 신청 내역</h2>
+				</div>
+				<div class="x-100"></div>
+				<div class="col-md">
+					<table>
+						<tr>
+							<th class="titleTh">제목</th>
+							<td colspan="2"><input type="text" name="b_title" value="${ b.b_title }" readonly></td>
+						</tr>
+						<tr>
+							<td colspan="6" style="width: 100%; padding: 50px;">
+								<textarea id="bContent" name="b_content" readonly> ${ b.b_content }</textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="x-100"></div>
 				<div class="col-md" style="text-align: center; margin-bottom: 50px;">
-					<c:url var="mypage" value="mypage.do">
-						<c:param name="cate" value="수강목록"/>
+					<c:url var="enterTutorUpdate" value="tutorUpdateView.do">
+						<c:param name="b_num" value="${ b.b_num }"/>
 					</c:url>
-					<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">돌아가기</button>
-					<button type="submit">등록하기</button>
+					<button type="button" onclick="location.href='${ enterTutorUpdate }'">수정하기</button>
+					<button type="button" style="margin-left: 20px;" onclick="deleteYN();">신청취소</button>
 				</div>
 			</div>
-		</form>
 	</div>
 	
 	<c:import url="../common/footer.jsp" />
+	
+	<script>
+		function deleteYN() {
+			if (confirm('정말 튜터신청을 취소하시겠습니까?')) {
+				location.href='deleteEnterTutor.do?b_num=${b.b_num}';
+			}
+		}
+	</script>
 </body>
 </html>

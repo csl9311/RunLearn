@@ -30,4 +30,7 @@ public interface BoardService {
 	/* ---------------고객센터용---------------  */
 	ArrayList<HashMap<String, String>> selectCenterBoardList(Map<String, Object> map); // 고객센터 게시목록조회
 	int getCenterListCount(Map<String, Object> map); // 고객센터 게시글 수 조회
+
+	/* ---------------마이페이지용---------------  */
+	Board selectBoardTutor(String userId); //튜터신청여부
 }
