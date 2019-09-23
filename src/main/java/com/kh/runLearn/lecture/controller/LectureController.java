@@ -222,6 +222,7 @@ public class LectureController {
 		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
 		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
 		ArrayList tlist = lService.tclassList(((BigDecimal)map.get("L_NUM")).intValue());
+		System.out.println(map);
 		if(!map.isEmpty() && !list.isEmpty()) {
 			mv.addObject("tlist", tlist);
 			mv.addObject("list", list);
@@ -340,7 +341,7 @@ public class LectureController {
 										  ModelAndView mv, MultipartHttpServletRequest request,
 										  HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		l.setM_id(loginUser.getM_id());//Session에서 이름받아오기 전까지 사용될 m_id
+		l.setM_id(loginUser.getM_id());
 		
 		String address = adr1;
 		if(!adr2.equals("")) {
@@ -519,14 +520,9 @@ public class LectureController {
 	@ResponseBody
     @RequestMapping(value="contImageInsert.le", method=RequestMethod.POST)
     public int multiContImageUpload(@RequestParam("cfiles")List<MultipartFile> cimages, MultipartHttpServletRequest request) {
-//		long sizeSum = 0;
 		int result = 0;
 		int l_num = lService.findValue();
         for(MultipartFile image : cimages) {
-//			sizeSum += image.getSize();
-//				if(sizeSum >= 10 * 1024 * 1024) {
-//				return -2;
-//			}
     		if(image != null && !image.isEmpty()) {
     			result = uploadLectureImgs(image, request, 1, l_num+1);
     		}

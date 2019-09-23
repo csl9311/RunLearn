@@ -346,7 +346,6 @@
 	        	        	                        $("#hiddenCurrValue").val(result);
 	        	        	                        $("#ApplyForm").submit();
 	        	        	                    }
-	        	        	                    //전송실패에대한 핸들링은 고려하지 않음
 	        	        	                });
 	        	        	            }
 	        	                    });

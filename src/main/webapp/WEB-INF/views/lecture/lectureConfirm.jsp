@@ -297,14 +297,14 @@
 			<c:url var="update" value="lectureUpdateform.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
 			</c:url>
-			<div class="btn btn-primary" onclick="location.href='${ update }'">내용수정</div>
+			<div class="btn btn-primary" onclick="location.href='${ update }'" >내용수정</div>
 			<c:url var="delete" value="lectureDelete.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
 			</c:url>
-			<div class="btn btn-secondary" onclick="location.href='${ delete }'">신청취소</div>
+			<div class="btn btn-secondary" onclick="location.href='${ delete }'" >신청취소</div>
 		</div>
 		</c:if>
-		<div>
+		<div class="btn-group" style="text-align: center; margin-top: 10px; margin-bottom: 10px; width:100%">
 			<c:url var="LEMainView" value="lectureEachMainView.le">
 				<c:param name="l_num" value="${ list.L_NUM }"/>
 			</c:url>
