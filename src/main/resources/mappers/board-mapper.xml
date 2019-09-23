@@ -72,6 +72,12 @@
 		where b_num = #{b_num}
 	</delete>
 	
+	<update id="updateBoardImg" parameterType="Board_Image">
+		update board_image
+		set b_title = #{b_title}, b_content = #{b_content}, b_subcategory = #{b_subcategory}
+		where b_num = #{b_num}
+	</update>
+	
 	<!-- 고객센터용 쿼리 -->
 	<select id="getCenterListCount" parameterType="map" resultType="_int">
 		select count(*)
