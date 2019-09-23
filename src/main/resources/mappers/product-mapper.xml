@@ -163,7 +163,7 @@
 
 <!-- 상품검색 쿼리 -->
 	<select id="search-selectProduct" parameterType="map" resultType="hashmap">
-		select *
+		select distinct p_num, p_name, p_optionprice, p_optionprice, p_changed_name
 		from psearch_view
 		where p_name like '%' || #{search} || '%'
 		<if test="subcate != null">
@@ -191,9 +191,9 @@
 	</select>
 	
 	<select id="search-getListCount" parameterType="map" resultType="_int">
-		select count(*)
-    	from psearch_view
-    	where p_name like '%' || #{search} || '%'
+		select distinct p_num, p_name, p_optionprice, p_optionprice, p_changed_name
+		from psearch_view
+		where p_name like '%' || #{search} || '%'
     	<if test="subcate != null">
         	and p_category = #{subcate}
         </if>
@@ -222,7 +222,8 @@
 	<select id="selectNewProductList" resultType="hashmap">
 		<![CDATA[
 		select rownum, pv.*
-		from ( select p.* from psearch_view p order by p.p_num desc) pv
-        where rownum <= 5]]>
+		from ( select distinct p.p_num, p.p_name, p.p_optionprice, p.p_changed_name from psearch_view p order by p.p_num desc) pv
+        where rownum <= 5
+        ]]>
 	</select>
 </mapper>
