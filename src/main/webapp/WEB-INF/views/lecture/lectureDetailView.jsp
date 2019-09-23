@@ -231,7 +231,7 @@
 			</div>
 			
 			<!-- 댓글시작 -->
-			<div>
+			<div class="col-sm-12">
 				<c:import url="../reply/replyView.jsp" />
 			</div>
 			<script>
