@@ -529,13 +529,12 @@
 						<img src="${contextPath}/resources/images/member/${ profile.m_changed_name }" width="120px" height="120px">
 					</div>
 				</div>
-
 				<div id="rightSide1" class="rightSide1">
 					<div id="memberInformation">
 						<h3>${ loginUser.m_name }님</h3>
 						<label class="label1" id="update1" onclick="location.href='memberUpdate.do'">정보수정</label>
 						<c:if test="${loginUser.m_grade eq '튜티' }">
-							<label class="label1" id="insertTuter">튜터신청</label>
+							<label class="label1" id="insertTuter" onclick="location.href='enterTutor.do'">튜터신청</label>
 						</c:if>
             
 						<c:url var="Apply" value="Apply.le"/>
@@ -623,7 +622,7 @@
 	<br>
 	<br>
 	<br>
-
+	
 	<div id="paper2" style="height: auto;">
 		<br>
 		<div class="container" id="entry2"

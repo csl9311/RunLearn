@@ -44,7 +44,7 @@
 	<select id="selectNopayLectureCount" parameterType="string" resultType="_int">  <!-- 마이페이지 강의 찜목록 전체 수 -->
 		select count(*)
 		from LEC_NOPAYVIEW
-		where M_ID = #{m_id} and L_STATUS = 'Y'
+		where M_ID = #{m_id} and L_STATUS = 'Y' and l_file_level = 0
 	</select>
 
 	<select id="productPayList" parameterType="string" resultType="hashmap"> <!-- 결제 상품 목록 -->

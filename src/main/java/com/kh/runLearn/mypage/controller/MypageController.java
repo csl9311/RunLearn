@@ -60,7 +60,7 @@ public class MypageController {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
 		Member_Image profile = myService.selectProfile(userId);
-
+		
 		if (m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
 		} else {
@@ -81,7 +81,6 @@ public class MypageController {
 
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
-			loginUser.setM_grade(m.getM_grade());
 			loginUser.setM_email(m.getM_email());
 			loginUser.setM_phone(m.getM_phone());
 			loginUser.setPostnum(m.getPostnum());
