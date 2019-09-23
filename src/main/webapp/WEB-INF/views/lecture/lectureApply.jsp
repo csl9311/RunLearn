@@ -343,7 +343,6 @@
 	        	        	                    dataType : 'JSON',
 	        	        	                    data : rformData,
 	        	        	                    success : function(result) {
-	        	        	                        $("#hiddenCurrValue").val(result);
 	        	        	                        $("#ApplyForm").submit();
 	        	        	                    }
 	        	        	                });
@@ -351,8 +350,6 @@
 	        	                    });
 	        	                }
 	        	            });
-	                        $("#hiddenContValue").val(result);
-	                    //전송실패에대한 핸들링은 고려하지 않음
 	                });
 	            // <input type=file> 태그 기능 구현
 	            $('#Cattach input[type=file]').change(function() {
@@ -360,7 +357,6 @@
 	            });
 	        });
 			</script>
-			<input type="hidden" id="hiddenContValue" name="ContResult"/>
 			</div>
 			<div class="col-sm-12">
 				<div id="Tintro" style="height: 60px;"></div>
@@ -556,7 +552,6 @@
 	            });
 	        });
 			</script>
-			<input type="hidden" id="hiddenCurrValue" name="CurrResult">
 			</div>
 			<div class="col-sm-12">
 				<div id="target" style="height: 60px;"></div>
