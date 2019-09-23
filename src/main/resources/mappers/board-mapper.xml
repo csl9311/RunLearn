@@ -74,7 +74,7 @@
 	
 	<update id="updateBoardImg" parameterType="Board_Image">
 		update board_image
-		set b_title = #{b_title}, b_content = #{b_content}, b_subcategory = #{b_subcategory}
+		set b_changed_name = #{b_changed_name}, b_origin_name=#{b_origin_name}, b_upload_date = sysdate
 		where b_num = #{b_num}
 	</update>
 	
