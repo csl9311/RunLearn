@@ -220,7 +220,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -397,7 +397,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12" align="center">
@@ -496,7 +496,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -595,7 +595,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -622,7 +622,7 @@
 					style="border-right: 1px solid black; border-bottom: 0px;"
 					align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'; color : darkblue;">강의실 주소</h4></div>
 				<div class="col-sm-2" align="center"
-					onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+					onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 		</div>
 		<div class="col-sm-12">
@@ -759,11 +759,11 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center" style="border-bottom: 0px;"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'; color : darkblue;">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'; color : darkblue;">강의댓글</h4></div>
 				</div>
 			</div>
 			<div align="center">
-				<h1>강의 평이 들어갈 공간입니다.</h1>
+				<h1>강의댓글이 들어갈 공간입니다.</h1>
 			</div>
 			<h6>　</h6>
 			<div align="right">
