@@ -76,9 +76,7 @@
 	<div class="container">
 		<div style="margin-left: 100px; width: 1000px; height: 1000px;">
 			<h1>${ list.L_TITLE }</h1>
-			<c:if test="${ !im_list.isEmpty() }">
 			<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
-			</c:if>
 			<h6>　</h6>
 			<div style="width:100%">
 			<div id="Cintro" style="height: 60px;"></div>
@@ -115,11 +113,9 @@
 			</div>
 			</div>
 			<div class="col-sm-12">
-			<c:if test="${ !it_list.isEmpty() }">
 				<c:forEach var="i" begin="0" end="${ it_list.size()-1 }" step="1">
 					<img src="${contextPath}/resources/images/lecture/${ it_list.get(i).L_CHANGED_NAME }" style="width:100%;">
 				</c:forEach>
-			</c:if>
 			</div>
 			<div class="col-sm-12">
 			<div id="curr" style="height: 60px;"></div>

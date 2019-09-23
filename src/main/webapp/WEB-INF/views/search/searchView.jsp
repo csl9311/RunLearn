@@ -79,19 +79,14 @@ ul li a:hover {
 
 .card-body {
 	height: 100px;
-	width: auto;
-	margin-left: 20px;
 }
-
 .card-text {
 	display: inline-block;
 	width: auto;
 }
 
-.card {
+.card img, .card-title b, .card-body .card-text, .text-muted {
 	cursor: pointer;
-	border: 1px solid #ececec;
-	margin: 0 auto;
 }
 
 .highlight {
@@ -177,12 +172,11 @@ ul li a:hover {
 			                  	<c:if test="${ lList.size() > 6 }">
 			                  		<c:forEach var="l" items="${ lList }" begin="0" end="5">
 				                  		<div class="col-md-4">
-					                      <div class="card mb-4 shadow-sm" onclick="goLectureDetail($(this));">
-					                  		<input type="hidden" name="num" value="${ l.L_NUM }">
-					                        <img class="bd-placeholder-img card-img-top" width="100%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+					                      <div class="card mb-4 shadow-sm">
+					                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 					                        <div class="card-body" style="width: 90%;">
 					                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
-					                          <p class="card-text">${ l.L_OBJECT }</p><br>
+					                          <p class="card-text">${ l.L_CONTENT }</p><br>
 					                          <p class="card-text"><small class="text-muted">${ l.L_PRICE }￦</small></p>
 					                        </div>
 					                      </div>
@@ -192,12 +186,11 @@ ul li a:hover {
 			                  	<c:if test="${ lList.size() <= 6 }">
 				                    <c:forEach var="l" items="${ lList }">
 				                    	<div class="col-md-4">
-					                      <div class="card mb-4 shadow-sm" onclick="goLectureDetail($(this));">
-					                        <input type="hidden" name="num" value="${ l.L_NUM }">
-					                        <img class="bd-placeholder-img card-img-top" width="100%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+					                      <div class="card mb-4 shadow-sm">
+					                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/lecture/${ l.L_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 					                        <div class="card-body" style="width: 90%;">
 					                          <h4 class="card-title"><b>${ l.L_TITLE }</b></h4>
-					                          <p class="card-text">${ l.L_OBJECT }</p><br>
+					                          <p class="card-text">${ l.L_CONTENT }</p><br>
 					                          <p class="card-text"><small class="text-muted">${ l.L_PRICE }￦</small></p>
 					                        </div>
 					                      </div>
@@ -229,9 +222,8 @@ ul li a:hover {
 			                    <c:if test="${ pList.size() > 6 }">
 			                  		<c:forEach var="p" items="${ pList }" begin="0" end="5">
 				                    <div class="col-md-4">
-				                      <div class="card mb-4 shadow-sm" onclick="goProductDetail($(this));">
-				                        <input type="hidden" name="num" value="${ p.P_NUM }">
-				                        <img class="bd-placeholder-img card-img-top" width="100%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+				                      <div class="card mb-4 shadow-sm">
+				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 				                        <div class="card-body" style="width: 90%;">
 				                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
 				                          <p class="card-text"><small class="text-muted">${ p.P_OPTIONPRICE }￦</small></p>
@@ -243,9 +235,8 @@ ul li a:hover {
 			                    <c:if test="${ pList.size() <= 6 }">
 				                    <c:forEach var="p" items="${ pList }">
 				                    <div class="col-md-4">
-				                      <div class="card mb-4 shadow-sm" onclick="goProductDetail($(this));">
-				                        <input type="hidden" name="num" value="${ p.P_NUM }">
-				                        <img class="bd-placeholder-img card-img-top" width="100%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+				                      <div class="card mb-4 shadow-sm">
+				                        <img class="bd-placeholder-img card-img-top" width="90%" height="260" src="${contextPath}/resources/images/product/${ p.P_CHANGED_NAME }" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
 				                        <div class="card-body" style="width: 90%;">
 				                          <h4 class="card-title"><b>${ p.P_NAME }</b></h4>
 				                          <p class="card-text"><small class="text-muted">${ p.P_OPTIONPRICE }￦</small></p>
@@ -295,16 +286,6 @@ ul li a:hover {
 			}
 			location.href='search.do?&search=${search}&price=' + price;
 		});
-   		
-   		function goLectureDetail(object) {
- 		   var num = object.find('input').val();
- 		   location.href='lectureDetailView.le?l_num='+num;
- 	    }
- 	   
- 	    function goProductDetail(object) {
- 		   var num = object.find('input').val();
- 		   location.href='select.product?p_num='+num;
- 	    }
    </script>
 </body>
 </html>

@@ -54,7 +54,7 @@
 	<insert id="insertProduct" parameterType="map">
 		INSERT ALL
 			INTO PRODUCT VALUES (
-				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, 'Y', #{p.p_content}, SYSDATE, NULL, #{p.m_id}
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, 'Y', SYSDATE, NULL, #{p.m_id}
 			)
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
@@ -127,7 +127,7 @@
 	</update>
 <!-- 상세이미지 수정 -->
 	<delete id="deleteDetailImg" parameterType="_int">
-		DELETE FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num} AND P_FILE_LEVEL = 1
+		DELETE FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num};
 	</delete>
 	<insert id="updateDetailImg" parameterType="list">
 		INSERT ALL

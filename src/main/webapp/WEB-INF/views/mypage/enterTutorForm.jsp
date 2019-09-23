@@ -77,33 +77,35 @@
 	
 	<div class="container enterDiv">
 		<form action="tutorInsert.do" method="POST">
-		<input type="hidden" name="b_category" value="튜터신청">
-		<div class="rows">
-			<div class="col-md title" style="margin: 10px 0; text-align: center;">
-				<h2>튜터 신청</h2>
-			</div>
-			<div class="x-100"></div>
-			<div class="col-md">
-				<table>
-					<tr>
-						<th class="titleTh">제목</th>
-						<td colspan="2"><input type="text" name="b_title" required></td>
-					</tr>
-					<tr>
-						<td colspan="6" style="width: 100%; padding: 50px;">
-							<textarea id="bContent" name="b_content" placeholder="신청사유를 상세히 적어주세요^^!" required></textarea>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="x-100"></div>
-				<div class="col-md" style="text-align: center; margin-bottom: 50px;">
-					<c:url var="mypage" value="mypage.do">
-						<c:param name="cate" value="수강목록"/>
-					</c:url>
-					<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">돌아가기</button>
-					<button type="submit">등록하기</button>
+			<input type="hidden" name="b_category" value="튜터신청">
+			<input type="hidden" name="m_id" value="${ loginUser.m_id }">
+			<div class="rows">
+				<div class="col-md title" style="margin: 10px 0; text-align: center;">
+					<h2>튜터 신청</h2>
 				</div>
+				<div class="x-100"></div>
+				<div class="col-md">
+					<table>
+						<tr>
+							<th class="titleTh">제목</th>
+							<td colspan="2"><input type="text" name="b_title" required></td>
+						</tr>
+						<tr>
+							<td colspan="6" style="width: 100%; padding: 50px;">
+								<textarea id="bContent" name="b_content" required>1. 강의 주 카테고리: &#13;&#10;2. 신청사유: </textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="x-100"></div>
+					<div class="col-md" style="text-align: center; margin-bottom: 50px;">
+						<c:url var="mypage" value="mypage.do">
+							<c:param name="cate" value="수강목록"/>
+							<c:param name="kind" value="강의"/>
+						</c:url>
+						<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">돌아가기</button>
+						<button type="submit">신청하기</button>
+					</div>
 			</div>
 		</form>
 	</div>

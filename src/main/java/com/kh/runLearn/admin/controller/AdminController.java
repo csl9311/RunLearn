@@ -29,6 +29,7 @@ public class AdminController {
 	SearchService sService;
 
 	@RequestMapping("adminMain.do")
+
 	public ModelAndView adminMain(@RequestParam(value="page",required=false)Integer page,@RequestParam(value="i",required=false,defaultValue = "0")Integer i,
 			ModelAndView mv) {//어드민 회원 조회
 int currentPage=1;

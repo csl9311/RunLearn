@@ -78,9 +78,7 @@
 	<div class="container">
 		<div style="margin-left: 100px; width: 1000px; height: 1000px;">
 			<h1>${ list.L_TITLE }</h1>
-			<c:if test="${ !im_list.isEmpty() }">
-				<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
-			</c:if>
+			<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
 			<h6>　</h6>
 			<div style="width:100%">
 			<div id="Cintro" style="height: 60px;"></div>
@@ -233,7 +231,7 @@
 			</div>
 			
 			<!-- 댓글시작 -->
-			<div class="col-sm-12">
+			<div>
 				<c:import url="../reply/replyView.jsp" />
 			</div>
 			<script>
