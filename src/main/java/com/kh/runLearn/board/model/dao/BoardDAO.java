@@ -72,4 +72,8 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.getCenterListCount", map);
 	}
 
+	public Board selectBoardTutor(String userId) {
+		return sqlSession.selectOne("boardMapper.selectBoardTutor", userId);
+	}
+	
 }

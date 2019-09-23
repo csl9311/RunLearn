@@ -92,4 +92,10 @@ public class BoardServiceImpl implements BoardService {
 	public int getCenterListCount(Map<String, Object> map) {
 		return bDAO.getCenterListCount(map);
 	}
+
+	@Override
+	public Board selectBoardTutor(String userId) {
+		return bDAO.selectBoardTutor(userId);
+	}
+	
 }

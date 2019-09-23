@@ -76,34 +76,34 @@
 	<c:import url="../common/header.jsp" />
 	
 	<div class="container enterDiv">
-		<form action="tutorInsert.do" method="POST">
-+		<input type="hidden" name="b_category" value="튜터신청">
-		<div class="rows">
-			<div class="col-md title" style="margin: 10px 0; text-align: center;">
-				<h2>튜터 신청</h2>
-			</div>
-			<div class="x-100"></div>
-			<div class="col-md">
-				<table>
-					<tr>
-						<th class="titleTh">제목</th>
-						<td colspan="2"><input type="text" name="b_title" required></td>
-					</tr>
-					<tr>
-						<td colspan="6" style="width: 100%; padding: 50px;">
-							<textarea id="bContent" name="b_content" placeholder="신청사유를 상세히 적어주세요^^!" required></textarea>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="x-100"></div>
-				<div class="col-md" style="text-align: center; margin-bottom: 50px;">
+		<form action="tutorUpdate.do" method="POST">
+			<input type="hidden" name="b_num" value="${ b.b_num }">
+			<div class="rows">
+				<div class="col-md title" style="margin: 10px 0; text-align: center;">
+					<h2>튜터 신청 수정</h2>
+				</div>
+				<div class="x-100"></div>
+				<div class="col-md">
+					<table>
+						<tr>
+							<th class="titleTh">제목</th>
+							<td colspan="2"><input type="text" name="b_title" value="${ b.b_title }" required></td>
+						</tr>
+						<tr>
+							<td colspan="6" style="width: 100%; padding: 50px;">
+								<textarea id="bContent" name="b_content" placeholder="신청사유를 상세히 적어주세요^^!" required>${ b.b_content }</textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="x-100"></div>
+					<div class="col-md" style="text-align: center; margin-bottom: 50px;">
 					<c:url var="mypage" value="mypage.do">
 						<c:param name="cate" value="수강목록"/>
 					</c:url>
-					<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">돌아가기</button>
-					<button type="submit">등록하기</button>
-					</div>
+					<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">수정취소</button>
+					<button type="submit">수정하기</button>
+				</div>
 			</div>
 		</form>
 	</div>

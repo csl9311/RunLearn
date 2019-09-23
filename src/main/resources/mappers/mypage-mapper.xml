@@ -96,10 +96,10 @@
 	</select>
 
 	<insert id="insertEnterTutor" parameterType="Board">
-		insert into board
-		values(board_seq.nextval, #{b_title}, #{b_content}, sysdate,
-		#{b_category}, null, 'Y', 0, #{m_id})
-	</insert>
+      insert into board
+      values(board_seq.nextval, #{b_title}, #{b_content}, sysdate,
+      #{b_category}, null, 'Y', 0, #{m_id})
+   </insert>
 
 	<resultMap type="Product_Option" id="getProductOption">
 		<id column="P_OPTION" property="p_option" />
@@ -110,4 +110,12 @@
 	<select id="selectProductOption" parameterType="string" resultMap="getProductOption">
 		SELECT * FROM PRODUCT_OPTION WHERE P_OPTION = #{p_option}
 	</select>
+	
+	
+
+	
+	
+	
+	
+	
 </mapper>
