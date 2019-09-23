@@ -35,7 +35,6 @@
 </div>
 
 <div class="minh"style="margin-left:190px">
-	<h2 class="w3-padding fontthick fonthotpink">마더뷰</h2>
 	<hr class="borderhotpink">
 	<form action="adminInsertNotice.do" method="post"
 		enctype="Multipart/form-data">

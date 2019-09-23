@@ -33,7 +33,6 @@
 </div>
 
 <div class="minh"style="margin-left:190px">
-<h2 class="w3-padding fontthick fonthotpink">마더뷰</h2><hr class="borderhotpink">
     <div class="w3-container minh" style="margin-left:160px;" ><!-- 틀 -->
     
     <div class="borderhotpinkthick" style="width:1300px;min-height:200px;border-radius:10px;opacity:0.8; margin-bottom:10px;"><!--게시글 작성자 날짜 등등  -->
