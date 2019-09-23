@@ -78,14 +78,10 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int updateBoard_Image(Board_Image bi) {
-		return bDAO.updateBoard_Image(bi);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	@Override
-	public int deleteBoard_Image(Board_Image bi) {
-		return bDAO.deleteBoard_Image(bi);
-	}
-	
 	/* ---------------고객센터용---------------  */
 	@Override
 	public ArrayList<HashMap<String, String>> selectCenterBoardList(Map<String, Object> map) {
@@ -97,7 +93,6 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.getCenterListCount(map);
 	}
 
-	/* ---------------마이페이지용---------------  */
 	@Override
 	public Board selectBoardTutor(String userId) {
 		return bDAO.selectBoardTutor(userId);

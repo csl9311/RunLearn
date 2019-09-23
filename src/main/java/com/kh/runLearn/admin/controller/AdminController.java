@@ -29,6 +29,7 @@ public class AdminController {
 	SearchService sService;
 
 	@RequestMapping("adminMain.do")
+
 	public ModelAndView adminMain(@RequestParam(value="page",required=false)Integer page,@RequestParam(value="i",required=false,defaultValue = "0")Integer i,
 			ModelAndView mv) {//어드민 회원 조회
 int currentPage=1;
@@ -73,7 +74,7 @@ int lectureCount = aService.applyLectureCount();
 PageInfo lpi = Pagination.getPageInfo(currentPage, lectureCount, 20);
 
 ArrayList l_list = aService.applylectureList(lpi);
-System.out.println(l_list);
+
 
 
 mv.addObject("lpi",lpi);
@@ -128,7 +129,7 @@ return mv;
 		ArrayList<Board> boardList=aService.boardListA(blc);//모든보드 조회
 			
 
-		System.out.println(i);
+	
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -169,7 +170,7 @@ return mv;
 		ArrayList<Member> userList = aService.allUserListM(pia);// 모든회원 조회
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
 
-		System.out.println(i);
+	
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -210,7 +211,7 @@ return mv;
 		ArrayList<Member> userList = aService.allUserListtee(pia);// 
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
 
-		System.out.println(i);
+		
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -251,7 +252,7 @@ return mv;
 		ArrayList<Member> userList = aService.allUserListtor(pia);
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
 
-		System.out.println(i);
+	
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -292,7 +293,6 @@ return mv;
 		ArrayList<Member> userList = aService.allUserListbl(pia);// 
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
 
-		System.out.println(i);
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -333,7 +333,7 @@ return mv;
 		ArrayList<Member> userList = aService.allUserListY(pia);// 모든회원 조회
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
 
-		System.out.println(i);
+		
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -374,7 +374,7 @@ return mv;
 		ArrayList<Member> userList = aService.allUserListN(pia);// 모든회원 조회
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
 
-		System.out.println(i);
+	
 		mv.addObject("boardList", boardList);
 		mv.addObject("bla", bla);
 		mv.addObject("i", i);
@@ -398,7 +398,7 @@ return mv;
 		if (page != null) {
 			currentPage = page;
 		}
-		System.out.println(search);
+	
 		
 		int allUserCount = aService.allUserCount();
 		int tutorUserCount = aService.tutorUserCount();
@@ -419,8 +419,7 @@ return mv;
 		PageInfo piad = Pagination.getPageInfo(currentPage, adminUserCount, 20);
 		ArrayList<Member> userList = aService.adminUserSearchId(search, pia);// 모든회원 조회
 		ArrayList<Board> boardList = aService.boardListA(blc);// 모든보드 조회
-		System.out.println(i);
-		System.out.println("user:"+userList);
+	
 		mv.addObject("i", i);
 		mv.addObject("boardList", boardList);
 		mv.addObject("userList", userList);
@@ -487,7 +486,7 @@ return mv;
 		PageInfo lpi = Pagination.getPageInfo(currentPage, lectureCount, 20);
 		
 		ArrayList l_list = aService.applylectureList(lpi);
-		System.out.println(l_list);
+		
 		
 		
 		
@@ -539,7 +538,7 @@ return mv;
 		Board board = aService.selectBoard(bId);
 		if (board != null) {
 			mv.addObject("board", board).addObject("page", page).setViewName("admin/adminBoardDetailView");
-			System.out.println(board);
+			
 		} else {
 			throw new Exception("게시글 상세보기에 실패하였습니다.");
 		}
@@ -555,7 +554,7 @@ return mv;
 		Board board = aService.selectBoard(bId);
 		if (board != null) {
 			mv.addObject("board", board).addObject("page", page).setViewName("admin/adminBoardDetailView");
-			System.out.println(board);
+			
 		} else {
 			throw new Exception("게시글 상세보기에 실패하였습니다.");
 		}
@@ -577,7 +576,7 @@ return mv;
 	@RequestMapping("adminInsertNotice.do")
 	public String adminInsertNotice(@ModelAttribute Board b,
 			HttpServletRequest request) {
-		System.out.println(b);
+		
 		
 		
 		int result = aService.insertBoard(b);

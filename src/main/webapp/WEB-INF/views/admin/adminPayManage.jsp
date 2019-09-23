@@ -23,7 +23,7 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
- <input type="button" value="홈으로(로그아웃)" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='logout.do';">  <hr>
+ <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round hotpink fontwhite" onclick="location.href='adminPayManage.do';" style="width:175px">강의신청</button>
@@ -47,15 +47,14 @@
   	</tr>
   	</thead>
   	<c:forEach var="a" items="${ l_list }">
-  	<c:url var="Apply" value="lectureConfirmView.le">
-						<c:param name="l_num" value="${ a.l_num }"/>
-					</c:url>
-  		<tr onclick="location.href='${ Apply }'">
+  		<tr>
   			<input type="hidden" name="page" value="${ page }">
 			<td style="text-align:center;"><input type="text"  name="b_num"  value="${ a.l_num }" style="text-align:center;background-color:rgba(0,0,0,0);border:rgba(0,0,0,0);width:100px;" readonly>
 			<td style="text-align:center;">
-			
-					${ a.l_title }
+			<c:url var="Apply" value="lectureComfirmView.le">
+						<c:param name="l_num" value="${ a.l_num }"/>
+					</c:url>
+					<a href="${ Apply }">${ a.l_title }</a>
 			</td>
 			<td style="text-align:center;"><input type="text" name="m_id" value="${ a.l_price }" class=" borderInform"readonly></td>
 			<td style="text-align:center;"><input type="text" name="b_count" value="${ a.l_category }" class=" borderInform"readonly></td>

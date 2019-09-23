@@ -77,7 +77,7 @@
 	
 	<div class="container enterDiv">
 		<form action="tutorInsert.do" method="POST">
-		<input type="hidden" name="b_category" value="튜터신청">
++		<input type="hidden" name="b_category" value="튜터신청">
 		<div class="rows">
 			<div class="col-md title" style="margin: 10px 0; text-align: center;">
 				<h2>튜터 신청</h2>
@@ -103,7 +103,7 @@
 					</c:url>
 					<button type="button" onclick="location.href='${ mypage }'" style="margin-right: 20px;">돌아가기</button>
 					<button type="submit">등록하기</button>
-				</div>
+					</div>
 			</div>
 		</form>
 	</div>

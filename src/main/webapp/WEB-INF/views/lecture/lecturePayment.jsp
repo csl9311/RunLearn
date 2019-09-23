@@ -116,15 +116,10 @@
 		}, function(rsp) {
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
-				msg += '<br>고유ID : ' + rsp.imp_uid;
-				msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
-				msg += '<br>결제 금액 : ' + rsp.paid_amount;
-				msg += '<br>카드 승인번호 : ' + rsp.apply_num;
 				$('#auto').submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';
-				msg += '<br>에러내용 : ' + rsp.error_msg;
-				msg += '<br>강의 상세페이지로 돌아갑니다.'
+				msg += '에러내용 : ' + rsp.error_msg;
 				$('#fail').submit();
 			}
 			alert(msg);

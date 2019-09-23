@@ -23,18 +23,18 @@ img:hover {
 }
 
 .profileImg {
-	width:50px; height:50px;
-	border-radius:75px;
-	text-align:center;
-	margin:auto;
-	font-size:12px; color:#fff;
-	vertical-align:middle;
-	overflow:hidden;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-size:100%;
-	padding: auto;
-	float: left;
+width:50px; height:50px;
+border-radius:75px;
+text-align:center;
+margin:0 15px;
+font-size:12px; color:#fff;
+vertical-align:middle;
+overflow:hidden;
+background-size: contain;
+background-repeat: no-repeat;
+background-size:100%;
+padding: auto;
+float: left;
 }
 
 
@@ -48,23 +48,21 @@ img:hover {
 					<button id="upload" class="btn btn-lg" onclick="upload();">판매등록</button>
 				</div>
 			</div>
-			<c:if test="${ list.size() == 0 }">
-				<h3 style="text-align: center;">판매중인 상품이 없습니다.</h3>
-			</c:if>
+		
 			<div class="row">
 				<c:forEach items="${ list }" var="p">
 					<form action="select.product" method="post">
 						<input type="hidden" value="${ p.P_NUM }" name="p_num">
 						<div class="col-md-4">
 							<div class="row" style="margin: 30px;" id="mainImage">
-								<img class="img-responsive" style="min-height: 30vh; max-height: 30vh; margin: auto;" alt="상품이미지" src="${contextPath}/resources/images/product/${p.P_CHANGED_NAME}" onclick='submit();'>
+								<img class="img-responsive" alt="상품이미지" src="${contextPath}/resources/images/product/${p.P_CHANGED_NAME}" onclick='submit();'>
 							</div>
-							<div class="col-md-6 center" id="productInfo">
+							<div class="col-md-6" id="productInfo">
 								<p>${ p.P_NAME }</p>
 								<p>${ p.P_PRICE }</p>
 							</div>
-							<div class="col-md-6 center" id="sellerInfo">
-								<div class="profileImg" style="background-image: url(${contextPath}/resources/images/member/${p.M_CHANGED_NAME})"></div>
+							<div class="col-md-6" id="sellerInfo">
+								<div class="profileImg" alt="판매자이미지" style="background-image: url(${contextPath}/resources/images/member/${p.M_CHANGED_NAME})"></div>
 								<p>${ p.M_NAME } </p>
 								<p>${ p.M_NICKNAME }</p>
 							</div>

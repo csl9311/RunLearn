@@ -20,7 +20,7 @@
 				<div class="row">
 					<c:forEach var="p" items="${ list }">
 						<c:if test="${ p.P_FILE_LEVEL+0 == 0 }">
-							<div class="col-md-6 center">
+							<div class="col-md-3 center">
 								<img class="img-responsive center" alt="썸네일" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
 							</div>
 						</c:if>
@@ -31,7 +31,6 @@
 			<br> <br> <br> <br>
 			<%-- 상품 정보 --%>
 			<form id="form" action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
-				<input type="hidden" value="${ loginUser }">
 				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
 				<input type="hidden" name="m_email" value="${ loginUser.m_email }">
@@ -67,12 +66,11 @@
 						<tr>
 							<td>옵션</td>
 							<td class="right">
-							${ poList }
 								<input id="item" type="text" name="productOption" list="datalist" onchange="choice();" placeholder="옵션 선택">
 								<datalist id="datalist" style="text-align: center;">
 									<c:forEach items="${ poList }" var="po">
 										<c:if test="${ po.p_stock+0 eq 0 }">
-											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원 / 품절</option>
+											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원 </option>
 										</c:if>
 										<c:if test="${ po.p_stock+0 ne 0 }">
 											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
@@ -116,19 +114,18 @@
 			</form>
 		</div>
 
-		<div class="p_images center" style="margin: auto;">
+		<div class="p_images center">
 			<div class="row">
 				<c:forEach var="p" items="${ list }">
 					<c:if test="${ p.P_FILE_LEVEL+0 == 1 }">
-						<div class="col-md-6 center">
-							<img class="img-responsive" alt="상세이미지" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
+						<div class="row">
+							<div class="col-md-3 center">
+								<img class="img-responsive center" alt="상세이미지" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
+							</div>
 						</div>
 					</c:if>
 				</c:forEach>
 			</div>
-		</div>
-		<div class="row">
-			<div style="width:60vw; margin: auto; white-space:pre;">${ list.get(0).P_CONTENT }</div>
 		</div>
 		<%-- onchange 스크립트 영역 --%>
 		<div id="abcd"></div>
@@ -139,17 +136,16 @@
 			/* amount의 id 지정 */
 			var $item = $('#item');
 			/* 옵션 변경 시 */
-			
-
-			
+					
 			var q = 0;
 			function choice() {
 				var won = $('#' + $item.val()).text();
 				var price = Number(won.substring(0, won.length - 1));
-				console.log(won.lastIndexOf(" / 품절"));
+
 				if (won.lastIndexOf(" / 품절") > 0) {
 					price = won.substring(0, won.length - 6);
 				}
+
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
 				// 테이블에 내용 추가
@@ -188,7 +184,6 @@
 					}
 				}
 				
-				
 				var page_option = document.getElementsByName('page_option');
 				for(var i = 0; i < page_option.length ; i ++) {
 					var name = page_option[i].value.split("/")[0];
@@ -202,8 +197,6 @@
 						}
 					}
 				}
-				
-				
 				appendScript(q);
 				q++;
 				$item.val('');
@@ -265,7 +258,7 @@
 				var stock = '${ poList }';
 				var user = '${sessionScope.loginUser.m_id}';
 				var $total = $('#total');
-				// 구매 버튼 클릭 시 로그인 안되어있다면 로그인 유도
+				// 버튼 클릭 시 로그인 안되어있다면 로그인 유도
 				if(user == '') {
 					alert("로그인 후 이용해주세요.");
 					$('#loginM').parent().children('a').trigger('click');
@@ -290,9 +283,10 @@
 			});
 			
 		</script>
+		<br> <br> <br> <br> <br> <br>
 		
 		<!-- 댓글시작 -->
-		<div style="width:80%; margin: 0 auto;">
+		<div>
 			<c:import url="../reply/replyView.jsp" />
 		</div>
 		<script>
@@ -321,6 +315,38 @@
 			}
 		</script>
 		<!-- 댓글끝 -->
+		
+		<%-- 라이브리 시티 설치 코드 --%>
+		<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
+			<script type="text/javascript">
+				(function(d, s) {
+					var j, e = d.getElementsByTagName(s)[0];
+
+					if (typeof LivereTower === 'function') {
+						return;
+					}
+
+					j = d.createElement(s);
+					j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+					j.async = true;
+
+					e.parentNode.insertBefore(j, e);
+				})(document, 'script');
+			</script>
+			<noscript>라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
+			<%-- 
+			<div class="row center">
+				<button type="button" class="btn" onclick="deleteAd();">광고 지우기</button>
+			</div>
+			<script>
+				function deleteAd(){
+					var $ad = $('#taboola-livere');
+					$ad.remove();
+				}
+			</script>
+			 --%>
+		</div>
+		<%-- 시티 설치 코드 끝 --%>
 	</div>
 </body>
 <c:import url="../common/footer.jsp" />

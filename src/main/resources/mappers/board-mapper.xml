@@ -67,17 +67,6 @@
 		where b_num = #{b_num}
 	</update>
 	
-	<update id="updateBoardImg" parameterType="Board_Image">
-		update board_image
-		set b_changed_name = #{b_changed_name}, b_origin_name=#{b_origin_name}, b_upload_date = sysdate
-		where b_num = #{b_num}
-	</update>
-	
-	<delete id="deleteBoardImg" parameterType="Board_Image">
-		delete board_image
-		where b_num = #{b_num}
-	</delete>
-	
 	<!-- 고객센터용 쿼리 -->
 	<select id="getCenterListCount" parameterType="map" resultType="_int">
 		select count(*)
@@ -99,7 +88,7 @@
 		</if>
 		order by B_REG_DATE desc
 	</select>
-	
+		
 	<select id="selectBoardTutor" parameterType="string" resultType="Board">
 		select *
 		from board
@@ -107,4 +96,6 @@
 			and b_category = '튜터신청'
 			and m_id = #{m_id}
 	</select>
+	
+	
 </mapper>

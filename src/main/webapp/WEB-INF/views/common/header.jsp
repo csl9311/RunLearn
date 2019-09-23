@@ -13,7 +13,6 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript" src="${ contextPath }/resources/js/jquery-3.4.1.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -30,8 +29,7 @@ body {
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	/* font-family: 'Nanum Gothic Coding', monospace; */
-	font-family: 'Nanum Gothic', sans-serif;
+	font-family: 'Nanum Gothic Coding', monospace;
 }
 
 div {
@@ -212,8 +210,7 @@ header .search .lcont input[type=text] {
 	cursor: pointer;
 }
 
-.menubar-back li a:hover, .fixed-menu .cate li li a:hover {
-	cursor: pointer;
+.shop-detail li a:hover, .lecture-detail li a:hover, .fixed-menu .shopList li a:hover, .fixed-menu .lectureList li a:hover {
 	color: #ff005a;
 }
 

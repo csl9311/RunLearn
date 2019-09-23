@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
-import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.member.model.vo.Member;
@@ -37,13 +36,13 @@ public class MypageController {
 
 	@Autowired
 	private MypageService myService;
-	
-	@Autowired
-	private BoardService bService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-
+	
+	@Autowired
+	private BoardService bService;
+	
 	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔
 	public ModelAndView mUpdateView(ModelAndView mv, HttpSession session) {
 
@@ -57,7 +56,7 @@ public class MypageController {
 //      return "mypage/memberUpdate";
 	}
 
-	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) // 정보수정
+	@RequestMapping(value = "mUpdate.do", method = RequestMethod.POST) 
 	public String updateMember(@ModelAttribute Member m, @ModelAttribute Member_Image mi,
 			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpSession session,
 			HttpServletRequest request, Model model) {
@@ -65,7 +64,7 @@ public class MypageController {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
 		Member_Image profile = myService.selectProfile(userId);
-
+		
 		if (m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
 		} else {
@@ -86,7 +85,6 @@ public class MypageController {
 
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
-			loginUser.setM_grade(m.getM_grade());
 			loginUser.setM_email(m.getM_email());
 			loginUser.setM_phone(m.getM_phone());
 			loginUser.setPostnum(m.getPostnum());
@@ -94,7 +92,7 @@ public class MypageController {
 			loginUser.setR_address(m.getR_address());
 			loginUser.setD_address(m.getD_address());
 
-			session.setAttribute("loginUser", loginUser);
+		session.setAttribute("loginUser", loginUser);
 		}
 		model.addAttribute("profile", profile);
 		model.addAttribute("cate", "수강목록");
@@ -141,14 +139,13 @@ public class MypageController {
 		int nPayPcount = myService.selectPlistCount(userId);
 		int count = 1;
 		Member_Image profile = myService.selectProfile(userId);
+		Board tutorYN = bService.selectBoardTutor(userId);
+		
 		
 		if (page != null) {
 			currentPage = page;
 		}
 
-		// 튜터신청여부
-		Board tutorYN = bService.selectBoardTutor(userId);
-		
 		if (cate.equals("수강목록")) {
 			int listCount = myService.selectLectureCount(userId); // 수강목록 수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
@@ -156,6 +153,7 @@ public class MypageController {
 			mv.addObject("lList", lList);
 			mv.addObject("listCount", listCount);
 			mv.addObject("pi", pi);
+			mv.addObject("tutorYN", tutorYN);
 			mv.addObject("count", count);
 		}
 
@@ -256,7 +254,6 @@ public class MypageController {
 		mv.addObject("nPayLcount", nPayLcount);
 		mv.addObject("nPayPcount", nPayPcount);
 		mv.addObject("cate", cate);
-		mv.addObject("tutorYN", tutorYN);
 		mv.setViewName("mypage/mypage");
 		return mv;
 	}
@@ -267,15 +264,17 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "tutorInsert.do", method = RequestMethod.POST) // 튜터 신청
-	public ModelAndView tutorInsert(@ModelAttribute Board b, ModelAndView mv, HttpSession session) {
+	public ModelAndView tutorInsert(@ModelAttribute Board b, ModelAndView mv, HttpSession session) throws Exception {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		b.setM_id(loginUser.getM_id());
 		
 		int result = myService.insertEnterTutor(b);
-
+		
 		if (result > 0) {
+			mv.addObject("cate", "튜터").setViewName("mypage/mypage");
 			mv.addObject("cate", "수강목록").setViewName("redirect:mypage.do");
 		} else {
+			mv.setViewName("home");
 			throw new Exception("튜터 신청에 실패하였습니다.");
 		}
 		return mv;
@@ -285,6 +284,7 @@ public class MypageController {
 	public String cash() {
 		return "cash";
 	}
+	
 	
 	@RequestMapping("myEnterTutor.do")
 	public ModelAndView myEnterTutor(HttpSession session, ModelAndView mv) {
@@ -305,7 +305,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "tutorUpdate.do", method = RequestMethod.POST)
-	public ModelAndView updateEnterTutor(@ModelAttribute Board b, ModelAndView mv) {
+	public ModelAndView updateEnterTutor(@ModelAttribute Board b, ModelAndView mv) throws Exception {
 		int result = bService.updateBoard(b);
 		
 		if (result > 0) {
@@ -318,7 +318,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("deleteEnterTutor.do")
-	public ModelAndView deleteEnterTutor(ModelAndView mv, @RequestParam("b_num") int b_num) {
+	public ModelAndView deleteEnterTutor(ModelAndView mv, @RequestParam("b_num") int b_num) throws Exception {
 		int result = bService.deleteBoard(b_num);
 		
 		if (result > 0) {
@@ -329,4 +329,8 @@ public class MypageController {
 		
 		return mv;
 	}
+	
+	
+	
+	
 }
