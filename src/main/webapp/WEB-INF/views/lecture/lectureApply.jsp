@@ -11,13 +11,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
@@ -156,7 +149,6 @@
 				$("#input_main_imgs").on("change", mainHandleImageFileSelect);
 			});
 			function MainFileUploadAction(){
-				console.log("MainFileUploadAction");
 				$("#input_main_imgs").trigger('click');
 			}
 			function mainHandleImageFileSelect(e){
@@ -165,7 +157,6 @@
 				
 				var mainFiles = e.target.files;
 				var mainFilesArr = Array.prototype.slice.call(mainFiles);
-				console.log(mainFilesArr);
 				var main_index = 0;
 				mainFilesArr.forEach(function(f){
 					if(!f.type.match("image.*")){
@@ -185,11 +176,9 @@
 				});
 			}
 			function mainDeleteImageAction(main_index){
-				console.log("index : "+ main_index);
 				sel_files.splice(main_index,1);
 				var main_img_id = "#main_img_id_"+main_index;
 				$(main_img_id).remove();
-				console.log(main_sel_files);
 			}
 			
 				/* function mainImage(input) {
@@ -220,7 +209,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -281,7 +270,6 @@
 	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
 	        function cdeletePreview(obj) {
 	            var imgNum = obj.attributes['value'].value;
-	            console.log(imgNum);
 	            delete cfiles[imgNum];
 	            $("#cpreview .preview-box[value=" + imgNum + "]").remove();
 	        }
@@ -308,11 +296,7 @@
 	                var cform = $('#cuploadForm')[0];
 	                var cformData = null;
 	                cformData = new FormData(cform);
-	    			console.log("key"+Object.keys(cfiles));
-	    			console.log("cpreview인덱스"+cpreviewIndex);
 	                for (var index = 0; index < cpreviewIndex; index++) {
-	                    console.log("인덱스"+index);
-	                   	console.log("c인덱스"+cfiles[index]);
 	                    cformData.append('cfiles', cfiles[index]);
 	                }
 	                $.ajax({
@@ -345,11 +329,7 @@
 	        	        	                var rform = $('#ruploadForm')[0];
 	        	        	                var rformData = null;
 	        	        	                rformData = new FormData(rform);
-	        	        	    			console.log(Object.keys(rfiles));
-	        	        	    			console.log(rpreviewIndex);
 	        	        	                for (var index = 0; index < rpreviewIndex; index++) {
-	        	        	                    console.log(index);
-	        	        	                   	console.log(rfiles[index]);
 	        	        	                    rformData.append('rfiles',rfiles[index]);
 	        	        	                }
 	        	        	                $.ajax({
@@ -366,7 +346,6 @@
 	        	        	                        $("#hiddenCurrValue").val(result);
 	        	        	                        $("#ApplyForm").submit();
 	        	        	                    }
-	        	        	                    //전송실패에대한 핸들링은 고려하지 않음
 	        	        	                });
 	        	        	            }
 	        	                    });
@@ -397,7 +376,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12" align="center">
@@ -451,7 +430,6 @@
 	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
 	        function tdeletePreview(obj) {
 	            var imgNum = obj.attributes['value'].value;
-	            console.log(imgNum);
 	            delete tfiles[imgNum];
 	            $("#tpreview .preview-box[value=" + imgNum + "]").remove();
 	        }
@@ -496,7 +474,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -550,7 +528,6 @@
 	        //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
 	        function rdeletePreview(obj) {
 	            var imgNum = obj.attributes['value'].value;
-	            console.log(imgNum);
 	            delete rfiles[imgNum];
 	            $("#rpreview .preview-box[value=" + imgNum + "]").remove();
 	        }
@@ -595,7 +572,7 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -622,7 +599,7 @@
 					style="border-right: 1px solid black; border-bottom: 0px;"
 					align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'; color : darkblue;">강의실 주소</h4></div>
 				<div class="col-sm-2" align="center"
-					onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+					onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 		</div>
 		<div class="col-sm-12">
@@ -689,7 +666,6 @@
 							document.getElementById("sample4_roadAddress").value = roadAddr;
 						}
 					}).open();
-					console.log($('#sample4_roadAddress').val());
 				}
 				</script>
 				<div id="mapC" style="width: 100%; height: 355px;">
@@ -759,11 +735,11 @@
 					<div class="col-sm-2" align="center"
 						onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
 					<div class="col-sm-2" align="center" style="border-bottom: 0px;"
-						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'; color : darkblue;">강의평</h4></div>
+						onclick="location.href='#reply'"><h4 style="font-family: 'Jua'; color : darkblue;">강의댓글</h4></div>
 				</div>
 			</div>
 			<div align="center">
-				<h1>강의 평이 들어갈 공간입니다.</h1>
+				<h1>강의댓글이 들어갈 공간입니다.</h1>
 			</div>
 			<h6>　</h6>
 			<div align="right">
