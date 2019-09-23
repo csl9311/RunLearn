@@ -49,7 +49,7 @@
 					style="opacity: 0.4; margin-left: 30px; margin-top: 10px;">공지사항
 				
 					</h3>
-					<input type="hidden" name=b_category value="공지">
+					<input type="hidden" name=b_category value="공지사항">
 					<input type="hidden" name=b_subcategory value="기타">
 					<input type="hidden" name="m_id" value="${ loginUser.m_id}">
 				
