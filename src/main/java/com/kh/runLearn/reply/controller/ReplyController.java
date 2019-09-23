@@ -29,15 +29,12 @@ public class ReplyController {
 	@RequestMapping("getReplyList.do")
 	public void selectReplyList(HttpServletResponse response, @RequestParam("num") int num,
 										@RequestParam("type") String type) throws Exception {
-		System.out.println("num: " + num);
-		System.out.println("l: " + type);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("num", Integer.parseInt(String.valueOf(num)));
 		map.put("type", String.valueOf(type));
 
 		ArrayList<Map<String, Object>> replyList = rService.selectReplyList(map);
-		System.out.println("replyList: " + replyList);
 
 		for (Map<String, Object> m : replyList) {
 			for (String key : m.keySet()) {
@@ -56,9 +53,6 @@ public class ReplyController {
 	@ResponseBody
 	@RequestMapping("insertReply.do")
 	public void insertReply(HttpSession session, @RequestParam("num") int num, @RequestParam("content") String content, @RequestParam("type") String type) {
-		System.out.println("---------insertReply---------");
-		System.out.println("num: " + num + ", type: " + type);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("num", (int)num);
 		map.put("content", String.valueOf(content));
