@@ -60,16 +60,17 @@
 						
 						
 					</div>
-					<input id="p_num" type="hidden" name="p_num" value="${ map.p.p_num }">
-					<input id="p_name" type="hidden" name="p_name" value="${ map.p.p_name }">
+					
 					<input id="m_id" type="hidden" name="m_id" value="${ map.m.m_id }">
 					<input id="m_name" type="hidden" name="m_name" value="${ map.m.m_name }">
 					<input id="m_email" type="hidden" name="m_email" value="${ map.m.m_email }">
 					<input id="m_phone" type="hidden" name="m_phone" value="${ map.m.m_phone }">
-					<input id="postnum" type="hidden" name="postnum" value="${ map.m.postnum }">
-					<input id="g_address" type="hidden" name="g_address" value="${ map.m.g_address }">
-					<input id="r_address" type="hidden" name="r_address" value="${ map.m.r_address }">
-					<input id="d_address" type="hidden" name="d_address" value="${ map.m.d_address }">
+					
+					
+					<c:forEach items="${ map.p_numList }" var="item" varStatus="i">
+						<input id="item${i.index}" type="hidden" name="p_num" value="${ item.p_num }">
+						<input id="item${i.index}" type="hidden" name="p_name" value="${ item.p_name }">
+					</c:forEach>
 					<c:forEach items="${ map.item }" var="item" varStatus="i">
 						<input id="item${i.index}" type="hidden" name="item" value="${ item }">
 					</c:forEach>

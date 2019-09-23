@@ -650,7 +650,7 @@ header .search .lcont input[type=text] {
 							</li>
 							<li>
 								<c:url var="JTec" value="selectLectureList.le">
-									<c:param name="l_category" value="재테크"/>
+									<c:param name="l_category" value="제테크"/>
 								</c:url>
 								<a href="${ JTec }">재테크</a>
 							</li>
