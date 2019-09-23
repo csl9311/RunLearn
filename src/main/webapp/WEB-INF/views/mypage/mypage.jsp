@@ -509,9 +509,21 @@
 }
 
 #productlist:hover {
-	background: #fdffe2;
-	
+	background: #fdffe2;	
 }
+
+#productPay{
+	margin-left:225px;
+	cursor: pointer;
+}
+
+#productPay:hover{
+	margin-left:225px;
+	border-bottom: 1px dashed #F08080;
+}
+
+
+
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -722,7 +734,10 @@
 						</c:if>
 
 						<c:forEach var="l" items="${ lList }">
-							<tr id="tr1">
+							<c:url var="lDetail" value="lectureDetailView.le">
+								<c:param name="l_num" value="${ l.L_NUM }"/>
+							</c:url>
+							<tr id="tr1" onclick="location.href='${ lDetail }'">
 								<td class="td1" style="height: 100px;">
 									<div id="tableCategory1">${ l.L_CATEGORY }</div> <input
 									type="hidden" value="${ l.L_NUM }">
@@ -754,22 +769,27 @@
 			<c:if test="${cate eq '강의찜목록' }">
 				<div id="content25">
 					<table class="table">
-
+						
 						<tr class="tr3" style="text-align: center;">
 							<th style="width: 150px;"><div class="title123">카테고리</div></th>
 							<th style="width: 300px; height: 25px;"><div class="title123">강의이미지</div></th>
 							<th style="width: 600px;"><div class="title123">강의정보</div></th>
 							<th style="width: 150px;"><div class="lDate" id="lDate1">강의방식</div></th>
 						</tr>
-
+					
+						
+						
 						<c:if test="${ empty noPaylList}">
 							<tr id="tr1">
 								<td class="td1" colspan="4"><h3 style="text-align: center;">찜한 강의가 없습니다.</h3></td>
 							</tr>
 						</c:if>
-
+					
 						<c:forEach var="i" items="${ noPaylList }">
-							<tr id="tr1" >
+							<c:url var="lDetail" value="lectureDetailView.le">
+								<c:param name="l_num" value="${ i.L_NUM }"/>
+							</c:url>
+							<tr id="tr1"  onclick="location.href='${ lDetail }'">
 								<td class="td1" style="height: 100px;"><div id="tableCategory2">${ i.L_CATEGORY }</div></td>
 								<td class="td1">
 									<div id="image1">
