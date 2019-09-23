@@ -550,7 +550,18 @@
 
 						</c:if>
 						<label class="label1" id="logout" onclick="location.href='logout.do'">로그아웃</label>
+						<label class="label1" id="logout" onclick="deleteConfirm();">회원탈퇴</label>
 					</div>
+					
+					<script>
+						function deleteConfirm() {
+							if (confirm('정말로 탈퇴하시겠습니까?')) {
+								location.href='deleteMember.do';
+							}
+						}
+					
+					
+					</script>
 					<!-- memberInformation 끝 -->
 				</div>
 

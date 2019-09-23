@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -86,7 +87,6 @@ public class MypageController {
 
 		if (result > 0) {
 			loginUser.setM_pw(m.getM_pw());
-			loginUser.setM_grade(m.getM_grade());
 			loginUser.setM_email(m.getM_email());
 			loginUser.setM_phone(m.getM_phone());
 			loginUser.setPostnum(m.getPostnum());
@@ -334,4 +334,25 @@ public class MypageController {
 		
 		return mv;
 	}
+	
+	
+	@RequestMapping("deleteMember.do")
+	public String deleteMember(SessionStatus status, HttpSession session) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String userId = loginUser.getM_id();
+		
+		int deleteMember = myService.deleteMember(userId);
+		
+		if(deleteMember > 0) {
+			status.setComplete();
+			return "redirect:home.do";
+		}else{
+			throw new Exception("삭제실패하였습니다.");
+		}
+		
+	}
+	
+	
+	
 }

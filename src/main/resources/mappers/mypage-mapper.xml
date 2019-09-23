@@ -112,6 +112,11 @@
 	</select>
 	
 	
+	<update id="deleteMember" parameterType="string">
+	update MEMBER
+	set M_STATUS = 'N'
+	where M_ID = #{m_id}
+	</update>
 
 	
 	

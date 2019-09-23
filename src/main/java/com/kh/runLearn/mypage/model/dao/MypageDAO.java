@@ -95,4 +95,9 @@ public class MypageDAO {
 		return sqlSession.insert("mypageMapper.insertEnterTutor", b);
 	}
 
+	public int deleteMember(String userId) {
+		
+		return sqlSession.update("mypageMapper.deleteMember", userId);
+	}
+
 }

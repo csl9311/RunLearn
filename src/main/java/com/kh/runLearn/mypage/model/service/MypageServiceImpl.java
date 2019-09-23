@@ -103,4 +103,10 @@ public class MypageServiceImpl implements MypageService {
 		return myDAO.insertEnterTutor(b);
 	}
 
+	@Override
+	public int deleteMember(String userId) {
+	
+		return myDAO.deleteMember(userId);
+	}
+
 }

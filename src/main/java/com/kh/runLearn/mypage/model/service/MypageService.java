@@ -28,5 +28,6 @@ public interface MypageService {
 	int tuterLectureCount(String userId); // 튜터페이지 강의 수
 	Lecture selectLecture(String userId);
 	Product_Option selectProductOption(String p_option);
+	int deleteMember(String userId); //회원탈퇴
 
 }
