@@ -181,7 +181,7 @@ public class MypageController {
 		}
 
 
-		if (cate.equals("상품찜목록")) {
+		if (cate.equals("상품찜목록") || cate.equals("productCate")) {
 			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
@@ -216,9 +216,6 @@ public class MypageController {
 				}
 			}
 			
-			for(int i = 0 ; i < pList.size(); i ++) {
-				System.out.println("pList : " + pList.get(i));
-			}
 			mv.addObject("productPay", "productPay");
 			mv.addObject("pList", pList);
 			mv.addObject("listCount", listCount);
