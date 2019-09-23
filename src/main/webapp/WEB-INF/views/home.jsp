@@ -205,17 +205,16 @@
    <div class="body">
       <div class="slide-area">
          <div class="slide">
-         	<%-- <c:forEach var="list" items="${ list }">
-         		<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
-         		<!-- 강의 의미지 경로만 바꿔주면 됨! DB에서 인기 강의는 불러왔음! -->
-         	</c:forEach> --%>
+         	<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
+         	<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner2.jpg"></div>
+         	<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner3.jpg"></div>
          </div>
          <script>
          	console.log('${list}');
          </script>
       </div>
       <div class="container main-bottom">
-          <h3>최신 강의</h3><br>
+          <h3>최신 강의/상품</h3><br>
          <div class="detailDiv col-sm-5">
             <table class="topItem">
                <tr class="imgRow">
@@ -371,8 +370,20 @@
 			});
 	   }
 	   
+	   $.noConflict();
+	   if ($('.slide').hasClass('slick-initialized')) {
+		   $('.slide').slick('destroy');
+	   }
+	   $('.slide').slick({
+		   dots: true,
+           infinite: true,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           autoplay: true,
+           autoplaySpeed: 2000
+	   });
 	   /* --------------인기강의 ajax-------------- */
-	   $.ajax({
+	   /* $.ajax({
 		   url: "getHotLectureList.do",
 		   dataType: "json",
 		   success: function (data) {
@@ -399,7 +410,18 @@
 		           autoplaySpeed: 2000
 			   });
 		   }
-	   });
+	   }); */
+	   
+	   function goLectureDetail(object) {
+		   var num = object.find('input').val();
+		   location.href='lectureDetailView.le?l_num='+num;
+	   }
+	   
+	   function goProductDetail(object) {
+		   var num = object.find('input').val();
+		   location.href='select.product?p_num='+num;
+	   }
+
    </script>
 </body>
 </html>

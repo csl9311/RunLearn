@@ -224,7 +224,7 @@
 					
 					if (data.length == 0) {
 						if(type == '강의') {
-							$ul.append('<h4 style="text-align:center; margin: 70px 0;">등록된 강의평이 없습니다.');
+							$ul.append('<h4 style="text-align:center; margin: 70px 0;">등록된 강의댓글이 없습니다.');
 						} else {
 							$ul.append('<h4 style="text-align:center; margin: 70px 0;">등록된 댓글이 없습니다.');
 						}

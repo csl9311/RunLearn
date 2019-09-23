@@ -744,7 +744,6 @@ header .search .lcont input[type=text] {
 	<script>
 	function enterkey() {
         if (window.event.keyCode == 13) {
-        	console.log("dd")
        		m_id = $("#m_id");
        		m_pw = $("#m_pw");
        		$.ajax({
@@ -759,11 +758,6 @@ header .search .lcont input[type=text] {
        					alert("회원정보를 확인해주세요!");
        					return false;
        				}
-       			}, error: function(jqxhr, textStatus, errorThrown){
-       				console.log("ajax 처리 실패");
-       				console.log(jqxhr);
-       				console.log(textStatus);
-       				console.log(errorThrown);
        			}
        		});
         }
@@ -784,11 +778,6 @@ header .search .lcont input[type=text] {
 					alert("회원정보를 확인해주세요!");
 					return false;
 				}
-			}, error: function(jqxhr, textStatus, errorThrown){
-				console.log("ajax 처리 실패");
-				console.log(jqxhr);
-				console.log(textStatus);
-				console.log(errorThrown);
 			}
 		});
 	}
