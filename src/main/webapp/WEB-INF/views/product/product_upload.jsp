@@ -209,19 +209,20 @@
 	<%-- 옵션 삭제 끝 --%>
 	
 <%-- 옵션 끝 --%>
-	<%-- 썸네일 등록 여부 확인 --%>
 		function check(){
 			var p_option = document.getElementsByName("p_option");
 			var p_name = $('#p_name');
-			console.log(p_option);
+			<%-- 썸네일 등록 여부 확인 --%>
 			if($('#imgInp').val() == '') {
 				alert("썸네일을 등록해주세요.");
 				$("#imgInp").trigger('click');
 				return false;
+			<%-- 옵션 등록 여부 확인 --%>
 			} else if(p_option.length == 0) {
 				alert("한개 이상의 옵션을 등록해주세요.");
 				return false;
 			}
+			<%-- null값 캐치 --%>
 			for (var i = 0 ; i < p_option.length; i ++) {
 				// 공백
 				if(p_name.val().trim() == ''){
@@ -237,7 +238,7 @@
 					return false;
 				}
 				
-				// 같은 옵션명
+				<%-- 같은 옵션명 --%>
 				for(var num = i+1 ; num < p_option.length ; num ++) {
 					if(p_option[num].value == p_option[i].value){
 						alert("옵션 중 같은 이름이 있습니다. 확인 후 변경해주세요.");

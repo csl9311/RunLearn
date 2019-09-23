@@ -76,11 +76,6 @@ public class ProductController {
 		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
 		request.setAttribute("list", list);
 		request.setAttribute("poList", poList);
-		
-		for(int i = 0 ; i < poList.size(); i ++) {
-			System.out.println(poList.get(i));
-		}
-
 		return "product/product_detail";
 	}
 // 상품등록페이지로 이동
@@ -203,9 +198,6 @@ public class ProductController {
 		
 		ArrayList<HashMap<String, Object>> list = pService.selectProduct(p_num);
 		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
-		for(int i = 0 ; i < list.size() ; i ++) {
-			System.out.println(list.get(i));
-		}
 		request.setAttribute("list", list);
 		request.setAttribute("poList", poList);
 		return "product/product_update";
