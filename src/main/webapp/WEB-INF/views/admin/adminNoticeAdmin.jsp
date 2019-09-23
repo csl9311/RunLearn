@@ -57,7 +57,7 @@
   	</tr>
   	</thead>
   	<c:forEach var="a" items="${ boardList }">
-  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '공지'}">
+  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '공지사항'}">
   		<form action="targetBoardDelete.do" method="post" enctype="Multipart/form-data">
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
@@ -318,7 +318,7 @@
   	</tr>
   	</thead>
   	<c:forEach var="a" items="${ boardList }">
-  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '신고'}">
+  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '신고글'}">
   		<form action="targetBoardDelete.do" method="post" enctype="Multipart/form-data">
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
