@@ -164,21 +164,58 @@ public class BoardController {
 		}
 	}
 
+	// 고객센터 게시글 수정페이지 이동
 	@RequestMapping("cCenterUpdateView.do")
 	public ModelAndView cCenterUpdateView(ModelAndView mv, @RequestParam("b_num") Integer b_num, @RequestParam("page") Integer page) {
 		Board b = bService.selectBoard(b_num);
-		mv.addObject("b", b).addObject("page", page)
+		
+		String b_changed_name = bService.selectBoardImg(b);
+		
+		mv.addObject("b", b).addObject("page", page).addObject("b_changed_name", b_changed_name)
 			.setViewName("customerCenter/cCenterUpdate");
 		
 		return mv;
 	}
 	
+	// 고객센터 게시글 수정
 	@RequestMapping(value="cCenterUpdate.do", method = RequestMethod.POST)
-	public ModelAndView cCenterUpdate(@ModelAttribute Board b, ModelAndView mv, @RequestParam("page") Integer page) {
+	public ModelAndView cCenterUpdate(@ModelAttribute Board b, ModelAndView mv, @RequestParam("page") Integer page,
+										@RequestParam(value="file_name", required = false) String file_name,
+										@RequestParam(value="uploadFile", required = false) MultipartFile uploadFile,
+										HttpServletRequest request) {
+		
 		int result = bService.updateBoard(b);
+		
+		Board_Image bi = new Board_Image();
+		bi.setB_num(b.getB_num());
+		
+		if (b.getB_category().equals("신고글")) {
+			if (!uploadFile.isEmpty()) {
+				if (uploadFile != null && !uploadFile.isEmpty()) {
+					String renameFileName = saveFile(uploadFile, request);
+					
+					if (renameFileName != null) {
+						bi.setB_origin_name(uploadFile.getOriginalFilename());
+						bi.setB_changed_name(renameFileName);
+					}
+				}
+				
+				result += bService.updateBoard_Image(bi);
+			} else {
+				result += bService.deleteBoard_Image(bi);
+			}
+		}
+		
 		if (result > 0) {
-			mv.addObject("b_category", b.getB_category()).addObject("b_num", b.getB_num()).addObject("page", page)
 				.setViewName("redirect:cCenterDetailView.do");
+			mv.addObject("b_category", b.getB_category()).addObject("b_num", b.getB_num()).addObject("page", page);
+			
+			if (b.getB_category().equals("신고글")) {
+				mv.addObject("b_changed_name", bi.getB_changed_name());
+			}
+			
+			mv.setViewName("redirect:cCenterDetailView.do");
+			
 			return mv;
 		} else {
 			return null;

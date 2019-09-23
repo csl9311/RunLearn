@@ -20,7 +20,7 @@
 				<div class="row">
 					<c:forEach var="p" items="${ list }">
 						<c:if test="${ p.P_FILE_LEVEL+0 == 0 }">
-							<div class="col-md-3 center">
+							<div class="col-md-6 center">
 								<img class="img-responsive center" alt="썸네일" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
 							</div>
 						</c:if>
@@ -70,7 +70,7 @@
 								<datalist id="datalist" style="text-align: center;">
 									<c:forEach items="${ poList }" var="po">
 										<c:if test="${ po.p_stock+0 eq 0 }">
-											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원 </option>
+											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원 / 품절</option>
 										</c:if>
 										<c:if test="${ po.p_stock+0 ne 0 }">
 											<option id="${ po.p_option }" value="${ po.p_option }">${ po.p_optionPrice }원</option>
@@ -114,18 +114,19 @@
 			</form>
 		</div>
 
-		<div class="p_images center">
+		<div class="p_images center" style="margin: auto;">
 			<div class="row">
 				<c:forEach var="p" items="${ list }">
 					<c:if test="${ p.P_FILE_LEVEL+0 == 1 }">
-						<div class="row">
-							<div class="col-md-3 center">
-								<img class="img-responsive center" alt="상세이미지" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
-							</div>
+						<div class="col-md-6 center">
+							<img class="img-responsive" alt="상세이미지" src="${ contextPath }/resources/images/product/${ p.P_CHANGED_NAME }">
 						</div>
 					</c:if>
 				</c:forEach>
 			</div>
+		</div>
+		<div class="row">
+			<div style="width:60vw; margin: auto; white-space:pre;">${ list.get(0).P_CONTENT }</div>
 		</div>
 		<%-- onchange 스크립트 영역 --%>
 		<div id="abcd"></div>
@@ -141,11 +142,9 @@
 			function choice() {
 				var won = $('#' + $item.val()).text();
 				var price = Number(won.substring(0, won.length - 1));
-
 				if (won.lastIndexOf(" / 품절") > 0) {
 					price = won.substring(0, won.length - 6);
 				}
-
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
 				// 테이블에 내용 추가
@@ -283,10 +282,9 @@
 			});
 			
 		</script>
-		<br> <br> <br> <br> <br> <br>
 		
 		<!-- 댓글시작 -->
-		<div>
+		<div style="width:80%; margin: 0 auto;">
 			<c:import url="../reply/replyView.jsp" />
 		</div>
 		<script>
@@ -315,38 +313,6 @@
 			}
 		</script>
 		<!-- 댓글끝 -->
-		
-		<%-- 라이브리 시티 설치 코드 --%>
-		<div id="lv-container" data-id="city" data-uid="MTAyMC80NjIxOS8yMjczMA==" class="center" style="width: 80vw;">
-			<script type="text/javascript">
-				(function(d, s) {
-					var j, e = d.getElementsByTagName(s)[0];
-
-					if (typeof LivereTower === 'function') {
-						return;
-					}
-
-					j = d.createElement(s);
-					j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-					j.async = true;
-
-					e.parentNode.insertBefore(j, e);
-				})(document, 'script');
-			</script>
-			<noscript>라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
-			<%-- 
-			<div class="row center">
-				<button type="button" class="btn" onclick="deleteAd();">광고 지우기</button>
-			</div>
-			<script>
-				function deleteAd(){
-					var $ad = $('#taboola-livere');
-					$ad.remove();
-				}
-			</script>
-			 --%>
-		</div>
-		<%-- 시티 설치 코드 끝 --%>
 	</div>
 </body>
 <c:import url="../common/footer.jsp" />

@@ -529,6 +529,7 @@
 						<img src="${contextPath}/resources/images/member/${ profile.m_changed_name }" width="120px" height="120px">
 					</div>
 				</div>
+
 				<div id="rightSide1" class="rightSide1">
 					<div id="memberInformation">
 						<h3>${ loginUser.m_name }님</h3>
@@ -536,6 +537,7 @@
 						<c:if test="${loginUser.m_grade eq '튜티' }">
 							<c:if test="${ empty tutorYN }">
 							<label class="label1" id="insertTuter" onclick="location.href='enterTutor.do'">튜터신청</label>
+
 							</c:if>
 							<c:if test="${ !empty tutorYN }">
 							<label class="label1" onclick="location.href='myEnterTutor.do'">신청확인</label>
@@ -611,7 +613,6 @@
 					</div>
 
 					<div id="wGrade" style="margin-top: 5px;">
-
 						<label>
 							${ loginUser.m_grade } 
 							<c:if test="${ !empty tutorYN }">
@@ -633,7 +634,7 @@
 	<br>
 	<br>
 	<br>
-	
+
 	<div id="paper2" style="height: auto;">
 		<br>
 		<div class="container" id="entry2"
@@ -666,6 +667,7 @@
 				<div id="content21" class="content21">수강생</div>
 				<div id="content22" class="content21"
 					<c:if test="${ loginUser.m_grade eq '튜티' }">onclick="NotTuterPage();"</c:if>
+
 					<c:if test="${ loginUser.m_grade eq '튜티' && empty tutorYN }">onclick="NotTuterPage();"</c:if>
 					<c:if test="${ loginUser.m_grade eq '튜티' && !empty tutorYN }">onclick="notConfirm();"</c:if>
 					<c:if test="${ loginUser.m_grade eq '튜터' }">onclick="location.href='${ tuterPage }'"</c:if>>튜터</div>
@@ -1140,6 +1142,10 @@
             location.href = "enterTutor.do";
          }
       }
+      
+      function notConfirm() {
+    	  alert('아직 튜터신청 심사중입니다.');
+	  }
 
       $("#insertTuter").click(function() {
          location.href = "##";
