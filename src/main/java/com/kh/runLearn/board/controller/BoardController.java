@@ -207,7 +207,6 @@ public class BoardController {
 		}
 		
 		if (result > 0) {
-				.setViewName("redirect:cCenterDetailView.do");
 			mv.addObject("b_category", b.getB_category()).addObject("b_num", b.getB_num()).addObject("page", page);
 			
 			if (b.getB_category().equals("신고글")) {

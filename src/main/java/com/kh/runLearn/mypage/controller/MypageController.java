@@ -44,9 +44,6 @@ public class MypageController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	@Autowired
-	private BoardService bService;
-	
 	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔
 	public ModelAndView mUpdateView(ModelAndView mv, HttpSession session) {
 
@@ -144,7 +141,6 @@ public class MypageController {
 		int nPayPcount = myService.selectPlistCount(userId);
 		int count = 1;
 		Member_Image profile = myService.selectProfile(userId);
-		Board tutorYN = bService.selectBoardTutor(userId);
 		
 		
 		if (page != null) {
