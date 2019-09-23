@@ -51,8 +51,6 @@ public class LectureController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 12);
 		pi.setBoardLimit(12);
 		ArrayList all = lService.selectLectureList(pi);
-
-		System.out.println(all);
 		mv.addObject("list", all);
 		mv.addObject("pi", pi);
 		mv.setViewName("lecture/lectureMain");
@@ -111,13 +109,7 @@ public class LectureController {
 		ArrayList it_list = lService.selectLectureImage(map);
 		map.put("MCR", 3);
 		ArrayList ir_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
-		System.out.println("c : "+ic_list);
-		System.out.println("t : "+it_list);
-		System.out.println("r : "+ir_list);
 		String adr = (String)list.get("L_ADDRESS");
-		System.out.println(adr);
 		if(adr != null && adr.contains("/")) {
 			String[] sadr = adr.split("/");
 			String radr = sadr[0];
@@ -128,10 +120,8 @@ public class LectureController {
 			check.put("m_id", loginUser.getM_id());
 			check.put("l_num", l_num);
 			ArrayList paycheck = lService.userPayCheck(check);
-			System.out.println("pay: "+paycheck);
 			mv.addObject("paycheck", paycheck);
 		}
-		System.out.println(list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
 		mv.addObject("ic_list", ic_list);
@@ -158,13 +148,7 @@ public class LectureController {
 		ArrayList it_list = lService.selectLectureImage(map);
 		map.put("MCR", 3);
 		ArrayList ir_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
-		System.out.println("c : "+ic_list);
-		System.out.println("t : "+it_list);
-		System.out.println("r : "+ir_list);
 		String adr = (String)list.get("L_ADDRESS");
-		System.out.println(adr);
 		if(adr != null && adr.contains("/")) {
 			String[] sadr = adr.split("/");
 			String radr = sadr[0];
@@ -178,7 +162,6 @@ public class LectureController {
 			wish.put("l_num", l_num);
 			wish.put("m_id", loginUser.getM_id());
 			Wishlist w_list = lService.selectWishList(wish);
-			System.out.println("w_list: "+w_list);
 			if(w_list != null) {
 				mv.addObject("w_list", w_list);
 			}
@@ -187,10 +170,8 @@ public class LectureController {
 			check.put("m_id", loginUser.getM_id());
 			check.put("l_num", l_num);
 			ArrayList paycheck = lService.userPayCheck(check);
-			System.out.println("pay: "+paycheck);
 			mv.addObject("paycheck", paycheck);
 		}
-		System.out.println(list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
 		mv.addObject("ic_list", ic_list);
@@ -220,19 +201,12 @@ public class LectureController {
 		ArrayList list = lService.classList(l_num);
 		ArrayList tlist = lService.tclassList(l_num);
 		Lecture_File lf = lService.selectLectureFile(l_each_num);
-		System.out.println();
-		System.out.println("l_each: "+l_each);
-		System.out.println("list: "+list);
 		if(l_each==null) {
 			l_each = new Lecture_Each();
 			l_each.setL_num(l_num);
 			l_each.setL_each_name("강의가 없습니다!");
 			l_each.setL_each_num(0);
 		}
-		System.out.println("22: "+l_each);
-		System.out.println("etc: "+etc);
-		System.out.println("lf: "+lf);
-		System.out.println("tlist: "+tlist);
 		mv.addObject("etc", etc);
 		mv.addObject("tlist", tlist);
 		mv.addObject("list", list);
@@ -246,11 +220,9 @@ public class LectureController {
 	@RequestMapping("lectureMediaView.le")
 	public ModelAndView lectureMediaView(@RequestParam(value="l_each_num") int l_each_num, ModelAndView mv) {
 		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
-		System.out.println(map);
 		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
 		ArrayList tlist = lService.tclassList(((BigDecimal)map.get("L_NUM")).intValue());
-		System.out.println("list: "+list);
-		System.out.println("map: "+map);
+		System.out.println(map);
 		if(!map.isEmpty() && !list.isEmpty()) {
 			mv.addObject("tlist", tlist);
 			mv.addObject("list", list);
@@ -270,10 +242,6 @@ public class LectureController {
 		HashMap<String, String> etc = lService.selectLecture(l_num);
 		Lecture_Each l_each = lService.classEnter(map);
 		Lecture_File lf = lService.selectLectureFile(l_each_num);
-		System.out.println();
-		System.out.println("l_each: "+l_each);
-		System.out.println("etc: "+etc);
-		System.out.println("lf: "+lf);
 		
 		mv.addObject("etc", etc);
 		mv.addObject("l_each", l_each);
@@ -286,7 +254,6 @@ public class LectureController {
 	public ModelAndView lectureEachInput(Lecture_Each le, @RequestParam(value="l_file", required=false) MultipartFile l_file, @RequestParam("l_file_video") String lfv, ModelAndView mv, MultipartHttpServletRequest request) {
 		int result = lService.insertLecture(le);
 		Lecture_File lf = new Lecture_File();
-		System.out.println("lfv : "+lfv);
 		if(l_file != null && !l_file.isEmpty()) {
 			String renameFileName = insertFile(l_file, request);
 			if(renameFileName != null) {
@@ -295,7 +262,6 @@ public class LectureController {
 			}
 		}
 		lf.setL_file_video(lfv);
-		System.out.println("lf: "+lf);
 		lService.insertLectureFile(lf);
 		if(result > 0) {
 			int l_each_num = 0;
@@ -303,8 +269,6 @@ public class LectureController {
 			if(a != null) {
 				l_each_num = Integer.parseInt(a);
 			}
-			System.out.println(l_each_num);
-			System.out.println(le);
 			mv.addObject("l_each_num", l_each_num);
 			mv.addObject("l_num", le.getL_num());
 			mv.setViewName("redirect:lectureEachMainView.le");
@@ -312,8 +276,8 @@ public class LectureController {
 		} else {
 			throw new Exception("강의를 추가하는데 실패했습니다. 다시 시도해 주세요.");
 		}
-		
 	}
+	
 	@RequestMapping("lectureEachUpdate.le")
 	public ModelAndView lectureEachUpdate(Lecture_Each le,
 										  @RequestParam(value="l_file", required=false) MultipartFile l_file,
@@ -323,11 +287,6 @@ public class LectureController {
 										  @RequestParam("l_each_num") int l_each_num,
 										  ModelAndView mv, MultipartHttpServletRequest request) {
 		
-		System.out.println();
-		System.out.println("LE: "+le);
-		System.out.println("LF: "+l_file.getOriginalFilename());
-		System.out.println("LFCN: "+lfcn);
-		System.out.println("LEN: "+l_each_num);
 		
 		int result = lService.updateLectureEach(le);
 		Lecture_File lf = new Lecture_File();
@@ -345,11 +304,8 @@ public class LectureController {
 		}
 		lf.setL_file_video(lfv);
 		lf.setL_each_num(l_each_num);
-		System.out.println(lf);
 		lService.updateLectureFile(lf);
 		if(result > 0) {
-			System.out.println(l_each_num);
-			System.out.println(le);
 			mv.addObject("l_each_num", l_each_num);
 			mv.addObject("l_num", le.getL_num());
 			mv.setViewName("redirect:lectureEachMainView.le");
@@ -358,13 +314,12 @@ public class LectureController {
 			throw new Exception("강의를 추가하는데 실패했습니다. 다시 시도해 주세요.");
 		}
 	}
+	
 	@RequestMapping("enableLectureEach.le")
 	public ModelAndView enableLectureEach(Lecture_Each le,
 										  @RequestParam("l_each_num") int l_each_num,
 										  ModelAndView mv, HttpServletRequest request) {
 		
-		System.out.println(l_each_num);
-		System.out.println(le);
 		lService.enableLectureEach(l_each_num);
 		mv.addObject("l_each_num", l_each_num);
 		mv.addObject("l_num", le.getL_num());
@@ -386,16 +341,13 @@ public class LectureController {
 										  ModelAndView mv, MultipartHttpServletRequest request,
 										  HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		l.setM_id(loginUser.getM_id());//Session에서 이름받아오기 전까지 사용될 m_id
-		System.out.println(l);
-		System.out.println("adr1:"+adr1);
-		System.out.println("adr2:"+adr2);
+		l.setM_id(loginUser.getM_id());
+		
 		String address = adr1;
 		if(!adr2.equals("")) {
 			address = adr1 + "/" + adr2;
 		}
 		l.setL_address(address);
-		System.out.println(l);
 		int l_num = lService.findValue();
 		int result = lService.permissionLecture(l);
 		Lecture_Image li = new Lecture_Image();
@@ -432,20 +384,12 @@ public class LectureController {
 									  ModelAndView mv, MultipartHttpServletRequest request,
 									  HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		System.out.println("L:"+l);
-		System.out.println("mi:"+mainImage);
-		System.out.println(adr1);
-		System.out.println(adr2);
 		l.setM_id(loginUser.getM_id());//Session에서 이름받아오기 전까지 사용될 m_id
-		System.out.println(l);
-		System.out.println("adr1:"+adr1);
-		System.out.println("adr2:"+adr2);
 		String address = adr1;
 		if(!adr2.equals("")) {
 			address = adr1 + "/" + adr2;
 		}
 		l.setL_address(address);
-		System.out.println(l);
 		int result = lService.updateLecture(l);
 		Lecture_Image li = new Lecture_Image();
 		if(mainImage != null && !mainImage.isEmpty()) {
@@ -455,7 +399,6 @@ public class LectureController {
 			ArrayList im_list = lService.selectLectureImage(map);
 			for(int i = 0; i<im_list.size(); i++) {
 				String fileName = (String)((Map)im_list.get(i)).get("L_CHANGED_NAME");
-				System.out.println(fileName);
 				deleteFile(fileName, request);
 			}
 			lService.dropLectureImage(map);
@@ -470,7 +413,6 @@ public class LectureController {
 			li.setL_num(l.getL_num());
 			result = lService.insertLecture_Image(li);
 		} else {
-			System.out.println("들어온값이 없음");
 		}
 		if(result>0) {
 			mv.addObject("cate", "튜터");
@@ -498,13 +440,7 @@ public class LectureController {
 		ArrayList it_list = lService.selectLectureImage(map);
 		map.put("MCR", 3);
 		ArrayList ir_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
-		System.out.println("c : "+ic_list);
-		System.out.println("t : "+it_list);
-		System.out.println("r : "+ir_list);
 		String adr = (String)list.get("L_ADDRESS");
-		System.out.println(adr);
 		if(adr != null && adr.contains("/")) {
 			String[] sadr = adr.split("/");
 			String radr = sadr[0];
@@ -516,7 +452,6 @@ public class LectureController {
 			wish.put("m_id", loginUser.getM_id());
 			lService.insertWishlist(wish);
 			Wishlist w_list = lService.selectWishList(wish);
-			System.out.println("w_list: "+w_list);
 			if(w_list != null) {
 				mv.addObject("w_list", w_list);
 			}
@@ -525,10 +460,8 @@ public class LectureController {
 			check.put("m_id", loginUser.getM_id());
 			check.put("l_num", l_num);
 			ArrayList paycheck = lService.userPayCheck(check);
-			System.out.println("pay: "+paycheck);
 			mv.addObject("paycheck", paycheck);
 		}
-		System.out.println(list);
 		mv.addObject("list", list);
 		
 		mv.addObject("im_list", im_list);
@@ -553,13 +486,7 @@ public class LectureController {
 		ArrayList it_list = lService.selectLectureImage(map);
 		map.put("MCR", 3);
 		ArrayList ir_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
-		System.out.println("c : "+ic_list);
-		System.out.println("t : "+it_list);
-		System.out.println("r : "+ir_list);
 		String adr = (String)list.get("L_ADDRESS");
-		System.out.println(adr);
 		if(adr != null && adr.contains("/")) {
 			String[] sadr = adr.split("/");
 			String radr = sadr[0];
@@ -571,7 +498,6 @@ public class LectureController {
 			wish.put("m_id", loginUser.getM_id());
 			lService.deleteWishlist(wish);
 			Wishlist w_list = lService.selectWishList(wish);
-			System.out.println("w_list: "+w_list);
 			if(w_list != null) {
 				mv.addObject("w_list", w_list);
 			}
@@ -580,10 +506,8 @@ public class LectureController {
 			check.put("m_id", loginUser.getM_id());
 			check.put("l_num", l_num);
 			ArrayList paycheck = lService.userPayCheck(check);
-			System.out.println("pay: "+paycheck);
 			mv.addObject("paycheck", paycheck);
 		}
-		System.out.println(list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
 		mv.addObject("ic_list", ic_list);
@@ -596,16 +520,9 @@ public class LectureController {
 	@ResponseBody
     @RequestMapping(value="contImageInsert.le", method=RequestMethod.POST)
     public int multiContImageUpload(@RequestParam("cfiles")List<MultipartFile> cimages, MultipartHttpServletRequest request) {
-//		long sizeSum = 0;
 		int result = 0;
-		System.out.println("C"+cimages);
 		int l_num = lService.findValue();
-		System.out.println("ccount"+l_num);
         for(MultipartFile image : cimages) {
-//			sizeSum += image.getSize();
-//				if(sizeSum >= 10 * 1024 * 1024) {
-//				return -2;
-//			}
     		if(image != null && !image.isEmpty()) {
     			result = uploadLectureImgs(image, request, 1, l_num+1);
     		}
@@ -619,9 +536,7 @@ public class LectureController {
     public int multiTutoImageUpload(@RequestParam("tfiles")List<MultipartFile> timages, MultipartHttpServletRequest request) {
 //		long sizeSum = 0;
 		int result = 0;
-		System.out.println("T"+timages);
 		int l_num = lService.findValue();
-		System.out.println("tcount"+l_num);
         for(MultipartFile image : timages) {
 //			sizeSum += image.getSize();
 //				if(sizeSum >= 10 * 1024 * 1024) {
@@ -640,9 +555,7 @@ public class LectureController {
     public int multiCurrImageUpload(@RequestParam("rfiles")List<MultipartFile> rimages, MultipartHttpServletRequest request) {
 //		long sizeSum = 0;
 		int result = 0;
-		System.out.println("r"+rimages);
 		int l_num = lService.findValue();
-		System.out.println("rcount"+l_num);
         for(MultipartFile image : rimages) {
 //			sizeSum += image.getSize();
 //				if(sizeSum >= 10 * 1024 * 1024) {
@@ -662,13 +575,7 @@ public class LectureController {
     public int multiContImageUpdateUpload(@RequestParam(value="cfiles", required=false)List<MultipartFile> cimages, @RequestParam("l_num") int l_num, MultipartHttpServletRequest request) {
 //		long sizeSum = 0;
 		int result = 0;
-		for(int i = 0; i<cimages.size(); i++) {
-			System.out.println(cimages.get(i));
-		}
-		System.out.println("c"+cimages);
-		System.out.println(l_num);
 		if(cimages.size() < 1) {
-			System.out.println("들어온 값이 없음");
 			return result;
 		} else {
 			HashMap<String, Integer> map = new HashMap<>();
@@ -677,7 +584,6 @@ public class LectureController {
 			ArrayList ic_list = lService.selectLectureImage(map);
 			for(int i = 0; i<ic_list.size(); i++) {
 				String fileName = (String)((Map)ic_list.get(i)).get("L_CHANGED_NAME");
-				System.out.println(fileName);
 				deleteFile(fileName, request);
 			}
 			lService.dropLectureImage(map);
@@ -696,13 +602,7 @@ public class LectureController {
     public int multiTutoImageUpdateUpload(@RequestParam(value="tfiles", required=false)List<MultipartFile> timages, @RequestParam("l_num") int l_num, MultipartHttpServletRequest request) {
 //		long sizeSum = 0;
 		int result = 0;
-		for(int i = 0; i<timages.size(); i++) {
-			System.out.println("TIMAGE : "+timages.get(i));
-		}
-		System.out.println("T"+timages);
-		System.out.println(l_num);
 		if(timages.size() < 1) {
-			System.out.println("들어온 값이 없음");
 			return result;
 		} else {
 			HashMap<String, Integer> map = new HashMap<>();
@@ -711,7 +611,6 @@ public class LectureController {
 			ArrayList ir_list = lService.selectLectureImage(map);
 			for(int i = 0; i<ir_list.size(); i++) {
 				String fileName = (String)((Map)ir_list.get(i)).get("L_CHANGED_NAME");
-				System.out.println(fileName);
 				deleteFile(fileName, request);
 			}
 			lService.dropLectureImage(map);
@@ -730,12 +629,7 @@ public class LectureController {
     public int multiCurrImageUpdateUpload(@RequestParam(value="rfiles", required=false)List<MultipartFile> rimages, @RequestParam("l_num") int l_num, MultipartHttpServletRequest request) {
 //		long sizeSum = 0;
 		int result = 0;
-		for(int i = 0; i<rimages.size(); i++) {
-			System.out.println("RIMAGE : "+rimages.get(i));
-		}
-		System.out.println("r"+rimages);
 		if(rimages.size() < 1) {
-			System.out.println("들어온 값이 없음");
 			return result;
 		} else {
 			HashMap<String, Integer> map = new HashMap<>();
@@ -744,7 +638,6 @@ public class LectureController {
 			ArrayList ir_list = lService.selectLectureImage(map);
 			for(int i = 0; i<ir_list.size(); i++) {
 				String fileName = (String)((Map)ir_list.get(i)).get("L_CHANGED_NAME");
-				System.out.println(fileName);
 				deleteFile(fileName, request);
 			}
 			lService.dropLectureImage(map);
@@ -795,7 +688,6 @@ public class LectureController {
 				li.setL_file_level(level);
 				li.setL_num(l_num);
 				result += lService.insertLecture_Image(li);
-				System.out.println(li);
 			}
 		return result;
 	}
@@ -873,13 +765,7 @@ public class LectureController {
 		ArrayList it_list = lService.selectLectureImage(map);
 		map.put("MCR", 3);
 		ArrayList ir_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
-		System.out.println("c : "+ic_list);
-		System.out.println("t : "+it_list);
-		System.out.println("r : "+ir_list);
 		String adr = (String)list.get("L_ADDRESS");
-		System.out.println(adr);
 		String adrD = "";
 		if(adr != null && adr.contains("/")) {
 			String[] sadr = adr.split("/");
@@ -889,7 +775,6 @@ public class LectureController {
 				adrD = sadr[1];
 			}
 		}
-		System.out.println(list);
 		mv.addObject("adrD", adrD);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
@@ -904,9 +789,7 @@ public class LectureController {
 	public ModelAndView lectureDelete(@RequestParam("l_num") int l_num, HttpServletRequest request, ModelAndView mv) {
 		lService.denyLecture(l_num);
 		ArrayList<Map> list= lService.deleteLecture(l_num);
-		System.out.println(list);
 		for(int i = 0; i<list.size(); i++) {
-			System.out.println((String)((Map)list.get(i)).get("L_CHANGED_NAME"));
 			deleteFile2((String)((Map)list.get(i)).get("L_CHANGED_NAME"), request);
 		}
 		lService.deleteLectureImage(l_num);
@@ -930,8 +813,6 @@ public class LectureController {
 		map.put("l_num", l_num);
 		map.put("MCR", 0);
 		ArrayList im_list = lService.selectLectureImage(map);
-		System.out.println("L : "+list);
-		System.out.println("m : "+im_list);
 		mv.addObject("list", list);
 		mv.addObject("im_list", im_list);
 		mv.setViewName("common/payment");

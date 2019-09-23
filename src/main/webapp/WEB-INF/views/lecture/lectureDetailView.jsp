@@ -11,13 +11,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
@@ -78,9 +71,7 @@
 	<div class="container">
 		<div style="margin-left: 100px; width: 1000px; height: 1000px;">
 			<h1>${ list.L_TITLE }</h1>
-			<c:if test="${ !im_list.isEmpty() }">
-				<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
-			</c:if>
+			<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
 			<h6>　</h6>
 			<div style="width:100%">
 			<div id="Cintro" style="height: 60px;"></div>
@@ -91,7 +82,7 @@
 			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -113,7 +104,7 @@
 			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -131,7 +122,7 @@
 			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -150,7 +141,7 @@
 			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
 			<div class="col-sm-2" style="border-bottom: 0px;" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -165,7 +156,7 @@
 			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
 			<div class="col-sm-2" style="border-right: 1px solid black; border-bottom: 0px;" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
-			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+			<div class="col-sm-2" align="center" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 			</div>
 			<div class="col-sm-12">
@@ -228,12 +219,12 @@
 			<div class="col-sm-2" align="center" onclick="location.href='#curr'"><h4 style="font-family: 'Jua'">커리큘럼</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#target'"><h4 style="font-family: 'Jua'">강의목표</h4></div>
 			<div class="col-sm-2" align="center" onclick="location.href='#address'"><h4 style="font-family: 'Jua'">강의실 주소</h4></div>
-			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의평</h4></div>
+			<div class="col-sm-2" align="center" style="border-bottom: 0px;" onclick="location.href='#reply'"><h4 style="font-family: 'Jua'">강의댓글</h4></div>
 			</div>
 			</div>
 			
 			<!-- 댓글시작 -->
-			<div class="col-sm-12">
+			<div>
 				<c:import url="../reply/replyView.jsp" />
 			</div>
 			<script>

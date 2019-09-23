@@ -54,15 +54,6 @@ public class AdminServiceImpl implements AdminService {
 		return aDAO.blackUserCount();
 	}
 	@Override
-	public int modifyUserCount() {
-		// TODO Auto-generated method stub
-		return aDAO.modifyUserCount();
-	}
-	public int createUserCount() {
-		// TODO Auto-generated method stub
-		return aDAO.createUserCount();
-	}
-	@Override
 	public int leaveUserCount() {//탈퇴회원
 		return aDAO.leaveUserCount();
 	}
@@ -76,7 +67,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	@Override
 	public int targetUserUpdate(Member m) {//타겟 회원 정보수정
-		System.out.println("pl"+ m);
+
 		return aDAO.targetUserUpdate(m);
 	}
 	
@@ -136,7 +127,6 @@ public int boardListCountSug() {//전체 보드 수 가져오기
 public int boardListCountDecl() {//전체 보드 수 가져오기
 	return aDAO.boardListCountDecl();
 }
-
 	
 	@Override
 	public int boardListCountA() {// 보드 튜터 신청 수

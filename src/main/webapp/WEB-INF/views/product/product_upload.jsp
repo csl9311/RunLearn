@@ -53,13 +53,17 @@
 							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
 						</td>
 					</tr>
+					<!-- <tr>
+						<td>옵션추가</td>
+						<td>
+							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
+							<input id="optionO" type="radio" name="option" value="O" required="required">
+							<label>추가</label>
+							<input id="optionX" type="radio" name="option" value="X" required="required">
+							<label>삭제</label>
+						</td>
+					</tr> -->
 					<tr style="background: gray;"><td></td><td></td></tr>
-					<tr>
-						<td colspan="2">설명글 (최대 2000자)</td>
-					</tr>
-					<tr>
-						<td colspan="2"><textarea name="p_content" style="width:60vw;" rows="10"></textarea></td>
-					</tr>
 					<tr id="option0">
 						<td>옵션</td>
 						<td><input type="text" name="p_option" required="required"></td>
@@ -209,19 +213,20 @@
 	<%-- 옵션 삭제 끝 --%>
 	
 <%-- 옵션 끝 --%>
-	<%-- 썸네일 등록 여부 확인 --%>
 		function check(){
 			var p_option = document.getElementsByName("p_option");
 			var p_name = $('#p_name');
-			console.log(p_option);
+			<%-- 썸네일 등록 여부 확인 --%>
 			if($('#imgInp').val() == '') {
 				alert("썸네일을 등록해주세요.");
 				$("#imgInp").trigger('click');
 				return false;
+			<%-- 옵션 등록 여부 확인 --%>
 			} else if(p_option.length == 0) {
 				alert("한개 이상의 옵션을 등록해주세요.");
 				return false;
 			}
+			<%-- null값 캐치 --%>
 			for (var i = 0 ; i < p_option.length; i ++) {
 				// 공백
 				if(p_name.val().trim() == ''){
@@ -237,7 +242,7 @@
 					return false;
 				}
 				
-				// 같은 옵션명
+				<%-- 같은 옵션명 --%>
 				for(var num = i+1 ; num < p_option.length ; num ++) {
 					if(p_option[num].value == p_option[i].value){
 						alert("옵션 중 같은 이름이 있습니다. 확인 후 변경해주세요.");

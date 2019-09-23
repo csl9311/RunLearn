@@ -30,7 +30,7 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-  <input type="button" value="홈으로(로그아웃)" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='logout.do';">
+  <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">
   <hr>
   <input type="hidden" name="i" value="${ i }">
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round  hotpink fontwhite" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
@@ -45,39 +45,22 @@ w3 css 기반에 제가 몇개 추개해서 구성하였습니다
   <div id="sideTabs1" class="w3-container sideTabs animate-fading">
     <h2 class="w3-padding fontthick fonthotpink">관리자 메인</h2><hr class="borderhotpink">
     <!-- 관리자 메인 임시  -->
-    <div style="width:1100px;height:1100px;float:left;margin-left:300px;">
-    <div id="adminmain1" class="borderhotpinkthick mainBorderRa" style="width:450px;min-height:700px;margin: 30px;float:left; text-align: left;">
-  <h3 class="fonthotpink">유저 통계</h3>
+    <div style="width:1100px;height:1100px;border-right:2px solid #ff005a;float:left;">
+    <div id="adminmain1" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
     
-    
-    
-    <h3 class="fonthotpink">전체회원 : ${ pia.listCount } </h3><br>
-    <h3 class="fonthotpink">튜티회원 : ${ pitee.listCount } </h3><br>
-    <h3 class="fonthotpink">튜터회원 : ${ pitor.listCount } </h3><br>
-    <h3 class="fonthotpink">블랙회원 : ${ pib.listCount } </h3><br>
-    <h3 class="fonthotpink">상태 'N' 회원 : ${ pil.listCount } </h3><br>
-    <h3 class="fonthotpink">관리자 수 : ${ piad.listCount }</h3><br>
-     <h3 class="fonthotpink">오늘 가입한 유저 수 : ${ createUserCount }</h3><br>
-      <h3 class="fonthotpink">오늘 정보수정한 유저 수 : ${ modifyUserCount }</h3><br>
   	
     </div>
-  	<div id="adminmain2" class="borderhotpinkthick mainBorderRa" style="width:450px;;min-height:700px;margin: 30px;float:left; text-align: left;">
-    <h3 class="fonthotpink">글 통계</h3>
-    
-    
-    
-    <h3 class="fonthotpink">모든글 수: ${ bla.listCount } </h3><br>
-    <h3 class="fonthotpink">공지사항 글 수 : ${ pitee.listCount } </h3><br>
-    <h3 class="fonthotpink">질문 수: ${ pitor.listCount } </h3><br>
-    <h3 class="fonthotpink"> 건의 수: ${ pib.listCount } </h3><br>
-    <h3 class="fonthotpink">신고글 수: ${ pil.listCount } </h3><br>
-    
-    <h3 class="fonthotpink">강의 신청수: ${ lpi.listCount } </h3><br>
+  	<div id="adminmain2" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+   
   	</div>	
-  	
-  
+  	<div id="adminmain3" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+   
+  	</div>
+  	<div id="adminmain4" class="borderhotpinkthick mainBorderRa" style="width:450px;height:450px;margin: 30px;float:left; text-align: left;">
+   
+  	</div>
     </div>
-
+    <div class="borderhotpinkthick mainBorderRa" style="width:500px;min-height: 1000px;margin-left: 1150px;"> 여유 있으면 통계 같은거 넣자!</div>
   </div>
 </div><!-- /관리자 페이지 주화면 -->
 </body>

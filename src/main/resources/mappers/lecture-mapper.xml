@@ -8,7 +8,7 @@
 		select *
 		from lsearch_view
 		where (l_title like '%' || #{search} || '%'
-                or L_OBJECT like '%' || #{search} || '%')
+                or l_content like '%' || #{search} || '%')
         <if test="subcate != null">
         	and l_category = #{subcate}
         </if>
@@ -39,18 +39,19 @@
     		select l.*
 			from (select l_changed_name
         			from lec_view
-        			where l_file_level = 0
         			group by l_num, l_changed_name
         			order by count(l_num) desc) l
 			where rownum < 4
     	]]>
     </select>
     
+    <!-- 수민(3) 끝! -->
+    
     <select id="search-getListCount" parameterType="map" resultType="_int">
     	select count(*)
     	from lsearch_view
     	where (l_title like '%' || #{search} || '%'
-                or l_object like '%' || #{search} || '%')
+                or l_content like '%' || #{search} || '%')
     	 <if test="subcate != null">
         	and l_category = #{subcate}
         </if>
@@ -75,7 +76,6 @@
         </if>
     </select>
     
-    <!-- 수민(3) 끝! -->
   
 	<select id="getListCount" resultType="_int">
 		select count(*)

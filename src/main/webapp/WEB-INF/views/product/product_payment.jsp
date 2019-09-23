@@ -146,9 +146,6 @@
 		function btnClick() {
 			$('#findBtn').trigger('click');
 		}
-
-		
-		
 	</script>
 	<!-- 아임포트 자바스크립트는 jQuery 기반으로 개발되었습니다 -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -210,7 +207,6 @@
 				buyer_tel : m_phone,
 				buyer_addr : r_address + ' / ' + d_address,
 				buyer_postcode : postnum
-
 			}, function(rsp) {
 				if (rsp.success) {
 					$('#auto').submit();
@@ -219,7 +215,6 @@
 					msg += '상점 거래ID : ' + rsp.merchant_uid;
 					msg += '결제 금액 : ' + rsp.paid_amount;
 					msg += '카드 승인번호 : ' + rsp.apply_num;
-	
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;
