@@ -178,6 +178,21 @@ public int boardListCountDecl() {//전체 보드 수 가져오기
 	
 	
 	
+	@Override
+	public int createUserCount() {
+		// TODO Auto-generated method stub
+		return aDAO.createUserCount();
+	}
+	
+	@Override
+	public int modifyUserCount() {
+		// TODO Auto-generated method stub
+		return aDAO.modifyUserCount();
+	}
+	
+	
+	
+	
 	
 	
 	

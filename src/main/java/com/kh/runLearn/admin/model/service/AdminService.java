@@ -48,6 +48,8 @@ public interface AdminService {
 	int targetTrBDelete(Board b);
 	ArrayList applylectureList(PageInfo lpi);
 	int applyLectureCount();
+	int modifyUserCount();
+	int createUserCount();
 
 
 

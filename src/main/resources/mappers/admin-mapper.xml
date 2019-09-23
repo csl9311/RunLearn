@@ -25,6 +25,18 @@
 		from member
 		where m_status = 'N'
 	</select>
+	<select id="adminUserCount" resultType="_int"><!--오늘 가입한 회원 수 조회 -->
+		select count(*)
+		from member
+		where M_CREATE_DATE = sysdate
+	</select>
+	
+	<select id="modifyUserCount" resultType="_int"><!-- 오늘 수정한 회원 수 조회 -->
+		select count(*)
+		from member
+		where M_MODIFY_DATE = sysdate
+	</select>
+	
 	<select id="adminUserCount" resultType="_int"><!-- 어드민회원 수 조회 -->
 		select count(*)
 		from member

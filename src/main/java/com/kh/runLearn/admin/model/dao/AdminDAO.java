@@ -151,6 +151,14 @@ public class AdminDAO {
 	public int applyLectureCount() {
 		return sqlSession.selectOne("adminMapper.applyListCount");
 	}
+	public int createUserCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("adminMapper.createUserCount");
+	}
+	public int modifyUserCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("adminMapper.modifyUserCount");
+	}
 	
 	
 	
