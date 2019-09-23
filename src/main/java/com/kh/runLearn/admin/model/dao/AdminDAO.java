@@ -93,7 +93,7 @@ public class AdminDAO {
 	
 	
 	public int targetUserUpdate(Member m) {//유저 회원 정보 수정
-		System.out.println("dao"+m);
+
 		return sqlSession.update("adminMapper.targetUserUpdate",m);
 	}
 	
@@ -132,7 +132,7 @@ public class AdminDAO {
 	}
 	public Board selectBoard(int bId) {
 		// TODO Auto-generated method stub
-		System.out.println(bId);
+
 		return sqlSession.selectOne("adminMapper.selectBoard",bId);
 	}
 	public int insertBoard(Board b) {

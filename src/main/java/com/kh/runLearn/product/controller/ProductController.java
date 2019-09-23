@@ -198,7 +198,7 @@ public class ProductController {
 		
 		ArrayList<HashMap<String, Object>> list = pService.selectProduct(p_num);
 		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
-		
+
 		request.setAttribute("list", list);
 		request.setAttribute("poList", poList);
 		return "product/product_update";

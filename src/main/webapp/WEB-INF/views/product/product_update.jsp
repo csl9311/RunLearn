@@ -235,12 +235,10 @@
 
 		function check(){
 			var p_option = document.getElementsByName("p_option");
-			console.log(p_option);
 			
 			for (var i = 0 ; i < p_option.length; i ++) {
 				for(var num = i+1 ; num < p_option.length ; num ++) {
 					if(p_option[num].value == p_option[i].value){
-						console.log(p_option[i].value);
 						alert("옵션 중 같은 이름이 있습니다. 확인 후 변경해주세요.");
 						return false;
 					}

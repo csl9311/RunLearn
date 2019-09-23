@@ -31,7 +31,6 @@
 			<br> <br> <br> <br>
 			<%-- 상품 정보 --%>
 			<form id="form" action="product.pay" method="post" style="float: none; margin: 0 auto; width: 50vw;" onsubmit="return check();">
-				<input type="hidden" value="${ loginUser }">
 				<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 				<input type="hidden" name="m_name" value="${ loginUser.m_name }">
 				<input type="hidden" name="m_email" value="${ loginUser.m_email }">
@@ -137,13 +136,16 @@
 			/* amount의 id 지정 */
 			var $item = $('#item');
 			/* 옵션 변경 시 */
-			
-
-			
+					
 			var q = 0;
 			function choice() {
 				var won = $('#' + $item.val()).text();
 				var price = Number(won.substring(0, won.length - 1));
+
+				if (won.lastIndexOf(" / 품절") > 0) {
+					price = won.substring(0, won.length - 6);
+				}
+
 				var $totalTr = $('#totalTr');
 				$totalTr.remove();
 				// 테이블에 내용 추가
@@ -182,7 +184,6 @@
 					}
 				}
 				
-				
 				var page_option = document.getElementsByName('page_option');
 				for(var i = 0; i < page_option.length ; i ++) {
 					var name = page_option[i].value.split("/")[0];
@@ -196,8 +197,6 @@
 						}
 					}
 				}
-				
-				
 				appendScript(q);
 				q++;
 				$item.val('');
@@ -259,7 +258,7 @@
 				var stock = '${ poList }';
 				var user = '${sessionScope.loginUser.m_id}';
 				var $total = $('#total');
-				// 구매 버튼 클릭 시 로그인 안되어있다면 로그인 유도
+				// 버튼 클릭 시 로그인 안되어있다면 로그인 유도
 				if(user == '') {
 					alert("로그인 후 이용해주세요.");
 					$('#loginM').parent().children('a').trigger('click');

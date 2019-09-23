@@ -67,7 +67,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	@Override
 	public int targetUserUpdate(Member m) {//타겟 회원 정보수정
-		System.out.println("pl"+ m);
+
 		return aDAO.targetUserUpdate(m);
 	}
 	
