@@ -69,6 +69,7 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</c:if>
 							<c:if test="${ list.get(0).P_CATEGORY eq 'watch' }">
@@ -77,6 +78,7 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</c:if>
 							<c:if test="${ list.get(0).P_CATEGORY eq 'wallet' }">
@@ -85,6 +87,7 @@
 								<option value="wallet" selected="selected">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</c:if>
 							<c:if test="${ list.get(0).P_CATEGORY eq 'perfume' }">
@@ -93,6 +96,7 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume" selected="selected">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</c:if>
 							<c:if test="${ list.get(0).P_CATEGORY eq 'accessory' }">
@@ -101,6 +105,7 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory" selected="selected">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</c:if>
 							<c:if test="${ list.get(0).P_CATEGORY eq 'material' }">
@@ -109,7 +114,17 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material" selected="selected">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'shoes' }">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes" selected="selected">수제화</option>
+								<option value="material">재료</option>
 							</c:if>
 							</select>
 						</td>

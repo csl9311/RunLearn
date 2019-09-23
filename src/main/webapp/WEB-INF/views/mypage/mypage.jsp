@@ -686,7 +686,7 @@
 
 			<div class="row" id="title2">
 				<div class="content21" id="lecturelist" onclick="location.href='${ lListView }'" <c:if test="${ cate eq '수강목록'}">style="font-weight:bold; font-size:25px; color:red;" </c:if>>강의</div>
-				<div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록'}">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
+				<div class="content21" id="productlist" onclick="location.href='${ productList }'" <c:if test="${ cate eq '상품찜목록' || cate eq 'productCate'}">style="font-weight:bold; font-size:25px; color:red;"</c:if>>상품</div>
 			</div>
 			<!--  row끝 -->
 
@@ -695,8 +695,8 @@
 					<div class="content22" onclick="location.href='${ lListView }'" id="contentMenu1" <c:if test="${ cate eq '수강목록' }">style="font-weight:bold; font-size:25px;"</c:if>>수강목록</div>
 					<div class="content22" onclick="location.href='${ selectList }'" id="contentMenu3" <c:if test="${ cate eq '강의찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>강의찜목록</div>
 				</c:if>
-				<c:if test="${ cate eq '상품찜목록' || cate eq 'productPay' }">
-					<div class="content22" onclick="location.href='${ productList }'" id="contentMenu4" <c:if test="${ cate eq '상품찜목록' }">style="font-weight:bold; font-size:25px"</c:if>>상품찜목록</div>
+				<c:if test="${ cate eq '상품찜목록' || cate eq 'productCate' || cate eq 'productPay' }">
+					<div class="content22" onclick="location.href='${ productList }'" id="contentMenu4" <c:if test="${ cate eq '상품찜목록' || cate eq 'productCate' }">style="font-weight:bold; font-size:25px"</c:if>>상품찜목록</div>
 					<div id="productPay" class="content22" onclick="location.href='${ productpayList }'" id="contentMenu2" <c:if test="${ cate eq 'productPay' }">style="font-weight:bold; font-size:25px"</c:if>>결제상품</div>
 				</c:if>
 			</div>
@@ -797,7 +797,7 @@
 			</c:if>
 			<!--  content25 끝 -->
 
-			<c:if test="${cate eq '상품찜목록'}">
+			<c:if test="${cate eq '상품찜목록' || cate eq 'productCate'}">
 				<div id="content26">
 					<form action="product.pay" method="post">
 						<table>

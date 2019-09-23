@@ -48,6 +48,7 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</select>
 							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
