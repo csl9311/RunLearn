@@ -191,7 +191,6 @@ public class MemberController {
 
 		String encPwd = bcryptPasswordEncoder.encode(m.getM_pw());
 		m.setM_pw(encPwd);
-		System.out.println("비번 확인용 - " + encPwd);
 
 		int result = mService.insertMember(m);
 
@@ -280,7 +279,6 @@ public class MemberController {
 				
 				phoneCheck = random;
 
-				
 				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 				 
 				Message message = Message.creator(new PhoneNumber("+82"+phoneNum2), new PhoneNumber("+12563716554"),
