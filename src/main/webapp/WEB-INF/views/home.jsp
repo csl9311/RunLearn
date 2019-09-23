@@ -207,6 +207,9 @@
    <div class="body">
       <div class="slide-area">
          <div class="slide">
+         	<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner1.jpg"></div>
+         	<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner2.jpg"></div>
+         	<div class="slideItem"><img src="${contextPath}/resources/images/main/mainBanner3.jpg"></div>
          </div>
       </div>
       <div class="container main-bottom">
@@ -370,8 +373,20 @@
 			});
 	   }
 	   
+	   $.noConflict();
+	   if ($('.slide').hasClass('slick-initialized')) {
+		   $('.slide').slick('destroy');
+	   }
+	   $('.slide').slick({
+		   dots: true,
+           infinite: true,
+           slidesToShow: 1,
+           slidesToScroll: 1,
+           autoplay: true,
+           autoplaySpeed: 2000
+	   });
 	   /* --------------인기강의 ajax-------------- */
-	   $.ajax({
+	   /* $.ajax({
 		   url: "getHotLectureList.do",
 		   dataType: "json",
 		   success: function (data) {
@@ -399,7 +414,7 @@
 		           autoplaySpeed: 2000
 			   });
 		   }
-	   });
+	   }); */
 	   
 	   function goLectureDetail(object) {
 		   var num = object.find('input').val();
