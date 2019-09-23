@@ -292,7 +292,7 @@
 		</script>
 		
 		<!-- 댓글시작 -->
-		<div>
+		<div style="width:80%; margin: 0 auto;">
 			<c:import url="../reply/replyView.jsp" />
 		</div>
 		<script>

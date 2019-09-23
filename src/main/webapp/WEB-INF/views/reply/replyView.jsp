@@ -9,11 +9,9 @@
 <style type="text/css">
 	#commentDiv {
 		font-family: 'Nanum Gothic', sans-serif;
-	    position: relative;
-	    width: 1100px;
+	    width: 100%;
 	    height: auto;
 	    left: 50%;
-	    margin-left: -550px;
 	    margin-bottom: 80px;
 	    padding: 20px 60px;
 	    text-align: left;
@@ -174,7 +172,6 @@
 </style>
 </head>
 <body>
-	<hr width="70%">
 	<div id="commentDiv">
 		<div>
 			<ul class="commentList">
@@ -187,8 +184,6 @@
 				<button id="commentAddBtn">등록</button>
 			</div>
 		</div>
-		
-		<br>
 	</div>
 	<script>
 		/* $('.updateCoInput, .updateSendBtn, .coUpdateCanBtn').hide();

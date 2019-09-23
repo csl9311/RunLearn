@@ -535,7 +535,12 @@
 						<h3>${ loginUser.m_name }님</h3>
 						<label class="label1" id="update1" onclick="location.href='memberUpdate.do'">정보수정</label>
 						<c:if test="${loginUser.m_grade eq '튜티' }">
+							<c:if test="${ empty tutorYN }">
 							<label class="label1" id="insertTuter">튜터신청</label>
+							</c:if>
+							<c:if test="${ !empty tutorYN }">
+							<label class="label1" onclick="location.href='myEnterTutor.do'">신청확인</label>
+							</c:if>
 						</c:if>
             
 						<c:url var="Apply" value="Apply.le"/>
@@ -607,7 +612,12 @@
 					</div>
 
 					<div id="wGrade" style="margin-top: 5px;">
-						<label>${ loginUser.m_grade }</label>
+						<label>
+							${ loginUser.m_grade } 
+							<c:if test="${ !empty tutorYN }">
+								(튜터신청 심사중)
+							</c:if>
+						</label>
 					</div>
 
 					<div id="wemail">
@@ -655,7 +665,8 @@
 
 				<div id="content21" class="content21">수강생</div>
 				<div id="content22" class="content21"
-					<c:if test="${ loginUser.m_grade eq '튜티' }">onclick="NotTuterPage();"</c:if>
+					<c:if test="${ loginUser.m_grade eq '튜티' && empty tutorYN }">onclick="NotTuterPage();"</c:if>
+					<c:if test="${ loginUser.m_grade eq '튜티' && !empty tutorYN }">onclick="notConfirm();"</c:if>
 					<c:if test="${ loginUser.m_grade eq '튜터' }">onclick="location.href='${ tuterPage }'"</c:if>>튜터</div>
 			</div>
 
@@ -1128,6 +1139,10 @@
             location.href = "enterTutor.do";
          }
       }
+      
+      function notConfirm() {
+    	  alert('아직 튜터신청 심사중입니다.');
+	  }
 
       $("#insertTuter").click(function() {
          location.href = "##";

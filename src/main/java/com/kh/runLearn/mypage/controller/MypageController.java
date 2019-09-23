@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
+import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.member.model.vo.Member;
@@ -35,6 +37,9 @@ public class MypageController {
 
 	@Autowired
 	private MypageService myService;
+	
+	@Autowired
+	private BoardService bService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -141,6 +146,9 @@ public class MypageController {
 			currentPage = page;
 		}
 
+		// 튜터신청여부
+		Board tutorYN = bService.selectBoardTutor(userId);
+		
 		if (cate.equals("수강목록")) {
 			int listCount = myService.selectLectureCount(userId); // 수강목록 수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
@@ -248,6 +256,7 @@ public class MypageController {
 		mv.addObject("nPayLcount", nPayLcount);
 		mv.addObject("nPayPcount", nPayPcount);
 		mv.addObject("cate", cate);
+		mv.addObject("tutorYN", tutorYN);
 		mv.setViewName("mypage/mypage");
 		return mv;
 	}
@@ -258,13 +267,16 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "tutorInsert.do", method = RequestMethod.POST) // 튜터 신청
-	public ModelAndView tutorInsert(@ModelAttribute Board b, ModelAndView mv) {
+	public ModelAndView tutorInsert(@ModelAttribute Board b, ModelAndView mv, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		b.setM_id(loginUser.getM_id());
+		
 		int result = myService.insertEnterTutor(b);
 
 		if (result > 0) {
-			mv.addObject("cate", "튜터").setViewName("mypage/mypage");
+			mv.addObject("cate", "수강목록").setViewName("redirect:mypage.do");
 		} else {
-			mv.setViewName("home");
+			throw new Exception("튜터 신청에 실패하였습니다.");
 		}
 		return mv;
 	}
@@ -272,5 +284,49 @@ public class MypageController {
 	@RequestMapping("cash.do")
 	public String cash() {
 		return "cash";
+	}
+	
+	@RequestMapping("myEnterTutor.do")
+	public ModelAndView myEnterTutor(HttpSession session, ModelAndView mv) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		Board b = bService.selectBoardTutor(loginUser.getM_id());
+		
+		mv.addObject("b", b).setViewName("mypage/myEnterTutor");
+		
+		return mv;
+	}
+	
+	@RequestMapping("tutorUpdateView.do")
+	public ModelAndView tutorUpdateView(@RequestParam("b_num") int b_num, ModelAndView mv) {
+		Board b = bService.selectBoard(b_num);
+		mv.addObject("b", b).setViewName("mypage/enterTutorUpdate");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "tutorUpdate.do", method = RequestMethod.POST)
+	public ModelAndView updateEnterTutor(@ModelAttribute Board b, ModelAndView mv) {
+		int result = bService.updateBoard(b);
+		
+		if (result > 0) {
+			mv.addObject("cate", "수강목록").setViewName("redirect:mypage.do");
+			return mv;
+		} else {
+			throw new Exception("튜터신청 수정에 실패하였습니다.");
+		}
+		
+	}
+	
+	@RequestMapping("deleteEnterTutor.do")
+	public ModelAndView deleteEnterTutor(ModelAndView mv, @RequestParam("b_num") int b_num) {
+		int result = bService.deleteBoard(b_num);
+		
+		if (result > 0) {
+			mv.addObject("cate", "수강목록").setViewName("redirect:mypage.do");
+		} else {
+			throw new Exception("튜터신청 삭제에 실패하였습니다.");
+		}
+		
+		return mv;
 	}
 }
