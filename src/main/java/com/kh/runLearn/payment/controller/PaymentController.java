@@ -17,6 +17,7 @@ import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.lecture.model.vo.Wishlist;
 import com.kh.runLearn.member.model.vo.Member;
+import com.kh.runLearn.mypage.model.service.MypageService;
 import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.payment.model.vo.Payment;
 import com.kh.runLearn.payment.model.vo.Product_Pay;
@@ -29,6 +30,9 @@ public class PaymentController {
 	private PaymentService payService;
 	@Autowired
 	private LectureService lService;
+	
+	@Autowired
+	private MypageService myService;
 
 // 상품 결제
 	@RequestMapping("product.pay")

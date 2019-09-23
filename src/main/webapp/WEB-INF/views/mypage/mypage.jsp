@@ -821,9 +821,10 @@
 							<c:if test="${empty pList }">
 								<td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
 							</c:if>
+							
 
 							<c:forEach var="i" items="${ pList }" varStatus="status">
-								<tr id="tr1">
+								<tr id="tr1" onclick="location.href='select.product?p_num=${ i.P_NUM }'">
 									<td style="text-align: center">
 										<input type="checkbox" value="${ i.P_NUM }" name="checkboxAll" id="checkProduct${ i.P_NUM }" onclick="check1(${ i.P_NUM });" checked>
 										<input type="hidden" name="p_num" value="${ i.po.p_num }">
