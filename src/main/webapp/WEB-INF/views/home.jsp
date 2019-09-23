@@ -213,7 +213,7 @@
          </div>
       </div>
       <div class="container main-bottom">
-          <h3>최신 강의</h3><br>
+          <h3>최신 강의/상품</h3><br>
          <div class="detailDiv col-sm-5">
             <table class="topItem">
                <tr class="imgRow">
