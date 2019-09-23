@@ -160,7 +160,7 @@ public class MypageController {
 			mv.addObject("tutorYN", tutorYN);
 			mv.addObject("count", count);
 		}
-
+		
 		if (cate.equals("강의찜목록")) {
 			int listCount = myService.selectNopayLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);

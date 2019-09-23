@@ -820,6 +820,14 @@
 			<c:if test="${cate eq '상품찜목록' || cate eq 'productCate'}">
 				<div id="content26">
 					<form action="product.pay" method="post">
+						<input type="hidden" name="m_id" value="${ loginUser.m_id }">
+						<input type="hidden" name="m_name" value="${ loginUser.m_name }">
+						<input type="hidden" name="m_email" value="${ loginUser.m_email }">
+						<input type="hidden" name="m_phone" value="${ loginUser.m_phone }">
+						<input type="hidden" name="postnum" value="${ loginUser.postnum }">
+						<input type="hidden" name="g_address" value="${ loginUser.g_address }">
+						<input type="hidden" name="r_address" value="${ loginUser.r_address }">
+						<input type="hidden" name="d_address" value="${ loginUser.d_address }">
 						<table>
 							<tr class="tr3" style="text-align: center;">
 								<th style="width: 150px;"><div class="title123"></div>
@@ -836,7 +844,10 @@
 
 							<c:forEach var="i" items="${ pList }" varStatus="status">
 								<tr id="tr1">
-									<td style="text-align: center"><input type="checkbox" value="${ i.P_NUM }" name="checkboxAll" id="checkProduct${ i.P_NUM }" onclick="check1(${ i.P_NUM });"	checked></td>
+									<td style="text-align: center">
+										<input type="checkbox" value="${ i.P_NUM }" name="checkboxAll" id="checkProduct${ i.P_NUM }" onclick="check1(${ i.P_NUM });" checked>
+										<input type="hidden" name="p_num" value="${ i.po.p_num }">
+									</td>
 									<td class="td1" style="height: 100px;"><div id="tableCategory1">${ i.P_CATEGORY }</div></td>
 									<td class="td1">
 										<div id="image1">
@@ -858,7 +869,9 @@
 											<input type="button" name="minus" id="minus${ i.P_NUM }" value="-" onclick="del(${ i.P_NUM });">
 										</div>
 									</td>
-									<td style="text-align: center"><input type="text" id="sum${ i.P_NUM }" name="sum" value="${ i.po.p_optionPrice * i.AMOUNT }" readonly></td>
+									<td style="text-align: center">
+										<input type="text" id="sum${ i.P_NUM }" name="sum" value="${ i.po.p_optionPrice * i.AMOUNT }" readonly>
+									</td>
 								</tr>
 							</c:forEach>
 							<tr>

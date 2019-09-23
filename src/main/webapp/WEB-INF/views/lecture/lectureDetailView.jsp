@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>강의 상세</title>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5&libraries=services"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -171,8 +171,6 @@
 					<div id="map" style="width: 100%; height: 350px;"></div>
 					<input type="hidden" value="${ list.L_ADDRESS }" id="adr"/> 
 				</div>
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5&libraries=services"></script>
 				<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					mapOption = {

@@ -11,7 +11,11 @@
 	<insert id="insertProductPayment" parameterType="map">
 		INSERT ALL
 			INTO PAYMENT VALUES(PAYMENT_SEQ.NEXTVAL, #{pay.pay_target}, SYSDATE, #{pay.pay_method}, DEFAULT, #{pay.m_id})
-			INTO PRODUCT_PAY VALUES(PAYMENT_SEQ.CURRVAL, #{pp.p_option}, #{pp.p_num}, #{pp.p_pay_amount}, #{pp.pay_total}, #{pp.delivery})
+			<if test="ppList!=null">
+				<foreach collection="ppList" item="item" index="index" separator=" ">
+					INTO PRODUCT_PAY VALUES(PAYMENT_SEQ.CURRVAL, #{item.p_option}, #{item.p_num}, #{item.p_pay_amount}, #{item.pay_price}, #{item.delivery})
+				</foreach>
+			</if>
 		SELECT * FROM DUAL
 	</insert>
 	<update id="updateProductOption" parameterType="map">

@@ -20,12 +20,12 @@ public class Pagination {
       // * maxPage - 총 페이지 수
       // 목록 수가 123개이면 페이지 수는 13페이지임
       // 짜투리 목록이 최소 1개일 때, 1page로 처리하기 위해 0.9를 더함
-      maxPage = (int)((double)listCount / boardLimit + 0.9);
+      maxPage = (int)((double)listCount / boardLimit + 0.99);
       
       // * startPage - 현재 페이지에 보여질 시작 페이지 수 
       //   아래쪽에 페이지 수가 10개씩 보여지게 할 경우
       //   1, 11, 21, 31, .....
-      startPage = (((int)((double)currentPage / pageLimit + 0.9)) - 1) * pageLimit + 1;
+      startPage = (((int)((double)currentPage / pageLimit + 0.99)) - 1) * pageLimit + 1;
       
       // * endPage - 현재 페이지에서 보여질 마지막 페이지 수
       //   아래쪽에 페이지 수가 10개씩 보여지게 할 경우

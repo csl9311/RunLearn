@@ -63,13 +63,13 @@
 	<select id="allUserListbl" resultType="Member"><!--블랙 정렬 (가입일) -->
 		select *
 		from member
-		where m_grade ='튜티/블랙' or m_grade='튜티/블랙'
+		where m_grade ='튜티/블랙' or m_grade='튜터/블랙'
 		order by m_create_date desc
 	</select>
 	<select id="allUserListM" resultType="Member"><!--어드민 정렬 (가입일) -->
 		select *
 		from member
-		where m_grade ='튜티/블랙' or m_grade='튜티/블랙'
+		where m_grade ='M'
 		order by m_create_date desc
 	</select>
 	<select id="allUserListY" resultType="Member"><!--Y 정렬 (가입일) -->
