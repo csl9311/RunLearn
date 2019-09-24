@@ -18,13 +18,24 @@
 			</if>
 		SELECT * FROM DUAL
 	</insert>
+	<!-- 재고 수정 -->
 	<update id="updateProductOption" parameterType="map">
 		UPDATE PRODUCT_OPTION
 		SET P_STOCK = (
 			SELECT P_STOCK - #{pp.p_pay_amount}
 			FROM PRODUCT_OPTION
 			WHERE P_OPTION = #{pp.p_option} and p_num = #{pp.p_num}
-			)
+		)
 		WHERE P_OPTION = #{pp.p_option} and p_num = #{pp.p_num}
 	</update>
+	<delete id="deleteCart" parameterType="map">
+		<if test="ppList!=null">
+			<foreach collection="ppList" item="item" index="index" separator=" ">
+				DELETE FROM CART
+				WHERE M_ID = #{m.m_id}
+					AND P_OPTION = #{item.p_option}
+					AND P_NUM = #{item.p_num} 
+			</foreach>
+		</if>
+	</delete>
 </mapper>

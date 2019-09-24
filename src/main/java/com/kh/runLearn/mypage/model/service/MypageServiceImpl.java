@@ -86,7 +86,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public Product_Option selectProductOption(String p_option) {
+	public ArrayList<Product_Option> selectProductOption(String p_option) {
 		return myDAO.selectProductOption(p_option);
   }
 	public int productPayCount(String userId) { // 결제 상품 목록수

@@ -192,23 +192,6 @@
 	padding: 20px;
 }
 
-#content26 {
-	margin: 0 20px;
-	height: auto;
-}
-
-#content26 table {
-	margin-bottom: 50px;
-}
-
-#content26 table th {
-	padding: 15px;
-}
-
-#content26 table td {
-	padding: 20px;
-}
-
 #footer {
 	width: 100%;
 	height: 100%;
@@ -716,52 +699,7 @@
 
 			<c:if test="${cate eq '수강목록'}">
 				<div id="content23">
-					<table>
-						<tr class="tr3" style="text-align: center;">
-							<th style="width: 150px;"><div class="title123">카테고리</div></th>
-							<th style="width: 300px; height: 25px;">
-								<div class="title123">강의이미지</div>
-							</th>
-							<th style="width: 600px;"><div class="title123">강의정보</div></th>
-							<th style="width: 150px;"><div class="lDate" id="lDate1">신청날짜</div></th>
-						</tr>
-
-						<c:if test="${ empty lList }">
-
-							<tr id="tr1">
-								<td class="td1" colspan="4" style="text-align: center;"><h3>수강한 강의가 없습니다.</h3></td>
-							</tr>
-						</c:if>
-
-						<c:forEach var="l" items="${ lList }">
-							<c:url var="lDetail" value="lectureDetailView.le">
-								<c:param name="l_num" value="${ l.L_NUM }"/>
-							</c:url>
-							<tr id="tr1" onclick="location.href='${ lDetail }'">
-								<td class="td1" style="height: 100px;">
-									<div id="tableCategory1">${ l.L_CATEGORY }</div> <input
-									type="hidden" value="${ l.L_NUM }">
-								</td>
-								<td class="td1">
-									<div id="image1"> 
-										<img src="${contextPath}/resources/images/mypage/classtest2.jpg" width="150px" height="80px">
-									</div>
-								</td>
-								<td>
-									<div id="lectureTitle" style="text-align: left;">${ l.L_TITLE }</div>
-									<!-- 제목 -->
-									<div id="lectureContent" style="text-align: left;">${ l.L_OBJECT }
-									</div>
-									<div class="row" id="lecturebox1">
-										<div id="left">
-											<div id="lecturePrice">가격 :${ l.L_PRICE }</div>
-										</div>
-									</div>
-								</td>
-								<td><div id="lectureDate" class="lDate">${ l.PAY_DATE }</div></td>
-							</tr>
-						</c:forEach>
-					</table>
+					
 				</div>
 			</c:if>
 
@@ -820,6 +758,7 @@
 			<c:if test="${cate eq '상품찜목록' || cate eq 'productCate'}">
 				<div id="content26">
 					<form action="product.pay" method="post">
+						<input type="hidden" name="cart" value="Y">
 						<input type="hidden" name="m_id" value="${ loginUser.m_id }">
 						<input type="hidden" name="m_name" value="${ loginUser.m_name }">
 						<input type="hidden" name="m_email" value="${ loginUser.m_email }">
@@ -828,57 +767,77 @@
 						<input type="hidden" name="g_address" value="${ loginUser.g_address }">
 						<input type="hidden" name="r_address" value="${ loginUser.r_address }">
 						<input type="hidden" name="d_address" value="${ loginUser.d_address }">
-						<table>
-							<tr class="tr3" style="text-align: center;">
-								<th style="width: 150px;"><div class="title123"></div>
-								<th style="width: 200px;"><div class="title123">카테고리</div></th>
-								<th style="width: 300px; height: 25px;"><div class="title123">상품이미지</div></th>
-								<th style="width: 350px;"><div class="title123">상품명</div></th>
-								<th style="width: 200px;"><div class="lDate" id="lDate1">상품가격</div></th>
-								<th style="width: 150px;"><div class="lDate" id="lDate1">상품수량</div></th>
-								<th style="width: 150px;"><div class="lDate" id="lDate1">총가격</div></th>
+						<table class="table" style="text-align: center;">
+							<tr id="head">
+								<td>카테고리</td>
+								<td>상품이미지</td>
+								<td>상품명</td>
+								<td>상품가격</td>
+								<td>상품수량</td>
+								<td>가격</td>
 							</tr>
+							
 							<c:if test="${empty pList }">
-								<td colspan="7" style="text-align: center"><h3>찜한 상품이 없습니다.</h3></td>
+								<td colspan="6"><h3>찜한 상품이 없습니다.</h3></td>
 							</c:if>
 							
-
-							<c:forEach var="i" items="${ pList }" varStatus="status">
-								<tr id="tr1" onclick="location.href='select.product?p_num=${ i.P_NUM }'">
-									<td style="text-align: center">
-										<input type="checkbox" value="${ i.P_NUM }" name="checkboxAll" id="checkProduct${ i.P_NUM }" onclick="check1(${ i.P_NUM });" checked>
-										<input type="hidden" name="p_num" value="${ i.po.p_num }">
-									</td>
-									<td class="td1" style="height: 100px;"><div id="tableCategory1">${ i.P_CATEGORY }</div></td>
-									<td class="td1">
-										<div id="image1">
-											<img src="${contextPath}/resources/images/product/${i.P_CHANGED_NAME}" width="150px" height="80px">
-										</div>
+							<c:forEach var="i" items="${ pList }" varStatus="liststatus">
+								<tr>
+									<td>
+										<c:if test="${ i.P_CATEGORY eq 'bag'}">
+											가방
+										</c:if>
+										<c:if test="${ i.P_CATEGORY eq 'watch'}">
+											시계
+										</c:if>
+										<c:if test="${ i.P_CATEGORY eq 'wallet'}">
+											지갑
+										</c:if>
+										<c:if test="${ i.P_CATEGORY eq 'perfume'}">
+											향수
+										</c:if>
+										<c:if test="${ i.P_CATEGORY eq 'accessory'}">
+											악세서리
+										</c:if>
+										<c:if test="${ i.P_CATEGORY eq 'shoes'}">
+											수제화
+										</c:if>
+										<c:if test="${ i.P_CATEGORY eq 'material'}">
+											재료
+										</c:if>
+										<c:forEach var="j" items="${ i.po }" varStatus="status">
+											<input type="hidden" name="p_num" value="${ j.p_num }">
+										</c:forEach>
 									</td>
 									<td>
-										<div id="lectureTitle" style="text-align: center;"> ${ i.P_NAME } / ${ i.P_OPTION } <input type="hidden" name="item" value="${ i.P_OPTION }"></div>
+										<img src="${contextPath}/resources/images/product/${i.P_CHANGED_NAME}" width="150px" height="80px">
 									</td>
 									<td>
-										<div id="lecturePrice" class="lDate" style="text-align: center;">${ i.po.p_optionPrice }</div>
-										<input type="hidden" name="pricearr" id="price_hidden${ i.P_NUM }" value="${ i.po.p_optionPrice }">
-										<input type="hidden" name="p_name" id="name_hidden" value="${ i.P_NAME }">
+										<a href="select.product?p_num=${ i.P_NUM }">${ i.P_NAME } / ${ i.P_OPTION }</a>
+										
+										<input type="hidden" name="p_name" value="${ i.P_NAME }">
+										<input type="hidden" name="item" value="${ i.P_OPTION }">
 									</td>
 									<td>
-										<div id="lecturePrice" class="lDate" style="text-align: center; color: black; width: 150px;">
-											<input type="button" name="plus" id="plus${ i.P_NUM }" value="+" onclick="add(${ i.P_NUM });">
-											<input type="text" name="amount" style="width: 55px;" id="p_count${ i.P_NUM }" value="${ i.AMOUNT }" min="1" onchange="getTotal(${ i.P_NUM });">
-											<input type="button" name="minus" id="minus${ i.P_NUM }" value="-" onclick="del(${ i.P_NUM });">
-										</div>
+										<c:forEach var="j" items="${ i.po }" varStatus="status">
+											${ j.p_optionPrice }
+											<input name="pricearr" type="hidden" value="${ j.p_optionPrice }">
+										</c:forEach>
 									</td>
-									<td style="text-align: center">
-										<input type="text" id="sum${ i.P_NUM }" name="sum" value="${ i.po.p_optionPrice * i.AMOUNT }" readonly>
+									<td>
+										<button type="button" onclick="minus(${liststatus.index});">-</button>
+										<input name="amount" type="text" value="${ i.AMOUNT }" style="width: 30px;" readonly>
+										<button type="button" onclick="plus(${liststatus.index});">+</button>
+									</td>
+									<td>
+										<input name="poPrice" type="text" value="0" readonly>
 									</td>
 								</tr>
 							</c:forEach>
 							<tr>
 								<td colspan="5"></td>
 								<td style="text-align: center; font-size: 20px; font-weight: bold;">총 가격 :</td>
-								<td style="text-align: center"><div id="totalPrice"></div></td>
+								<td style="text-align: center"><input id="totalPrice" name="total" type="text" readonly></td>
 							</tr>
 						</table>
 						<div id="cash" style="text-align: right;">
@@ -887,87 +846,47 @@
 					</form>
 				</div>
 			</c:if>
-			<!--  content26끝 -->
 		<script>
-			checkedSum();
-			function add(p_num){
-				$('#p_count'+p_num).val(Number($('#p_count'+p_num).val()) +1);
-				getTotal(p_num);
-			}
-			function del(p_num){
-				if($('#p_count'+p_num).val() >= 1) {
-					$('#p_count'+p_num).val(Number($('#p_count'+p_num).val()) -1);
-					getTotal(p_num);
+			var priceArr = $('input[name=poPrice]');
+			var op_price = $('input[name=pricearr]');
+			var amount = $('input[name=amount]');
+			
+			getTotal();
+			
+			
+			function getTotal(){
+				var total = 0;
+				for(var i = 0 ; i < priceArr.length; i ++){
+					priceArr[i].value = Number(op_price[i].value) * Number(amount[i].value);
 				}
-			}
-			function getTotal(p_num){
-				var amount = $('#p_count'+p_num).val();
-				var price = $('#price_hidden'+p_num).val();
-				var total = amount * price;
-				$('#sum'+p_num).val(total);
-				// 총 찜목록 상품 금액
-				var sumArr = $('input[name=sum]');
-				var totalPrice = 0;
-				for(var i = 0 ; i < sumArr.length ; i ++){
-					console.log(sumArr[i].value);
-					totalPrice += Number(sumArr[i].value);
+				for(var i = 0 ; i < priceArr.length ; i++) {
+					total += Number(priceArr[i].value);
 				}
-				$('#totalPrice').text(totalPrice);
+				$('#totalPrice').val(total);
 			}
-      //체크
-			function check1(p_num){
-				var check = document.getElementById('checkProduct'+p_num);
-				var totalPrice = $('#totalPrice').text();
-				var price = $('#sum'+p_num).val();
-				if($("input:checkbox[id='checkProduct"+p_num+"']").is(":checked") == true) {
-					result = $("#checkProduct"+p_num).val();      
-					checkedSum();
-				} else {
-					result = "";
-					checkedSum();
+			
+			function plus(i){
+				amount[i].value = Number(amount[i].value)+1;
+				getTotal();
+			}
+			
+			function minus(i){
+				if(amount[i].value > 1){
+					amount[i].value = Number(amount[i].value)-1;
 				}
-			}
-			function checkedSum() {
-				var sumPrice = 0;
-				$('input:checkbox[name="checkboxAll"]').each(function() {
-					if(this.checked){//checked 처리된 항목의 값
-						sumPrice += Number(($('#sum'+$(this).val())).val());
-					}
-				});
-				$('#totalPrice').text(sumPrice);
-				total = $('#totalPrice').text(sumPrice);
-				$('#totalPrice').append('<input value="'+sumPrice+'" name="total" type="hidden">');
-			}
-			function cash(){
-				var check = document.getElementsByName("checkboxAll");
-				var pcount = document.getElementsByName("p_count");
-				var sum = document.getElementsByName("sum");
-				total = 0;
-				for (var i = 0; i < check.length; i++) {
-					if (check[i].checked) {  	
-					total += parseInt(sum[i].value); // 총가격
-					var result = new Array(parseInt(check[i].value), parseInt(sum[i].value), parseInt(pcount[i].value)); // 상품번호, 총합, 수량
-					console.log(result); 	
-					}else{
-					var result = new Array();
-					var result = new Array(0, 0, 0); // 상품번호, 체크한거총합, 수량
-					console.log(result);
-					}
-				}
-			console.log(total);
-          /* location href = 'searchAll.do?result='+result+'&total='+total; */
+				getTotal();
 			}
 		</script>
 			<c:if test="${cate eq 'productPay'}">
 				<div id="content26">
-					<table>
-						<tr class="tr3" style="text-align: center;">
-							<th style="width: 200px;"><div class="title123">카테고리</div></th>
-							<th style="width: 300px; height: 25px;"><div class="title123">상품이미지</div></th>
-							<th style="width: 350px;"><div class="title123">상품명</div></th>
-							<th style="width: 200px;"><div class="lDate" id="lDate1">상품가격</div></th>
-							<th style="width: 225px;"><div class="lDate" id="lDate1">구매수량</div></th>
-							<th style="width: 225px;"><div class="lDate" id="lDate1">총가격</div></th>
+					<table class="table">
+						<tr>
+							<td>카테고리</td>
+							<td>상품이미지</td>
+							<td>상품명</td>
+							<td>상품가격</td>
+							<td>구매수량</td>
+							<td>총가격</td>
 						</tr>
 
 						<c:if test="${empty pList }">
@@ -975,24 +894,48 @@
 						</c:if>
 
 						<c:forEach var="i" items="${ pList }">
-							<tr id="tr1">
-								<td class="td1" style="height: 100px;"><div id="tableCategory1">${ i.P_CATEGORY }</div></td>
-								<td class="td1">
-									<div id="image1">
-										<img src="${contextPath}/resources/images/product/${i.P_CHANGED_NAME}" width="150px" height="80px">
-									</div>
-								</td>
-								<td><div id="lectureTitle" style="text-align: center;">${ i.P_NAME }</div></td>
+							<tr>
 								<td>
-									<div id="lecturePrice" class="lDate" style="text-align: center;">${ i.po.p_optionPrice }</div>
-									<input type="hidden" id="price_hidden${ i.P_NUM }" value="${ i.P_PRICE }">
-									<input type="hidden" id="name_hidden" value="${ i.P_NAME }">
+									<c:if test="${ i.P_CATEGORY eq 'bag'}">
+										가방
+									</c:if>
+									<c:if test="${ i.P_CATEGORY eq 'watch'}">
+										시계
+									</c:if>
+									<c:if test="${ i.P_CATEGORY eq 'wallet'}">
+										지갑
+									</c:if>
+									<c:if test="${ i.P_CATEGORY eq 'perfume'}">
+										향수
+									</c:if>
+									<c:if test="${ i.P_CATEGORY eq 'accessory'}">
+										악세서리
+									</c:if>
+									<c:if test="${ i.P_CATEGORY eq 'shoes'}">
+										수제화
+									</c:if>
+									<c:if test="${ i.P_CATEGORY eq 'material'}">
+										재료
+									</c:if>
 								</td>
 								<td>
-									<div id="lecturePrice" class="lDate" style="text-align: center; color: black; width: 150px;">${ i.P_PAY_AMOUNT }</div>
+									<img src="${contextPath}/resources/images/product/${i.P_CHANGED_NAME}" width="150px" height="80px">
 								</td>
-								<td style="text-align: center;">
-									<div id="sum">${ i.po.p_optionPrice * i.P_PAY_AMOUNT }</div>
+								<td>
+									<c:forEach var="j" items="${ i.po }" varStatus="status">
+										<c:if test="${ status.index == 0 }">
+											<a href="select.product?p_num=${ j.p_num }">${ i.P_NAME } / ${ i.P_OPTION }</a>
+										</c:if>
+									</c:forEach>
+								</td>
+								<td>
+									${ i.PAY_PRICE }
+								</td>
+								<td>
+									${ i.P_PAY_AMOUNT }
+								</td>
+								<td>
+									${ i.PAY_PRICE * i.P_PAY_AMOUNT }
 								</td>
 							</tr>
 						</c:forEach>

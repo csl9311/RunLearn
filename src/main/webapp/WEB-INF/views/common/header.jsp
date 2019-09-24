@@ -576,7 +576,7 @@ header .search .lcont input[type=text] {
 							<option value="상품">상품</option>
 							<option value="강의">강의</option>
 						</select>
-						<input type="text" name="search" id="searchcss" autocomplete="off" placeholder="배우고 싶은 튜터 또는 카테고리를 검색해보세요!" value="">
+						<input type="text" name="search" id="searchcss" autocomplete="off" placeholder="검색어를 입력해주세요" value="">
 						<input type="hidden" name="price" value="전체">
 						<img src="${contextPath}/resources/images/common/search.png" class="searchBtn">
 					</div>

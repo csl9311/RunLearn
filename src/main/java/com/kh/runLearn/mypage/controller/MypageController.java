@@ -189,7 +189,7 @@ public class MypageController {
 				String p_option = "";
 				p_option = pList.get(i).get("P_OPTION").toString();
 				if (!p_option.equals("")) {
-					Product_Option po = myService.selectProductOption(p_option);
+					ArrayList<Product_Option> po = myService.selectProductOption(p_option);
 					pList.get(i).put("po", po);
 				} else {
 					break;
@@ -209,7 +209,7 @@ public class MypageController {
 				String p_option = "";
 				p_option = pList.get(i).get("P_OPTION").toString();
 				if (!p_option.equals("")) {
-					Product_Option po = myService.selectProductOption(p_option);
+					ArrayList<Product_Option> po = myService.selectProductOption(p_option);
 					pList.get(i).put("po", po);
 				} else {
 					break;

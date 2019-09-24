@@ -65,7 +65,10 @@
 					<input id="m_name" type="hidden" name="m_name" value="${ map.m.m_name }">
 					<input id="m_email" type="hidden" name="m_email" value="${ map.m.m_email }">
 					<input id="m_phone" type="hidden" name="m_phone" value="${ map.m.m_phone }">
-					
+					<input id="m_phone" type="hidden" name="m_phone" value="${ map.m.m_phone }">
+					<c:if test="${ map.cart ne null }">
+						<input type="hidden" name="cart" value="${ map.cart }">
+					</c:if>
 					
 					<c:forEach items="${ map.p_numList }" var="item" varStatus="i">
 						<input id="item${i.index}" type="hidden" name="p_num" value="${ item.p_num }">
@@ -153,8 +156,10 @@
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	
 	<script type="text/javascript">
-	
-		var p_name = $('#p_name').val();
+	var p_name = '';
+	for(var i = 0 ; i < $('input[name="item"]').length ; i ++){
+		p_name += $('input[name="item"]')[i].value;
+	}
 		var m_name = $('#m_name').val();
 		var m_email = $('#m_email').val();
 		var m_phone = $('#m_phone').val();
@@ -189,14 +194,12 @@
 		});
 	
 		
-		
-		
 		// 아임포트 스크립트
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp79905221'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		function pay() {
-			
-			//onclick, onload 등 원하는 이벤트에 호출합니다
+			$('#auto').submit();
+		 	/* //onclick, onload 등 원하는 이벤트에 호출합니다
 			IMP.request_pay({
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : pay_method,
@@ -221,10 +224,10 @@
 					msg += '에러내용 : ' + rsp.error_msg;
 					setTimeout(function(){
 						history.go(-3);
-					},3000);
+					},0);
 				}
-				alert(msg);
-			});
+				alert(msg); 
+			});  */
 		}
 	//TODO URLScheme정의하는 부분 추가
 	</script>

@@ -51,6 +51,7 @@
 		select *
 		from PRODUCT_PAYVIEW
 		where M_ID = #{m_id}
+		order by pay_date desc
 	</select>
 
 	<select id="productPayCount" parameterType="string" resultType="_int"> <!-- 결제 상품 목록 수 -->
@@ -63,6 +64,7 @@
 		select *
 		from PRODUCT_NOPAYVIEW
 		where M_ID = #{m_id}
+		order by amount desc
 	</select>
 
 	<select id="selectPlistCount" parameterType="string" resultType="_int"> <!-- 마이페이지 상품 수 -->
@@ -107,20 +109,14 @@
 		<result column="P_OPTIONPRICE" property="p_optionPrice" />
 		<result column="P_STOCK" property="p_stock" />
 	</resultMap>
-	<select id="selectProductOption" parameterType="string" resultMap="getProductOption">
+	
+	<select id="selectProductOption" parameterType="string" resultMap="getProductOption" resultType="list">
 		SELECT * FROM PRODUCT_OPTION WHERE P_OPTION = #{p_option}
 	</select>
 	
-	
 	<update id="deleteMember" parameterType="string">
-	update MEMBER
-	set M_STATUS = 'N'
-	where M_ID = #{m_id}
+		update MEMBER
+		set M_STATUS = 'N'
+		where M_ID = #{m_id}
 	</update>
-
-	
-	
-	
-	
-	
 </mapper>

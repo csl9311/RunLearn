@@ -17,7 +17,6 @@ import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.lecture.model.service.LectureService;
 import com.kh.runLearn.lecture.model.vo.Wishlist;
 import com.kh.runLearn.member.model.vo.Member;
-import com.kh.runLearn.mypage.model.service.MypageService;
 import com.kh.runLearn.payment.model.service.PaymentService;
 import com.kh.runLearn.payment.model.vo.Payment;
 import com.kh.runLearn.payment.model.vo.Product_Pay;
@@ -31,9 +30,6 @@ public class PaymentController {
 	@Autowired
 	private LectureService lService;
 	
-	@Autowired
-	private MypageService myService;
-
 // 상품 결제
 	@RequestMapping("product.pay")
 	public String productPay(
@@ -44,7 +40,9 @@ public class PaymentController {
 			@RequestParam("item") String item,
 			@RequestParam("pricearr") String pricearr,
 			@RequestParam("total") String total,
-			HttpServletRequest request) {
+			@RequestParam(value="cart", required=false) String cart,
+			HttpServletRequest request
+		) {
 		HashMap<String, Object> map = new HashMap<>();
 		
 		String[] p_numArr = p_num.split(",");
@@ -70,7 +68,9 @@ public class PaymentController {
 		map.put("amount", amountArr);
 		map.put("item", itemArr);
 		map.put("price", priceArr);
-		
+		if(cart != null) {
+			map.put("cart", cart);
+		}
 		request.setAttribute("map", map);
 		return "product/product_payment";
 	}
@@ -82,6 +82,7 @@ public class PaymentController {
 			@RequestParam("p_name") String p_name,
 			@ModelAttribute Member m,
 			@ModelAttribute Payment pay,
+			@RequestParam(value="cart", required=false) String cart,
 			@RequestParam("item") String item,
 			@RequestParam("amount") String amount,
 			@RequestParam("price") String price,
@@ -90,6 +91,7 @@ public class PaymentController {
 		HashMap<String, Object> map = new HashMap<>();
 		pay.setPay_target("p");
 		map.put("pay", pay);
+		map.put("m", m);
 		
 		String[] p_numArr = p_num.split(",");
 		String[] itemArr = item.split(",");
@@ -101,7 +103,11 @@ public class PaymentController {
 		for(int i = 0 ; i < itemArr.length; i ++ ) {
 			Product_Pay pp = new Product_Pay();
 			pp.setP_option(itemArr[i]);
-			pp.setP_num(Integer.parseInt(p_numArr[i]));
+			if(p_numArr.length == 1) {
+				pp.setP_num(Integer.parseInt(p_numArr[0]));
+			} else {
+				pp.setP_num(Integer.parseInt(p_numArr[i]));
+			}
 			pp.setP_pay_amount(Integer.parseInt(amountArr[i]));
 			pp.setPay_price(Integer.parseInt(priceArr[i]));
 			pp.setDelivery(delivery);
@@ -110,6 +116,9 @@ public class PaymentController {
 		map.put("ppList", list);
 		int result = payService.insertProductPayment(map);
 		if (result > 0) {
+//			if(cart != null) {
+//				result = payService.deleteCart(map);
+//			}
 			return "redirect:mypage.do?cate=productPay"; // 마이페이지 결제정보
 		} else {
 			throw new Exception("결제정보등록에 실패했습니다.");
@@ -150,10 +159,11 @@ public class PaymentController {
 		wish.put("l_num", l_num);
 		wish.put("m_id", loginUser.getM_id());
 		Wishlist w_list = lService.selectWishList(wish);
-		if (w_list.getL_num() == l_num && m_id.equals(loginUser.getM_id())) {
-			lService.deleteWishlist(wish);
+		if(w_list != null) {
+			if (w_list.getL_num() == l_num && m_id.equals(loginUser.getM_id())) {
+				lService.deleteWishlist(wish);
+			}
 		}
-
 		if (w_list != null) {
 			mv.addObject("w_list", w_list);
 		}

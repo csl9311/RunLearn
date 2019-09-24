@@ -252,6 +252,7 @@ span.suc1{color: green;}
 							var pwc= $(this).val();
 							var pw = $("#m_pw").val();
 							if(pw != pwc){
+								$(".pc").hide();
 							    $(".pc.error3").show();
 							    return;
 							} else if(pwUsable == false) {

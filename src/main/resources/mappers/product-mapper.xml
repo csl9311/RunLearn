@@ -191,8 +191,8 @@
 	</select>
 	
 	<select id="search-getListCount" parameterType="map" resultType="_int">
-		select distinct p_num, p_name, p_optionprice, p_optionprice, p_changed_name
-		from psearch_view
+		select distinct count(*)
+		from (select distinct p_num, p_name, p_changed_name from psearch_view) pv
 		where p_name like '%' || #{search} || '%'
     	<if test="subcate != null">
         	and p_category = #{subcate}

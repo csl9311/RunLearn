@@ -25,4 +25,8 @@ public class PaymentDAO {
 	public int insertLecturePayment(int l_num) {
 		return sqlSession.insert("paymentMapper.insertLecturePayment", l_num);
 	}
+
+	public int deleteCart(HashMap<String, Object> map) {
+		return sqlSession.delete("paymentMapper.deleteCart", map);
+	}
 }
