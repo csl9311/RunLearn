@@ -48,22 +48,19 @@
 								<option value="wallet">지갑</option>
 								<option value="perfume">향수</option>
 								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
 								<option value="material">재료</option>
 							</select>
 							<!-- <input id="p_category" type="text" name="p_category" required="required"> -->
 						</td>
 					</tr>
-					<!-- <tr>
-						<td>옵션추가</td>
-						<td>
-							<input id="p_optionCheck" name="p_optionCheck" type="hidden">
-							<input id="optionO" type="radio" name="option" value="O" required="required">
-							<label>추가</label>
-							<input id="optionX" type="radio" name="option" value="X" required="required">
-							<label>삭제</label>
-						</td>
-					</tr> -->
 					<tr style="background: gray;"><td></td><td></td></tr>
+					<tr>
+						<td colspan="2">설명글 (최대 2000자)</td>
+					</tr>
+					<tr>
+						<td colspan="2"><textarea name="p_content" style="width:60vw;" rows="10"></textarea></td>
+					</tr>
 					<tr id="option0">
 						<td>옵션</td>
 						<td><input type="text" name="p_option" required="required"></td>

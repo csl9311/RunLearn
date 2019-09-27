@@ -61,9 +61,81 @@
 					</tr>
 					<tr>
 						<td>카테고리</td>
-						<td><input id="p_category" type="text" name="p_category" value="${ list.get(0).P_CATEGORY }" required="required"></td>
+						<td>
+							<select id="p_category" name="p_category" required="required">
+							<c:if test="${ list.get(0).P_CATEGORY eq 'bag' }">
+								<option value="bag" selected="selected">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
+								<option value="material">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'watch' }">
+								<option value="bag">가방</option>
+								<option value="watch" selected="selected">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
+								<option value="material">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'wallet' }">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet" selected="selected">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
+								<option value="material">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'perfume' }">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume" selected="selected">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
+								<option value="material">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'accessory' }">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory" selected="selected">악세서리</option>
+								<option value="shoes">수제화</option>
+								<option value="material">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'material' }">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes">수제화</option>
+								<option value="material" selected="selected">재료</option>
+							</c:if>
+							<c:if test="${ list.get(0).P_CATEGORY eq 'shoes' }">
+								<option value="bag">가방</option>
+								<option value="watch">시계</option>
+								<option value="wallet">지갑</option>
+								<option value="perfume">향수</option>
+								<option value="accessory">악세서리</option>
+								<option value="shoes" selected="selected">수제화</option>
+								<option value="material">재료</option>
+							</c:if>
+							</select>
+						</td>
 					</tr>
 					<tr style="background: gray;"><td></td><td></td></tr>
+					<tr>
+						<td colspan="2">설명글 (최대 2000자)</td>
+					</tr>
+					<tr>
+						<td colspan="2"><textarea name="p_content" style="width:60vw;" rows="10">${ list.get(0).P_CONTENT }</textarea></td>
+					</tr>
 					<c:forEach items="${ poList }" var="po" varStatus="i"> 
 						<tr id="option${ i.index }">
 							<td>옵션</td>
@@ -148,7 +220,7 @@
 		
 		function handleImageFileSelect(e){
 			sel_files = [];
-			$("#detailImgArea").empty();
+			$("#detailImgArea").children('img').remove();
 		
 			var files = e.target.files;
 			var filesArr = Array.prototype.slice.call(files);

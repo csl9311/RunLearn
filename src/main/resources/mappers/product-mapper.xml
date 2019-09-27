@@ -54,7 +54,7 @@
 	<insert id="insertProduct" parameterType="map">
 		INSERT ALL
 			INTO PRODUCT VALUES (
-				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, 'Y', SYSDATE, NULL, #{p.m_id}
+				PRODUCT_SEQ.NEXTVAL, #{p.p_name}, #{p.p_category}, 'Y', #{p.p_content}, SYSDATE, NULL, #{p.m_id}
 			)
 			INTO PRODUCT_IMAGE VALUES(
 				#{pi.p_changed_name}, #{pi.p_origin_name}, SYSDATE, #{pi.p_file_level}, PRODUCT_SEQ.CURRVAL
@@ -127,7 +127,7 @@
 	</update>
 <!-- 상세이미지 수정 -->
 	<delete id="deleteDetailImg" parameterType="_int">
-		DELETE FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num};
+		DELETE FROM PRODUCT_IMAGE WHERE P_NUM = #{p_num} AND P_FILE_LEVEL = 1
 	</delete>
 	<insert id="updateDetailImg" parameterType="list">
 		INSERT ALL
@@ -191,8 +191,8 @@
 	</select>
 	
 	<select id="search-getListCount" parameterType="map" resultType="_int">
-		select distinct p_num, p_name, p_optionprice, p_optionprice, p_changed_name
-		from psearch_view
+		select distinct count(*)
+		from (select distinct p_num, p_name, p_changed_name from psearch_view) pv
 		where p_name like '%' || #{search} || '%'
     	<if test="subcate != null">
         	and p_category = #{subcate}

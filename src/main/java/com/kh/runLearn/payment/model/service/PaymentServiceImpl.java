@@ -28,4 +28,13 @@ public class PaymentServiceImpl implements PaymentService {
 		return payDAO.insertPayment(pay);
 	}
 
+	@Override
+	public int deleteCart(HashMap<String, Object> map) {
+		return payDAO.deleteCart(map);
+	}
+
+	
+
+	
+
 }

@@ -222,7 +222,6 @@ public class LectureController {
 		HashMap<String, Object> map = lService.mediaEnter(l_each_num);
 		ArrayList list = lService.classList(((BigDecimal)map.get("L_NUM")).intValue());
 		ArrayList tlist = lService.tclassList(((BigDecimal)map.get("L_NUM")).intValue());
-		System.out.println(map);
 		if(!map.isEmpty() && !list.isEmpty()) {
 			mv.addObject("tlist", tlist);
 			mv.addObject("list", list);

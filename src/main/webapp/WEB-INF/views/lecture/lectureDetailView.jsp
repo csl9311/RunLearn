@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>강의 상세</title>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5&libraries=services"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -71,7 +71,9 @@
 	<div class="container">
 		<div style="margin-left: 100px; width: 1000px; height: 1000px;">
 			<h1>${ list.L_TITLE }</h1>
-			<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
+			<c:if test="${ !im_list.isEmpty() }">
+				<img src="${contextPath}/resources/images/lecture/${ im_list.get(0).L_CHANGED_NAME }" style="width:100%;">
+			</c:if>
 			<h6>　</h6>
 			<div style="width:100%">
 			<div id="Cintro" style="height: 60px;"></div>
@@ -169,8 +171,6 @@
 					<div id="map" style="width: 100%; height: 350px;"></div>
 					<input type="hidden" value="${ list.L_ADDRESS }" id="adr"/> 
 				</div>
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7cf7462e708fa6699765139ddbccfb5&libraries=services"></script>
 				<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					mapOption = {
@@ -224,7 +224,7 @@
 			</div>
 			
 			<!-- 댓글시작 -->
-			<div>
+			<div class="col-sm-12">
 				<c:import url="../reply/replyView.jsp" />
 			</div>
 			<script>

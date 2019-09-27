@@ -23,7 +23,7 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
- <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  <hr>
+ <input type="button" value="홈으로(로그아웃)" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='logout.do;">  <hr>
  <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
   <button id="tablink3" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminPayManage.do';" style="width:175px">강의신청</button>
@@ -57,7 +57,7 @@
   	</tr>
   	</thead>
   	<c:forEach var="a" items="${ boardList }">
-  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '공지'}">
+  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '공지사항'}">
   		<form action="targetBoardDelete.do" method="post" enctype="Multipart/form-data">
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
@@ -318,7 +318,7 @@
   	</tr>
   	</thead>
   	<c:forEach var="a" items="${ boardList }">
-  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '신고'}">
+  		<c:if test="${ a.b_status  eq 'Y' and a.b_category eq '신고글'}">
   		<form action="targetBoardDelete.do" method="post" enctype="Multipart/form-data">
   		<tr>
   			<input type="hidden" name="page" value="${ page }">
