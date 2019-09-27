@@ -56,9 +56,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td>판매자명</td>
+						<td>판매자 ID / 이름</td>
 						<td class="right">
-							${ list.get(0).M_ID }
+							${ list.get(0).M_ID } / ${ list.get(0).M_NAME }
 							<input type="hidden" name="seller" value="${ list.get(0).M_ID }">
 						</td>
 					</tr>

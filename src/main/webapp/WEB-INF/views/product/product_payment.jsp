@@ -198,8 +198,7 @@
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp79905221'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		function pay() {
-			$('#auto').submit();
-		 	/* //onclick, onload 등 원하는 이벤트에 호출합니다
+		 	//onclick, onload 등 원하는 이벤트에 호출합니다
 			IMP.request_pay({
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : pay_method,
@@ -227,7 +226,7 @@
 					},0);
 				}
 				alert(msg); 
-			});  */
+			});
 		}
 	//TODO URLScheme정의하는 부분 추가
 	</script>
