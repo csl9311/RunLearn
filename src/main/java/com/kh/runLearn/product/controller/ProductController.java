@@ -76,7 +76,6 @@ public class ProductController {
 		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
 		request.setAttribute("list", list);
 		request.setAttribute("poList", poList);
-
 		return "product/product_detail";
 	}
 // 상품등록페이지로 이동
@@ -90,6 +89,7 @@ public class ProductController {
 	public String insertProduct(
 			@ModelAttribute Product p,
 			@RequestParam(value = "p_option", required = false) String[] p_option,
+			@RequestParam(value = "p_content", required = false) String p_content,
 			@RequestParam(value = "p_optionPrice", required = false) int[] p_optionPrice,
 			@RequestParam(value = "p_stock", required = false) int[] p_stock,
 			@RequestParam(value = "pi_thumbnail", required = false) MultipartFile pi_thumbnail,
@@ -198,7 +198,6 @@ public class ProductController {
 		
 		ArrayList<HashMap<String, Object>> list = pService.selectProduct(p_num);
 		ArrayList<Product_Option> poList = pService.selectProductOption(p_num);
-
 		request.setAttribute("list", list);
 		request.setAttribute("poList", poList);
 		return "product/product_update";
@@ -239,9 +238,9 @@ public class ProductController {
 		}
 		// 썸네일 파일 저장 및 map put
 		if (pi_thumbnail != null && !pi_thumbnail.isEmpty()) {
-			deleteFile(thumbnailFileName, request);
 			String p_changed_name = saveFile(pi_thumbnail, request, 0);
 			if (p_changed_name != null) {
+				deleteFile(thumbnailFileName, request);
 				Product_Image pi = new Product_Image();
 				pi.setP_changed_name("0" + p_changed_name);
 				pi.setP_origin_name(pi_thumbnail.getOriginalFilename());
@@ -255,12 +254,12 @@ public class ProductController {
 			}
 		}
 		// 상세 이미지 저장 및 map put
-		boolean check = pi_detail[0] != null && pi_detail[0].isEmpty();
-		if (!check) {
-			ArrayList<Product_Image> piList = new ArrayList<>();
+		boolean check = pi_detail[0] != null && !pi_detail[0].isEmpty();
+		if (check) {
 			for(int i = 0 ; i < detailImgFileName.length; i ++){
 				deleteFile(detailImgFileName[i], request);
 			}
+			ArrayList<Product_Image> piList = new ArrayList<>();
 			for (int i = 0; i < pi_detail.length; i++) {
 				Product_Image pi = null;
 				String p_changed_name = saveFile(pi_detail[i], request, i + 1);
@@ -310,11 +309,14 @@ public class ProductController {
 			cart.setP_option(itemArr[i]);
 			cart.setAmount(Integer.parseInt(amountArr[i]));
 			
-			System.out.println(cart);
 			list.add(cart);
 		}
 		int result = pService.insertCart(list);
+		if(result > 0 ) {
+			return "redirect:mypage.do?cate=productCate";
+		} else {
+			throw new Exception("찜목록에 담지 못했습니다.");
+		}
 		
-		return "redirect:mypage.do?cate=productCate";
 	}
 }

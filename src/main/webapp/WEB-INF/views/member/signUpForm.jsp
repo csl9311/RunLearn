@@ -244,7 +244,6 @@ span.suc1{color: green;}
 						    }
 						    if(pwUsable == true && pwUsable1 == true){
 						    	$("#check2").val(1);
-						    	alert("ㅇㅇ");
 							} else {
 								$("#check2").val(0);
 							}
@@ -253,6 +252,7 @@ span.suc1{color: green;}
 							var pwc= $(this).val();
 							var pw = $("#m_pw").val();
 							if(pw != pwc){
+								$(".pc").hide();
 							    $(".pc.error3").show();
 							    return;
 							} else if(pwUsable == false) {
@@ -336,7 +336,18 @@ span.suc1{color: green;}
 					</script>
 				<div class="form-group">
 					<p class="title-f"><em class="color-red">* </em>이메일</p>
-					<input type="text" class="form-control" id="m_email" name="m_email" placeholder="email333@naver.com">
+					
+					
+					<div class="input-group mb-2">
+					<input type="text" class="form-control" id="m_email" name="m_email" placeholder="email333@naver.com" aria-describedby="button-addon5">
+						<div class="input-group-append">
+		   		 			<button class="btn btn-outline-secondary" type="button" id="button-addon5" onclick="checkEmail();">확정</button>
+		  				</div>
+					<span id="pp" class="fontA"></span>
+					</div>
+					<input type="hidden" id="check5" value="0">
+					
+					
 					<input type="hidden" id="check4" value="0">
 					<span id="mp" class="fontA"></span>
 					<span class="mt">아이디, 비밀번호 찾기에 사용됩니다. </span>
@@ -380,7 +391,7 @@ span.suc1{color: green;}
 								$(".mc.ok").hide();
 								$(".mt").hide();
 								$(".mc.error2").show();											
-								$("#check4").val(0)
+								$("#check4").val(0);
 							}
 						}, error: function(jqxhr, textStatus, errorThrown){
 							console.log("ajax 처리 실패");
@@ -390,6 +401,24 @@ span.suc1{color: green;}
 						}
 					});
 				});
+				
+				function checkEmail() {
+					var conf = confirm("확정 후에는 수정할 수 없습니다. 확정하시겠습니까?");
+					if($("#check4").val() == "1"){	
+						if(conf == true){
+							$("#m_email").attr('readonly','readonly');
+							$("#button-addon5").attr('disabled','disabled');
+							alert("확정되었습니다.");
+							$("#check5").val(1);
+						} else {
+							$("#check5").val(0);
+							return;
+						}
+					} else {
+						alert("이메일을 확인해주세요!");
+						return;
+					}
+				}
 				</script>
 				
 				<p class="title-f"><em class="color-red">* </em>전화번호</p>
@@ -1480,7 +1509,11 @@ span.suc1{color: green;}
 					alert("주소를 입력해주세요.");
 					$("#sample4_detailAddress").focus();
 					return false;
-				} else if($("#check3").val() == 0) {
+				} else if($("#check3").val() == 0){
+					alert("닉네임을 확인해주세요.");
+					$("#m_nickname").focus();
+					return false;
+				} else if($("#check4").val() == 0 || $("#check5").val() == 0) {
 					alert("이메일을 확인해주세요");
 					return false;
 				} else if($("input[name='chk']:checked").length < 2) {

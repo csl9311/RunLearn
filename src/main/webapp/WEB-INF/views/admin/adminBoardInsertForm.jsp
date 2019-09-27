@@ -25,7 +25,7 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
- <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">  
+ <input type="button" value="홈으로(로그아웃)" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='logout.do';">  
   <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
@@ -35,7 +35,6 @@
 </div>
 
 <div class="minh"style="margin-left:190px">
-	<h2 class="w3-padding fontthick fonthotpink">마더뷰</h2>
 	<hr class="borderhotpink">
 	<form action="adminInsertNotice.do" method="post"
 		enctype="Multipart/form-data">
@@ -49,7 +48,7 @@
 					style="opacity: 0.4; margin-left: 30px; margin-top: 10px;">공지사항
 				
 					</h3>
-					<input type="hidden" name=b_category value="공지">
+					<input type="hidden" name=b_category value="공지사항">
 					<input type="hidden" name=b_subcategory value="기타">
 					<input type="hidden" name="m_id" value="${ loginUser.m_id}">
 				

@@ -60,16 +60,20 @@
 						
 						
 					</div>
-					<input id="p_num" type="hidden" name="p_num" value="${ map.p.p_num }">
-					<input id="p_name" type="hidden" name="p_name" value="${ map.p.p_name }">
+					
 					<input id="m_id" type="hidden" name="m_id" value="${ map.m.m_id }">
 					<input id="m_name" type="hidden" name="m_name" value="${ map.m.m_name }">
 					<input id="m_email" type="hidden" name="m_email" value="${ map.m.m_email }">
 					<input id="m_phone" type="hidden" name="m_phone" value="${ map.m.m_phone }">
-					<input id="postnum" type="hidden" name="postnum" value="${ map.m.postnum }">
-					<input id="g_address" type="hidden" name="g_address" value="${ map.m.g_address }">
-					<input id="r_address" type="hidden" name="r_address" value="${ map.m.r_address }">
-					<input id="d_address" type="hidden" name="d_address" value="${ map.m.d_address }">
+					<input id="m_phone" type="hidden" name="m_phone" value="${ map.m.m_phone }">
+					<c:if test="${ map.cart ne null }">
+						<input type="hidden" name="cart" value="${ map.cart }">
+					</c:if>
+					
+					<c:forEach items="${ map.p_numList }" var="item" varStatus="i">
+						<input id="item${i.index}" type="hidden" name="p_num" value="${ item.p_num }">
+						<input id="item${i.index}" type="hidden" name="p_name" value="${ item.p_name }">
+					</c:forEach>
 					<c:forEach items="${ map.item }" var="item" varStatus="i">
 						<input id="item${i.index}" type="hidden" name="item" value="${ item }">
 					</c:forEach>
@@ -152,8 +156,10 @@
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	
 	<script type="text/javascript">
-	
-		var p_name = $('#p_name').val();
+	var p_name = '';
+	for(var i = 0 ; i < $('input[name="item"]').length ; i ++){
+		p_name += $('input[name="item"]')[i].value;
+	}
 		var m_name = $('#m_name').val();
 		var m_email = $('#m_email').val();
 		var m_phone = $('#m_phone').val();
@@ -188,14 +194,11 @@
 		});
 	
 		
-		
-		
 		// 아임포트 스크립트
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp79905221'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		function pay() {
-			
-			//onclick, onload 등 원하는 이벤트에 호출합니다
+		 	//onclick, onload 등 원하는 이벤트에 호출합니다
 			IMP.request_pay({
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : pay_method,
@@ -211,18 +214,18 @@
 				if (rsp.success) {
 					$('#auto').submit();
 					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
+					msg += '<br>고유ID : ' + rsp.imp_uid;
+					msg += '<br>상점 거래ID : ' + rsp.merchant_uid;
+					msg += '<br>결제 금액 : ' + rsp.paid_amount;
+					msg += '<br>카드 승인번호 : ' + rsp.apply_num;
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;
 					setTimeout(function(){
 						history.go(-3);
-					},3000);
+					},0);
 				}
-				alert(msg);
+				alert(msg); 
 			});
 		}
 	//TODO URLScheme정의하는 부분 추가

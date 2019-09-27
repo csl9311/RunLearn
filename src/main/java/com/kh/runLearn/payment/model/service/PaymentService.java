@@ -15,4 +15,8 @@ public interface PaymentService {
 	
 	int insertProductPayment(HashMap<String, Object> map); // 상품결제
 	int insertLecturePayment(int l_num);
+
+	int deleteCart(HashMap<String, Object> map);
+
+	
 }

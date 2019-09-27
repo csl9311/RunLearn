@@ -77,8 +77,8 @@ public class MypageDAO {
 		return sqlSession.selectOne("mypageMapper.selectLecture", userId);
 	}
 
-	public Product_Option selectProductOption(String p_option) {
-		return sqlSession.selectOne("mypageMapper.selectProductOption", p_option);
+	public ArrayList<Product_Option> selectProductOption(String p_option) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectProductOption", p_option);
 	}
 
 	public ArrayList<Map<String, Object>> productPayList(String userId, PageInfo pi) { // 결제상품 목록
@@ -93,6 +93,11 @@ public class MypageDAO {
 
 	public int insertEnterTutor(Board b) {
 		return sqlSession.insert("mypageMapper.insertEnterTutor", b);
+	}
+
+	public int deleteMember(String userId) {
+		
+		return sqlSession.update("mypageMapper.deleteMember", userId);
 	}
 
 }

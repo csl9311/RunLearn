@@ -30,6 +30,18 @@
 		from member
 		where m_grade = 'M'
 	</select>
+		<select id="modifyUserCount" resultType="_int"><!-- 어드민회원 금일 수정 수 조회 -->
+		select count(*)
+		from member
+		where M_MODIFY_DATE = sysdate
+		order by M_MODIFY_DATE desc
+	</select>
+	<select id="createUserCount" resultType="_int"><!-- 어드민  금일 가입자 수 조회 -->
+		select count(*)
+		from member
+		where M_CREATE_DATE = sysdate
+		order by M_CREATE_DATE desc
+	</select>
 	<!-- 유저 정렬 -->
 	<select id="allUserList" resultType="Member"><!--기본 정렬 (가입일) -->
 		select *
@@ -51,13 +63,13 @@
 	<select id="allUserListbl" resultType="Member"><!--블랙 정렬 (가입일) -->
 		select *
 		from member
-		where m_grade ='튜티/블랙' or m_grade='튜티/블랙'
+		where m_grade ='튜티/블랙' or m_grade='튜터/블랙'
 		order by m_create_date desc
 	</select>
 	<select id="allUserListM" resultType="Member"><!--어드민 정렬 (가입일) -->
 		select *
 		from member
-		where m_grade ='튜티/블랙' or m_grade='튜티/블랙'
+		where m_grade ='M'
 		order by m_create_date desc
 	</select>
 	<select id="allUserListY" resultType="Member"><!--Y 정렬 (가입일) -->
@@ -119,6 +131,7 @@
 		from board
 		order by B_REG_DATE desc
 	</select>
+	
 	<select id="boardListCountNot" resultType="_int"><!-- 공지 보드개수 -->
 		select Count(*)
 		from board

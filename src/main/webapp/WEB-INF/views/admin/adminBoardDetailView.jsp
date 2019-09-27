@@ -24,7 +24,7 @@
 
 <div class="sidebar w3-bar-block  w3-card" style="width:180px; margin-top:3px;">
   <h6 class="w3-bar-item fonthotpink" style="font-size:23px;">관리자페이지</h6>
-   <input type="button" value="---->홈으로" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminToHome.do';">
+   <input type="button" value="홈으로(로그아웃)" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='logout.do';">
   <hr>
   <button id="tablink1" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminMain.do';" style="width:175px">관리자 메인</button>
   <button id="tablink2" class="w3-bar-item tablink hoverpink w3-round" onclick="location.href='adminUser.do';" style="width:175px">회원관리</button>
@@ -33,7 +33,6 @@
 </div>
 
 <div class="minh"style="margin-left:190px">
-<h2 class="w3-padding fontthick fonthotpink">마더뷰</h2><hr class="borderhotpink">
     <div class="w3-container minh" style="margin-left:160px;" ><!-- 틀 -->
     
     <div class="borderhotpinkthick" style="width:1300px;min-height:200px;border-radius:10px;opacity:0.8; margin-bottom:10px;"><!--게시글 작성자 날짜 등등  -->

@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.runLearn.board.model.service.BoardService;
 import com.kh.runLearn.board.model.vo.Board;
+import com.kh.runLearn.common.Exception;
 import com.kh.runLearn.common.PageInfo;
 import com.kh.runLearn.common.Pagination;
 import com.kh.runLearn.member.model.vo.Member;
@@ -36,12 +38,12 @@ public class MypageController {
 
 	@Autowired
 	private MypageService myService;
-
-	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@Autowired
 	private BoardService bService;
+
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping(value = "memberUpdate.do") // id하고 name값은 변경 불가하니 첨부터 값불러오게끔
 	public ModelAndView mUpdateView(ModelAndView mv, HttpSession session) {
@@ -64,7 +66,7 @@ public class MypageController {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String userId = loginUser.getM_id();
 		Member_Image profile = myService.selectProfile(userId);
-		
+
 		if (m.getM_pw().equals("")) {
 			m.setM_pw(loginUser.getM_pw());
 		} else {
@@ -139,13 +141,15 @@ public class MypageController {
 		int nPayPcount = myService.selectPlistCount(userId);
 		int count = 1;
 		Member_Image profile = myService.selectProfile(userId);
-		Board tutorYN = bService.selectBoardTutor(userId);
 		
 		
 		if (page != null) {
 			currentPage = page;
 		}
 
+		// 튜터신청여부
+		Board tutorYN = bService.selectBoardTutor(userId);
+		
 		if (cate.equals("수강목록")) {
 			int listCount = myService.selectLectureCount(userId); // 수강목록 수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
@@ -156,7 +160,7 @@ public class MypageController {
 			mv.addObject("tutorYN", tutorYN);
 			mv.addObject("count", count);
 		}
-
+		
 		if (cate.equals("강의찜목록")) {
 			int listCount = myService.selectNopayLectureCount(userId);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
@@ -177,7 +181,7 @@ public class MypageController {
 		}
 
 
-		if (cate.equals("상품찜목록")) {
+		if (cate.equals("상품찜목록") || cate.equals("productCate")) {
 			int listCount = myService.selectPlistCount(userId); // 상품 찜 목록수
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 			ArrayList<Map<String, Object>> pList = myService.selectProductView(userId, pi); // 상품 찜목록
@@ -185,7 +189,7 @@ public class MypageController {
 				String p_option = "";
 				p_option = pList.get(i).get("P_OPTION").toString();
 				if (!p_option.equals("")) {
-					Product_Option po = myService.selectProductOption(p_option);
+					ArrayList<Product_Option> po = myService.selectProductOption(p_option);
 					pList.get(i).put("po", po);
 				} else {
 					break;
@@ -205,16 +209,13 @@ public class MypageController {
 				String p_option = "";
 				p_option = pList.get(i).get("P_OPTION").toString();
 				if (!p_option.equals("")) {
-					Product_Option po = myService.selectProductOption(p_option);
+					ArrayList<Product_Option> po = myService.selectProductOption(p_option);
 					pList.get(i).put("po", po);
 				} else {
 					break;
 				}
 			}
 			
-			for(int i = 0 ; i < pList.size(); i ++) {
-				System.out.println("pList : " + pList.get(i));
-			}
 			mv.addObject("productPay", "productPay");
 			mv.addObject("pList", pList);
 			mv.addObject("listCount", listCount);
@@ -254,6 +255,7 @@ public class MypageController {
 		mv.addObject("nPayLcount", nPayLcount);
 		mv.addObject("nPayPcount", nPayPcount);
 		mv.addObject("cate", cate);
+		mv.addObject("tutorYN", tutorYN);
 		mv.setViewName("mypage/mypage");
 		return mv;
 	}
@@ -264,6 +266,7 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "tutorInsert.do", method = RequestMethod.POST) // 튜터 신청
+
 	public ModelAndView tutorInsert(@ModelAttribute Board b, ModelAndView mv, HttpSession session) throws Exception {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		b.setM_id(loginUser.getM_id());
@@ -271,10 +274,8 @@ public class MypageController {
 		int result = myService.insertEnterTutor(b);
 		
 		if (result > 0) {
-			mv.addObject("cate", "튜터").setViewName("mypage/mypage");
 			mv.addObject("cate", "수강목록").setViewName("redirect:mypage.do");
 		} else {
-			mv.setViewName("home");
 			throw new Exception("튜터 신청에 실패하였습니다.");
 		}
 		return mv;
@@ -284,8 +285,7 @@ public class MypageController {
 	public String cash() {
 		return "cash";
 	}
-	
-	
+
 	@RequestMapping("myEnterTutor.do")
 	public ModelAndView myEnterTutor(HttpSession session, ModelAndView mv) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
@@ -305,7 +305,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "tutorUpdate.do", method = RequestMethod.POST)
-	public ModelAndView updateEnterTutor(@ModelAttribute Board b, ModelAndView mv) throws Exception {
+
+	public ModelAndView updateEnterTutor(@ModelAttribute Board b, ModelAndView mv) {
 		int result = bService.updateBoard(b);
 		
 		if (result > 0) {
@@ -319,6 +320,7 @@ public class MypageController {
 	
 	@RequestMapping("deleteEnterTutor.do")
 	public ModelAndView deleteEnterTutor(ModelAndView mv, @RequestParam("b_num") int b_num) throws Exception {
+
 		int result = bService.deleteBoard(b_num);
 		
 		if (result > 0) {
@@ -330,6 +332,23 @@ public class MypageController {
 		return mv;
 	}
 	
+	
+	@RequestMapping("deleteMember.do")
+	public String deleteMember(SessionStatus status, HttpSession session) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String userId = loginUser.getM_id();
+		
+		int deleteMember = myService.deleteMember(userId);
+		
+		if(deleteMember > 0) {
+			status.setComplete();
+			return "redirect:home.do";
+		}else{
+			throw new Exception("삭제실패하였습니다.");
+		}
+		
+	}
 	
 	
 	

@@ -319,10 +319,10 @@ public class MemberController {
 					MimeMessage message = mailSender.createMimeMessage();
 					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-					messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-					messageHelper.setTo(tomail); // 받는사람 이메일
-					messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-					messageHelper.setText(content); // 메일 내용
+					messageHelper.setFrom(setfrom); 
+					messageHelper.setTo(tomail); 
+					messageHelper.setSubject(title); 
+					messageHelper.setText(content);
 
 					mailSender.send(message);
 
